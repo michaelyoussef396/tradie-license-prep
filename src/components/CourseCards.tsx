@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const CourseCards = () => {
   const courses = [
@@ -123,7 +124,7 @@ const CourseCards = () => {
                 size="lg"
                 asChild
               >
-                <a href="/courses">Learn More</a>
+                <Link to="/courses">Learn More</Link>
               </Button>
             </motion.div>
           ))}
@@ -139,9 +140,17 @@ const CourseCards = () => {
         >
           <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
             Payment plans available.{" "}
-            <a href="#contact" className="text-blue-600 hover:underline font-medium">
+            <button 
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }} 
+              className="text-blue-600 hover:underline font-medium"
+            >
               Contact us to discuss options
-            </a>
+            </button>
           </p>
         </motion.div>
       </div>

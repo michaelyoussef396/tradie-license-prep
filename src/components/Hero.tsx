@@ -1,8 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="home"
@@ -52,12 +60,10 @@ const Hero = () => {
             <Button
               size="lg"
               className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 sm:hover:scale-105 transition-transform shadow-xl hover:shadow-2xl text-base sm:text-lg px-8 sm:px-10 min-h-[48px] sm:py-7"
-              asChild
+              onClick={scrollToContact}
             >
-              <a href="#contact">
-                Book Free Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
+              Book Free Consultation
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
               size="lg"
@@ -65,7 +71,7 @@ const Hero = () => {
               className="w-full sm:w-auto border-2 border-blue-600 text-blue-600 hover:bg-blue-50 sm:hover:scale-105 transition-transform text-base sm:text-lg px-8 sm:px-10 min-h-[48px] sm:py-7"
               asChild
             >
-              <a href="#courses">View Courses</a>
+              <Link to="/courses">View Courses</Link>
             </Button>
           </motion.div>
 

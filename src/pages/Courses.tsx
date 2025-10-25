@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { 
   Check, 
   Clock, 
@@ -677,7 +678,7 @@ const Courses = () => {
               size="lg"
               asChild
             >
-              <a href="#contact" className="flex items-center gap-2">
+              <a href="tel:0411626398" className="flex items-center gap-2">
                 <Phone className="h-5 w-5" />
                 Call 0411 626 398
               </a>
@@ -687,7 +688,7 @@ const Courses = () => {
               size="lg"
               asChild
             >
-              <a href="#contact">Book Free Consultation</a>
+              <Link to="/contact">Book Free Consultation</Link>
             </Button>
           </div>
         </div>

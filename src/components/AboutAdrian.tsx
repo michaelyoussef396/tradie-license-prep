@@ -1,5 +1,6 @@
 import { Award, Building2, Hammer, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const AboutAdrian = () => {
   const credentials = [
@@ -116,12 +117,12 @@ const AboutAdrian = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <a
-                href="/about"
+              <Link
+                to="/about"
                 className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 sm:hover:scale-105 text-base w-full sm:w-auto min-h-[44px]"
               >
                 Learn More About Adrian Nicolazzo
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 import { 
   Quote, 
   Building2, 
@@ -513,14 +514,14 @@ const SuccessStoriesPage = () => {
                 size="lg"
                 asChild
               >
-                <a href="#contact">Book Free Consultation</a>
+                <Link to="/contact">Book Free Consultation</Link>
               </Button>
               <Button 
                 className="bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 py-6 h-auto border-2 border-blue-600" 
                 size="lg"
                 asChild
               >
-                <a href="/courses">View Our Programs</a>
+                <Link to="/courses">View Our Programs</Link>
               </Button>
             </div>
           </div>
@@ -560,14 +561,14 @@ const SuccessStoriesPage = () => {
               size="lg"
               asChild
             >
-              <a href="/courses">View Programs</a>
+              <Link to="/courses">View Programs</Link>
             </Button>
             <Button 
               className="bg-blue-800 text-white hover:bg-blue-900 text-lg px-8 py-6 h-auto border-2 border-white" 
               size="lg"
               asChild
             >
-              <a href="#contact">Book Free Consultation</a>
+              <Link to="/contact">Book Free Consultation</Link>
             </Button>
           </div>
         </div>

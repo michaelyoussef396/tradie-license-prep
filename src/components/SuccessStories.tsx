@@ -1,5 +1,6 @@
 import { Quote } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const SuccessStories = () => {
   const stories = [
@@ -67,12 +68,12 @@ const SuccessStories = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <a
-            href="/success-stories"
+          <Link
+            to="/success-stories"
             className="inline-flex items-center justify-center gap-2 bg-white text-blue-900 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 sm:hover:scale-105 text-base w-full sm:w-auto min-h-[44px]"
           >
             View All Success Stories
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

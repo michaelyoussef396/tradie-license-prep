@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { 
   Award, 
   Building2, 
@@ -16,7 +18,6 @@ import {
   MapPin,
   ShieldCheck
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const About = () => {
   const credentials = [
@@ -516,20 +517,20 @@ const About = () => {
             Join hundreds of Melbourne tradies who have achieved their building registration
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              className="bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 py-6 h-auto" 
-              size="lg"
-              asChild
-            >
-              <a href="/courses">View Training Programs</a>
-            </Button>
-            <Button 
-              className="bg-blue-800 text-white hover:bg-blue-900 text-lg px-8 py-6 h-auto border-2 border-white" 
-              size="lg"
-              asChild
-            >
-              <a href="#contact">Book Free Consultation</a>
-            </Button>
+              <Button 
+                className="bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 py-6 h-auto" 
+                size="lg"
+                asChild
+              >
+                <Link to="/courses">View Training Programs</Link>
+              </Button>
+              <Button 
+                className="bg-blue-800 text-white hover:bg-blue-900 text-lg px-8 py-6 h-auto border-2 border-white" 
+                size="lg"
+                asChild
+              >
+                <Link to="/contact">Book Free Consultation</Link>
+              </Button>
           </div>
         </div>
       </section>
