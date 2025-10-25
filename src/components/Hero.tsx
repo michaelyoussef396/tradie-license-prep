@@ -22,7 +22,7 @@ const Hero = () => {
         <div className="text-center max-w-5xl mx-auto">
           {/* Headline */}
           <motion.h1 
-            className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -33,7 +33,7 @@ const Hero = () => {
 
           {/* Subheadline */}
           <motion.p 
-            className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-6 sm:mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -44,14 +44,14 @@ const Hero = () => {
 
           {/* CTAs */}
           <motion.div 
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 max-w-md sm:max-w-none mx-auto"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-transform shadow-xl hover:shadow-2xl text-lg px-10 py-7"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 sm:hover:scale-105 transition-transform shadow-xl hover:shadow-2xl text-base sm:text-lg px-8 sm:px-10 min-h-[48px] sm:py-7"
               asChild
             >
               <a href="#contact">
@@ -62,7 +62,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:scale-105 transition-transform text-lg px-10 py-7"
+              className="w-full sm:w-auto border-2 border-blue-600 text-blue-600 hover:bg-blue-50 sm:hover:scale-105 transition-transform text-base sm:text-lg px-8 sm:px-10 min-h-[48px] sm:py-7"
               asChild
             >
               <a href="#courses">View Courses</a>
@@ -71,7 +71,7 @@ const Hero = () => {
 
           {/* Trust Indicators */}
           <motion.div 
-            className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground"
+            className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm text-muted-foreground"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.7 }}

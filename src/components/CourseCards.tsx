@@ -55,71 +55,71 @@ const CourseCards = () => {
   ];
 
   return (
-    <section id="courses" className="py-16 md:py-24 bg-blue-50">
+    <section id="courses" className="py-12 sm:py-16 md:py-24 bg-blue-50">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Our Programs
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Choose the program that fits your schedule and goals
           </p>
         </motion.div>
 
         {/* Course Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {courses.map((course, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-xl border-t-4 border-blue-600 p-8 hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white rounded-lg sm:rounded-xl border-t-4 border-blue-600 p-4 sm:p-6 md:p-8 hover:shadow-2xl transition-shadow duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
             >
               {/* Badge */}
-              <div className="mb-4">
+              <div className="mb-3 sm:mb-4">
                 <span
-                  className={`${course.badge.color} text-white text-xs font-semibold px-3 py-1 rounded-full`}
+                  className={`${course.badge.color} text-white text-xs font-semibold px-2.5 sm:px-3 py-1 rounded-full`}
                 >
                   {course.badge.text}
                 </span>
               </div>
 
               {/* Title & Duration */}
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                 {course.title}
               </h3>
-              <p className="text-gray-600 mb-4">{course.duration}</p>
+              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed">{course.duration}</p>
 
               {/* Price */}
-              <div className="mb-6">
-                <span className="text-3xl font-bold text-gray-900">
+              <div className="mb-4 sm:mb-6">
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">
                   {course.price}
                 </span>
-                <span className="text-gray-600 ml-2">inc GST</span>
+                <span className="text-sm sm:text-base text-gray-600 ml-2">inc GST</span>
               </div>
 
               {/* Includes */}
-              <div className="space-y-3 mb-8">
+              <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                 {course.includes.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">{item}</span>
+                  <div key={idx} className="flex items-start gap-2 sm:gap-3">
+                    <Check className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{item}</span>
                   </div>
                 ))}
               </div>
 
               {/* Button */}
               <Button
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white min-h-[44px]"
                 size="lg"
                 asChild
               >
@@ -131,13 +131,13 @@ const CourseCards = () => {
 
         {/* Payment Plans Note */}
         <motion.div 
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
             Payment plans available.{" "}
             <a href="#contact" className="text-blue-600 hover:underline font-medium">
               Contact us to discuss options

@@ -35,14 +35,14 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-white">
+    <section id="faq" className="py-12 sm:py-16 md:py-24 bg-white">
       <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
             Got questions? We've got answers.
           </p>
         </div>
@@ -50,11 +50,11 @@ const FAQ = () => {
         {/* Accordion */}
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="text-left text-lg font-semibold">
+            <AccordionItem key={index} value={`item-${index}`} className="border-b">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold py-4 hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-700 leading-relaxed">
+              <AccordionContent className="text-sm sm:text-base text-gray-700 leading-relaxed pb-4">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

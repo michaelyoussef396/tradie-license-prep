@@ -18,13 +18,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-400 pt-16 pb-8">
+    <footer className="bg-gray-900 text-gray-400 pt-12 sm:pt-16 pb-6 sm:pb-8">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Brand */}
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">
               Adrian Nicolazzo
             </h3>
             <p className="text-sm leading-relaxed mb-4">
@@ -36,7 +36,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -53,7 +53,7 @@ const Footer = () => {
 
           {/* Courses */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Our Courses</h4>
+            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Our Courses</h4>
             <ul className="space-y-2">
               {courses.map((course) => (
                 <li key={course.name}>
@@ -69,11 +69,11 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Contact</h4>
+          <div className="sm:col-span-2 lg:col-span-1">
+            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Contact</h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2 sm:gap-3">
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <a
                   href="tel:0411626398"
                   className="hover:text-white transition-colors text-sm"
@@ -81,8 +81,8 @@ const Footer = () => {
                   0411 626 398
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <Mail className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2 sm:gap-3">
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <a
                   href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
                   className="hover:text-white transition-colors text-sm break-all"
@@ -90,8 +90,8 @@ const Footer = () => {
                   support@adcopropertyinspectionsmelbourne.com.au
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2 sm:gap-3">
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <span className="text-sm">Melbourne, Victoria</span>
               </li>
             </ul>
@@ -99,12 +99,12 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-sm">
+        <div className="border-t border-gray-800 pt-6 sm:pt-8 text-center">
+          <p className="text-xs sm:text-sm leading-relaxed">
             © {currentYear} Adrian Nicolazzo Building Registration Mentorship.
             All rights reserved.
           </p>
-          <p className="text-xs mt-2">
+          <p className="text-xs mt-2 leading-relaxed">
             Not an RTO. Professional mentorship for VBA licensing preparation.
           </p>
         </div>

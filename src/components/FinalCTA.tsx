@@ -19,27 +19,27 @@ const FinalCTA = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-gradient-to-r from-blue-600 to-blue-700">
+    <section id="contact" className="py-12 sm:py-16 md:py-24 bg-gradient-to-r from-blue-600 to-blue-700">
       <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
             Ready to Get Your Building License?
           </h2>
-          <p className="text-xl text-blue-100">
+          <p className="text-base sm:text-lg md:text-xl text-blue-100 leading-relaxed">
             Contact Adrian today for a free consultation
           </p>
         </motion.div>
 
         {/* Quick Contact Buttons */}
         <motion.div 
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 max-w-lg sm:max-w-none mx-auto"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -47,7 +47,7 @@ const FinalCTA = () => {
         >
           <Button
             size="lg"
-            className="bg-white text-blue-600 hover:bg-blue-50 hover:scale-105 transition-transform text-lg px-10"
+            className="w-full sm:w-auto bg-white text-blue-600 hover:bg-blue-50 sm:hover:scale-105 transition-transform text-base sm:text-lg px-8 sm:px-10 min-h-[48px]"
             asChild
           >
             <a href="tel:0411626398">
@@ -58,7 +58,7 @@ const FinalCTA = () => {
           <Button
             size="lg"
             variant="outline"
-            className="border-2 border-white text-white hover:bg-white/10 hover:scale-105 transition-transform text-lg px-10"
+            className="w-full sm:w-auto border-2 border-white text-white hover:bg-white/10 sm:hover:scale-105 transition-transform text-base sm:text-lg px-8 sm:px-10 min-h-[48px]"
             asChild
           >
             <a href="mailto:support@adcopropertyinspectionsmelbourne.com.au">
@@ -70,17 +70,17 @@ const FinalCTA = () => {
 
         {/* Contact Form */}
         <motion.div 
-          className="bg-white rounded-xl p-8 shadow-2xl"
+          className="bg-white rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8 shadow-2xl"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
             Or Send Us a Message
           </h3>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Name *
@@ -89,7 +89,7 @@ const FinalCTA = () => {
                   type="text"
                   placeholder="Your full name"
                   required
-                  className="w-full"
+                  className="w-full min-h-[44px] text-base"
                 />
               </div>
               <div>
@@ -100,12 +100,12 @@ const FinalCTA = () => {
                   type="tel"
                   placeholder="Your phone number"
                   required
-                  className="w-full"
+                  className="w-full min-h-[44px] text-base"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email *
@@ -114,7 +114,7 @@ const FinalCTA = () => {
                   type="email"
                   placeholder="your@email.com"
                   required
-                  className="w-full"
+                  className="w-full min-h-[44px] text-base"
                 />
               </div>
               <div>
@@ -122,7 +122,7 @@ const FinalCTA = () => {
                   License Type *
                 </label>
                 <Select>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full min-h-[44px] text-base">
                     <SelectValue placeholder="Select license type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -146,19 +146,19 @@ const FinalCTA = () => {
               <Textarea
                 placeholder="Tell us about your experience and what you need help with..."
                 rows={4}
-                className="w-full"
+                className="w-full text-base"
               />
             </div>
 
             <Button
               type="submit"
               size="lg"
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-base sm:text-lg min-h-[48px]"
             >
               Book Free Consultation
             </Button>
 
-            <p className="text-sm text-gray-500 text-center">
+            <p className="text-xs sm:text-sm text-gray-500 text-center leading-relaxed">
               We'll get back to you within 24 hours
             </p>
           </form>
