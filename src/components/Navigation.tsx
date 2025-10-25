@@ -1,9 +1,18 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
-import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -15,65 +24,89 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-md shadow-md"
+          : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <a href="#home" className="flex flex-col">
-              <span className="text-xl font-bold text-primary">Adrian Nicolazzo</span>
-              <span className="text-sm text-muted-foreground">Building Registration Mentorship</span>
-            </a>
-          </div>
+          <a href="#home" className="flex flex-col">
+            <span className="text-xl font-bold text-foreground">
+              Adrian Nicolazzo
+            </span>
+            <span className="text-sm text-muted-foreground">
+              Building Registration Mentorship
+            </span>
+          </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:gap-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {link.name}
               </a>
             ))}
-            <Button variant="default" size="sm" asChild>
+          </nav>
+
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-transform shadow-lg"
+              asChild
+            >
               <a href="#contact">Get Started</a>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-md text-foreground hover:text-primary hover:bg-secondary transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            className="lg:hidden text-foreground p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <Menu className="h-6 w-6" />
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-4 space-y-2">
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-white border-t shadow-lg">
+          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="block px-4 py-2 text-sm font-medium text-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
               </a>
             ))}
-            <div className="px-4 pt-2">
-              <Button variant="default" size="sm" className="w-full" asChild>
-                <a href="#contact">Get Started</a>
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+            <Button
+              className="bg-gradient-to-r from-blue-600 to-blue-700 w-full"
+              asChild
+            >
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                Get Started
+              </a>
+            </Button>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 

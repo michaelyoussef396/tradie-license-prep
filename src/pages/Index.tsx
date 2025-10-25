@@ -1,8 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import TrustIndicators from "@/components/TrustIndicators";
-import WhatWeDo from "@/components/WhatWeDo";
-import CourseOverview from "@/components/CourseOverview";
+import TrustBar from "@/components/TrustBar";
+import WhyChooseAdrian from "@/components/WhyChooseAdrian";
+import CourseCards from "@/components/CourseCards";
+import SuccessStories from "@/components/SuccessStories";
+import AboutAdrian from "@/components/AboutAdrian";
+import TradeAreas from "@/components/TradeAreas";
+import FAQ from "@/components/FAQ";
+import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -10,9 +15,14 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
-      <TrustIndicators />
-      <WhatWeDo />
-      <CourseOverview />
+      <TrustBar />
+      <WhyChooseAdrian />
+      <CourseCards />
+      <SuccessStories />
+      <AboutAdrian />
+      <TradeAreas />
+      <FAQ />
+      <FinalCTA />
       <Footer />
     </div>
   );
