@@ -59,16 +59,10 @@ const AboutAdrian = () => {
                 about understanding the building principles that will make you a
                 better builder.
               </p>
-              <p>
-                Having worked across industrial, commercial, and residential
-                projects, Adrian brings real-world experience to every training
-                session. He knows what the VBA is looking for because he's been
-                through it himself.
-              </p>
             </div>
 
             {/* Credentials Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-8">
               {credentials.map((cred, index) => {
                 const Icon = cred.icon;
                 return (
@@ -90,6 +84,16 @@ const AboutAdrian = () => {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Learn More Button */}
+            <div>
+              <a
+                href="/about"
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 hover:scale-105"
+              >
+                Learn More About Adrian
+              </a>
             </div>
           </div>
         </div>

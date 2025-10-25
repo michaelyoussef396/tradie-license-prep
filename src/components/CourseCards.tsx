@@ -12,7 +12,6 @@ const CourseCards = () => {
         "600+ practice questions",
         "Full training materials",
         "Application & portfolio prep",
-        "VBA test preparation",
         "Pass guarantee",
       ],
     },
@@ -24,7 +23,6 @@ const CourseCards = () => {
       includes: [
         "Small group training",
         "600+ Q&A tests",
-        "Application preparation",
         "Evening schedule for working tradies",
         "Pass guarantee",
       ],
@@ -38,7 +36,6 @@ const CourseCards = () => {
         "One-on-one coaching",
         "Flexible scheduling",
         "All materials included",
-        "8-month test access",
         "Application prep",
       ],
     },
@@ -52,7 +49,6 @@ const CourseCards = () => {
         "DB-L specific training",
         "Application guidance",
         "VBA interview prep",
-        "Add-on: +$1,460 for application prep (saves $650)",
       ],
     },
   ];
@@ -116,7 +112,7 @@ const CourseCards = () => {
                 size="lg"
                 asChild
               >
-                <a href="#contact">Learn More</a>
+                <a href="/courses">Learn More</a>
               </Button>
             </div>
           ))}

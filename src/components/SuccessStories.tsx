@@ -5,17 +5,17 @@ const SuccessStories = () => {
     {
       name: "Fauzi",
       story:
-        "Gained Domestic Builder – Unlimited licence 5 years ago. Now runs a thriving building company turning over $15+ million annually, specializing in elite homes across Melbourne's prestigious suburbs.",
+        "Gained Domestic Builder – Unlimited licence 5 years ago. Now runs a thriving $15M+ building company specializing in elite homes.",
     },
     {
       name: "Jordan",
       story:
-        "Achieved Carpentry licence and launched a successful business focused on high-end outdoor living spaces. Partners with numerous suppliers delivering premium installations throughout Melbourne.",
+        "Achieved Carpentry licence and launched a successful high-end outdoor living business throughout Melbourne.",
     },
     {
       name: "Manny",
       story:
-        "Licensed 5 years ago, now leads a high-volume building company completing 50+ homes per year. Known for quality, consistency, and strong client relationships.",
+        "Licensed 5 years ago. Now completes 50+ homes per year with a reputation for quality and consistency.",
     },
   ];
 
@@ -33,7 +33,7 @@ const SuccessStories = () => {
         </div>
 
         {/* Stories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {stories.map((story, index) => (
             <div
               key={index}
@@ -46,6 +46,16 @@ const SuccessStories = () => {
               <div className="text-xl font-bold text-white">— {story.name}</div>
             </div>
           ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="text-center">
+          <a
+            href="/success-stories"
+            className="inline-flex items-center gap-2 bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105"
+          >
+            View All Success Stories
+          </a>
         </div>
       </div>
     </section>
