@@ -1,4 +1,5 @@
 import { Award, Building2, Hammer, GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const AboutAdrian = () => {
   const credentials = [
@@ -29,7 +30,13 @@ const AboutAdrian = () => {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
           {/* Image Placeholder */}
-          <div className="lg:col-span-2">
+          <motion.div 
+            className="lg:col-span-2"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="aspect-[3/4] bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center">
               <div className="text-center p-8">
                 <Building2 className="h-24 w-24 text-blue-600 mx-auto mb-4" />
@@ -37,15 +44,27 @@ const AboutAdrian = () => {
                 <p className="text-sm text-gray-500">Photo Coming Soon</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Content */}
           <div className="lg:col-span-3">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               Learn From Someone Who's Been On The Tools
-            </h2>
+            </motion.h2>
 
-            <div className="space-y-4 text-gray-700 leading-relaxed mb-8">
+            <motion.div 
+              className="space-y-4 text-gray-700 leading-relaxed mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               <p>
                 Adrian is a Registered Building Practitioner (Unlimited) and
                 Commercial License holder (Low-Rise) with a unique perspective -
@@ -59,16 +78,20 @@ const AboutAdrian = () => {
                 about understanding the building principles that will make you a
                 better builder.
               </p>
-            </div>
+            </motion.div>
 
             {/* Credentials Grid */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               {credentials.map((cred, index) => {
                 const Icon = cred.icon;
                 return (
-                  <div
+                  <motion.div
                     key={index}
                     className="bg-blue-50 p-4 rounded-lg flex items-center gap-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     <div className="flex-shrink-0">
                       <Icon className="h-6 w-6 text-blue-600" />
@@ -81,20 +104,25 @@ const AboutAdrian = () => {
                         {cred.subtitle}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
 
             {/* Learn More Button */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               <a
                 href="/about"
                 className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 hover:scale-105"
               >
                 Learn More About Adrian
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

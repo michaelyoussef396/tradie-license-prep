@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -151,13 +152,23 @@ const FAQ = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white pt-32 pb-16">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <motion.h1 
+            className="text-4xl md:text-5xl font-bold mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             Frequently Asked Questions
-          </h1>
-          <p className="text-xl text-blue-100">
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-blue-100"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Everything you need to know about builder registration training in
             Melbourne
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -165,7 +176,14 @@ const FAQ = () => {
       <section className="py-16 md:py-24">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           {faqCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="mb-12">
+            <motion.div 
+              key={categoryIndex} 
+              className="mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+            >
               {/* Category Heading */}
               <h2 className="text-2xl md:text-3xl font-bold text-blue-600 mb-6">
                 {category.category}
@@ -187,7 +205,7 @@ const FAQ = () => {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -195,15 +213,33 @@ const FAQ = () => {
       {/* Still Have Questions CTA */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             Can't Find Your Answer?
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          </motion.h2>
+          <motion.p 
+            className="text-lg text-gray-600 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             Get in touch and we'll help you out
-          </p>
+          </motion.p>
 
           {/* Contact Methods */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <a
               href="tel:0411626398"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
@@ -218,16 +254,23 @@ const FAQ = () => {
               <Mail className="h-5 w-5" />
               <span className="font-semibold">Email Us</span>
             </a>
-          </div>
+          </motion.div>
 
           {/* CTA Button */}
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-lg px-8 py-6"
-            asChild
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Link to="/contact">Book Free Consultation</Link>
-          </Button>
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-lg px-8 py-6"
+              asChild
+            >
+              <Link to="/contact">Book Free Consultation</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 

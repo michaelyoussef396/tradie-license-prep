@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 import {
   Select,
   SelectContent,
@@ -21,17 +22,29 @@ const FinalCTA = () => {
     <section id="contact" className="py-16 md:py-24 bg-gradient-to-r from-blue-600 to-blue-700">
       <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Get Your Building License?
           </h2>
           <p className="text-xl text-blue-100">
             Contact Adrian today for a free consultation
           </p>
-        </div>
+        </motion.div>
 
         {/* Quick Contact Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <motion.div 
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <Button
             size="lg"
             className="bg-white text-blue-600 hover:bg-blue-50 hover:scale-105 transition-transform text-lg px-10"
@@ -53,10 +66,16 @@ const FinalCTA = () => {
               Email Us
             </a>
           </Button>
-        </div>
+        </motion.div>
 
         {/* Contact Form */}
-        <div className="bg-white rounded-xl p-8 shadow-2xl">
+        <motion.div 
+          className="bg-white rounded-xl p-8 shadow-2xl"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Or Send Us a Message
           </h3>
@@ -143,7 +162,7 @@ const FinalCTA = () => {
               We'll get back to you within 24 hours
             </p>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

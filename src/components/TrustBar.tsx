@@ -1,4 +1,5 @@
 import { Trophy, Award, Users, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 const TrustBar = () => {
   const stats = [
@@ -31,9 +32,13 @@ const TrustBar = () => {
           {stats.map((item, index) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={index}
                 className="bg-blue-50 p-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white mb-4">
                   <Icon className="h-6 w-6" />
@@ -42,7 +47,7 @@ const TrustBar = () => {
                   {item.stat}
                 </div>
                 <div className="text-sm text-gray-600">{item.description}</div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

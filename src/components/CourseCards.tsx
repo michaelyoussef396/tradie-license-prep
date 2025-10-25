@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { motion } from "framer-motion";
 
 const CourseCards = () => {
   const courses = [
@@ -57,21 +58,31 @@ const CourseCards = () => {
     <section id="courses" className="py-16 md:py-24 bg-blue-50">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Our Programs
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Choose the program that fits your schedule and goals
           </p>
-        </div>
+        </motion.div>
 
         {/* Course Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {courses.map((course, index) => (
-            <div
+            <motion.div
               key={index}
               className="bg-white rounded-xl border-t-4 border-blue-600 p-8 hover:shadow-2xl transition-shadow duration-300"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
             >
               {/* Badge */}
               <div className="mb-4">
@@ -114,19 +125,25 @@ const CourseCards = () => {
               >
                 <a href="/courses">Learn More</a>
               </Button>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Payment Plans Note */}
-        <div className="text-center mt-12">
+        <motion.div 
+          className="text-center mt-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           <p className="text-gray-600">
             Payment plans available.{" "}
             <a href="#contact" className="text-blue-600 hover:underline font-medium">
               Contact us to discuss options
             </a>
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
