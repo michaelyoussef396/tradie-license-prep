@@ -66,7 +66,7 @@ const AboutAdrian = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <p>
-                Adrian is a Registered Building Practitioner (Unlimited) and
+                Qualified Pro is led by Adrian Nicolazzo, a Registered Building Practitioner (Unlimited) and
                 Commercial License holder (Low-Rise) with a unique perspective -
                 he's worked in every position from carpenter to site manager to
                 builder.
@@ -74,7 +74,7 @@ const AboutAdrian = () => {
               <p>
                 With 10+ years of training experience, Adrian has helped
                 hundreds of tradies successfully navigate the VBA licensing
-                process. His approach isn't about memorizing answers - it's
+                process. Our approach isn't about memorizing answers - it's
                 about understanding the building principles that will make you a
                 better builder.
               </p>
@@ -120,7 +120,7 @@ const AboutAdrian = () => {
                 href="/about"
                 className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 sm:hover:scale-105 text-base w-full sm:w-auto min-h-[44px]"
               >
-                Learn More About Adrian
+                Learn More About Adrian Nicolazzo
               </a>
             </motion.div>
           </div>

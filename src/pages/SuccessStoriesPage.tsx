@@ -37,7 +37,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Fauzi enrolled in Adrian's Comprehensive Builder Program. Adrian quickly identified that Fauzi's practical knowledge was strong, but he needed focused work on building regulations, compliance requirements, and understanding Australian Standards. Rather than teaching everything from scratch, Adrian personalized the training to fill Fauzi's specific knowledge gaps. The small class size meant Fauzi could ask questions freely and get immediate feedback. Adrian's 600+ practice questions helped Fauzi master the test format, and the interview preparation built his confidence to articulate his practical experience professionally."
+        description: "Fauzi enrolled in Qualified Pro's Comprehensive Builder Program. Adrian quickly identified that Fauzi's practical knowledge was strong, but he needed focused work on building regulations, compliance requirements, and understanding Australian Standards. Rather than teaching everything from scratch, Adrian personalized the training to fill Fauzi's specific knowledge gaps. The small class size meant Fauzi could ask questions freely and get immediate feedback. The 600+ practice questions helped Fauzi master the test format, and the interview preparation built his confidence to articulate his practical experience professionally."
       },
       result: {
         title: "The Result",
@@ -91,7 +91,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Sidhu chose Adrian's Evening Builder Course specifically designed for working tradies. One evening per week (6pm-9pm) meant he could continue working while preparing for his license. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. Adrian's interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
+        description: "Sidhu chose Qualified Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm-9pm) meant he could continue working while preparing for his license. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
       },
       result: {
         title: "The Result",
@@ -118,7 +118,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Manny enrolled in Adrian's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. Adrian's 600+ practice questions prepared Manny thoroughly for the VBA test format, and the interview coaching taught him how to present his experience professionally."
+        description: "Manny enrolled in Qualified Pro's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. The 600+ practice questions prepared Manny thoroughly for the VBA test format, and the interview coaching taught him how to present his experience professionally."
       },
       result: {
         title: "The Result",
@@ -145,7 +145,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Ben enrolled in Adrian's program specifically seeking the pass guarantee - knowing he could resit if needed gave him confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations in the interview. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps and teaching interview techniques. The supportive, patient teaching style helped Ben rebuild his confidence. Mock interviews prepared Ben to discuss his renovation experience professionally and demonstrate his understanding of building regulations."
+        description: "Ben enrolled in Qualified Pro's program specifically seeking the pass guarantee - knowing he could resit if needed gave him confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations in the interview. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps and teaching interview techniques. The supportive, patient teaching style helped Ben rebuild his confidence. Mock interviews prepared Ben to discuss his renovation experience professionally and demonstrate his understanding of building regulations."
       },
       result: {
         title: "The Result",

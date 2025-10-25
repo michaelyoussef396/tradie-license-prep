@@ -33,7 +33,7 @@ const FinalCTA = () => {
             Ready to Get Your Building License?
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-blue-100 leading-relaxed">
-            Contact Adrian today for a free consultation
+            Contact us today for a free consultation
           </p>
         </motion.div>
 

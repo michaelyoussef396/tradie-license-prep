@@ -40,7 +40,7 @@ const Navigation = () => {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <span className="text-xl font-bold text-foreground">
-              Adrian Nicolazzo
+              Qualified Pro
             </span>
             <span className="text-sm text-muted-foreground">
               Building Registration Mentorship
