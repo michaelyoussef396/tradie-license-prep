@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -15,12 +16,11 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Courses", href: "#courses" },
-    { name: "About", href: "#about" },
-    { name: "Success Stories", href: "#success" },
-    { name: "FAQ", href: "#faq" },
-    { name: "Contact", href: "#contact" },
+    { name: "Courses", href: "/courses" },
+    { name: "About", href: "/about" },
+    { name: "Success Stories", href: "/success-stories" },
+    { name: "FAQ", href: "/#faq" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -34,25 +34,29 @@ const Navigation = () => {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="flex flex-col">
+          <Link 
+            to="/" 
+            className="flex flex-col hover:opacity-80 transition-opacity duration-200"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
             <span className="text-xl font-bold text-foreground">
               Adrian Nicolazzo
             </span>
             <span className="text-sm text-muted-foreground">
               Building Registration Mentorship
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -63,7 +67,7 @@ const Navigation = () => {
               className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-transform shadow-lg"
               asChild
             >
-              <a href="#contact">Get Started</a>
+              <Link to="/contact">Get Started</Link>
             </Button>
           </div>
 
@@ -86,22 +90,22 @@ const Navigation = () => {
         <div className="lg:hidden bg-white border-t shadow-lg">
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-foreground hover:text-primary transition-colors font-medium py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <Button
               className="bg-gradient-to-r from-blue-600 to-blue-700 w-full"
               asChild
             >
-              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 Get Started
-              </a>
+              </Link>
             </Button>
           </nav>
         </div>
