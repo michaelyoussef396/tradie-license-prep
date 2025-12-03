@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import heroImage from "@/assets/hero-construction.jpg";
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -16,8 +17,17 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-20 pb-16 overflow-hidden"
     >
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-20">
+        <img 
+          src={heroImage} 
+          alt="Professional builder reviewing plans on Melbourne construction site" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 to-white/95" />
+      </div>
+      
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-white -z-10" />
       <div
         className="absolute inset-0 opacity-[0.03] -z-10"
         style={{
