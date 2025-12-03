@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import PageTransition from "@/components/PageTransition";
 import {
   Select,
   SelectContent,
@@ -147,8 +148,9 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
+    <PageTransition>
+      <div className="min-h-screen">
+        <Navigation />
       
       {/* Hero Section */}
       <section className="relative bg-slate-900 text-white pt-32 pb-20 overflow-hidden">
@@ -660,6 +662,7 @@ const Contact = () => {
 
       <Footer />
     </div>
+  </PageTransition>
   );
 };
 

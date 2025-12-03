@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import PageTransition from "@/components/PageTransition";
 import {
   Accordion,
   AccordionContent,
@@ -151,8 +152,9 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
+    <PageTransition>
+      <div className="min-h-screen bg-white">
+        <Navigation />
 
       {/* Hero Section */}
       <section className="relative bg-slate-900 text-white pt-32 pb-20 overflow-hidden">
@@ -336,6 +338,7 @@ const FAQ = () => {
 
       <Footer />
     </div>
+  </PageTransition>
   );
 };
 

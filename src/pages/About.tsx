@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import PageTransition from "@/components/PageTransition";
 import { 
   Award, 
   Building2, 
@@ -125,8 +126,9 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
+    <PageTransition>
+      <div className="min-h-screen">
+        <Navigation />
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-slate-900 overflow-hidden">
@@ -493,6 +495,7 @@ const About = () => {
 
       <Footer />
     </div>
+  </PageTransition>
   );
 };
 
