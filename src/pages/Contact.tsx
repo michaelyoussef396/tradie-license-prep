@@ -118,7 +118,7 @@ const Contact = () => {
       step: "3",
       icon: CheckCircle2,
       title: "Start Your Training",
-      description: "Begin your personalized journey to VBA registration with small classes and expert guidance"
+      description: "Begin your personalized journey to BPC (formerly VBA) registration with small classes and expert guidance"
     }
   ];
 
@@ -306,7 +306,7 @@ const Contact = () => {
                 </h2>
                 <p className="text-lg text-gray-700 mb-8">
                   Prefer to contact us directly? We're here to help answer any questions 
-                  about our programs or the VBA licensing process.
+                  about our programs or the BPC licensing process.
                 </p>
               </div>
 

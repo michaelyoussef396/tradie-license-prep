@@ -35,7 +35,7 @@ const Courses = () => {
       whoFor: "Ideal for tradies seeking Domestic Builder – Unlimited or Commercial (Low-Rise) registration who want the most thorough preparation possible.",
       whatYouLearn: [
         { icon: Building2, text: "Complete building principles and regulations" },
-        { icon: FileText, text: "VBA/BPC regulations and compliance requirements" },
+        { icon: FileText, text: "BPC regulations and compliance requirements" },
         { icon: Target, text: "Interview techniques and confidence building" },
         { icon: BookOpen, text: "Technical knowledge assessment and improvement" },
         { icon: Users, text: "Site management and supervision principles" },
@@ -47,7 +47,7 @@ const Courses = () => {
         "600+ practice questions with detailed explanations",
         "Comprehensive training materials and resources",
         "Complete application and portfolio preparation",
-        "VBA/BPC test preparation and practice sessions",
+        "BPC test preparation and practice sessions",
         "Pass guarantee - free resit if you don't pass",
         "Small group training (maximum 10 students)",
         "One-on-one consultation sessions",
@@ -72,7 +72,7 @@ const Courses = () => {
       whoFor: "Perfect for working tradies who can't take time off during the day. Get your builder registration while continuing to work full-time.",
       whatYouLearn: [
         { icon: Building2, text: "Domestic building regulations and compliance" },
-        { icon: FileText, text: "VBA requirements and application process" },
+        { icon: FileText, text: "BPC requirements and application process" },
         { icon: Target, text: "Interview preparation and techniques" },
         { icon: BookOpen, text: "Technical knowledge for domestic building" },
         { icon: Award, text: "Building codes and standards (AS)" },
@@ -86,7 +86,7 @@ const Courses = () => {
         "Portfolio development and review",
         "Pass guarantee - free resit available",
         "All training materials included",
-        "VBA interview preparation",
+        "BPC interview preparation",
         "Post-course support via email/phone",
       ],
       schedule: "One evening per week (6pm-9pm) for 7 weeks. Perfect for working tradies. Choose your preferred weeknight.",
@@ -141,7 +141,7 @@ const Courses = () => {
       whatYouLearn: [
         { icon: Building2, text: "DB-L specific regulations and scope" },
         { icon: FileText, text: "Carpentry-focused building codes" },
-        { icon: Target, text: "VBA interview preparation for DB-L" },
+        { icon: Target, text: "BPC interview preparation for DB-L" },
         { icon: BookOpen, text: "Technical carpentry knowledge assessment" },
         { icon: Award, text: "Quality standards for carpentry work" },
       ],
@@ -149,7 +149,7 @@ const Courses = () => {
         "450+ carpentry-specific practice questions",
         "DB-L focused training materials",
         "Application guidance and support",
-        "VBA interview preparation",
+        "BPC interview preparation",
         "Technical knowledge assessment",
         "Portfolio development support",
         "Small group format (max 10 students)",
@@ -158,7 +158,7 @@ const Courses = () => {
       schedule: "6 weeks of focused DB-L training. Weekly sessions with practice questions and interview preparation.",
       requirements: "Qualified carpenter with minimum 2 years on-the-job experience. Trade certificate required.",
       testimonial: {
-        text: "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what the VBA actually asks. Passed first time and now running my own carpentry business.",
+        text: "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what BPC actually asks. Passed first time and now running my own carpentry business.",
         author: "Jordan",
         achievement: "Licensed DB-L carpenter"
       },
@@ -180,14 +180,14 @@ const Courses = () => {
   const faqItems = [
     {
       question: "How long is the process before getting my license?",
-      answer: "The training duration varies by program (6-13 weeks), but the complete process including application submission and VBA processing typically takes 3-6 months total. We help expedite this by ensuring your application is perfect before submission."
+      answer: "The training duration varies by program (6-13 weeks), but the complete process including application submission and BPC (formerly VBA) processing typically takes 3-6 months total. We help expedite this by ensuring your application is perfect before submission."
     },
     {
       question: "What experience do I need to enroll?",
       answer: "You need a minimum of 2 years practical trade experience in your field. You should be actively working or have recent experience in building/construction. We assess each applicant individually based on their background and circumstances."
     },
     {
-      question: "Do you help with the VBA/BPC applications?",
+      question: "Do you help with the BPC applications?",
       answer: "Yes! Complete application support is included in all our programs. We help you prepare your portfolio, gather technical references, complete all required documentation, and ensure everything is correct before submission. This significantly increases your chances of approval."
     },
     {
@@ -195,7 +195,7 @@ const Courses = () => {
       answer: "Requirements vary by license type. Generally, you need a relevant trade qualification (Certificate III or IV), minimum 2 years experience, technical references from registered builders, and evidence of your practical work. We'll assess your specific situation during consultation."
     },
     {
-      question: "What does the VBA/BPC test involve?",
+      question: "What does the BPC test involve?",
       answer: "The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include 450-600+ practice questions that mirror the actual test format. We also prepare you for the interview component."
     },
     {
@@ -203,7 +203,7 @@ const Courses = () => {
       answer: "95% of students who complete our programs successfully gain their registration. This high success rate is due to our personalized teaching approach, comprehensive preparation, and ensuring students are truly ready before attempting their licensing."
     },
     {
-      question: "What if I fail the VBA test?",
+      question: "What if I fail the BPC test?",
       answer: "All our programs include a pass guarantee. If you complete the program, attempt your test, and don't pass, you can resit the training course for free. We're committed to your success and will work with you until you achieve your registration."
     },
     {
@@ -514,7 +514,7 @@ const Courses = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Application Support</h3>
               <p className="text-white/90">
-                Complete help with VBA/BPC applications, portfolio preparation, documentation, and technical references.
+                Complete help with BPC applications, portfolio preparation, documentation, and technical references.
               </p>
             </div>
 
@@ -522,9 +522,9 @@ const Courses = () => {
               <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
                 <Target className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3">VBA Test Prep</h3>
+              <h3 className="text-xl font-bold mb-3">BPC Test Prep</h3>
               <p className="text-white/90">
-                Comprehensive test preparation with hundreds of practice questions that mirror the actual VBA/BPC test.
+                Comprehensive test preparation with hundreds of practice questions that mirror the actual BPC test.
               </p>
             </div>
 
@@ -544,7 +544,7 @@ const Courses = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Interview Preparation</h3>
               <p className="text-white/90">
-                Mock interviews, technique coaching, and confidence building to ensure you're ready for the VBA interview.
+                Mock interviews, technique coaching, and confidence building to ensure you're ready for the BPC interview.
               </p>
             </div>
 

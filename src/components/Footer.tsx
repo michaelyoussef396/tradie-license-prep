@@ -30,7 +30,7 @@ const Footer = () => {
               className="h-10 w-auto mb-3 sm:mb-4 brightness-0 invert"
             />
             <p className="text-sm leading-relaxed mb-4">
-              Professional mentorship for Melbourne tradies seeking VBA building
+              Professional mentorship for Melbourne tradies seeking BPC building
               registration. Small classes, personalized teaching, 95% success
               rate.
             </p>
@@ -106,7 +106,7 @@ const Footer = () => {
             © {currentYear} Qualify Pro. All rights reserved.
           </p>
           <p className="text-xs mt-2 leading-relaxed">
-            Not an RTO. Professional mentorship for VBA licensing preparation.
+            Not an RTO. Professional mentorship for BPC licensing preparation.
           </p>
         </div>
       </div>

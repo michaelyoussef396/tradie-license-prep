@@ -10,27 +10,27 @@ const FAQ = () => {
     {
       question: "How long is the process before getting my license?",
       answer:
-        "The timeline varies depending on your current experience and the course you choose. Our courses range from 6 weeks (Carpentry DB-L) to 13 weeks (Comprehensive Builder Program). After completing the course, you'll submit your application to the VBA. Most students gain their license within 3-6 months of starting with us, including course completion, application processing, and VBA interview.",
+        "The timeline varies depending on your current experience and the course you choose. Our courses range from 6 weeks (Carpentry DB-L) to 13 weeks (Comprehensive Builder Program). After completing the course, you'll submit your application to BPC (formerly VBA). Most students gain their license within 3-6 months of starting with us, including course completion, application processing, and BPC interview.",
     },
     {
       question: "What experience do I need?",
       answer:
-        "You need a minimum of 2 years practical trade experience in your field. The VBA requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.",
+        "You need a minimum of 2 years practical trade experience in your field. BPC requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.",
     },
     {
       question: "Do you help with the applications?",
       answer:
-        "Absolutely! Complete application support is included in all our programs. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets VBA requirements. We've done this hundreds of times and know exactly what the VBA is looking for.",
+        "Absolutely! Complete application support is included in all our programs. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets BPC requirements. We've done this hundreds of times and know exactly what BPC is looking for.",
     },
     {
       question: "What qualifications do I need and can you help me attain them?",
       answer:
-        "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on VBA interview preparation and application support - we're not an RTO and don't issue certificates. We work with experienced tradies who have the base qualifications but need help passing their licensing interview.",
+        "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on BPC interview preparation and application support - we're not an RTO and don't issue certificates. We work with experienced tradies who have the base qualifications but need help passing their licensing interview.",
     },
     {
-      question: "What does the VBA test involve?",
+      question: "What does the BPC test involve?",
       answer:
-        "The VBA assessment includes multiple-choice tests covering building regulations, standards, and technical knowledge specific to your license class. You'll also have an interview where they assess your understanding of building principles, problem-solving abilities, and practical knowledge. Our programs include 450-600+ practice questions (depending on your course) and extensive interview preparation to ensure you're fully ready for both components.",
+        "The BPC assessment includes multiple-choice tests covering building regulations, standards, and technical knowledge specific to your license class. You'll also have an interview where they assess your understanding of building principles, problem-solving abilities, and practical knowledge. Our programs include 450-600+ practice questions (depending on your course) and extensive interview preparation to ensure you're fully ready for both components.",
     },
   ];
 

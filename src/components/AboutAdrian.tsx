@@ -74,7 +74,7 @@ const AboutAdrian = () => {
               </p>
               <p>
                 With 10+ years of training experience, Adrian has helped
-                hundreds of tradies successfully navigate the VBA licensing
+                hundreds of tradies successfully navigate the BPC licensing
                 process. Our approach isn't about memorizing answers - it's
                 about understanding the building principles that will make you a
                 better builder.
