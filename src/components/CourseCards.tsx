@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Check, Clock, Users, Video, Wrench, Star, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CourseCards = () => {
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/contact');
+    }
+  };
+
   const courses = [
     {
       badge: { text: "Most Comprehensive", color: "bg-blue-600" },
@@ -216,12 +227,7 @@ const CourseCards = () => {
             <span className="text-gray-600">Payment plans available</span>
             <span className="text-gray-300">|</span>
             <button 
-              onClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }} 
+              onClick={handleContactClick} 
               className="text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors"
             >
               Contact us to discuss
