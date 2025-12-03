@@ -67,7 +67,7 @@ const AboutAdrian = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <p>
-                Qualified Pro is led by Adrian Nicolazzo, a Registered Building Practitioner (Unlimited) and
+                Qualify Pro is led by Adrian Nicolazzo, a Registered Building Practitioner (Unlimited) and
                 Commercial License holder (Low-Rise) with a unique perspective -
                 he's worked in every position from carpenter to site manager to
                 builder.

@@ -24,9 +24,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">
-              Qualified Pro
-            </h3>
+            <img 
+              src="/images/qualify-pro-logo.png" 
+              alt="Qualify Pro" 
+              className="h-10 w-auto mb-3 sm:mb-4 brightness-0 invert"
+            />
             <p className="text-sm leading-relaxed mb-4">
               Professional mentorship for Melbourne tradies seeking VBA building
               registration. Small classes, personalized teaching, 95% success
@@ -101,7 +103,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-6 sm:pt-8 text-center">
           <p className="text-xs sm:text-sm leading-relaxed">
-            © {currentYear} Qualified Pro. All rights reserved.
+            © {currentYear} Qualify Pro. All rights reserved.
           </p>
           <p className="text-xs mt-2 leading-relaxed">
             Not an RTO. Professional mentorship for VBA licensing preparation.

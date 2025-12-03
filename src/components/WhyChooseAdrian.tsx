@@ -47,7 +47,7 @@ const WhyChooseAdrian = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Why Tradies Choose Qualified Pro
+            Why Tradies Choose Qualify Pro
           </h2>
           <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto rounded-full" />
         </motion.div>

@@ -36,15 +36,14 @@ const Navigation = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex flex-col hover:opacity-80 transition-opacity duration-200"
+            className="flex items-center hover:opacity-80 transition-opacity duration-200"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <span className="text-xl font-bold text-foreground">
-              Qualified Pro
-            </span>
-            <span className="text-sm text-muted-foreground">
-              Building Registration Mentorship
-            </span>
+            <img 
+              src="/images/qualify-pro-logo.png" 
+              alt="Qualify Pro - Building Registration Mentorship" 
+              className="h-8 sm:h-10 w-[140px] sm:w-[160px] object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
