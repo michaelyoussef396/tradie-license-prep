@@ -13,9 +13,9 @@ const Hero = () => {
 
   const trustBadges = [
     { icon: TrendingUp, stat: "95%", label: "Success Rate" },
-    { icon: Award, stat: "10+", label: "Years Experience" },
+    { icon: Award, stat: "10+", label: "Years Exp." },
     { icon: Users, stat: "Max 10", label: "Per Class" },
-    { icon: MapPin, stat: "Melbourne", label: "Face-to-Face" },
+    { icon: MapPin, stat: "Melb", label: "In-Person" },
   ];
 
   return (
@@ -80,7 +80,7 @@ const Hero = () => {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                Now Enrolling for 2024
+                Now Enrolling for 2026
               </span>
             </motion.div>
 
@@ -168,32 +168,32 @@ const Hero = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl blur-xl" />
               
               {/* Card */}
-              <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8">
-                <h3 className="text-lg font-semibold text-white mb-6 text-center">
+              <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8">
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-4 sm:mb-6 text-center">
                   Why Tradies Choose Us
                 </h3>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   {trustBadges.map((badge, index) => {
                     const Icon = badge.icon;
                     return (
                       <motion.div
                         key={index}
-                        className="group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-4 hover:border-blue-400/40 transition-all duration-300"
+                        className="group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-3 sm:p-4 hover:border-blue-400/40 transition-all duration-300"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        <div className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                            <Icon className="w-5 h-5 text-blue-400" />
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                           </div>
-                          <div>
-                            <div className="text-2xl font-bold text-white leading-none mb-1">
+                          <div className="min-w-0">
+                            <div className="text-xl sm:text-2xl font-bold text-white leading-none mb-1">
                               {badge.stat}
                             </div>
-                            <div className="text-sm text-blue-200/70">
+                            <div className="text-xs sm:text-sm text-blue-200/70 truncate">
                               {badge.label}
                             </div>
                           </div>
