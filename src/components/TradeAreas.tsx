@@ -68,17 +68,15 @@ const TradeAreas = () => {
           </p>
         </motion.div>
 
-        {/* Trade Grid - Staggered Hexagon-inspired layout */}
+        {/* Trade Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
           {tradeAreas.map((trade, index) => {
             const Icon = trade.icon;
-            // Offset every other row on larger screens
-            const isOffsetRow = Math.floor(index / 5) % 2 === 1;
             
             return (
               <motion.div
                 key={index}
-                className={`group relative ${isOffsetRow ? 'lg:translate-x-[50%]' : ''} ${index >= 5 && index < 10 ? 'lg:-ml-[10%]' : ''}`}
+                className="group relative"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}

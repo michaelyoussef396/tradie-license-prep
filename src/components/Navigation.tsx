@@ -52,7 +52,11 @@ const Navigation = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-foreground hover:text-primary transition-colors font-medium"
+                className={`transition-colors font-medium ${
+                  isScrolled 
+                    ? "text-gray-700 hover:text-blue-600" 
+                    : "text-white/90 hover:text-white"
+                }`}
               >
                 {link.name}
               </Link>
