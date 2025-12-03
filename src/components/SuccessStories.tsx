@@ -48,17 +48,6 @@ const SuccessStories = () => {
       story: "Completes renovation projects throughout Melbourne's inner suburbs with a reputation for exceptional craftsmanship.",
       timeframe: "Licensed 4 years ago",
     },
-    {
-      name: "Sidhu",
-      initials: "S",
-      bgGradient: "from-cyan-500 to-blue-500",
-      licence: "Domestic Builder",
-      highlight: "New Homes",
-      highlightLabel: "North & West Melb",
-      highlightIcon: Building2,
-      story: "Operates a growing company building quality homes across Melbourne's northern and western corridors.",
-      timeframe: "Licensed 2 years ago",
-    },
   ];
 
   return (
