@@ -1,7 +1,7 @@
 import { Award, Building2, Hammer, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import instructorImage from "@/assets/instructor-adrian.jpg";
+import trainingImage from "@/assets/about-training-materials.jpg";
 
 const AboutAdrian = () => {
   const credentials = [
@@ -39,10 +39,10 @@ const AboutAdrian = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
+            <div className="aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src={instructorImage} 
-                alt="Adrian Nicolazzo - Building Registration Trainer" 
+                src={trainingImage} 
+                alt="Building plans and training materials at Qualify Pro workshop" 
                 className="w-full h-full object-cover"
               />
             </div>
