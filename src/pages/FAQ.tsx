@@ -34,7 +34,7 @@ const FAQ = () => {
         {
           question: "Who is Adrian Nicolazzo?",
           answer:
-            "Adrian Nicolazzo is the owner and lead trainer of Qualified Pro. He's a Registered Building Practitioner (Unlimited), with Commercial License (Low-Rise), Qualified Carpenter, and 10+ years training experience. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
+            "Adrian Nicolazzo is the owner and lead trainer of Qualify Pro. He's a Registered Building Practitioner (Unlimited), with Commercial License (Low-Rise), Qualified Carpenter, and 10+ years training experience. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
         },
         {
           question: "Where are you located?",
@@ -229,7 +229,7 @@ const FAQ = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Get in touch with Qualified Pro and we'll help you out
+            Get in touch with Qualify Pro and we'll help you out
           </motion.p>
 
           {/* Contact Methods */}
