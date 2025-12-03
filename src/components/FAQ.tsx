@@ -4,6 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion } from "framer-motion";
+import { HelpCircle, MessageCircle } from "lucide-react";
 
 const FAQ = () => {
   const faqs = [
@@ -35,31 +37,99 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-12 sm:py-16 md:py-24 bg-white">
-      <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-20 left-0 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-30" />
+      <div className="absolute bottom-20 right-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-40" />
+      
+      <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+        <motion.div 
+          className="text-center mb-12 sm:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+            Got Questions?
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-            Got questions? We've got answers.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about getting your BPC registration with Qualify Pro
           </p>
-        </div>
+        </motion.div>
 
-        {/* Accordion */}
-        <Accordion type="single" collapsible className="w-full">
-          {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="border-b">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold py-4 hover:no-underline">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-700 leading-relaxed pb-4">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {/* FAQ Cards */}
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Decorative side element */}
+          <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-blue-400 to-blue-600 rounded-full hidden lg:block" />
+          
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`} 
+                className="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 overflow-hidden data-[state=open]:shadow-lg data-[state=open]:border-blue-300"
+              >
+                <AccordionTrigger className="text-left px-6 py-5 hover:no-underline group">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors duration-300">
+                      <HelpCircle className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <span className="text-base sm:text-lg font-semibold text-gray-900 group-hover:text-blue-700 transition-colors duration-300 pr-4">
+                      {faq.question}
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6">
+                  <div className="pl-14 border-l-2 border-blue-100 ml-5">
+                    <p className="text-gray-600 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div 
+          className="mt-12 sm:mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <div className="inline-flex items-center gap-4 px-6 py-4 bg-slate-900 rounded-2xl">
+            <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+              <MessageCircle className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-left">
+              <p className="text-white font-medium">Still have questions?</p>
+              <button 
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+              >
+                Get in touch — we're happy to help
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
