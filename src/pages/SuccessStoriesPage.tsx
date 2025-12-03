@@ -17,6 +17,11 @@ import {
   Briefcase
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import fauziImage from "@/assets/success-fauzi.jpg";
+import jordanImage from "@/assets/success-jordan.jpg";
+import sidhuImage from "@/assets/success-sidhu.jpg";
+import mannyImage from "@/assets/success-manny.jpg";
+import benImage from "@/assets/success-ben.jpg";
 
 const SuccessStoriesPage = () => {
   const caseStudies = [
@@ -28,6 +33,7 @@ const SuccessStoriesPage = () => {
       yearsAgo: "5 years ago",
       currentBusiness: "Elite Homes Melbourne",
       revenue: "$15M+ annually",
+      image: fauziImage,
       before: {
         title: "The Starting Point",
         description: "Fauzi was an experienced carpenter with solid practical skills and years of on-site experience. He'd worked on numerous residential projects and knew his trade inside out. However, he was working for someone else's building company and wanted to start his own business building high-end homes. The problem? He needed his Domestic Builder Unlimited registration to legally run his own building company and sign off on projects."
@@ -55,6 +61,7 @@ const SuccessStoriesPage = () => {
       yearsAgo: "3 years ago",
       currentBusiness: "Premium Outdoor Living",
       revenue: "High-end installations",
+      image: jordanImage,
       before: {
         title: "The Starting Point",
         description: "Jordan was a qualified carpenter with years of experience but wanted to specialize in outdoor living spaces - pergolas, decks, outdoor kitchens, and entertainment areas. He saw a market opportunity in high-end outdoor installations but needed his DB-L (Domestic Builder Limited - Carpentry) registration to legally supervise these projects and run his own business."
@@ -82,6 +89,7 @@ const SuccessStoriesPage = () => {
       yearsAgo: "4 years ago",
       currentBusiness: "Sidhu Building Constructions",
       revenue: "Multiple new homes annually",
+      image: sidhuImage,
       before: {
         title: "The Starting Point",
         description: "Sidhu had been working as a site supervisor for a building company for years. He managed projects, coordinated trades, and handled day-to-day construction operations. He was essentially doing a builder's job but working for someone else. Sidhu wanted to start his own building company and build new homes under his own name, but he needed his Domestic Builder Unlimited registration to make that happen."
@@ -109,6 +117,7 @@ const SuccessStoriesPage = () => {
       yearsAgo: "5 years ago",
       currentBusiness: "Manny's Building Company",
       revenue: "50+ homes per year",
+      image: mannyImage,
       before: {
         title: "The Starting Point",
         description: "Manny had years of building experience and wanted to scale up from working for others to running his own high-volume building operation. He had the skills and experience but lacked the formal registration needed to legally operate as a builder. He wanted to build volume residential projects but needed his Domestic Builder Unlimited license to do so."
@@ -136,6 +145,7 @@ const SuccessStoriesPage = () => {
       yearsAgo: "3 years ago",
       currentBusiness: "Ben's Renovations",
       revenue: "40+ projects annually",
+      image: benImage,
       before: {
         title: "The Starting Point",
         description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his license."
@@ -310,14 +320,14 @@ const SuccessStoriesPage = () => {
 
               {/* Photo and Stats */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                {/* Photo Placeholder */}
+                {/* Photo */}
                 <div className="lg:col-span-1">
-                  <div className="aspect-[3/4] bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <Icon className="h-24 w-24 text-blue-600 mx-auto mb-4" />
-                      <p className="text-gray-600 font-semibold text-xl">{study.name}</p>
-                      <p className="text-sm text-gray-500">Photo Coming Soon</p>
-                    </div>
+                  <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
+                    <img 
+                      src={study.image} 
+                      alt={`${study.name} - Qualify Pro graduate`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   {/* Quick Stats */}

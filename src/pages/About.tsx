@@ -18,6 +18,7 @@ import {
   MapPin,
   ShieldCheck
 } from "lucide-react";
+import adrianImage from "@/assets/adrian-about.jpg";
 
 const About = () => {
   const credentials = [
@@ -163,14 +164,14 @@ const About = () => {
       <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Photo Placeholder */}
+            {/* Adrian Photo */}
             <div className="order-2 lg:order-1">
-              <div className="aspect-[4/5] bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border-4 border-white/20">
-                <div className="text-center p-8">
-                  <Building2 className="h-32 w-32 text-white mx-auto mb-6" />
-                  <p className="text-white font-semibold text-xl">Adrian Nicolazzo</p>
-                  <p className="text-blue-200">Professional Photo Coming Soon</p>
-                </div>
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl">
+                <img 
+                  src={adrianImage} 
+                  alt="Adrian Nicolazzo - Building Registration Trainer and Mentor" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
