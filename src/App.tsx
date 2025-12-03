@@ -11,11 +11,12 @@ import SuccessStoriesPage from "./pages/SuccessStoriesPage";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import ScrollToTopButton from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
 // Scroll to top on route change
-function ScrollToTop() {
+function ScrollToTopOnNavigate() {
   const location = useLocation();
   
   useEffect(() => {
@@ -31,7 +32,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
+        <ScrollToTopOnNavigate />
+        <ScrollToTopButton />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/courses" element={<Courses />} />
