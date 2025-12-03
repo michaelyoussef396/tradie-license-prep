@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { motion } from "framer-motion";
 import { 
   Phone, 
   Mail, 
@@ -21,7 +22,8 @@ import {
   Users,
   Shield,
   MessageSquare,
-  ArrowRight
+  ArrowRight,
+  Send
 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -58,7 +60,6 @@ const Contact = () => {
       const validatedData = contactSchema.parse(formData);
 
       // Here you would normally send to a backend API
-      // For now, we'll simulate success
       console.log("Form submitted:", validatedData);
 
       // Show success message
@@ -150,34 +151,65 @@ const Contact = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
+      <section className="relative bg-slate-900 text-white pt-32 pb-20 overflow-hidden">
+        {/* Blueprint Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        {/* Gradient Orbs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
+              <Send className="h-4 w-4 text-blue-400" />
+              <span className="text-blue-300 text-sm font-medium">Free Consultation</span>
+            </div>
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Let's Get You Licensed
+              Let's Get You{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Licensed
+              </span>
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100">
+            <p className="text-xl md:text-2xl text-slate-300">
               Book your free consultation. We'll discuss your experience, goals, 
               and the best program for you.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Main Content - Form and Contact Details */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div>
-              <div className="bg-blue-50 p-8 md:p-10 rounded-2xl border-2 border-blue-200">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="bg-slate-50 p-8 md:p-10 rounded-2xl border border-slate-200 shadow-lg">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
                   Book Your Free Consultation
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <p className="text-slate-600 mb-8">Fill out the form and we'll be in touch within 24 hours</p>
+                
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Full Name */}
                   <div>
-                    <Label htmlFor="fullName" className="text-gray-900 font-semibold mb-2">
+                    <Label htmlFor="fullName" className="text-slate-900 font-semibold mb-2 block">
                       Full Name *
                     </Label>
                     <Input
@@ -187,13 +219,13 @@ const Contact = () => {
                       onChange={(e) => handleInputChange("fullName", e.target.value)}
                       placeholder="John Smith"
                       required
-                      className="h-12 bg-white border-gray-300"
+                      className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
 
                   {/* Phone Number */}
                   <div>
-                    <Label htmlFor="phone" className="text-gray-900 font-semibold mb-2">
+                    <Label htmlFor="phone" className="text-slate-900 font-semibold mb-2 block">
                       Phone Number *
                     </Label>
                     <Input
@@ -203,13 +235,13 @@ const Contact = () => {
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       placeholder="0411 626 398"
                       required
-                      className="h-12 bg-white border-gray-300"
+                      className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
 
                   {/* Email */}
                   <div>
-                    <Label htmlFor="email" className="text-gray-900 font-semibold mb-2">
+                    <Label htmlFor="email" className="text-slate-900 font-semibold mb-2 block">
                       Email Address *
                     </Label>
                     <Input
@@ -219,13 +251,13 @@ const Contact = () => {
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="john.smith@email.com"
                       required
-                      className="h-12 bg-white border-gray-300"
+                      className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
 
                   {/* License Type */}
                   <div>
-                    <Label htmlFor="licenseType" className="text-gray-900 font-semibold mb-2">
+                    <Label htmlFor="licenseType" className="text-slate-900 font-semibold mb-2 block">
                       License Type You're Seeking *
                     </Label>
                     <Select 
@@ -233,7 +265,7 @@ const Contact = () => {
                       onValueChange={(value) => handleInputChange("licenseType", value)}
                       required
                     >
-                      <SelectTrigger className="h-12 bg-white border-gray-300">
+                      <SelectTrigger className="h-12 bg-white border-slate-300">
                         <SelectValue placeholder="Select license type" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
@@ -247,7 +279,7 @@ const Contact = () => {
 
                   {/* Experience */}
                   <div>
-                    <Label htmlFor="experience" className="text-gray-900 font-semibold mb-2">
+                    <Label htmlFor="experience" className="text-slate-900 font-semibold mb-2 block">
                       Years of Experience *
                     </Label>
                     <Select 
@@ -255,7 +287,7 @@ const Contact = () => {
                       onValueChange={(value) => handleInputChange("experience", value)}
                       required
                     >
-                      <SelectTrigger className="h-12 bg-white border-gray-300">
+                      <SelectTrigger className="h-12 bg-white border-slate-300">
                         <SelectValue placeholder="Select experience level" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
@@ -269,7 +301,7 @@ const Contact = () => {
 
                   {/* Message */}
                   <div>
-                    <Label htmlFor="message" className="text-gray-900 font-semibold mb-2">
+                    <Label htmlFor="message" className="text-slate-900 font-semibold mb-2 block">
                       Message (Optional)
                     </Label>
                     <Textarea
@@ -278,7 +310,7 @@ const Contact = () => {
                       onChange={(e) => handleInputChange("message", e.target.value)}
                       placeholder="Tell us about your goals or any questions you have..."
                       rows={4}
-                      className="bg-white border-gray-300"
+                      className="bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
 
@@ -286,25 +318,31 @@ const Contact = () => {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     {isSubmitting ? "Sending..." : "Book Free Consultation"}
                   </Button>
 
-                  <p className="text-sm text-gray-600 text-center">
+                  <p className="text-sm text-slate-500 text-center">
                     We'll contact you within 24 hours to schedule your consultation
                   </p>
                 </form>
               </div>
-            </div>
+            </motion.div>
 
             {/* Contact Details */}
-            <div className="space-y-8">
+            <motion.div 
+              className="space-y-8"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
                   Get In Touch
                 </h2>
-                <p className="text-lg text-gray-700 mb-8">
+                <p className="text-lg text-slate-600">
                   Prefer to contact us directly? We're here to help answer any questions 
                   about our programs or the BPC licensing process.
                 </p>
@@ -315,102 +353,115 @@ const Contact = () => {
                 {/* Phone */}
                 <a 
                   href="tel:0411626398"
-                  className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors duration-300 group"
+                  className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all duration-300 group border border-slate-200 hover:border-blue-300 hover:shadow-md"
                 >
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-700 transition-colors">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
                     <Phone className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 mb-1">Call Us</div>
+                    <div className="font-semibold text-slate-900 mb-1">Call Us</div>
                     <div className="text-2xl font-bold text-blue-600">0411 626 398</div>
-                    <div className="text-sm text-gray-600 mt-1">Click to call now</div>
+                    <div className="text-sm text-slate-500 mt-1">Click to call now</div>
                   </div>
                 </a>
 
                 {/* Email */}
                 <a 
                   href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
-                  className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors duration-300 group"
+                  className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all duration-300 group border border-slate-200 hover:border-blue-300 hover:shadow-md"
                 >
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-700 transition-colors">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
                     <Mail className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 mb-1">Email Us</div>
+                    <div className="font-semibold text-slate-900 mb-1">Email Us</div>
                     <div className="text-blue-600 font-medium break-all">
                       support@adcopropertyinspectionsmelbourne.com.au
                     </div>
-                    <div className="text-sm text-gray-600 mt-1">We respond within 24 hours</div>
+                    <div className="text-sm text-slate-500 mt-1">We respond within 24 hours</div>
                   </div>
                 </a>
 
                 {/* Location */}
-                <div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
                     <MapPin className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 mb-1">Location</div>
-                    <div className="text-gray-700 font-medium">Melbourne, Victoria</div>
-                    <div className="text-sm text-gray-600 mt-1">Face-to-face training only</div>
+                    <div className="font-semibold text-slate-900 mb-1">Location</div>
+                    <div className="text-slate-700 font-medium">Melbourne, Victoria</div>
+                    <div className="text-sm text-slate-500 mt-1">Face-to-face training only</div>
                   </div>
                 </div>
 
                 {/* Hours */}
-                <div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
                     <Clock className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 mb-1">Training Hours</div>
-                    <div className="text-gray-700 font-medium">Evening sessions available</div>
-                    <div className="text-sm text-gray-600 mt-1">6pm - 9pm, one night per week</div>
+                    <div className="font-semibold text-slate-900 mb-1">Training Hours</div>
+                    <div className="text-slate-700 font-medium">Evening sessions available</div>
+                    <div className="text-sm text-slate-500 mt-1">6pm - 9pm, one night per week</div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* What Happens Next */}
-      <section className="py-16 md:py-24 bg-blue-50">
+      <section className="py-16 md:py-20 bg-slate-50">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               What Happens Next?
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-slate-600">
               Here's the simple process from consultation to getting licensed
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {nextSteps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="relative">
-                  <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                <motion.div 
+                  key={index} 
+                  className="relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 hover:-translate-y-1">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-6 relative shadow-lg">
                       <Icon className="h-8 w-8 text-white" />
-                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center border-4 border-blue-600">
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-blue-600 shadow-md">
                         <span className="text-blue-600 font-bold text-sm">{step.step}</span>
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 text-center">
                       {step.title}
                     </h3>
-                    <p className="text-gray-700 text-center leading-relaxed">
+                    <p className="text-slate-600 text-center leading-relaxed">
                       {step.description}
                     </p>
                   </div>
                   {/* Arrow */}
                   {index < nextSteps.length - 1 && (
                     <div className="hidden md:flex justify-center items-center absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                      <ArrowRight className="h-8 w-8 text-blue-600" />
+                      <ArrowRight className="h-8 w-8 text-blue-500" />
                     </div>
                   )}
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -418,173 +469,192 @@ const Contact = () => {
       </section>
 
       {/* FAQ About Consultation */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-slate-900 mb-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             FAQ About Your Free Consultation
-          </h2>
+          </motion.h2>
 
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {faqItems.map((item, index) => (
-              <div key={index} className="bg-blue-50 p-6 rounded-xl">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <motion.div 
+                key={index} 
+                className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+              >
+                <h3 className="text-lg font-bold text-slate-900 mb-3">
                   {item.question}
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-slate-600 leading-relaxed">
                   {item.answer}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Alternative Contact Methods */}
-      <section className="py-16 md:py-24 bg-blue-50">
+      <section className="py-16 md:py-20 bg-slate-50">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-slate-900 mb-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             Other Ways to Connect
-          </h2>
+          </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Prefer to Call */}
-            <div className="bg-white p-8 rounded-xl text-center shadow-md hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Phone className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Prefer to Call?
-              </h3>
-              <a 
-                href="tel:0411626398"
-                className="text-2xl font-bold text-blue-600 hover:text-blue-700 block mb-2"
-              >
-                0411 626 398
-              </a>
-              <p className="text-gray-600">
-                Speak with Adrian directly about your licensing goals
-              </p>
-            </div>
-
-            {/* Quick Question */}
-            <div className="bg-white p-8 rounded-xl text-center shadow-md hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Mail className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Have a Quick Question?
-              </h3>
-              <a 
-                href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
-                className="text-blue-600 hover:text-blue-700 font-semibold break-all block mb-2"
-              >
-                Send us an email
-              </a>
-              <p className="text-gray-600">
-                We respond to all emails within 24 hours
-              </p>
-            </div>
-
-            {/* Learn More First */}
-            <div className="bg-white p-8 rounded-xl text-center shadow-md hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Want to Learn More First?
-              </h3>
-              <Button
-                className="bg-blue-600 hover:bg-blue-700 text-white mb-2"
-                asChild
-              >
-                <a href="/courses">View Our Programs</a>
-              </Button>
-              <p className="text-gray-600">
-                Explore our training programs and pricing
-              </p>
-            </div>
+            {[
+              { icon: Phone, title: "Prefer to Call?", content: "0411 626 398", link: "tel:0411626398", subtitle: "Speak with Adrian directly about your licensing goals" },
+              { icon: Mail, title: "Have a Quick Question?", content: "Send us an email", link: "mailto:support@adcopropertyinspectionsmelbourne.com.au", subtitle: "We respond to all emails within 24 hours" },
+              { icon: Award, title: "Want to Learn More First?", content: "View Our Programs", link: "/courses", subtitle: "Explore our training programs and pricing", isButton: true },
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div 
+                  key={index} 
+                  className="bg-white p-8 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 hover:-translate-y-1"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <Icon className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
+                  {item.isButton ? (
+                    <Button
+                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white mb-2 shadow-md"
+                      asChild
+                    >
+                      <a href={item.link}>{item.content}</a>
+                    </Button>
+                  ) : (
+                    <a 
+                      href={item.link}
+                      className="text-xl font-bold text-blue-600 hover:text-blue-700 block mb-2"
+                    >
+                      {item.content}
+                    </a>
+                  )}
+                  <p className="text-slate-600">{item.subtitle}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Map Placeholder */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-16 text-center">
-            <MapPin className="h-20 w-20 text-blue-600 mx-auto mb-6" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl p-16 text-center border border-slate-200"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <MapPin className="h-10 w-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">
               Face-to-Face Training in Melbourne
             </h3>
-            <p className="text-gray-700 text-lg mb-6">
+            <p className="text-slate-600 text-lg mb-4">
               All our training is conducted in person in Melbourne, Victoria
             </p>
-            <p className="text-gray-600">
+            <p className="text-slate-500">
               Interactive map showing location coming soon
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Trust Reinforcement */}
-      <section className="py-16 bg-gradient-to-br from-blue-900 to-blue-800 text-white">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-slate-900 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-3xl font-bold mb-2">95%</div>
-              <div className="text-blue-200">Success Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-3xl font-bold mb-2">10+</div>
-              <div className="text-blue-200">Years Experience</div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-3xl font-bold mb-2">Free</div>
-              <div className="text-blue-200">Consultation</div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-3xl font-bold mb-2">100%</div>
-              <div className="text-blue-200">Pass Guarantee</div>
-            </div>
+            {[
+              { icon: CheckCircle2, value: "95%", label: "Success Rate" },
+              { icon: Award, value: "10+", label: "Years Experience" },
+              { icon: Users, value: "Free", label: "Consultation" },
+              { icon: Shield, value: "100%", label: "Pass Guarantee" },
+            ].map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div 
+                  key={index} 
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                  <div className="text-slate-400">{stat.label}</div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 bg-blue-50">
+      <section className="py-16 bg-slate-50">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Still Have Questions? We're Here to Help.
-          </h2>
-          <div className="mb-8">
-            <a 
-              href="tel:0411626398"
-              className="inline-block text-4xl md:text-5xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
-            >
-              0411 626 398
-            </a>
-          </div>
-          <p className="text-xl text-gray-600 mb-8">
-            Or fill out the form above to schedule your free consultation
-          </p>
-          <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 h-auto"
-            size="lg"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            Back to Form
-          </Button>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+              Still Have Questions? We're Here to Help.
+            </h2>
+            <div className="mb-8">
+              <a 
+                href="tel:0411626398"
+                className="inline-block text-4xl md:text-5xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
+              >
+                0411 626 398
+              </a>
+            </div>
+            <p className="text-xl text-slate-600 mb-8">
+              Or fill out the form above to schedule your free consultation
+            </p>
+            <Button
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300"
+              size="lg"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Back to Form
+            </Button>
+          </motion.div>
         </div>
       </section>
 
