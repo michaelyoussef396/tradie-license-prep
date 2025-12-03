@@ -46,7 +46,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Personalized mentorship for Melbourne tradies seeking VBA
+            Personalized mentorship for Melbourne tradies seeking BPC (formerly VBA)
             registration. Small classes, 95% success rate, 10+ years experience.
           </motion.p>
 

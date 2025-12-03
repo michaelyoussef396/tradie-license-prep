@@ -50,7 +50,7 @@ const CourseCards = () => {
         "450+ practice questions",
         "DB-L specific training",
         "Application guidance",
-        "VBA interview prep",
+        "BPC interview prep",
       ],
     },
   ];

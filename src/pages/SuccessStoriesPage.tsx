@@ -34,7 +34,7 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "While Fauzi's practical carpentry skills were excellent, he struggled with the theoretical side of building regulations, Australian Standards, and business knowledge required for the VBA licensing process. He'd attempted self-study but found the material overwhelming and wasn't sure what the VBA was actually looking for in interviews. He was worried about investing time and money into the licensing process only to fail."
+        description: "While Fauzi's practical carpentry skills were excellent, he struggled with the theoretical side of building regulations, Australian Standards, and business knowledge required for the BPC licensing process. He'd attempted self-study but found the material overwhelming and wasn't sure what BPC was actually looking for in interviews. He was worried about investing time and money into the licensing process only to fail."
       },
       training: {
         title: "The Training",
@@ -44,7 +44,7 @@ const SuccessStoriesPage = () => {
         title: "The Result",
         description: "Fauzi passed his Domestic Builder Unlimited registration on the first attempt. Within months, he launched his own building company specializing in elite homes across Melbourne's prestigious suburbs including Toorak, Brighton, and Armadale. Five years later, his company turns over $15+ million annually and has built a reputation for exceptional quality and craftsmanship. Fauzi now employs multiple teams and manages several high-end residential projects simultaneously. His success demonstrates how proper licensing preparation can transform a tradie's career trajectory."
       },
-      quote: "Adrian's personalized approach helped me understand the regulations I was struggling with. The small class size meant I could ask questions without feeling rushed, and the practice tests prepared me perfectly for the VBA process. I passed first time and never looked back. Now I run my own company building elite homes - something that wouldn't have been possible without my unlimited builder registration.",
+      quote: "Adrian's personalized approach helped me understand the regulations I was struggling with. The small class size meant I could ask questions without feeling rushed, and the practice tests prepared me perfectly for the BPC process. I passed first time and never looked back. Now I run my own company building elite homes - something that wouldn't have been possible without my unlimited builder registration.",
       icon: Building2
     },
     {
@@ -61,7 +61,7 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "Jordan's hands-on carpentry skills were excellent from years on the tools, but he lacked confidence in his theoretical knowledge. He wasn't sure he understood building codes well enough to pass the VBA test. He'd also never done a formal interview and was nervous about articulating his experience professionally. Working full-time meant he needed training that fit around his job schedule."
+        description: "Jordan's hands-on carpentry skills were excellent from years on the tools, but he lacked confidence in his theoretical knowledge. He wasn't sure he understood building codes well enough to pass the BPC test. He'd also never done a formal interview and was nervous about articulating his experience professionally. Working full-time meant he needed training that fit around his job schedule."
       },
       training: {
         title: "The Training",
@@ -88,7 +88,7 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "Sidhu's practical site management experience was extensive, but he needed to formalize his technical knowledge for the VBA licensing process. His biggest challenge was time - he was working full-time as a site supervisor and couldn't take time off for daytime training. He also wasn't confident in his test-taking abilities and worried about the VBA interview process."
+        description: "Sidhu's practical site management experience was extensive, but he needed to formalize his technical knowledge for the BPC licensing process. His biggest challenge was time - he was working full-time as a site supervisor and couldn't take time off for daytime training. He also wasn't confident in his test-taking abilities and worried about the BPC interview process."
       },
       training: {
         title: "The Training",
@@ -115,11 +115,11 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "Manny found the VBA licensing process intimidating. Despite his extensive practical experience, he wasn't confident about the formal testing and interview process. He'd heard stories of experienced builders failing multiple times and wasn't sure how to prepare effectively. He needed training that would give him confidence and ensure he passed on the first attempt."
+        description: "Manny found the BPC licensing process intimidating. Despite his extensive practical experience, he wasn't confident about the formal testing and interview process. He'd heard stories of experienced builders failing multiple times and wasn't sure how to prepare effectively. He needed training that would give him confidence and ensure he passed on the first attempt."
       },
       training: {
         title: "The Training",
-        description: "Manny enrolled in Qualify Pro's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. The 600+ practice questions prepared Manny thoroughly for the VBA test format, and the interview coaching taught him how to present his experience professionally."
+        description: "Manny enrolled in Qualify Pro's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. The 600+ practice questions prepared Manny thoroughly for the BPC test format, and the interview coaching taught him how to present his experience professionally."
       },
       result: {
         title: "The Result",
@@ -138,11 +138,11 @@ const SuccessStoriesPage = () => {
       revenue: "40+ projects annually",
       before: {
         title: "The Starting Point",
-        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the VBA licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his license."
+        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his license."
       },
       challenge: {
         title: "The Challenge",
-        description: "Ben's biggest challenge was rebuilding confidence after his previous failed attempt at VBA registration. He wasn't sure what he'd done wrong the first time or how to improve for a second attempt. He was considering giving up on his dream of running his own renovation business. He needed training that would show him exactly where his knowledge gaps were and how to address them effectively."
+        description: "Ben's biggest challenge was rebuilding confidence after his previous failed attempt at BPC registration. He wasn't sure what he'd done wrong the first time or how to improve for a second attempt. He was considering giving up on his dream of running his own renovation business. He needed training that would show him exactly where his knowledge gaps were and how to address them effectively."
       },
       training: {
         title: "The Training",
@@ -195,7 +195,7 @@ const SuccessStoriesPage = () => {
     },
     {
       step: "3",
-      title: "VBA Registration",
+      title: "BPC Registration",
       description: "Pass your licensing with confidence and complete support",
       icon: CheckCircle2
     },
@@ -219,7 +219,7 @@ const SuccessStoriesPage = () => {
               Real Tradies, Real Results
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 mb-8">
-              95% of our students pass their VBA registration. Here are their stories.
+              95% of our students pass their BPC registration. Here are their stories.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-lg">
               <div className="flex items-center gap-3">
@@ -246,7 +246,7 @@ const SuccessStoriesPage = () => {
               Our Success Rate
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              95% of students who complete our programs successfully gain their VBA registration. 
+              95% of students who complete our programs successfully gain their BPC (formerly VBA) registration. 
               Here's what happens after they get licensed:
             </p>
           </div>

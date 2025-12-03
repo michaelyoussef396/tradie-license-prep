@@ -19,7 +19,7 @@ const FAQ = () => {
         {
           question: "What is this mentorship program?",
           answer:
-            "This is NOT an RTO or training college. We provide specialized mentorship to prepare experienced tradies for their VBA (Victorian Building Authority) licensing interviews and registration. We focus on small group training (max 10 students) with personalized teaching.",
+            "This is NOT an RTO or training college. We provide specialized mentorship to prepare experienced tradies for their BPC (formerly VBA) licensing interviews and registration. We focus on small group training (max 10 students) with personalized teaching.",
         },
         {
           question: "How is this different from TAFE or an RTO?",
@@ -29,7 +29,7 @@ const FAQ = () => {
         {
           question: "What's the success rate?",
           answer:
-            "95% of students who complete our programs gain their VBA registration.",
+            "95% of students who complete our programs gain their BPC registration.",
         },
         {
           question: "Who is Adrian Nicolazzo?",
@@ -49,7 +49,7 @@ const FAQ = () => {
         {
           question: "How long is the process before getting my license?",
           answer:
-            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the VBA test and interview. Most students gain registration within a few months of finishing the course.",
+            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC test and interview. Most students gain registration within a few months of finishing the course.",
         },
         {
           question: "What are the class sizes?",
@@ -59,7 +59,7 @@ const FAQ = () => {
         {
           question: "What's included in the programs?",
           answer:
-            "All programs include training materials, 450-600+ practice questions, Acts & Regulations guidance, application and portfolio preparation, VBA test and interview preparation, and a pass guarantee (free resit if needed).",
+            "All programs include training materials, 450-600+ practice questions, Acts & Regulations guidance, application and portfolio preparation, BPC test and interview preparation, and a pass guarantee (free resit if needed).",
         },
         {
           question: "Do you offer evening classes?",
@@ -89,7 +89,7 @@ const FAQ = () => {
         {
           question: "Do you help with the applications?",
           answer:
-            "Yes! All our programs include complete application preparation, portfolio development, and guidance through the VBA portal process.",
+            "Yes! All our programs include complete application preparation, portfolio development, and guidance through the BPC portal process.",
         },
         {
           question: "What documents do I need?",
@@ -99,10 +99,10 @@ const FAQ = () => {
       ],
     },
     {
-      category: "VBA Test & Registration",
+      category: "BPC Test & Registration",
       questions: [
         {
-          question: "What does the VBA/BPC test involve?",
+          question: "What does the BPC test involve?",
           answer:
             "The test covers Building Acts, Regulations, Australian Standards, and practical knowledge for your specific license class. We provide 450-600+ practice questions and mock tests to prepare you thoroughly.",
         },

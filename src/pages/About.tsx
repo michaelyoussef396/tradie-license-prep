@@ -39,7 +39,7 @@ const About = () => {
     {
       icon: GraduationCap,
       title: "10+ Years Training Experience",
-      description: "Over a decade helping Melbourne tradies achieve their building registration. Has trained hundreds of students with a 95% success rate. Continuously updates training methods based on current VBA requirements and student feedback."
+      description: "Over a decade helping Melbourne tradies achieve their building registration. Has trained hundreds of students with a 95% success rate. Continuously updates training methods based on current BPC (formerly VBA) requirements and student feedback."
     },
   ];
 
@@ -59,7 +59,7 @@ const About = () => {
     {
       year: "Achievement",
       title: "Registered Builder",
-      description: "Achieved Registered Building Practitioner (Unlimited) and Commercial (Low-Rise) licenses. Understands firsthand the challenges of the VBA licensing process because he navigated it himself. This experience informs his teaching approach.",
+      description: "Achieved Registered Building Practitioner (Unlimited) and Commercial (Low-Rise) licenses. Understands firsthand the challenges of the BPC licensing process because he navigated it himself. This experience informs his teaching approach.",
       icon: Award
     },
     {
@@ -89,17 +89,17 @@ const About = () => {
     {
       icon: TrendingUp,
       title: "Improve Specific Weaknesses",
-      description: "Whether it's understanding Australian Standards, mastering VBA regulations, or building confidence for the interview, Adrian addresses specific weaknesses head-on. Students aren't left wondering what they don't know - he makes it clear and provides targeted training to improve those exact areas."
+      description: "Whether it's understanding Australian Standards, mastering BPC regulations, or building confidence for the interview, Adrian addresses specific weaknesses head-on. Students aren't left wondering what they don't know - he makes it clear and provides targeted training to improve those exact areas."
     },
     {
       icon: Star,
       title: "Show You Your Strengths",
-      description: "Many experienced tradies underestimate their own knowledge. Adrian helps students recognize and build confidence in what they already know. This confidence is crucial for VBA interviews. When you know your strengths, you can speak with authority about your experience and capabilities."
+      description: "Many experienced tradies underestimate their own knowledge. Adrian helps students recognize and build confidence in what they already know. This confidence is crucial for BPC interviews. When you know your strengths, you can speak with authority about your experience and capabilities."
     },
     {
       icon: CheckCircle2,
       title: "Understanding, Not Memorization",
-      description: "Adrian doesn't believe in memorizing answers to pass a test. He teaches underlying building principles and regulations so students truly understand the 'why' behind the rules. This deeper understanding not only helps pass the VBA process but makes you a genuinely better builder."
+      description: "Adrian doesn't believe in memorizing answers to pass a test. He teaches underlying building principles and regulations so students truly understand the 'why' behind the rules. This deeper understanding not only helps pass the BPC process but makes you a genuinely better builder."
     }
   ];
 
@@ -120,7 +120,7 @@ const About = () => {
       achievement: "Domestic Builder - Unlimited"
     },
     {
-      quote: "I failed the VBA process on my own, but with Adrian's help I passed easily the second time. His teaching focuses on understanding the principles, not just memorizing answers. That's what made the difference.",
+      quote: "I failed the BPC process on my own, but with Adrian's help I passed easily the second time. His teaching focuses on understanding the principles, not just memorizing answers. That's what made the difference.",
       author: "Ben",
       achievement: "Domestic Builder - Unlimited"
     },
@@ -227,7 +227,7 @@ const About = () => {
 
             <p>
               The turning point came when Adrian decided to get his building registration. Like many tradies, 
-              he found the VBA licensing process confusing and intimidating. There was so much information to 
+              he found the BPC licensing process confusing and intimidating. There was so much information to 
               absorb - building codes, Australian Standards, regulations, business knowledge - and not much 
               guidance on how to prepare properly. He passed his registration through determination and hard 
               work, eventually achieving both Domestic Builder (Unlimited) and Commercial (Low-Rise) licenses.
@@ -236,8 +236,8 @@ const About = () => {
             <p>
               After gaining his licenses, Adrian started noticing a pattern. Many experienced tradies with solid 
               practical skills were struggling with the registration process. Some failed multiple times not 
-              because they lacked ability, but because they didn't know how to prepare effectively or what the 
-              VBA was really looking for. Others gave up entirely, convinced they "weren't smart enough" - which 
+              because they lacked ability, but because they didn't know how to prepare effectively or what 
+              BPC was really looking for. Others gave up entirely, convinced they "weren't smart enough" - which 
               was never true.
             </p>
 
@@ -439,10 +439,10 @@ const About = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Current VBA Knowledge
+                    Current BPC Knowledge
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
-                    Adrian stays up-to-date with VBA/BPC regulation changes, new Australian Standards, 
+                    Adrian stays up-to-date with BPC regulation changes, new Australian Standards, 
                     and updated building codes. His training materials are continuously revised to reflect 
                     current requirements, ensuring students are prepared for today's licensing process.
                   </p>
