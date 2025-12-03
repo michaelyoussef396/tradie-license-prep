@@ -15,7 +15,7 @@ const Hero = () => {
     { icon: TrendingUp, stat: "95%", label: "Success Rate" },
     { icon: Award, stat: "10+", label: "Years Exp." },
     { icon: Users, stat: "Max 10", label: "Per Class" },
-    { icon: MapPin, stat: "Melb", label: "In-Person" },
+    { icon: MapPin, stat: "Melbourne", label: "In-Person" },
   ];
 
   return (
