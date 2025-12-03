@@ -18,7 +18,6 @@ import {
   MapPin,
   ShieldCheck
 } from "lucide-react";
-import adrianImage from "@/assets/adrian-about.jpg";
 
 const About = () => {
   const credentials = [
@@ -163,41 +162,27 @@ const About = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Adrian Photo */}
-            <div className="order-2 lg:order-1">
-              <div className="aspect-[4/5] rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl">
-                <img 
-                  src={adrianImage} 
-                  alt="Adrian Nicolazzo - Building Registration Trainer and Mentor" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Hero Content */}
-            <div className="order-1 lg:order-2">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Learn From Someone Who's Been On The Tools
-              </h1>
-              <div className="space-y-3 text-lg text-blue-100">
-                <p className="flex items-center gap-3">
-                  <Award className="h-6 w-6 flex-shrink-0" />
-                  <span>Registered Building Practitioner (Unlimited)</span>
-                </p>
-                <p className="flex items-center gap-3">
-                  <Building2 className="h-6 w-6 flex-shrink-0" />
-                  <span>Commercial License (Low-Rise)</span>
-                </p>
-                <p className="flex items-center gap-3">
-                  <GraduationCap className="h-6 w-6 flex-shrink-0" />
-                  <span>10+ Years Training Melbourne Tradies</span>
-                </p>
-                <p className="flex items-center gap-3">
-                  <Users className="h-6 w-6 flex-shrink-0" />
-                  <span>500+ Students Successfully Licensed</span>
-                </p>
-              </div>
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+              Learn From Someone Who's Been On The Tools
+            </h1>
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-8 text-lg text-blue-100">
+              <p className="flex items-center justify-center gap-3">
+                <Award className="h-6 w-6 flex-shrink-0" />
+                <span>Registered Building Practitioner (Unlimited)</span>
+              </p>
+              <p className="flex items-center justify-center gap-3">
+                <Building2 className="h-6 w-6 flex-shrink-0" />
+                <span>Commercial License (Low-Rise)</span>
+              </p>
+              <p className="flex items-center justify-center gap-3">
+                <GraduationCap className="h-6 w-6 flex-shrink-0" />
+                <span>10+ Years Training Melbourne Tradies</span>
+              </p>
+              <p className="flex items-center justify-center gap-3">
+                <Users className="h-6 w-6 flex-shrink-0" />
+                <span>500+ Students Successfully Licensed</span>
+              </p>
             </div>
           </div>
         </div>
