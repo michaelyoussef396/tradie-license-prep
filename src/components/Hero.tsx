@@ -1,13 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Award, MapPin, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  const scrollToContact = () => {
+  const navigate = useNavigate();
+
+  const handleBookConsultation = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/contact');
     }
   };
 
@@ -130,7 +134,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 className="group bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 text-base sm:text-lg px-8 py-6 rounded-xl"
-                onClick={scrollToContact}
+                onClick={handleBookConsultation}
               >
                 Book Free Consultation
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
