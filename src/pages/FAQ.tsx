@@ -8,13 +8,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, HelpCircle, ChevronRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const FAQ = () => {
   const faqCategories = [
     {
       category: "General Questions",
+      icon: "💬",
       questions: [
         {
           question: "What is this mentorship program?",
@@ -45,6 +46,7 @@ const FAQ = () => {
     },
     {
       category: "Course & Training Questions",
+      icon: "📚",
       questions: [
         {
           question: "How long is the process before getting my license?",
@@ -75,6 +77,7 @@ const FAQ = () => {
     },
     {
       category: "Requirements",
+      icon: "📋",
       questions: [
         {
           question: "What experience do I need?",
@@ -100,6 +103,7 @@ const FAQ = () => {
     },
     {
       category: "BPC Test & Registration",
+      icon: "✅",
       questions: [
         {
           question: "What does the BPC test involve?",
@@ -125,6 +129,7 @@ const FAQ = () => {
     },
     {
       category: "Investment & Value",
+      icon: "💰",
       questions: [
         {
           question: "What do your programs cost?",
@@ -150,122 +155,177 @@ const FAQ = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white pt-32 pb-16">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold mb-4"
-            initial={{ opacity: 0, y: 20 }}
+      <section className="relative bg-slate-900 text-white pt-32 pb-20 overflow-hidden">
+        {/* Blueprint Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        {/* Gradient Orbs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Frequently Asked Questions
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-blue-100"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Everything you need to know about builder registration training in
-            Melbourne
-          </motion.p>
+            <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
+              <HelpCircle className="h-4 w-4 text-blue-400" />
+              <span className="text-blue-300 text-sm font-medium">Got Questions?</span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              Frequently Asked{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Questions
+              </span>
+            </h1>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Everything you need to know about builder registration training in Melbourne
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Quick Navigation */}
+      <section className="py-8 bg-slate-50 border-b border-slate-200">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center gap-3">
+            {faqCategories.map((category, index) => (
+              <motion.a
+                key={index}
+                href={`#category-${index}`}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-slate-200 text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-all duration-300 shadow-sm hover:shadow-md"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <span>{category.icon}</span>
+                <span className="text-sm font-medium">{category.category}</span>
+              </motion.a>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* FAQ Content */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-20">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           {faqCategories.map((category, categoryIndex) => (
-            <motion.div 
-              key={categoryIndex} 
-              className="mb-12"
+            <motion.div
+              key={categoryIndex}
+              id={`category-${categoryIndex}`}
+              className="mb-12 scroll-mt-24"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
             >
               {/* Category Heading */}
-              <h2 className="text-2xl md:text-3xl font-bold text-blue-600 mb-6">
-                {category.category}
-              </h2>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-3xl">{category.icon}</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
+                  {category.category}
+                </h2>
+              </div>
 
               {/* Questions Accordion */}
-              <Accordion type="single" collapsible className="w-full">
-                {category.questions.map((faq, questionIndex) => (
-                  <AccordionItem
-                    key={questionIndex}
-                    value={`category-${categoryIndex}-item-${questionIndex}`}
-                  >
-                    <AccordionTrigger className="text-left text-lg font-semibold">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-700 leading-relaxed">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <Accordion type="single" collapsible className="w-full">
+                  {category.questions.map((faq, questionIndex) => (
+                    <AccordionItem
+                      key={questionIndex}
+                      value={`category-${categoryIndex}-item-${questionIndex}`}
+                      className="border-b border-slate-100 last:border-b-0"
+                    >
+                      <AccordionTrigger className="text-left text-lg font-semibold px-6 py-5 hover:bg-slate-50 hover:no-underline transition-colors [&[data-state=open]]:bg-blue-50 [&[data-state=open]]:text-blue-700">
+                        <span className="flex items-center gap-3">
+                          <ChevronRight className="h-5 w-5 text-blue-500 shrink-0 transition-transform duration-200 [&[data-state=open]]:rotate-90" />
+                          {faq.question}
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-6 pb-5 pt-0 text-slate-600 leading-relaxed text-base">
+                        <div className="pl-8">
+                          {faq.answer}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        {/* Gradient Orbs */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl" />
+
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Can't Find Your Answer?
-          </motion.h2>
-          <motion.p 
-            className="text-lg text-gray-600 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Get in touch with Qualify Pro and we'll help you out
-          </motion.p>
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-6 shadow-lg">
+              <MessageCircle className="h-8 w-8 text-white" />
+            </div>
 
-          {/* Contact Methods */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <a
-              href="tel:0411626398"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              <Phone className="h-5 w-5" />
-              <span className="font-semibold">0411 626 398</span>
-            </a>
-            <a
-              href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              <Mail className="h-5 w-5" />
-              <span className="font-semibold">Email Us</span>
-            </a>
-          </motion.div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Can't Find Your{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Answer?</span>
+            </h2>
+            <p className="text-lg text-slate-300 mb-10 max-w-xl mx-auto">
+              Get in touch with Qualify Pro and we'll help you out. We're happy to answer any questions you have.
+            </p>
 
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
+            {/* Contact Methods */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+              <a
+                href="tel:0411626398"
+                className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300"
+              >
+                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <Phone className="h-5 w-5 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="text-sm text-slate-400">Call us</div>
+                  <div className="font-semibold">0411 626 398</div>
+                </div>
+              </a>
+              <a
+                href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
+                className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300"
+              >
+                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <Mail className="h-5 w-5 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="text-sm text-slate-400">Email us</div>
+                  <div className="font-semibold">Get in touch</div>
+                </div>
+              </a>
+            </div>
+
+            {/* CTA Button */}
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-lg px-8 py-6"
+              className="bg-white text-slate-900 hover:bg-slate-100 text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300"
               asChild
             >
               <Link to="/contact">Book Free Consultation</Link>
