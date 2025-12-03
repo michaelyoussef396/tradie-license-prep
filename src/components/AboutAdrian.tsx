@@ -1,6 +1,7 @@
 import { Award, Building2, Hammer, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import instructorImage from "@/assets/instructor-adrian.jpg";
 
 const AboutAdrian = () => {
   const credentials = [
@@ -30,7 +31,7 @@ const AboutAdrian = () => {
     <section id="about" className="py-12 sm:py-16 md:py-24 bg-white">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-12 items-center">
-          {/* Image Placeholder */}
+          {/* Image */}
           <motion.div 
             className="lg:col-span-2 order-first"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -38,12 +39,12 @@ const AboutAdrian = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="aspect-[3/4] bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl sm:rounded-2xl flex items-center justify-center">
-              <div className="text-center p-6 sm:p-8">
-                <Building2 className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 text-blue-600 mx-auto mb-3 sm:mb-4" />
-                <p className="text-base sm:text-lg text-gray-600 font-medium">Adrian Nicolazzo</p>
-                <p className="text-xs sm:text-sm text-gray-500">Photo Coming Soon</p>
-              </div>
+            <div className="aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
+              <img 
+                src={instructorImage} 
+                alt="Adrian Nicolazzo - Building Registration Trainer" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </motion.div>
 

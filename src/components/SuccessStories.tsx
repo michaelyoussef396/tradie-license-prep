@@ -1,21 +1,27 @@
 import { Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import fauziImage from "@/assets/success-fauzi.jpg";
+import jordanImage from "@/assets/success-jordan.jpg";
+import mannyImage from "@/assets/success-manny.jpg";
 
 const SuccessStories = () => {
   const stories = [
     {
       name: "Fauzi",
+      image: fauziImage,
       story:
         "Gained Domestic Builder – Unlimited licence 5 years ago. Now runs a thriving $15M+ building company specializing in elite homes.",
     },
     {
       name: "Jordan",
+      image: jordanImage,
       story:
         "Achieved Carpentry licence and launched a successful high-end outdoor living business throughout Melbourne.",
     },
     {
       name: "Manny",
+      image: mannyImage,
       story:
         "Licensed 5 years ago. Now completes 50+ homes per year with a reputation for quality and consistency.",
     },
@@ -51,7 +57,17 @@ const SuccessStories = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <Quote className="h-8 w-8 sm:h-10 sm:w-10 text-blue-300 mb-3 sm:mb-4" />
+              {/* Avatar and Quote Icon */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-300 flex-shrink-0">
+                  <img 
+                    src={story.image} 
+                    alt={`${story.name} - Qualify Pro graduate`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <Quote className="h-8 w-8 sm:h-10 sm:w-10 text-blue-300" />
+              </div>
               <p className="text-sm sm:text-base text-white/90 leading-relaxed mb-4 sm:mb-6">
                 {story.story}
               </p>
