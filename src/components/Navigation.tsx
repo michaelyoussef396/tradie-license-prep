@@ -42,7 +42,7 @@ const Navigation = () => {
             <img 
               src="/images/qualify-pro-logo.png" 
               alt="Qualify Pro - Building Registration Mentorship" 
-              className="h-8 sm:h-10 w-[140px] sm:w-[160px] object-contain"
+              className="w-[160px] sm:w-[200px] object-contain"
             />
           </Link>
 
