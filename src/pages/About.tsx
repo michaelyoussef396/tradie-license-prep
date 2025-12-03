@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { 
   Award, 
   Building2, 
@@ -14,145 +15,113 @@ import {
   Star,
   CheckCircle2,
   Quote,
-  Clock,
   MapPin,
-  ShieldCheck
+  ShieldCheck,
+  ArrowRight,
+  Phone
 } from "lucide-react";
+import trainingImage from "@/assets/about-training-materials.jpg";
 
 const About = () => {
   const credentials = [
     {
       icon: Building2,
       title: "Registered Building Practitioner (Unlimited)",
-      description: "Full domestic building registration covering all residential construction work with no project value limits. This is the highest level of building registration in Victoria, allowing Adrian to legally supervise and sign off on any domestic building project regardless of size or complexity."
+      description: "Full domestic building registration covering all residential construction work with no project value limits."
     },
     {
       icon: Award,
       title: "Commercial License (Low-Rise)",
-      description: "Qualified to supervise low-rise commercial building projects. This license covers commercial construction up to three storeys, including offices, retail spaces, warehouses, and mixed-use developments. Demonstrates expertise beyond residential building."
+      description: "Qualified to supervise low-rise commercial building projects up to three storeys."
     },
     {
       icon: Hammer,
       title: "Qualified Carpenter",
-      description: "Started as a qualified carpenter with years of hands-on experience on the tools. This trade foundation gives Adrian deep practical knowledge of construction techniques, building methods, and the real challenges tradies face on site every day."
+      description: "Started as a qualified carpenter with years of hands-on experience on the tools."
     },
     {
       icon: GraduationCap,
       title: "10+ Years Training Experience",
-      description: "Over a decade helping Melbourne tradies achieve their building registration. Has trained hundreds of students with a 95% success rate. Continuously updates training methods based on current BPC (formerly VBA) requirements and student feedback."
+      description: "Over a decade helping Melbourne tradies achieve their building registration with a 95% success rate."
     },
   ];
 
-  const timeline = [
-    {
-      year: "Early Career",
-      title: "Qualified Carpenter",
-      description: "Started career as a qualified carpenter, working on the tools across various residential and commercial projects. Learned construction from the ground up, gaining hands-on experience in all aspects of carpentry and building work.",
-      icon: Hammer
-    },
-    {
-      year: "Career Growth",
-      title: "Site Manager & Supervisor",
-      description: "Progressed to site management roles, coordinating teams, managing projects, and ensuring compliance across industrial, commercial, and residential sites. Developed expertise in project planning, quality control, and building regulations.",
-      icon: Users
-    },
-    {
-      year: "Achievement",
-      title: "Registered Builder",
-      description: "Achieved Registered Building Practitioner (Unlimited) and Commercial (Low-Rise) licenses. Understands firsthand the challenges of the BPC licensing process because he navigated it himself. This experience informs his teaching approach.",
-      icon: Award
-    },
-    {
-      year: "10+ Years",
-      title: "Professional Trainer",
-      description: "Dedicated career to helping other tradies achieve their building registration. Has refined teaching methods over years of experience, focusing on personalized attention and addressing individual knowledge gaps. 95% success rate proves effectiveness.",
-      icon: GraduationCap
-    }
+  const journey = [
+    { role: "Carpenter", description: "Started on the tools" },
+    { role: "Site Manager", description: "Ran job sites" },
+    { role: "Builder", description: "Full project delivery" },
+    { role: "Trainer", description: "Helping tradies succeed" },
   ];
 
   const teachingApproach = [
     {
       icon: Users,
       title: "Small Class Sizes (5-10 Max)",
-      description: "Unlike large training organizations cramming 30+ students into a room, Adrian keeps classes deliberately small. This means every student gets individual attention, can ask questions freely, and receives personalized coaching. You're not just a number - Adrian knows your name, your background, and your specific challenges."
+      description: "Every student gets individual attention. You're not just a number - Adrian knows your name and your specific challenges."
     },
     {
       icon: Target,
       title: "Identify Your Knowledge Gaps",
-      description: "Every tradie comes in with different experience and strengths. Adrian starts by assessing what you know and what you need to learn. Rather than teaching everyone the same generic content, he identifies your specific weak areas and focuses training there. This targeted approach is far more effective than one-size-fits-all courses."
+      description: "Rather than teaching everyone the same generic content, he identifies your specific weak areas and focuses training there."
     },
     {
       icon: BookOpen,
       title: "Fill Gaps, Build on Strengths",
-      description: "Once gaps are identified, Adrian creates a personalized learning path. If you're strong in practical building but weak in regulations, that's where he focuses. If your technical knowledge is solid but test-taking is a challenge, he works on that. Everyone learns differently - his teaching reflects that reality."
+      description: "Once gaps are identified, Adrian creates a personalized learning path based on your specific needs."
     },
     {
       icon: TrendingUp,
       title: "Improve Specific Weaknesses",
-      description: "Whether it's understanding Australian Standards, mastering BPC regulations, or building confidence for the interview, Adrian addresses specific weaknesses head-on. Students aren't left wondering what they don't know - he makes it clear and provides targeted training to improve those exact areas."
+      description: "Whether it's understanding Australian Standards or building interview confidence, Adrian addresses weaknesses head-on."
     },
     {
       icon: Star,
       title: "Show You Your Strengths",
-      description: "Many experienced tradies underestimate their own knowledge. Adrian helps students recognize and build confidence in what they already know. This confidence is crucial for BPC interviews. When you know your strengths, you can speak with authority about your experience and capabilities."
+      description: "Many experienced tradies underestimate their own knowledge. Adrian helps build confidence in what you already know."
     },
     {
       icon: CheckCircle2,
       title: "Understanding, Not Memorization",
-      description: "Adrian doesn't believe in memorizing answers to pass a test. He teaches underlying building principles and regulations so students truly understand the 'why' behind the rules. This deeper understanding not only helps pass the BPC process but makes you a genuinely better builder."
+      description: "He teaches underlying building principles so students truly understand the 'why' behind the rules."
     }
   ];
 
   const testimonials = [
     {
-      quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on. His teaching style is clear and practical.",
+      quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on.",
       author: "Jordan",
-      achievement: "DB-L Carpentry License"
+      achievement: "DB-L Carpentry License",
+      initials: "J",
+      gradient: "from-emerald-500 to-teal-500"
     },
     {
-      quote: "What I appreciated most was how Adrian personalized his teaching. He identified where I was weak and spent extra time helping me improve those areas. I felt like he genuinely cared about my success.",
-      author: "Sidhu",
-      achievement: "Domestic Builder - Unlimited"
-    },
-    {
-      quote: "Small class sizes made all the difference. I could ask questions without feeling stupid, and Adrian always took the time to explain things properly. Worth every dollar.",
+      quote: "What I appreciated most was how Adrian personalized his teaching. He identified where I was weak and spent extra time helping me improve those areas.",
       author: "Manny",
-      achievement: "Domestic Builder - Unlimited"
+      achievement: "Domestic Builder - Unlimited",
+      initials: "M",
+      gradient: "from-amber-500 to-orange-500"
     },
     {
-      quote: "I failed the BPC process on my own, but with Adrian's help I passed easily the second time. His teaching focuses on understanding the principles, not just memorizing answers. That's what made the difference.",
+      quote: "Small class sizes made all the difference. I could ask questions without feeling stupid, and Adrian always took the time to explain things properly.",
       author: "Ben",
-      achievement: "Domestic Builder - Unlimited"
+      achievement: "Bathroom & Kitchen License",
+      initials: "B",
+      gradient: "from-violet-500 to-purple-500"
     },
     {
-      quote: "Adrian has been on the tools, been a site manager, and been a builder. He understands the practical side of building, not just theory. That real-world experience shows in his teaching.",
+      quote: "Adrian has been on the tools, been a site manager, and been a builder. He understands the practical side of building, not just theory.",
       author: "Fauzi",
-      achievement: "Domestic Builder - Unlimited"
+      achievement: "Domestic Builder - Unlimited",
+      initials: "F",
+      gradient: "from-blue-500 to-blue-600"
     },
-    {
-      quote: "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex regulations easy to understand and gave me the confidence to pass my interview.",
-      author: "Marco",
-      achievement: "Domestic Builder - Unlimited"
-    },
-    {
-      quote: "I've taken other courses before and this was completely different. Adrian tailors his teaching to each student's needs instead of using a cookie-cutter approach. That personalization is why his success rate is so high.",
-      author: "Nick",
-      achievement: "DB-L Carpentry License"
-    },
-    {
-      quote: "What impressed me was Adrian's commitment to making sure we passed. He didn't just run through the material - he checked our understanding, identified weak points, and made sure we were truly ready before attempting registration.",
-      author: "Tom",
-      achievement: "Domestic Builder - Unlimited"
-    }
   ];
 
   const stats = [
-    { number: "95%", label: "Success Rate", description: "Students who pass and gain registration" },
-    { number: "10+", label: "Years Experience", description: "Training tradies for licensing" },
-    { number: "500+", label: "Students Trained", description: "Tradies helped achieve registration" },
-    { number: "5-10", label: "Max Class Size", description: "Personal attention guaranteed" },
-    { number: "100%", label: "Face-to-Face", description: "Melbourne-based in-person training" },
-    { number: "3", label: "License Types", description: "Unlimited, DB-L, Commercial covered" }
+    { number: "95%", label: "Success Rate" },
+    { number: "10+", label: "Years Experience" },
+    { number: "500+", label: "Students Trained" },
+    { number: "5-10", label: "Max Class Size" },
   ];
 
   return (
@@ -160,195 +129,220 @@ const About = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-              Learn From Someone Who's Been On The Tools
+      <section className="relative pt-32 pb-20 bg-slate-900 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-slate-900 to-slate-900" />
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-1.5 bg-blue-500/20 border border-blue-400/30 text-blue-300 rounded-full text-sm font-medium mb-6">
+              Meet Your Trainer
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Learn From Someone Who's<br />
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                Been On The Tools
+              </span>
             </h1>
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-8 text-lg text-blue-100">
-              <p className="flex items-center justify-center gap-3">
-                <Award className="h-6 w-6 flex-shrink-0" />
-                <span>Registered Building Practitioner (Unlimited)</span>
-              </p>
-              <p className="flex items-center justify-center gap-3">
-                <Building2 className="h-6 w-6 flex-shrink-0" />
-                <span>Commercial License (Low-Rise)</span>
-              </p>
-              <p className="flex items-center justify-center gap-3">
-                <GraduationCap className="h-6 w-6 flex-shrink-0" />
-                <span>10+ Years Training Melbourne Tradies</span>
-              </p>
-              <p className="flex items-center justify-center gap-3">
-                <Users className="h-6 w-6 flex-shrink-0" />
-                <span>500+ Students Successfully Licensed</span>
-              </p>
+            <p className="text-xl text-blue-100/80 max-w-2xl mx-auto mb-8">
+              Adrian Nicolazzo isn't your typical trainer. Before he started helping tradies get their licences, 
+              he spent years doing the work himself.
+            </p>
+            
+            {/* Stats Row */}
+            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+              {stats.map((stat, index) => (
+                <motion.div 
+                  key={index}
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                >
+                  <div className="text-3xl md:text-4xl font-bold text-white">{stat.number}</div>
+                  <div className="text-sm text-blue-300">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Full Biography */}
+      {/* Adrian's Story with Image */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-            Adrian's Story
-          </h2>
-          
-          <div className="space-y-6 text-gray-700 leading-relaxed text-lg">
-            <p>
-              Adrian didn't start as a trainer - he started as a carpenter, working on the tools like every 
-              other tradie trying to make a living. He knows what it's like to be covered in sawdust at the 
-              end of a long day, to deal with difficult site conditions, and to work for someone else's building 
-              company while dreaming of running your own.
-            </p>
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="relative">
+                <div className="absolute -inset-3 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-2xl blur-xl" />
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                  <img 
+                    src={trainingImage} 
+                    alt="Training materials and building plans at Qualify Pro" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Overlay badge */}
+                <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-4 rounded-2xl shadow-xl">
+                  <div className="text-3xl font-bold">95%</div>
+                  <div className="text-sm text-blue-300">Success Rate</div>
+                </div>
+              </div>
+            </motion.div>
 
-            <p>
-              After years working as a qualified carpenter on residential and commercial projects across Melbourne, 
-              Adrian progressed into site management roles. He coordinated teams, managed projects from start to 
-              finish, and gained deep knowledge of building regulations, compliance requirements, and quality 
-              standards. But more importantly, he learned how buildings actually come together - not just the 
-              theory from textbooks, but the practical reality of making it work on site.
-            </p>
+            {/* Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+                Adrian's Story
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                From Carpenter to Trainer
+              </h2>
+              <div className="space-y-4 text-gray-600 leading-relaxed">
+                <p>
+                  Adrian didn't start as a trainer - he started as a carpenter, working on the tools like every 
+                  other tradie. He knows what it's like to be covered in sawdust at the end of a long day.
+                </p>
+                <p>
+                  After years working on residential and commercial projects across Melbourne, Adrian progressed 
+                  into site management roles, gaining deep knowledge of building regulations and compliance.
+                </p>
+                <p>
+                  When he went through the BPC licensing process himself, he found it confusing and intimidating. 
+                  That experience drives his teaching today - helping tradies navigate what he once struggled with.
+                </p>
+              </div>
 
-            <p>
-              The turning point came when Adrian decided to get his building registration. Like many tradies, 
-              he found the BPC licensing process confusing and intimidating. There was so much information to 
-              absorb - building codes, Australian Standards, regulations, business knowledge - and not much 
-              guidance on how to prepare properly. He passed his registration through determination and hard 
-              work, eventually achieving both Domestic Builder (Unlimited) and Commercial (Low-Rise) licenses.
-            </p>
-
-            <p>
-              After gaining his licenses, Adrian started noticing a pattern. Many experienced tradies with solid 
-              practical skills were struggling with the registration process. Some failed multiple times not 
-              because they lacked ability, but because they didn't know how to prepare effectively or what 
-              BPC was really looking for. Others gave up entirely, convinced they "weren't smart enough" - which 
-              was never true.
-            </p>
-
-            <p>
-              That's when Adrian decided to start training. He knew he could help tradies navigate the licensing 
-              process because he'd been through it himself. He understood the challenges, the confusing parts, 
-              and what made the difference between passing and failing. More than that, he believed experienced 
-              tradies deserved to have their own building businesses, not spend their whole careers making 
-              someone else rich.
-            </p>
-
-            <p>
-              Over 10+ years and 500+ students later, Adrian has refined his teaching approach into something 
-              uniquely effective: small classes, personalized attention, and a focus on understanding principles 
-              rather than memorizing answers. His 95% success rate isn't accidental - it's the result of genuinely 
-              caring about student success and refusing to take shortcuts in training. When you train with Adrian, 
-              you're learning from someone who's been in your position and knows exactly how to help you succeed.
-            </p>
+              {/* Journey Pills */}
+              <div className="mt-8">
+                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">The Journey</p>
+                <div className="flex flex-wrap gap-2">
+                  {journey.map((item, index) => (
+                    <div key={index} className="flex items-center">
+                      <span className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-100">
+                        {item.role}
+                      </span>
+                      {index < journey.length - 1 && (
+                        <ArrowRight className="w-4 h-4 text-gray-300 mx-1" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Credentials Section */}
-      <section className="py-16 md:py-24 bg-blue-50">
+      {/* Credentials */}
+      <section className="py-16 md:py-24 bg-slate-50">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Qualifications & Experience
-          </h2>
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+              Qualifications
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              Credentials & Experience
+            </h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {credentials.map((cred, index) => {
               const Icon = cred.icon;
               return (
-                <div
+                <motion.div
                   key={index}
-                  className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                  className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
-                    <Icon className="h-8 w-8 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-5">
+                    <Icon className="h-7 w-7 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    {cred.title}
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    {cred.description}
-                  </p>
-                </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{cred.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{cred.description}</p>
+                </motion.div>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Career Journey
-          </h2>
-
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200 hidden md:block" />
-
-            {/* Timeline items */}
-            <div className="space-y-12">
-              {timeline.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <div key={index} className="relative flex gap-8">
-                    {/* Icon */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center relative z-10">
-                      <Icon className="h-8 w-8 text-white" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 bg-blue-50 p-6 rounded-xl">
-                      <div className="text-sm font-semibold text-blue-600 mb-2">
-                        {item.year}
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-700 leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Teaching Philosophy */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-blue-900 to-blue-800 text-white">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="py-16 md:py-24 bg-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-900 to-slate-900" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-1.5 bg-blue-500/20 border border-blue-400/30 text-blue-300 rounded-full text-sm font-medium mb-4">
+              Teaching Philosophy
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               How I Teach Differently
             </h2>
-            <p className="text-xl text-blue-200">
+            <p className="text-lg text-blue-200/70 max-w-2xl mx-auto">
               It's not about cramming information - it's about understanding what you need to learn
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {teachingApproach.map((approach, index) => {
               const Icon = approach.icon;
               return (
-                <div
+                <motion.div
                   key={index}
-                  className="glass-card p-6 rounded-xl hover:bg-white/20 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
                     <Icon className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3">
-                    {approach.title}
-                  </h3>
-                  <p className="text-white/90 leading-relaxed">
-                    {approach.description}
-                  </p>
-                </div>
+                  <h3 className="text-xl font-bold text-white mb-2">{approach.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{approach.description}</p>
+                </motion.div>
               );
             })}
           </div>
@@ -356,168 +350,144 @@ const About = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-blue-50">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            What Students Say
-          </h2>
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+              Student Feedback
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              What Students Say
+            </h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Quote className="h-8 w-8 text-blue-300 mb-3" />
-                <p className="text-gray-700 leading-relaxed mb-4 text-sm">
+                <Quote className="h-8 w-8 text-blue-200 mb-4" />
+                <p className="text-gray-700 leading-relaxed mb-6">
                   "{testimonial.quote}"
                 </p>
-                <div className="border-t border-gray-200 pt-4">
-                  <div className="font-bold text-gray-900">{testimonial.author}</div>
-                  <div className="text-sm text-blue-600">{testimonial.achievement}</div>
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center`}>
+                    <span className="text-lg font-bold text-white">{testimonial.initials}</span>
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900">{testimonial.author}</div>
+                    <div className="text-sm text-blue-600">{testimonial.achievement}</div>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* By The Numbers */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            By The Numbers
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-blue-50 p-6 rounded-xl text-center hover:bg-blue-100 transition-colors duration-300"
-              >
-                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
-                  {stat.number}
-                </div>
-                <div className="font-semibold text-gray-900 mb-1">
-                  {stat.label}
-                </div>
-                <div className="text-sm text-gray-600">
-                  {stat.description}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industry Involvement */}
-      <section className="py-16 md:py-24 bg-blue-50">
+      {/* Industry Expertise */}
+      <section className="py-16 md:py-24 bg-slate-50">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Industry Involvement & Expertise
-          </h2>
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+              Industry Knowledge
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              Staying Current
+            </h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Current BPC Knowledge
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    Adrian stays up-to-date with BPC regulation changes, new Australian Standards, 
-                    and updated building codes. His training materials are continuously revised to reflect 
-                    current requirements, ensuring students are prepared for today's licensing process.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <BookOpen className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Ongoing Education
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    Maintains current building practitioner registration requiring ongoing professional 
-                    development. Regularly attends industry updates and training to ensure teaching reflects 
-                    best practices and current building standards.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Industry Connections
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    Strong network within Melbourne's building industry. Maintains relationships with other 
-                    registered builders, suppliers, and industry professionals. This network benefits students 
-                    through insights and connections.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Melbourne-Based
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    Located in Melbourne with deep knowledge of Victorian building regulations. Understands 
-                    local building market, council requirements, and Melbourne-specific construction challenges. 
-                    Face-to-face training only.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { icon: ShieldCheck, title: "Current BPC Knowledge", description: "Training materials continuously revised to reflect current BPC requirements and regulation changes." },
+              { icon: BookOpen, title: "Ongoing Education", description: "Maintains current building practitioner registration requiring ongoing professional development." },
+              { icon: Users, title: "Industry Connections", description: "Strong network within Melbourne's building industry with relationships across suppliers and professionals." },
+              { icon: MapPin, title: "Melbourne-Based", description: "Deep knowledge of Victorian building regulations and Melbourne-specific construction requirements." },
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-700">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Learn From Adrian?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join hundreds of Melbourne tradies who have achieved their building registration
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <section className="py-16 md:py-20 bg-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-900 to-slate-900" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Ready to Learn From Adrian?
+            </h2>
+            <p className="text-xl text-blue-200/80 mb-8">
+              Join hundreds of Melbourne tradies who have achieved their building registration
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
-                className="bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 py-6 h-auto" 
+                className="bg-white text-slate-900 hover:bg-blue-50 text-lg px-8 py-6 h-auto rounded-xl shadow-lg group" 
                 size="lg"
                 asChild
               >
-                <Link to="/courses">View Training Programs</Link>
+                <Link to="/courses" className="flex items-center gap-2">
+                  View Training Programs
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
               <Button 
-                className="bg-blue-800 text-white hover:bg-blue-900 text-lg px-8 py-6 h-auto border-2 border-white" 
+                className="bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-6 h-auto rounded-xl group" 
                 size="lg"
                 asChild
               >
-                <Link to="/contact">Book Free Consultation</Link>
+                <a href="tel:0411626398" className="flex items-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  Call 0411 626 398
+                </a>
               </Button>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
