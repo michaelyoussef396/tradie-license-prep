@@ -142,7 +142,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-blue-400/40 text-blue-100 hover:bg-blue-500/10 hover:border-blue-400/60 backdrop-blur-sm text-base sm:text-lg px-8 py-6 rounded-xl"
+                className="border-2 border-white/40 text-white hover:bg-white/10 hover:border-white/60 backdrop-blur-sm text-base sm:text-lg px-8 py-6 rounded-xl"
                 asChild
               >
                 <Link to="/courses">View Courses</Link>
