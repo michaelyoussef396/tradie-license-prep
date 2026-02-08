@@ -46,7 +46,7 @@ const Footer = () => {
               <img 
                 src="/images/qualify-pro-logo.png" 
                 alt="Qualify Pro" 
-                className="h-10 w-auto brightness-0 invert"
+                className="h-16 w-auto brightness-0 invert"
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
