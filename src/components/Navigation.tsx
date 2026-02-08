@@ -25,10 +25,8 @@ const Navigation = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md ${
+        isScrolled ? "shadow-md" : ""
       }`}
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -52,11 +50,7 @@ const Navigation = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className={`transition-colors font-medium ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-blue-600"
-                    : "text-white/90 hover:text-white"
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               >
                 {link.name}
               </Link>
@@ -76,11 +70,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden p-2 transition-colors ${
-              isScrolled
-                ? "text-gray-700 hover:text-blue-600"
-                : "text-white hover:text-blue-400"
-            }`}
+            className="lg:hidden p-2 text-gray-700 hover:text-blue-600 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
