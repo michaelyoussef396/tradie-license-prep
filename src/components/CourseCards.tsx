@@ -117,7 +117,7 @@ const CourseCards = () => {
             return (
               <motion.div
                 key={index}
-                className={`group relative ${course.featured ? 'md:-mt-4 md:mb-4' : ''}`}
+                className="group relative"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -128,16 +128,18 @@ const CourseCards = () => {
                   <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
                 )}
                 
-                <div className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full
+                <div className={`relative bg-white rounded-2xl overflow-hidden h-full flex flex-col
+                  transition-all duration-300 ease-out
+                  hover:-translate-y-1.5 hover:shadow-2xl
                   ${course.featured 
-                    ? 'shadow-xl ring-2 ring-emerald-500/50 hover:shadow-2xl' 
-                    : 'shadow-md hover:shadow-xl border border-gray-100 hover:border-blue-200'
+                    ? 'shadow-xl ring-2 ring-emerald-500/50' 
+                    : 'shadow-md border border-gray-100 hover:border-blue-200'
                   }`}
                 >
                   {/* Top accent bar */}
                   <div className={`h-1.5 ${course.featured ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-gradient-to-r from-blue-500 to-blue-600'}`} />
                   
-                  <div className="p-6 sm:p-8">
+                  <div className="p-6 sm:p-8 flex flex-col flex-1">
                     {/* Badge & Popular Star */}
                     <div className="flex items-center justify-between mb-4">
                       <span className={`${course.badge.color} text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm`}>
@@ -181,7 +183,7 @@ const CourseCards = () => {
                     </div>
 
                     {/* Includes */}
-                    <div className="space-y-3 mb-8">
+                    <div className="space-y-3 mb-8 flex-1">
                       {course.includes.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5
