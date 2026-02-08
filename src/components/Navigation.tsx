@@ -4,14 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const heroSection = document.getElementById("hero-section");
+      const heroBottom = heroSection ? heroSection.offsetHeight - 80 : 600;
+      setPastHero(window.scrollY > heroBottom);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -25,10 +28,10 @@ const Navigation = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        pastHero
           ? "bg-white/95 backdrop-blur-lg shadow-md"
-          : "bg-white backdrop-blur-md"
+          : "bg-slate-900/80 backdrop-blur-md"
       }`}
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -52,7 +55,7 @@ const Navigation = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
+                className={`transition-colors duration-500 font-medium ${pastHero ? "text-slate-700 hover:text-blue-600" : "text-white/90 hover:text-white"}`}
               >
                 {link.name}
               </Link>
@@ -72,7 +75,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition-colors"
+            className={`lg:hidden p-2 transition-colors duration-500 ${pastHero ? "text-slate-700 hover:text-blue-600" : "text-white hover:text-blue-400"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
