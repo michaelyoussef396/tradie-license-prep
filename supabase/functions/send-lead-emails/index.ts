@@ -171,7 +171,7 @@ Deno.serve(async (req) => {
     const lead: LeadPayload = await req.json();
     const firstName = lead.name.split(" ")[0];
 
-    // Send both emails in parallel
+    // Send emails + Airtable sync in parallel
     const [notifRes, replyRes] = await Promise.all([
       // Email 1: Notification to Adrian
       fetch("https://api.resend.com/emails", {
@@ -196,6 +196,11 @@ Deno.serve(async (req) => {
         }),
       }),
     ]);
+
+    // Airtable sync - fire and forget, don't block response
+    syncToAirtable(lead, "contact-form").catch((err) =>
+      console.error("Airtable sync error:", err)
+    );
 
     const notifData = await notifRes.json();
     const replyData = await replyRes.json();
