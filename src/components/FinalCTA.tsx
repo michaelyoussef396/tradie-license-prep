@@ -220,7 +220,7 @@ const FinalCTA = () => {
                         placeholder="Your phone number"
                         required
                         value={formData.phone}
-                        onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                        onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, phone: e.target.value })); }}
                         className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
