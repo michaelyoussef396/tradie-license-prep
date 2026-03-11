@@ -15,10 +15,48 @@ import {
 } from "@/components/ui/select";
 
 const FinalCTA = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    licenseType: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form handling will be added later
-    console.log("Form submitted");
+    setIsSubmitting(true);
+
+    try {
+      const combinedMessage = `License: ${formData.licenseType || "Not specified"} | Message: ${formData.message || "No message provided"}`;
+
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: combinedMessage,
+        source: "contact-form",
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Thanks! We'll be in touch within 24 hours.",
+        description: "Your consultation request has been received.",
+      });
+
+      setFormData({ name: "", phone: "", email: "", licenseType: "", message: "" });
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description: "Please call us on 0411 626 398.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const benefits = [
