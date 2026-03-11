@@ -3,5 +3,3 @@ project_id = "dpceyonfjfjaogwkyrhp"
 [functions.send-lead-emails]
 verify_jwt = false
 
-[functions.follow-up-emails]
-verify_jwt = false

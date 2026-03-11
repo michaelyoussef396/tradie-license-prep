@@ -14,7 +14,7 @@ interface LeadPayload {
   licenseType?: string;
 }
 
-const ADMIN_EMAIL = "support@adcopropertyinspectionsmelbourne.com.au";
+const ADMIN_EMAIL = "michaelyoussef396@gmail.com";
 const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
 
 function buildNotificationHtml(lead: LeadPayload): string {
