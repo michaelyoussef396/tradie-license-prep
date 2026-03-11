@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,6 +6,7 @@ import { Phone, Mail, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-rea
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
 import {
   Select,
   SelectContent,
