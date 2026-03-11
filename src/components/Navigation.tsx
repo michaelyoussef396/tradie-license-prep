@@ -80,7 +80,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition-colors duration-500"
+            className={`lg:hidden p-2 transition-colors duration-500 ${pastHero ? "text-slate-700 hover:text-blue-600" : "text-white hover:text-blue-400"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
