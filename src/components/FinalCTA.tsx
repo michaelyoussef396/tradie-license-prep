@@ -30,13 +30,12 @@ const FinalCTA = () => {
     setIsSubmitting(true);
 
     try {
-      const combinedMessage = `License: ${formData.licenseType || "Not specified"} | Message: ${formData.message || "No message provided"}`;
-
       const { error } = await supabase.from("leads").insert({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        message: combinedMessage,
+        license_type: formData.licenseType || null,
+        message: formData.message || null,
         source: "contact-form",
       });
 
@@ -48,7 +47,8 @@ const FinalCTA = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          message: combinedMessage,
+          licenseType: formData.licenseType || "",
+          message: formData.message || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
 
