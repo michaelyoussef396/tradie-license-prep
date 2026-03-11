@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
 import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 import {
   Select,
   SelectContent,
@@ -12,10 +15,48 @@ import {
 } from "@/components/ui/select";
 
 const FinalCTA = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    licenseType: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form handling will be added later
-    console.log("Form submitted");
+    setIsSubmitting(true);
+
+    try {
+      const combinedMessage = `License: ${formData.licenseType || "Not specified"} | Message: ${formData.message || "No message provided"}`;
+
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: combinedMessage,
+        source: "contact-form",
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Thanks! We'll be in touch within 24 hours.",
+        description: "Your consultation request has been received.",
+      });
+
+      setFormData({ name: "", phone: "", email: "", licenseType: "", message: "" });
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description: "Please call us on 0411 626 398.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const benefits = [
@@ -147,6 +188,8 @@ const FinalCTA = () => {
                         type="text"
                         placeholder="Your full name"
                         required
+                        value={formData.name}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                         className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -158,6 +201,8 @@ const FinalCTA = () => {
                         type="tel"
                         placeholder="Your phone number"
                         required
+                        value={formData.phone}
+                        onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                         className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -171,6 +216,8 @@ const FinalCTA = () => {
                       type="email"
                       placeholder="your@email.com"
                       required
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                       className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
@@ -179,7 +226,7 @@ const FinalCTA = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
                       License Type *
                     </label>
-                    <Select>
+                    <Select value={formData.licenseType} onValueChange={(value) => setFormData(prev => ({ ...prev, licenseType: value }))}>
                       <SelectTrigger className="w-full h-12 text-base border-gray-200">
                         <SelectValue placeholder="Select license type" />
                       </SelectTrigger>
@@ -200,6 +247,8 @@ const FinalCTA = () => {
                     <Textarea
                       placeholder="How many years have you been in the trade? What help do you need?"
                       rows={3}
+                      value={formData.message}
+                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                       className="w-full text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500 resize-none"
                     />
                   </div>
@@ -207,9 +256,10 @@ const FinalCTA = () => {
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={isSubmitting}
                     className="w-full h-14 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold shadow-lg shadow-blue-500/25 group"
                   >
-                    Book Free Consultation
+                    {isSubmitting ? "Sending..." : "Book Free Consultation"}
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
 
