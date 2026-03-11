@@ -54,14 +54,13 @@ const FinalCTA = () => {
         },
       }).catch((err) => console.error("Email send failed:", err));
 
-      toast({
-        title: "Thanks! We'll be in touch within 24 hours.",
-
       trackContactFormSubmit({
         license_type: formData.licenseType || 'not specified',
         years_experience: 'not specified',
         source: 'homepage-cta',
       });
+
+      toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
       });
