@@ -93,6 +93,7 @@ const Contact = () => {
         source: 'contact-form',
       });
 
+      toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
       });
