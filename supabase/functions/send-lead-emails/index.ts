@@ -21,10 +21,11 @@ const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
 const AIRTABLE_BASE_ID = "appdzKGXLVTZe1tHS";
 const AIRTABLE_TABLE_ID = "tbl4uVt3WNhAFYYPO";
 
-function parseYearsExperience(value?: string): string {
-  if (!value) return "";
-  // Return the raw value as-is (e.g. "2-3", "4-5", "6-10", "10+")
-  return value;
+function parseYearsExperience(value?: string): number | null {
+  if (!value) return null;
+  // Extract first number from range strings like "2-3", "4-5", "10+"
+  const match = value.match(/(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
 }
 
 async function syncToAirtable(lead: LeadPayload, source: string): Promise<void> {
