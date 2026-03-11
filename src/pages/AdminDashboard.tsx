@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Users, GitBranch, GraduationCap, LogOut, Menu, X, FlaskConical } from "lucide-react";
+import { Users, GitBranch, GraduationCap, LogOut, Menu, X } from "lucide-react";
 import qualifyProLogo from "@/assets/qualify-pro-logo.png";
 import NewLeadsTab from "@/components/admin/NewLeadsTab";
 import PipelineTab from "@/components/admin/PipelineTab";
