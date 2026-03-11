@@ -30,7 +30,7 @@ const AdminLogin = () => {
     <div className="min-h-screen flex items-center justify-center bg-[#0f172a]">
       <div className="w-full max-w-sm p-8 bg-[#1e293b] rounded-xl shadow-2xl">
         <div className="flex justify-center mb-6">
-          <img src={qualifyProLogo} alt="Qualify Pro" className="h-20" />
+          <img src={qualifyProLogo} alt="Qualify Pro" className="w-48" />
         </div>
         <h1 className="text-xl font-bold text-white text-center mb-6">Admin Login</h1>
         <form onSubmit={handleLogin} className="space-y-4">
