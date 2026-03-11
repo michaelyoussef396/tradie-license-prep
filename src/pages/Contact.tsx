@@ -61,16 +61,24 @@ const Contact = () => {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
 
-      // Here you would normally send to a backend API
-      console.log("Form submitted:", validatedData);
+      // Combine license_type, experience, and message into the message field
+      const combinedMessage = `License: ${validatedData.licenseType} | Experience: ${validatedData.experience} years | Message: ${validatedData.message || "No message provided"}`;
 
-      // Show success message
-      toast({
-        title: "Consultation Request Received!",
-        description: "We'll contact you within 24 hours to schedule your free consultation.",
+      const { error } = await supabase.from("leads").insert({
+        name: validatedData.fullName,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        message: combinedMessage,
+        source: "contact-form",
       });
 
-      // Reset form
+      if (error) throw error;
+
+      toast({
+        title: "Thanks! We'll be in touch within 24 hours.",
+        description: "Your consultation request has been received.",
+      });
+
       setFormData({
         fullName: "",
         phone: "",
@@ -81,7 +89,6 @@ const Contact = () => {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // Show validation errors
         const firstError = error.errors[0];
         toast({
           title: "Validation Error",
@@ -90,8 +97,8 @@ const Contact = () => {
         });
       } else {
         toast({
-          title: "Error",
-          description: "Something went wrong. Please try again or call us directly.",
+          title: "Something went wrong",
+          description: "Please call us on 0411 626 398.",
           variant: "destructive"
         });
       }
