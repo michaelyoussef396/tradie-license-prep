@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("leads");
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showTests, setShowTests] = useState(false);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
