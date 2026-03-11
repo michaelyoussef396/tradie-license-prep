@@ -1,0 +1,1 @@
+SELECT cron.unschedule('follow-up-emails-daily');
