@@ -8,6 +8,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleBookConsultation = () => {
+    trackCtaClick('Book Free Consultation', 'homepage');
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
