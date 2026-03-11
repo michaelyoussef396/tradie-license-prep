@@ -7,6 +7,7 @@ import qualifyProLogo from "@/assets/qualify-pro-logo.png";
 import NewLeadsTab from "@/components/admin/NewLeadsTab";
 import PipelineTab from "@/components/admin/PipelineTab";
 import StudentsTab from "@/components/admin/StudentsTab";
+import TestRunner from "@/components/admin/TestRunner";
 
 const tabs = [
   { id: "leads", label: "New Leads", icon: Users },
