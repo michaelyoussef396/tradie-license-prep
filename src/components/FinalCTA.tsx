@@ -235,7 +235,7 @@ const FinalCTA = () => {
                       placeholder="your@email.com"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, email: e.target.value })); }}
                       className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
