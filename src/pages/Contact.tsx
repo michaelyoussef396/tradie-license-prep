@@ -26,14 +26,16 @@ import {
   ArrowRight,
   Send
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formStartedRef = useRef(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -85,6 +87,12 @@ const Contact = () => {
         },
       }).catch((err) => console.error("Email send failed:", err));
 
+      trackContactFormSubmit({
+        license_type: validatedData.licenseType,
+        years_experience: validatedData.experience,
+        source: 'contact-form',
+      });
+
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
@@ -119,6 +127,10 @@ const Contact = () => {
   };
 
   const handleInputChange = (field: string, value: string) => {
+    if (!formStartedRef.current) {
+      formStartedRef.current = true;
+      trackContactFormStart();
+    }
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,6 +6,7 @@ import { Phone, Mail, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-rea
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
 import {
   Select,
   SelectContent,
@@ -17,6 +18,7 @@ import {
 const FinalCTA = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formStartedRef = useRef(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -51,6 +53,12 @@ const FinalCTA = () => {
           message: formData.message || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
+
+      trackContactFormSubmit({
+        license_type: formData.licenseType || 'not specified',
+        years_experience: 'not specified',
+        source: 'homepage-cta',
+      });
 
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
@@ -199,7 +207,7 @@ const FinalCTA = () => {
                         placeholder="Your full name"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, name: e.target.value })); }}
                         className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -212,7 +220,7 @@ const FinalCTA = () => {
                         placeholder="Your phone number"
                         required
                         value={formData.phone}
-                        onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                        onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, phone: e.target.value })); }}
                         className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -227,7 +235,7 @@ const FinalCTA = () => {
                       placeholder="your@email.com"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, email: e.target.value })); }}
                       className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
@@ -258,7 +266,7 @@ const FinalCTA = () => {
                       placeholder="How many years have you been in the trade? What help do you need?"
                       rows={3}
                       value={formData.message}
-                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, message: e.target.value })); }}
                       className="w-full text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500 resize-none"
                     />
                   </div>

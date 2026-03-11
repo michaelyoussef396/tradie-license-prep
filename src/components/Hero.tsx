@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Award, MapPin, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { trackCtaClick } from "@/lib/analytics";
 
 const Hero = () => {
   const navigate = useNavigate();
 
   const handleBookConsultation = () => {
+    trackCtaClick('Book Free Consultation', 'homepage');
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });

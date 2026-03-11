@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { trackCtaClick } from "@/lib/analytics";
 
 const Navigation = () => {
   const [pastHero, setPastHero] = useState(false);
@@ -74,7 +75,7 @@ const Navigation = () => {
               className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-transform shadow-lg"
               asChild
             >
-              <Link to="/contact">Get Started</Link>
+              <Link to="/contact" onClick={() => trackCtaClick('Get Started', window.location.pathname)}>Get Started</Link>
             </Button>
           </div>
 
@@ -110,7 +111,7 @@ const Navigation = () => {
               className="bg-gradient-to-r from-blue-600 to-blue-700 w-full"
               asChild
             >
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link to="/contact" onClick={() => { trackCtaClick('Get Started', window.location.pathname); setIsMobileMenuOpen(false); }}>
                 Get Started
               </Link>
             </Button>
