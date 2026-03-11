@@ -100,10 +100,6 @@ const AdminDashboard = () => {
             <h2 className="text-white font-semibold text-sm md:text-base">Qualify Pro Admin</h2>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" onClick={() => setShowTests(true)} className="text-gray-400 hover:text-white hover:bg-gray-700">
-              <FlaskConical className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline">Run Tests</span>
-            </Button>
             <Button variant="ghost" onClick={handleLogout} className="text-gray-400 hover:text-white hover:bg-gray-700">
               <LogOut className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Logout</span>
