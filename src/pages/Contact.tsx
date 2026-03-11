@@ -290,10 +290,10 @@ const Contact = () => {
                         <SelectValue placeholder="Select license type" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
-                        <SelectItem value="unlimited">Domestic Builder - Unlimited</SelectItem>
-                        <SelectItem value="dbl">Carpentry License (DB-L)</SelectItem>
-                        <SelectItem value="commercial">Commercial Building (Low-Rise)</SelectItem>
-                        <SelectItem value="other">Other / Not Sure</SelectItem>
+                        <SelectItem value="Domestic Builder - Unlimited">Domestic Builder - Unlimited</SelectItem>
+                        <SelectItem value="Carpentry License (DB-L)">Carpentry License (DB-L)</SelectItem>
+                        <SelectItem value="Commercial Building (Low-Rise)">Commercial Building (Low-Rise)</SelectItem>
+                        <SelectItem value="Other / Not Sure">Other / Not Sure</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

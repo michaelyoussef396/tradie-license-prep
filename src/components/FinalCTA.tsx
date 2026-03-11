@@ -241,11 +241,11 @@ const FinalCTA = () => {
                         <SelectValue placeholder="Select license type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="builder-unlimited">Domestic Builder Unlimited</SelectItem>
-                        <SelectItem value="carpentry">Carpentry (DB-L)</SelectItem>
-                        <SelectItem value="commercial">Commercial Building (Low-Rise)</SelectItem>
-                        <SelectItem value="waterproofing">Waterproofing</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="Domestic Builder Unlimited">Domestic Builder Unlimited</SelectItem>
+                        <SelectItem value="Carpentry License (DB-L)">Carpentry License (DB-L)</SelectItem>
+                        <SelectItem value="Commercial Building (Low-Rise)">Commercial Building (Low-Rise)</SelectItem>
+                        <SelectItem value="Waterproofing">Waterproofing</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
