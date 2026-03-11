@@ -111,7 +111,7 @@ const Navigation = () => {
               className="bg-gradient-to-r from-blue-600 to-blue-700 w-full"
               asChild
             >
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link to="/contact" onClick={() => { trackCtaClick('Get Started', window.location.pathname); setIsMobileMenuOpen(false); }}>
                 Get Started
               </Link>
             </Button>

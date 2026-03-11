@@ -266,7 +266,7 @@ const FinalCTA = () => {
                       placeholder="How many years have you been in the trade? What help do you need?"
                       rows={3}
                       value={formData.message}
-                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, message: e.target.value })); }}
                       className="w-full text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500 resize-none"
                     />
                   </div>
