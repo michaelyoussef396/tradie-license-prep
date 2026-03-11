@@ -61,14 +61,13 @@ const Contact = () => {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
 
-      // Combine license_type, experience, and message into the message field
-      const combinedMessage = `License: ${validatedData.licenseType} | Experience: ${validatedData.experience} years | Message: ${validatedData.message || "No message provided"}`;
-
       const { error } = await supabase.from("leads").insert({
         name: validatedData.fullName,
         email: validatedData.email,
         phone: validatedData.phone,
-        message: combinedMessage,
+        license_type: validatedData.licenseType,
+        years_experience: validatedData.experience,
+        message: validatedData.message || null,
         source: "contact-form",
       });
 
@@ -80,7 +79,9 @@ const Contact = () => {
           name: validatedData.fullName,
           email: validatedData.email,
           phone: validatedData.phone,
-          message: combinedMessage,
+          licenseType: validatedData.licenseType,
+          yearsExperience: validatedData.experience,
+          message: validatedData.message || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
 
