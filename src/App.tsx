@@ -40,6 +40,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTopOnNavigate />
+        <AnalyticsProvider />
         <ScrollToTopButton />
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
