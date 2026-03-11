@@ -65,7 +65,7 @@ const AdminDashboard = () => {
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
       `}>
         <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-          <img src={qualifyProLogo} alt="Qualify Pro" className="h-8" />
+          <img src={qualifyProLogo} alt="Qualify Pro" className="w-40" />
           <button onClick={() => setSidebarOpen(false)} className="md:hidden text-gray-400 hover:text-white">
             <X className="h-5 w-5" />
           </button>
