@@ -35,6 +35,7 @@ import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formStartedRef = useRef(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
