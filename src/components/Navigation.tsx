@@ -75,7 +75,7 @@ const Navigation = () => {
               className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:scale-105 transition-transform shadow-lg"
               asChild
             >
-              <Link to="/contact">Get Started</Link>
+              <Link to="/contact" onClick={() => trackCtaClick('Get Started', window.location.pathname)}>Get Started</Link>
             </Button>
           </div>
 
