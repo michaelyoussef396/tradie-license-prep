@@ -15,6 +15,8 @@ const SuccessStoriesPage = lazy(() => import("./pages/SuccessStoriesPage"));
 const Contact = lazy(() => import("./pages/Contact"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const EmailTemplates = lazy(() => import("./pages/EmailTemplates"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
