@@ -56,7 +56,7 @@ const Navigation = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className={`transition-colors duration-500 font-medium ${pastHero ? "text-slate-700 hover:text-blue-600" : "text-white/90 hover:text-white"}`}
+                className="transition-colors duration-500 font-medium text-slate-700 hover:text-blue-600"
               >
                 {link.name}
               </Link>
