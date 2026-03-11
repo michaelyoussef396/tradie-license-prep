@@ -22,6 +22,7 @@ export type Database = {
           license_type: string | null
           message: string | null
           name: string
+          notes: string | null
           phone: string | null
           source: string | null
           status: string | null
@@ -34,6 +35,7 @@ export type Database = {
           license_type?: string | null
           message?: string | null
           name: string
+          notes?: string | null
           phone?: string | null
           source?: string | null
           status?: string | null
@@ -46,10 +48,109 @@ export type Database = {
           license_type?: string | null
           message?: string | null
           name?: string
+          notes?: string | null
           phone?: string | null
           source?: string | null
           status?: string | null
           years_experience?: string | null
+        }
+        Relationships: []
+      }
+      referral_codes: {
+        Row: {
+          code: string
+          created_at: string | null
+          id: string
+          student_id: string
+          total_referrals: number | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          id?: string
+          student_id: string
+          total_referrals?: number | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          id?: string
+          student_id?: string
+          total_referrals?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referral_codes_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referrals: {
+        Row: {
+          created_at: string | null
+          id: string
+          referee_email: string
+          referee_name: string
+          referee_phone: string | null
+          referral_code: string
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          referee_email: string
+          referee_name: string
+          referee_phone?: string | null
+          referral_code: string
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          referee_email?: string
+          referee_name?: string
+          referee_phone?: string | null
+          referral_code?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
+      students: {
+        Row: {
+          course: string | null
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          referral_code: string | null
+          status: string | null
+          total_referrals: number | null
+        }
+        Insert: {
+          course?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          phone?: string | null
+          referral_code?: string | null
+          status?: string | null
+          total_referrals?: number | null
+        }
+        Update: {
+          course?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          referral_code?: string | null
+          status?: string | null
+          total_referrals?: number | null
         }
         Relationships: []
       }
