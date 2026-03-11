@@ -142,11 +142,12 @@ const TestRunner = ({ onClose }: { onClose: () => void }) => {
     // Test 7 — Welcome email
     update(6, "running", "Invoking send-student-welcome...");
     try {
-      const { error } = await supabase.functions.invoke("send-student-welcome", {
-        body: { name: "Test Student", email: "test@test.com", referralCode: testReferralCode },
+      const { data, error } = await supabase.functions.invoke("send-student-welcome", {
+        body: { name: "Test Student", email: "michaelyoussef396@gmail.com", referralCode: testReferralCode },
       });
       if (error) throw error;
-      update(6, "pass", "Welcome email sent");
+      if (data?.error) throw new Error(data.error);
+      update(6, "pass", "Welcome email sent (to owner email — Resend free tier)");
     } catch (e: any) {
       update(6, "fail", e.message);
     }
