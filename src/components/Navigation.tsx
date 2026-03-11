@@ -10,7 +10,12 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       const heroSection = document.getElementById("hero-section");
-      const heroBottom = heroSection ? heroSection.offsetHeight - 80 : 600;
+      if (!heroSection) {
+        // No hero section on this page — always show solid white navbar
+        setPastHero(true);
+        return;
+      }
+      const heroBottom = heroSection.offsetHeight - 80;
       setPastHero(window.scrollY > heroBottom);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
