@@ -207,7 +207,7 @@ const FinalCTA = () => {
                         placeholder="Your full name"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, name: e.target.value })); }}
                         className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
