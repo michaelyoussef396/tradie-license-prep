@@ -87,7 +87,12 @@ const Contact = () => {
         },
       }).catch((err) => console.error("Email send failed:", err));
 
-      toast({
+      trackContactFormSubmit({
+        license_type: validatedData.licenseType,
+        years_experience: validatedData.experience,
+        source: 'contact-form',
+      });
+
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
       });
