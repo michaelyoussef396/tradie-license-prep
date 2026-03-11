@@ -19,44 +19,94 @@ const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
 
 function buildNotificationHtml(lead: LeadPayload): string {
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
-  return `
-    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto">
-      <div style="background:#1a56db;padding:16px 24px;color:white;border-radius:8px 8px 0 0">
-        <strong>🔔 NEW ENQUIRY FROM WEBSITE</strong>
-      </div>
-      <div style="background:#f8f9fa;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px;padding:0">
-        <table style="width:100%;border-collapse:collapse;font-size:14px">
-          <tr><td style="padding:10px 14px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;width:110px">Name:</td><td style="padding:10px 14px;color:#1a56db;border-bottom:1px solid #e0e0e0">${lead.name}</td></tr>
-          <tr><td style="padding:10px 14px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0">Phone:</td><td style="padding:10px 14px;color:#1a56db;border-bottom:1px solid #e0e0e0">${lead.phone}</td></tr>
-          <tr><td style="padding:10px 14px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0">Email:</td><td style="padding:10px 14px;color:#1a56db;border-bottom:1px solid #e0e0e0">${lead.email}</td></tr>
-          <tr><td style="padding:10px 14px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0">Message:</td><td style="padding:10px 14px;color:#333;border-bottom:1px solid #e0e0e0">${lead.message}</td></tr>
-          <tr><td style="padding:10px 14px;font-weight:600;color:#555">Submitted:</td><td style="padding:10px 14px;color:#333">${now}</td></tr>
-        </table>
-      </div>
-      <p style="font-size:14px;margin-top:16px">Reply directly to this email or call them on <strong>${lead.phone}</strong></p>
-    </div>`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0f0f0;padding:40px 20px;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+  <tr><td style="background:#1a56db;padding:20px 24px;border-radius:10px 10px 0 0;">
+    <span style="color:#ffffff;font-size:18px;font-weight:700;">🔔 NEW ENQUIRY FROM WEBSITE</span>
+  </td></tr>
+  <tr><td style="background:#ffffff;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 10px 10px;padding:0;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+      <tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;width:120px;">Name:</td>
+        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${lead.name}</td>
+      </tr>
+      <tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Phone:</td>
+        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${lead.phone}</td>
+      </tr>
+      <tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Email:</td>
+        <td style="padding:12px 16px;color:#1a56db;border-bottom:1px solid #e0e0e0;">${lead.email}</td>
+      </tr>
+      ${lead.licenseType ? `<tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Course Interest:</td>
+        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${lead.licenseType}</td>
+      </tr>` : ''}
+      <tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Message:</td>
+        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${lead.message}</td>
+      </tr>
+      <tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;">Submitted:</td>
+        <td style="padding:12px 16px;color:#333;">${now}</td>
+      </tr>
+    </table>
+  </td></tr>
+  <tr><td style="padding:20px 0 0 0;">
+    <p style="font-size:14px;color:#333;margin:0;">Reply directly to this email or call them on <strong>${lead.phone}</strong></p>
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>`;
 }
 
 function buildAutoReplyHtml(firstName: string): string {
-  return `
-    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;color:#333;font-size:15px;line-height:1.7">
-      <p>Hey ${firstName},</p>
-      <p>Thanks for reaching out about getting your builders license.</p>
-      <p>Our team will give you a call <strong>within 24 hours</strong> to have a chat about where you're at and how we can help.</p>
-      <p>In the meantime, here's what most tradies want to know:</p>
-      <ul>
-        <li>Our courses run in small groups (max 10) so you get real support</li>
-        <li>95% of our students pass first time</li>
-        <li>We focus on getting you registered, not just giving you a certificate</li>
-      </ul>
-      <p>Talk soon,</p>
-      <div style="border-top:1px solid #eee;padding-top:12px;margin-top:16px;color:#555">
-        <strong style="color:#333">Adrian Nicolazzo</strong><br/>
-        Qualify Pro<br/>
-        0411 626 398<br/>
-        qualifypro.com.au
-      </div>
-    </div>`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0f0f0;padding:40px 20px;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+  <tr><td style="background:#059669;padding:20px 24px;">
+    <span style="color:#ffffff;font-size:18px;font-weight:700;">Qualify Pro</span>
+  </td></tr>
+  <tr><td style="padding:32px 28px;font-size:15px;line-height:1.7;color:#333;">
+    <p style="margin:0 0 16px 0;">Hey ${firstName},</p>
+    <p style="margin:0 0 16px 0;">Thanks for reaching out about getting your builders license.</p>
+    <p style="margin:0 0 16px 0;">Our team will give you a call <strong>within 24 hours</strong> to have a chat about where you're at and how we can help.</p>
+    <p style="margin:0 0 12px 0;">In the meantime, here's what most tradies want to know:</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px 0;">
+      <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
+        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> Our courses run in small groups (max 10) so you get real support
+      </td></tr>
+      <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
+        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> 95% of our students pass first time
+      </td></tr>
+      <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
+        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> We focus on getting you registered, not just giving you a certificate
+      </td></tr>
+    </table>
+    <p style="margin:0 0 20px 0;">Talk soon,</p>
+    <div style="border-top:2px solid #e0e0e0;padding-top:16px;margin-top:8px;">
+      <strong style="color:#333;font-size:15px;">Adrian Nicolazzo</strong><br/>
+      <span style="color:#555;font-size:14px;">Qualify Pro</span><br/>
+      <span style="color:#555;font-size:14px;">0411 626 398</span><br/>
+      <a href="https://qualifypro.com.au" style="color:#059669;font-size:14px;text-decoration:none;">qualifypro.com.au</a>
+    </div>
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>`;
 }
 
 Deno.serve(async (req) => {
