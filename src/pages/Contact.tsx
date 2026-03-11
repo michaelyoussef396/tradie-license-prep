@@ -74,6 +74,16 @@ const Contact = () => {
 
       if (error) throw error;
 
+      // Fire-and-forget: send notification + auto-reply emails
+      supabase.functions.invoke("send-lead-emails", {
+        body: {
+          name: validatedData.fullName,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: combinedMessage,
+        },
+      }).catch((err) => console.error("Email send failed:", err));
+
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
