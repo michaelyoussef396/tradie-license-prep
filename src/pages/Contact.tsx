@@ -121,6 +121,10 @@ const Contact = () => {
   };
 
   const handleInputChange = (field: string, value: string) => {
+    if (!formStartedRef.current) {
+      formStartedRef.current = true;
+      trackContactFormStart();
+    }
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
