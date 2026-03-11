@@ -18,6 +18,46 @@ interface LeadPayload {
 const ADMIN_EMAIL = "michaelyoussef396@gmail.com";
 const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
 
+const AIRTABLE_BASE_ID = "appdzKGXLVTZe1tHS";
+const AIRTABLE_TABLE_ID = "tbl4uVt3WNhAFYYPO";
+
+async function syncToAirtable(lead: LeadPayload, source: string): Promise<void> {
+  const AIRTABLE_PAT = Deno.env.get("Personal-access-token-airtable");
+  if (!AIRTABLE_PAT) {
+    console.error("Airtable PAT not configured, skipping sync");
+    return;
+  }
+
+  const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${AIRTABLE_PAT}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      records: [{
+        fields: {
+          "Name": lead.name,
+          "Email": lead.email,
+          "Phone": lead.phone,
+          "License Type": lead.licenseType || "",
+          "Years Experience": lead.yearsExperience || "",
+          "Message": lead.message || "",
+          "Source": source,
+          "Status": "New",
+        },
+      }],
+    }),
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    console.error("Airtable sync failed:", res.status, errBody);
+  } else {
+    console.log("Airtable sync successful");
+  }
+}
+
 function buildNotificationHtml(lead: LeadPayload): string {
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
   return `<!DOCTYPE html>
