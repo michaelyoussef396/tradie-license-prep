@@ -42,6 +42,16 @@ const FinalCTA = () => {
 
       if (error) throw error;
 
+      // Fire-and-forget: send notification + auto-reply emails
+      supabase.functions.invoke("send-lead-emails", {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: combinedMessage,
+        },
+      }).catch((err) => console.error("Email send failed:", err));
+
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
