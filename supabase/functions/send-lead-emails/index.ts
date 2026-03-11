@@ -21,6 +21,13 @@ const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
 const AIRTABLE_BASE_ID = "appdzKGXLVTZe1tHS";
 const AIRTABLE_TABLE_ID = "tbl4uVt3WNhAFYYPO";
 
+function parseYearsExperience(value?: string): number | null {
+  if (!value) return null;
+  // Extract first number from range strings like "2-3", "4-5", "10+"
+  const match = value.match(/(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
 async function syncToAirtable(lead: LeadPayload, source: string): Promise<void> {
   const AIRTABLE_PAT = Deno.env.get("Personal-access-token-airtable");
   if (!AIRTABLE_PAT) {
@@ -28,33 +35,39 @@ async function syncToAirtable(lead: LeadPayload, source: string): Promise<void> 
     return;
   }
 
-  const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`, {
+  const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`;
+  const payload = {
+    records: [{
+      fields: {
+        "Name": lead.name || "",
+        "Email": lead.email || "",
+        "Phone": lead.phone || "",
+        "License Type": lead.licenseType || "",
+        "Years Experience": parseYearsExperience(lead.yearsExperience),
+        "Message": lead.message || "",
+        "Source": source || "",
+        "Status": "New",
+      },
+    }],
+  };
+
+  console.log("Airtable sync URL:", url);
+  console.log("Airtable sync payload:", JSON.stringify(payload));
+
+  const res = await fetch(url, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${AIRTABLE_PAT}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      records: [{
-        fields: {
-          "Name": lead.name,
-          "Email": lead.email,
-          "Phone": lead.phone,
-          "License Type": lead.licenseType || "",
-          "Years Experience": lead.yearsExperience || "",
-          "Message": lead.message || "",
-          "Source": source,
-          "Status": "New",
-        },
-      }],
-    }),
+    body: JSON.stringify(payload),
   });
 
+  const responseBody = await res.text();
   if (!res.ok) {
-    const errBody = await res.text();
-    console.error("Airtable sync failed:", res.status, errBody);
+    console.error("Airtable sync FAILED:", res.status, responseBody);
   } else {
-    console.log("Airtable sync successful");
+    console.log("Airtable sync SUCCESS:", responseBody);
   }
 }
 
