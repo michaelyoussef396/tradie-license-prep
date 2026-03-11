@@ -256,9 +256,10 @@ const FinalCTA = () => {
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={isSubmitting}
                     className="w-full h-14 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold shadow-lg shadow-blue-500/25 group"
                   >
-                    Book Free Consultation
+                    {isSubmitting ? "Sending..." : "Book Free Consultation"}
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
 
