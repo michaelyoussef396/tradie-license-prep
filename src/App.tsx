@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import ScrollToTopButton from "./components/ScrollToTop";
 import PageSkeleton from "./components/PageSkeleton";
+import AnalyticsProvider from "./components/AnalyticsProvider";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
