@@ -98,10 +98,16 @@ const AdminDashboard = () => {
             </button>
             <h2 className="text-white font-semibold text-sm md:text-base">Qualify Pro Admin</h2>
           </div>
-          <Button variant="ghost" onClick={handleLogout} className="text-gray-400 hover:text-white hover:bg-gray-700">
-            <LogOut className="h-4 w-4 mr-2" />
-            <span className="hidden sm:inline">Logout</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={() => setShowTests(true)} className="text-gray-400 hover:text-white hover:bg-gray-700">
+              <FlaskConical className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">Run Tests</span>
+            </Button>
+            <Button variant="ghost" onClick={handleLogout} className="text-gray-400 hover:text-white hover:bg-gray-700">
+              <LogOut className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">Logout</span>
+            </Button>
+          </div>
         </header>
         <main className="flex-1 p-4 md:p-6 overflow-auto">
           {activeTab === "leads" && <NewLeadsTab />}
