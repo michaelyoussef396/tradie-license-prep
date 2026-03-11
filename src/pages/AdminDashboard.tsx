@@ -112,7 +112,7 @@ const AdminDashboard = () => {
           {activeTab === "students" && <StudentsTab />}
         </main>
       </div>
-      {showTests && <TestRunner onClose={() => setShowTests(false)} />}
+      
     </div>
   );
 };
