@@ -123,7 +123,7 @@ const SuccessStories = () => {
                   {/* Content */}
                   <div className={`${isLarge ? 'lg:flex-1' : ''}`}>
                     {/* Highlight stat */}
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-4 mt-2">
                       <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${story.bgGradient} bg-opacity-20 flex items-center justify-center`}>
                         <HighlightIcon className="w-5 h-5 text-white" />
                       </div>
