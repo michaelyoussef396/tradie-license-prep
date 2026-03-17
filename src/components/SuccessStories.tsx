@@ -106,7 +106,7 @@ const SuccessStories = () => {
                   <Quote className="absolute top-6 right-6 w-8 h-8 text-white/5" />
                   
                   {/* Avatar & Badge */}
-                  <div className={`${isLarge ? 'lg:flex-shrink-0' : ''} mb-5 lg:mb-0`}>
+                  <div className={`${isLarge ? 'lg:flex-shrink-0' : ''} mb-6 lg:mb-0`}>
                     <div className="flex items-center gap-4">
                       <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${story.bgGradient} flex items-center justify-center shadow-lg`}>
                         <span className="text-2xl font-bold text-white">{story.initials}</span>
