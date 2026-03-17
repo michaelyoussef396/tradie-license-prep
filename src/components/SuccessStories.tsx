@@ -87,7 +87,7 @@ const SuccessStories = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12">
           {stories.map((story, index) => {
             const HighlightIcon = story.highlightIcon;
-            const isLarge = index === 0 || index === 2;
+            const isLarge = index === 0 || index === 3;
             return (
               <motion.div
                 key={index}
