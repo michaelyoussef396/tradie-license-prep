@@ -13,6 +13,7 @@ interface LeadPayload {
   message?: string;
   licenseType?: string;
   yearsExperience?: string;
+  referralCode?: string;
 }
 
 const ADMIN_EMAIL = "michaelyoussef396@gmail.com";
@@ -108,6 +109,10 @@ function buildNotificationHtml(lead: LeadPayload): string {
       ${lead.message ? `<tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Message:</td>
         <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${lead.message}</td>
+      </tr>` : ''}
+      ${lead.referralCode ? `<tr>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Referral Code:</td>
+        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${lead.referralCode}</td>
       </tr>` : ''}
       <tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;">Submitted:</td>

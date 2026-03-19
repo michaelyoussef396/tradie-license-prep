@@ -42,7 +42,8 @@ const Contact = () => {
     email: "",
     licenseType: "",
     experience: "",
-    message: ""
+    message: "",
+    referralCode: ""
   });
 
   // Form validation schema
@@ -63,7 +64,8 @@ const Contact = () => {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
 
-      const { error } = await supabase.from("leads").insert({
+      // Insert lead with referral code
+      const { data: leadData, error } = await supabase.from("leads").insert({
         name: validatedData.fullName,
         email: validatedData.email,
         phone: validatedData.phone,
@@ -71,9 +73,22 @@ const Contact = () => {
         years_experience: validatedData.experience,
         message: validatedData.message || null,
         source: "contact-form",
-      });
+        used_referral_code: formData.referralCode.trim() || null,
+      }).select("id").single();
 
       if (error) throw error;
+
+      // If referral code provided, create referral record
+      if (formData.referralCode.trim()) {
+        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: formData.referralCode.trim() });
+        if (studentId && leadData) {
+          await supabase.from("referrals").insert({
+            referrer_student_id: studentId,
+            referred_lead_id: leadData.id,
+            status: "Pending",
+          });
+        }
+      }
 
       // Fire-and-forget: send notification + auto-reply emails
       supabase.functions.invoke("send-lead-emails", {
@@ -84,6 +99,7 @@ const Contact = () => {
           licenseType: validatedData.licenseType,
           yearsExperience: validatedData.experience,
           message: validatedData.message || "",
+          referralCode: formData.referralCode.trim() || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
 
@@ -104,7 +120,8 @@ const Contact = () => {
         email: "",
         licenseType: "",
         experience: "",
-        message: ""
+        message: "",
+        referralCode: ""
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -330,6 +347,23 @@ const Contact = () => {
                         <SelectItem value="10+">10+ years</SelectItem>
                       </SelectContent>
                     </Select>
+                  </div>
+
+                  {/* Referral Code */}
+                  <div>
+                    <Label htmlFor="referralCode" className="text-slate-900 font-semibold mb-2 block">
+                      Referral Code (Optional)
+                    </Label>
+                    <Input
+                      id="referralCode"
+                      type="text"
+                      value={formData.referralCode}
+                      onChange={(e) => handleInputChange("referralCode", e.target.value)}
+                      placeholder="e.g. JORDAN-4821"
+                      maxLength={20}
+                      className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it for $100 off.</p>
                   </div>
 
                   {/* Message */}

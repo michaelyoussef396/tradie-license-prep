@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Users, GitBranch, GraduationCap, LogOut, Menu, X } from "lucide-react";
+import { Users, GitBranch, GraduationCap, LogOut, Menu, X, Gift } from "lucide-react";
 import qualifyProLogo from "@/assets/qualify-pro-logo.png";
 import NewLeadsTab from "@/components/admin/NewLeadsTab";
 import PipelineTab from "@/components/admin/PipelineTab";
 import StudentsTab from "@/components/admin/StudentsTab";
+import ReferralsTab from "@/components/admin/ReferralsTab";
 
 
 const tabs = [
   { id: "leads", label: "New Leads", icon: Users },
   { id: "pipeline", label: "Pipeline", icon: GitBranch },
   { id: "students", label: "Students", icon: GraduationCap },
+  { id: "referrals", label: "Referrals", icon: Gift },
 ];
 
 const AdminDashboard = () => {
@@ -110,6 +112,7 @@ const AdminDashboard = () => {
           {activeTab === "leads" && <NewLeadsTab />}
           {activeTab === "pipeline" && <PipelineTab />}
           {activeTab === "students" && <StudentsTab />}
+          {activeTab === "referrals" && <ReferralsTab />}
         </main>
       </div>
       

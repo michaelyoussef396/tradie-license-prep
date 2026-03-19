@@ -26,6 +26,7 @@ export type Database = {
           phone: string | null
           source: string | null
           status: string | null
+          used_referral_code: string | null
           years_experience: string | null
         }
         Insert: {
@@ -39,6 +40,7 @@ export type Database = {
           phone?: string | null
           source?: string | null
           status?: string | null
+          used_referral_code?: string | null
           years_experience?: string | null
         }
         Update: {
@@ -52,6 +54,7 @@ export type Database = {
           phone?: string | null
           source?: string | null
           status?: string | null
+          used_referral_code?: string | null
           years_experience?: string | null
         }
         Relationships: []
@@ -92,31 +95,40 @@ export type Database = {
         Row: {
           created_at: string | null
           id: string
-          referee_email: string
-          referee_name: string
-          referee_phone: string | null
-          referral_code: string
+          referred_lead_id: string | null
+          referrer_student_id: string | null
           status: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
-          referee_email: string
-          referee_name: string
-          referee_phone?: string | null
-          referral_code: string
+          referred_lead_id?: string | null
+          referrer_student_id?: string | null
           status?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
-          referee_email?: string
-          referee_name?: string
-          referee_phone?: string | null
-          referral_code?: string
+          referred_lead_id?: string | null
+          referrer_student_id?: string | null
           status?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "referrals_referred_lead_id_fkey"
+            columns: ["referred_lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "referrals_referrer_student_id_fkey"
+            columns: ["referrer_student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       students: {
         Row: {
@@ -159,7 +171,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      validate_referral_code: { Args: { code: string }; Returns: string }
     }
     Enums: {
       [_ in never]: never
