@@ -21,6 +21,7 @@ interface Lead {
   created_at: string | null;
   notes: string | null;
   status: string | null;
+  used_referral_code: string | null;
 }
 
 const STATUS_COLUMNS = [
