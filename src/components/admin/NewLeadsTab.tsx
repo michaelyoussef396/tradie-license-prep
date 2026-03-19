@@ -17,6 +17,7 @@ interface Lead {
   source: string | null;
   created_at: string | null;
   notes: string | null;
+  used_referral_code: string | null;
 }
 
 const NewLeadsTab = () => {
