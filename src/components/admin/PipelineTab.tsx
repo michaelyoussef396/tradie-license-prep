@@ -136,6 +136,9 @@ const PipelineTab = () => {
                   <Card key={lead.id} className="bg-[#1e293b] border-gray-700 cursor-pointer hover:border-gray-500 transition-colors" onClick={() => openDetail(lead)}>
                     <CardContent className="p-3 space-y-2">
                       <p className="text-white font-semibold text-sm">{lead.name}</p>
+                      {lead.used_referral_code && (
+                        <span className="inline-block bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">🎁 REFERRAL: $100 OFF</span>
+                      )}
                       {lead.phone && (
                         <a href={`tel:${lead.phone}`} onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 text-[#1B4FD8] text-xs hover:underline">
                           <Phone className="h-3 w-3" /> {lead.phone}
