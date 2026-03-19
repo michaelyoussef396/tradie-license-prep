@@ -52,12 +52,8 @@ const FinalCTA = () => {
         phone: validated.phone,
         license_type: validated.licenseType || null,
         message: validated.message || null,
-        email: formData.email,
-        phone: formData.phone,
-        license_type: formData.licenseType || null,
-        message: formData.message || null,
         source: "contact-form",
-        used_referral_code: formData.referralCode.trim() || null,
+        used_referral_code: validated.referralCode?.trim() || null,
       }).select("id").single();
 
       if (error) throw error;
