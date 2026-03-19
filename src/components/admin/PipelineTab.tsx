@@ -21,6 +21,7 @@ interface Lead {
   created_at: string | null;
   notes: string | null;
   status: string | null;
+  used_referral_code: string | null;
 }
 
 const STATUS_COLUMNS = [
@@ -135,6 +136,9 @@ const PipelineTab = () => {
                   <Card key={lead.id} className="bg-[#1e293b] border-gray-700 cursor-pointer hover:border-gray-500 transition-colors" onClick={() => openDetail(lead)}>
                     <CardContent className="p-3 space-y-2">
                       <p className="text-white font-semibold text-sm">{lead.name}</p>
+                      {lead.used_referral_code && (
+                        <span className="inline-block bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">🎁 REFERRAL: $100 OFF</span>
+                      )}
                       {lead.phone && (
                         <a href={`tel:${lead.phone}`} onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 text-[#1B4FD8] text-xs hover:underline">
                           <Phone className="h-3 w-3" /> {lead.phone}
@@ -158,6 +162,12 @@ const PipelineTab = () => {
           </SheetHeader>
           {selectedLead && (
             <div className="space-y-4 mt-4">
+              {selectedLead.used_referral_code && (
+                <div className="bg-amber-500/20 border-2 border-amber-500 rounded-lg px-4 py-3">
+                  <p className="text-amber-300 font-bold text-sm">⚠️ Action Required: REFERRAL LEAD</p>
+                  <p className="text-amber-200 text-sm mt-1">This lead was referred using code <span className="font-mono font-bold">{selectedLead.used_referral_code}</span>. You must apply a <span className="font-bold">$100 discount</span> to their course fee when invoicing.</p>
+                </div>
+              )}
               {selectedLead.phone && (
                 <a href={`tel:${selectedLead.phone}`} className="flex items-center gap-2 text-lg font-bold text-[#1B4FD8] hover:underline">
                   <Phone className="h-5 w-5" /> {selectedLead.phone}

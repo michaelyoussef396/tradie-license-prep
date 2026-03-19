@@ -17,6 +17,7 @@ interface Lead {
   source: string | null;
   created_at: string | null;
   notes: string | null;
+  used_referral_code: string | null;
 }
 
 const NewLeadsTab = () => {
@@ -119,6 +120,13 @@ const NewLeadsTab = () => {
         <Card key={lead.id} className="bg-[#1e293b] border-gray-700">
           <CardContent className="p-5 space-y-3">
             <h3 className="text-xl font-bold text-white">{lead.name}</h3>
+
+            {lead.used_referral_code && (
+              <div className="bg-amber-500/20 border border-amber-500 rounded-lg px-4 py-3">
+                <p className="text-amber-300 font-bold text-sm">🎁 REFERRAL: Owed $100 Discount</p>
+                <p className="text-amber-200 text-xs mt-1">Code used: <span className="font-mono font-bold">{lead.used_referral_code}</span> — Apply $100 off when invoicing.</p>
+              </div>
+            )}
 
             {lead.phone && (
               <a href={`tel:${lead.phone}`} className="flex items-center gap-2 text-lg font-bold text-[#1B4FD8] hover:underline">
