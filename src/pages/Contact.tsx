@@ -42,7 +42,8 @@ const Contact = () => {
     email: "",
     licenseType: "",
     experience: "",
-    message: ""
+    message: "",
+    referralCode: ""
   });
 
   // Form validation schema

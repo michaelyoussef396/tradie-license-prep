@@ -25,6 +25,7 @@ const FinalCTA = () => {
     email: "",
     licenseType: "",
     message: "",
+    referralCode: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
