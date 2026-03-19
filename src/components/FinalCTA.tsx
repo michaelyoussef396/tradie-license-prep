@@ -33,16 +33,30 @@ const FinalCTA = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("leads").insert({
+      // Insert lead with referral code
+      const { data: leadData, error } = await supabase.from("leads").insert({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         license_type: formData.licenseType || null,
         message: formData.message || null,
         source: "contact-form",
-      });
+        used_referral_code: formData.referralCode.trim() || null,
+      }).select("id").single();
 
       if (error) throw error;
+
+      // If referral code provided, create referral record
+      if (formData.referralCode.trim()) {
+        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: formData.referralCode.trim() });
+        if (studentId && leadData) {
+          await supabase.from("referrals").insert({
+            referrer_student_id: studentId,
+            referred_lead_id: leadData.id,
+            status: "Pending",
+          });
+        }
+      }
 
       // Fire-and-forget: send notification + auto-reply emails
       supabase.functions.invoke("send-lead-emails", {
@@ -52,6 +66,7 @@ const FinalCTA = () => {
           phone: formData.phone,
           licenseType: formData.licenseType || "",
           message: formData.message || "",
+          referralCode: formData.referralCode.trim() || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
 
@@ -66,7 +81,7 @@ const FinalCTA = () => {
         description: "Your consultation request has been received.",
       });
 
-      setFormData({ name: "", phone: "", email: "", licenseType: "", message: "" });
+      setFormData({ name: "", phone: "", email: "", licenseType: "", message: "", referralCode: "" });
     } catch {
       toast({
         title: "Something went wrong",
