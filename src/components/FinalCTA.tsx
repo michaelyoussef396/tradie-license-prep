@@ -16,6 +16,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const ctaSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  phone: z.string().trim().min(8, "Please enter a valid phone number").max(20, "Phone number is too long"),
+  email: z.string().trim().email("Please enter a valid email address").max(255, "Email is too long"),
+  licenseType: z.string().optional(),
+  message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional(),
+  referralCode: z.string().trim().max(20).optional(),
+});
+
 const FinalCTA = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
