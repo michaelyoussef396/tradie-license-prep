@@ -219,7 +219,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    const firstName = lead.name.split(" ")[0];
+    const firstName = esc(lead.name.split(" ")[0]);
 
     // Send emails + Airtable sync in parallel
     const [notifRes, replyRes] = await Promise.all([
