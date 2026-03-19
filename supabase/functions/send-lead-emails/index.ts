@@ -182,6 +182,30 @@ Deno.serve(async (req) => {
 
   try {
     const lead: LeadPayload = await req.json();
+
+    // Input validation
+    if (!lead.name || typeof lead.name !== "string" || lead.name.trim().length < 2 || lead.name.length > 100) {
+      return new Response(JSON.stringify({ error: "Invalid name (2-100 characters required)" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!lead.email || typeof lead.email !== "string" || !emailRegex.test(lead.email) || lead.email.length > 255) {
+      return new Response(JSON.stringify({ error: "Invalid email address" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (!lead.phone || typeof lead.phone !== "string" || lead.phone.length < 8 || lead.phone.length > 20) {
+      return new Response(JSON.stringify({ error: "Invalid phone number" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (lead.message && (typeof lead.message !== "string" || lead.message.length > 2000)) {
+      return new Response(JSON.stringify({ error: "Message too long (max 2000 characters)" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const firstName = lead.name.split(" ")[0];
 
     // Send emails + Airtable sync in parallel
