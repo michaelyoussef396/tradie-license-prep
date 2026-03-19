@@ -82,6 +82,15 @@ function esc(s: string): string {
 
 function buildNotificationHtml(lead: LeadPayload): string {
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
+  const referralBlock = lead.referralCode ? `
+  <tr><td style="background:#dc2626;padding:16px 24px;border-radius:10px 10px 0 0;">
+    <span style="color:#ffffff;font-size:16px;font-weight:700;">🚨 REFERRAL LEAD — DISCOUNT REQUIRED</span>
+  </td></tr>
+  <tr><td style="background:#fef2f2;border:2px solid #dc2626;padding:16px 24px;">
+    <p style="margin:0;font-size:15px;color:#991b1b;font-weight:700;">This person was referred using code: ${esc(lead.referralCode)}</p>
+    <p style="margin:8px 0 0 0;font-size:15px;color:#991b1b;font-weight:600;">⚡ Remember to quote them <span style="text-decoration:underline;">$100 off</span> the standard course price!</p>
+  </td></tr>` : '';
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
@@ -89,7 +98,8 @@ function buildNotificationHtml(lead: LeadPayload): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0f0f0;padding:40px 20px;">
 <tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-  <tr><td style="background:#1a56db;padding:20px 24px;border-radius:10px 10px 0 0;">
+  ${referralBlock}
+  <tr><td style="background:#1a56db;padding:20px 24px;${lead.referralCode ? '' : 'border-radius:10px 10px 0 0;'}">
     <span style="color:#ffffff;font-size:18px;font-weight:700;">🔔 NEW ENQUIRY FROM WEBSITE</span>
   </td></tr>
   <tr><td style="background:#ffffff;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 10px 10px;padding:0;">

@@ -162,6 +162,12 @@ const PipelineTab = () => {
           </SheetHeader>
           {selectedLead && (
             <div className="space-y-4 mt-4">
+              {selectedLead.used_referral_code && (
+                <div className="bg-amber-500/20 border-2 border-amber-500 rounded-lg px-4 py-3">
+                  <p className="text-amber-300 font-bold text-sm">⚠️ Action Required: REFERRAL LEAD</p>
+                  <p className="text-amber-200 text-sm mt-1">This lead was referred using code <span className="font-mono font-bold">{selectedLead.used_referral_code}</span>. You must apply a <span className="font-bold">$100 discount</span> to their course fee when invoicing.</p>
+                </div>
+              )}
               {selectedLead.phone && (
                 <a href={`tel:${selectedLead.phone}`} className="flex items-center gap-2 text-lg font-bold text-[#1B4FD8] hover:underline">
                   <Phone className="h-5 w-5" /> {selectedLead.phone}
