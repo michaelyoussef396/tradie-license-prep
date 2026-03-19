@@ -349,6 +349,23 @@ const Contact = () => {
                     </Select>
                   </div>
 
+                  {/* Referral Code */}
+                  <div>
+                    <Label htmlFor="referralCode" className="text-slate-900 font-semibold mb-2 block">
+                      Referral Code (Optional)
+                    </Label>
+                    <Input
+                      id="referralCode"
+                      type="text"
+                      value={formData.referralCode}
+                      onChange={(e) => handleInputChange("referralCode", e.target.value)}
+                      placeholder="e.g. JORDAN-4821"
+                      maxLength={20}
+                      className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it for $100 off.</p>
+                  </div>
+
                   {/* Message */}
                   <div>
                     <Label htmlFor="message" className="text-slate-900 font-semibold mb-2 block">
