@@ -59,8 +59,8 @@ const FinalCTA = () => {
       if (error) throw error;
 
       // If referral code provided, create referral record
-      if (formData.referralCode.trim()) {
-        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: formData.referralCode.trim() });
+      if (validated.referralCode?.trim()) {
+        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: validated.referralCode.trim() });
         if (studentId && leadData) {
           await supabase.from("referrals").insert({
             referrer_student_id: studentId,
@@ -73,17 +73,17 @@ const FinalCTA = () => {
       // Fire-and-forget: send notification + auto-reply emails
       supabase.functions.invoke("send-lead-emails", {
         body: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          licenseType: formData.licenseType || "",
-          message: formData.message || "",
-          referralCode: formData.referralCode.trim() || "",
+          name: validated.name,
+          email: validated.email,
+          phone: validated.phone,
+          licenseType: validated.licenseType || "",
+          message: validated.message || "",
+          referralCode: validated.referralCode?.trim() || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
 
       trackContactFormSubmit({
-        license_type: formData.licenseType || 'not specified',
+        license_type: validated.licenseType || 'not specified',
         years_experience: 'not specified',
         source: 'homepage-cta',
       });
@@ -94,12 +94,20 @@ const FinalCTA = () => {
       });
 
       setFormData({ name: "", phone: "", email: "", licenseType: "", message: "", referralCode: "" });
-    } catch {
-      toast({
-        title: "Something went wrong",
-        description: "Please call us on 0411 626 398.",
-        variant: "destructive",
-      });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        toast({
+          title: "Please check your details",
+          description: err.errors[0]?.message || "Invalid input",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: "Please call us on 0411 626 398.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
