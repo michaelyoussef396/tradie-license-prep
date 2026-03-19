@@ -72,6 +72,14 @@ async function syncToAirtable(lead: LeadPayload, source: string): Promise<void> 
   }
 }
 
+function esc(s: string): string {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function buildNotificationHtml(lead: LeadPayload): string {
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
   return `<!DOCTYPE html>
@@ -88,31 +96,31 @@ function buildNotificationHtml(lead: LeadPayload): string {
     <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
       <tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;width:120px;">Name:</td>
-        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${lead.name}</td>
+        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${esc(lead.name)}</td>
       </tr>
       <tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Phone:</td>
-        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${lead.phone}</td>
+        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${esc(lead.phone)}</td>
       </tr>
       <tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Email:</td>
-        <td style="padding:12px 16px;color:#1a56db;border-bottom:1px solid #e0e0e0;">${lead.email}</td>
+        <td style="padding:12px 16px;color:#1a56db;border-bottom:1px solid #e0e0e0;">${esc(lead.email)}</td>
       </tr>
       ${lead.licenseType ? `<tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">License:</td>
-        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${lead.licenseType}</td>
+        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${esc(lead.licenseType)}</td>
       </tr>` : ''}
       ${lead.yearsExperience ? `<tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Experience:</td>
-        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${lead.yearsExperience} years</td>
+        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${esc(lead.yearsExperience)} years</td>
       </tr>` : ''}
       ${lead.message ? `<tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Message:</td>
-        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${lead.message}</td>
+        <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${esc(lead.message)}</td>
       </tr>` : ''}
       ${lead.referralCode ? `<tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Referral Code:</td>
-        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${lead.referralCode}</td>
+        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${esc(lead.referralCode)}</td>
       </tr>` : ''}
       <tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;">Submitted:</td>
@@ -121,7 +129,7 @@ function buildNotificationHtml(lead: LeadPayload): string {
     </table>
   </td></tr>
   <tr><td style="padding:20px 0 0 0;">
-    <p style="font-size:14px;color:#333;margin:0;">Reply directly to this email or call them on <strong>${lead.phone}</strong></p>
+    <p style="font-size:14px;color:#333;margin:0;">Reply directly to this email or call them on <strong>${esc(lead.phone)}</strong></p>
   </td></tr>
 </table>
 </td></tr>
