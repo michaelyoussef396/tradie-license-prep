@@ -13,6 +13,7 @@ interface LeadPayload {
   message?: string;
   licenseType?: string;
   yearsExperience?: string;
+  referralCode?: string;
 }
 
 const ADMIN_EMAIL = "michaelyoussef396@gmail.com";
