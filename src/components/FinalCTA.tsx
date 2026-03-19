@@ -43,9 +43,15 @@ const FinalCTA = () => {
     setIsSubmitting(true);
 
     try {
+      const validated = ctaSchema.parse(formData);
+
       // Insert lead with referral code
       const { data: leadData, error } = await supabase.from("leads").insert({
-        name: formData.name,
+        name: validated.name,
+        email: validated.email,
+        phone: validated.phone,
+        license_type: validated.licenseType || null,
+        message: validated.message || null,
         email: formData.email,
         phone: formData.phone,
         license_type: formData.licenseType || null,
