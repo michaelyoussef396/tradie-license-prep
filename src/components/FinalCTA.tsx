@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
+import { z } from "zod";
 import {
   Select,
   SelectContent,
@@ -14,6 +15,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+const ctaSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  phone: z.string().trim().min(8, "Please enter a valid phone number").max(20, "Phone number is too long"),
+  email: z.string().trim().email("Please enter a valid email address").max(255, "Email is too long"),
+  licenseType: z.string().optional(),
+  message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional(),
+  referralCode: z.string().trim().max(20).optional(),
+});
 
 const FinalCTA = () => {
   const { toast } = useToast();
@@ -33,22 +43,24 @@ const FinalCTA = () => {
     setIsSubmitting(true);
 
     try {
+      const validated = ctaSchema.parse(formData);
+
       // Insert lead with referral code
       const { data: leadData, error } = await supabase.from("leads").insert({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        license_type: formData.licenseType || null,
-        message: formData.message || null,
+        name: validated.name,
+        email: validated.email,
+        phone: validated.phone,
+        license_type: validated.licenseType || null,
+        message: validated.message || null,
         source: "contact-form",
-        used_referral_code: formData.referralCode.trim() || null,
+        used_referral_code: validated.referralCode?.trim() || null,
       }).select("id").single();
 
       if (error) throw error;
 
       // If referral code provided, create referral record
-      if (formData.referralCode.trim()) {
-        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: formData.referralCode.trim() });
+      if (validated.referralCode?.trim()) {
+        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: validated.referralCode.trim() });
         if (studentId && leadData) {
           await supabase.from("referrals").insert({
             referrer_student_id: studentId,
@@ -61,17 +73,17 @@ const FinalCTA = () => {
       // Fire-and-forget: send notification + auto-reply emails
       supabase.functions.invoke("send-lead-emails", {
         body: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          licenseType: formData.licenseType || "",
-          message: formData.message || "",
-          referralCode: formData.referralCode.trim() || "",
+          name: validated.name,
+          email: validated.email,
+          phone: validated.phone,
+          licenseType: validated.licenseType || "",
+          message: validated.message || "",
+          referralCode: validated.referralCode?.trim() || "",
         },
       }).catch((err) => console.error("Email send failed:", err));
 
       trackContactFormSubmit({
-        license_type: formData.licenseType || 'not specified',
+        license_type: validated.licenseType || 'not specified',
         years_experience: 'not specified',
         source: 'homepage-cta',
       });
@@ -82,12 +94,20 @@ const FinalCTA = () => {
       });
 
       setFormData({ name: "", phone: "", email: "", licenseType: "", message: "", referralCode: "" });
-    } catch {
-      toast({
-        title: "Something went wrong",
-        description: "Please call us on 0411 626 398.",
-        variant: "destructive",
-      });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        toast({
+          title: "Please check your details",
+          description: err.errors[0]?.message || "Invalid input",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: "Please call us on 0411 626 398.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
