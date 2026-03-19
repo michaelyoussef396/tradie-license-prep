@@ -276,6 +276,21 @@ const FinalCTA = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                      Referral Code (Optional)
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="e.g. JORDAN-4821"
+                      maxLength={20}
+                      value={formData.referralCode}
+                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, referralCode: e.target.value })); }}
+                      className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-400 mt-1">Got a code from a mate? Enter it for $100 off.</p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
                       Tell us about your experience
                     </label>
                     <Textarea
