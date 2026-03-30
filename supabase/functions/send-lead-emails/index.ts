@@ -240,7 +240,7 @@ Deno.serve(async (req) => {
         body: JSON.stringify({
           from: FROM_EMAIL,
           to: [ADMIN_EMAIL],
-          subject: `New Lead: ${lead.name} – ${lead.phone}`,
+          subject: `New Lead: ${esc(lead.name)} – ${esc(lead.phone)}`,
           html: buildNotificationHtml(lead),
         }),
       }),
