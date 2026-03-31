@@ -78,19 +78,7 @@ const Contact = () => {
 
       if (error) throw error;
 
-      // If referral code provided, create referral record
-      if (formData.referralCode.trim()) {
-        const { data: studentId } = await supabase.rpc("validate_referral_code", { code: formData.referralCode.trim() });
-        if (studentId && leadData) {
-          await supabase.from("referrals").insert({
-            referrer_student_id: studentId,
-            referred_lead_id: leadData.id,
-            status: "Pending",
-          });
-        }
-      }
-
-      // Fire-and-forget: send notification + auto-reply emails
+      // Fire-and-forget: send notification + auto-reply emails (referral creation handled server-side)
       supabase.functions.invoke("send-lead-emails", {
         body: {
           name: validatedData.fullName,

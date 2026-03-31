@@ -190,6 +190,8 @@ function buildAutoReplyHtml(firstName: string): string {
 </html>`;
 }
 
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -227,6 +229,39 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: "Message too long (max 2000 characters)" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+
+    // Server-side referral creation (if referral code provided)
+    if (lead.referralCode && typeof lead.referralCode === "string" && lead.referralCode.trim().length > 0) {
+      try {
+        const supabase = createClient(
+          Deno.env.get("SUPABASE_URL")!,
+          Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+        );
+        const code = lead.referralCode.trim();
+        // Validate referral code and get student ID
+        const { data: studentId } = await supabase.rpc("validate_referral_code", { code });
+        if (studentId) {
+          // Find the lead that was just inserted (by email, most recent)
+          const { data: leadRecord } = await supabase
+            .from("leads")
+            .select("id")
+            .eq("email", lead.email)
+            .eq("used_referral_code", code)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .single();
+          if (leadRecord) {
+            await supabase.from("referrals").insert({
+              referrer_student_id: studentId,
+              referred_lead_id: leadRecord.id,
+              status: "Pending",
+            });
+          }
+        }
+      } catch (refErr) {
+        console.error("Referral creation error (non-blocking):", refErr);
+      }
     }
 
     const firstName = esc(lead.name.split(" ")[0]);
