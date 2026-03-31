@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Anon can insert referrals" ON public.referrals;
