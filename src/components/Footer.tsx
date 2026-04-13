@@ -42,11 +42,11 @@ const Footer = () => {
           
           {/* Brand Column */}
           <div className="lg:col-span-4">
-            <Link to="/" className="inline-block mb-5">
+            <Link to="/" className="inline-block mb-2">
               <img 
                 src="/images/qualify-pro-logo.png" 
                 alt="Qualify Pro" 
-                className="h-40 w-auto brightness-0 invert -ml-2"
+                className="h-40 w-auto brightness-0 invert -ml-2 -mb-2"
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
