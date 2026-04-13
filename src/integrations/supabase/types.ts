@@ -189,6 +189,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_my_referred_leads: {
+        Args: never
+        Returns: {
+          id: string
+          name: string
+        }[]
+      }
       get_my_student_id: { Args: never; Returns: string }
       has_role: {
         Args: {
