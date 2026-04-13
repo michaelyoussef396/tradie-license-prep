@@ -62,7 +62,7 @@ serve(async (req) => {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${RESEND_API_KEY}` },
       body: JSON.stringify({
-        from: "onboarding@resend.dev",
+        from: "Qualify Pro <hello@qualifypro.com.au>",
         to: [email],
         subject: `Welcome to Qualify Pro — your referral code is ${referralCode}`,
         html,

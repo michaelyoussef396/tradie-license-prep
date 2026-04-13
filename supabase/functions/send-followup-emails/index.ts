@@ -43,7 +43,7 @@ serve(async (req) => {
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${RESEND_API_KEY}` },
-        body: JSON.stringify({ from: "onboarding@resend.dev", to: [to], subject, html }),
+        body: JSON.stringify({ from: "Qualify Pro <hello@qualifypro.com.au>", to: [to], subject, html }),
       });
       if (!res.ok) throw new Error(`Resend: ${await res.text()}`);
     };

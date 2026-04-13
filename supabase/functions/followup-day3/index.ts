@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
+const FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
 
 function buildDay3Html(firstName: string): string {
   return `<!DOCTYPE html>
