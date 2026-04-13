@@ -683,7 +683,7 @@ const SuccessStoriesPage = () => {
                 <Phone className="h-5 w-5" />
                 <span>0411 626 398</span>
               </a>
-              <a href="mailto:support@adcopropertyinspectionsmelbourne.com.au" className="flex items-center gap-2 hover:text-white transition-colors">
+              <a href="mailto:hello@qualifypro.com.au" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Mail className="h-5 w-5" />
                 <span>Email Us</span>
               </a>

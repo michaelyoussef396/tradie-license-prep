@@ -127,7 +127,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
+                  href="mailto:hello@qualifypro.com.au"
                   className="group flex items-start gap-3 hover:text-white transition-colors"
                 >
                   <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
@@ -135,7 +135,7 @@ const Footer = () => {
                   </div>
                   <div>
                     <div className="text-xs text-gray-500 mb-0.5">Email us</div>
-                    <div className="text-sm text-white font-medium break-all">support@adcopropertyinspectionsmelbourne.com.au</div>
+                    <div className="text-sm text-white font-medium break-all">hello@qualifypro.com.au</div>
                   </div>
                 </a>
               </li>

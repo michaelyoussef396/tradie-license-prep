@@ -16,8 +16,8 @@ interface LeadPayload {
   referralCode?: string;
 }
 
-const ADMIN_EMAIL = "michaelyoussef396@gmail.com";
-const FROM_EMAIL = "Qualify Pro <onboarding@resend.dev>";
+const ADMIN_EMAIL = "adrian@qualifypro.com.au";
+const FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
 
 const AIRTABLE_BASE_ID = "appdzKGXLVTZe1tHS";
 const AIRTABLE_TABLE_ID = "tbl4uVt3WNhAFYYPO";

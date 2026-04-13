@@ -311,7 +311,7 @@ const FAQ = () => {
                 </div>
               </a>
               <a
-                href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
+                href="mailto:hello@qualifypro.com.au"
                 className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/20 transition-all duration-300"
               >
                 <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
