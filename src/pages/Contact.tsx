@@ -422,7 +422,7 @@ const Contact = () => {
 
                 {/* Email */}
                 <a 
-                  href="mailto:support@adcopropertyinspectionsmelbourne.com.au"
+                  href="mailto:hello@qualifypro.com.au"
                   className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all duration-300 group border border-slate-200 hover:border-blue-300 hover:shadow-md"
                 >
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
@@ -431,7 +431,7 @@ const Contact = () => {
                   <div>
                     <div className="font-semibold text-slate-900 mb-1">Email Us</div>
                     <div className="text-blue-600 font-medium break-all">
-                      support@adcopropertyinspectionsmelbourne.com.au
+                      hello@qualifypro.com.au
                     </div>
                     <div className="text-sm text-slate-500 mt-1">We respond within 24 hours</div>
                   </div>
@@ -574,7 +574,7 @@ const Contact = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { icon: Phone, title: "Prefer to Call?", content: "0411 626 398", link: "tel:0411626398", subtitle: "Speak with Adrian directly about your licensing goals" },
-              { icon: Mail, title: "Have a Quick Question?", content: "Send us an email", link: "mailto:support@adcopropertyinspectionsmelbourne.com.au", subtitle: "We respond to all emails within 24 hours" },
+              { icon: Mail, title: "Have a Quick Question?", content: "Send us an email", link: "mailto:hello@qualifypro.com.au", subtitle: "We respond to all emails within 24 hours" },
               { icon: Award, title: "Want to Learn More First?", content: "View Our Programs", link: "/courses", subtitle: "Explore our training programs and pricing", isButton: true },
             ].map((item, index) => {
               const Icon = item.icon;
