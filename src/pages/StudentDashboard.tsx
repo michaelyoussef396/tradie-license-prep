@@ -57,13 +57,10 @@ const StudentDashboard = () => {
         .order("created_at", { ascending: false });
 
       if (refData && refData.length > 0) {
-        const leadIds = refData.map((r) => r.referred_lead_id).filter(Boolean);
-        const { data: leadsData } = await supabase
-          .from("leads")
-          .select("id, name")
-          .in("id", leadIds);
+        // Use secure RPC that returns only id and first name (no PII)
+        const { data: leadsData } = await supabase.rpc("get_my_referred_leads");
 
-        const leadMap = new Map((leadsData || []).map((l) => [l.id, l.name]));
+        const leadMap = new Map((leadsData || []).map((l: { id: string; name: string }) => [l.id, l.name]));
         setReferrals(refData.map((r) => ({ ...r, lead_name: leadMap.get(r.referred_lead_id) })));
       }
 
