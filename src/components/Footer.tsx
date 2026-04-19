@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, ArrowUpRight, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import qualifyProLogoWhite from "@/assets/qualify-pro-logo-white.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
