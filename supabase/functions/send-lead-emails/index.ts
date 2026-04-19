@@ -231,18 +231,38 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Anti-abuse: verify a real lead exists in the database for this email/name
+    // (the public form inserts the lead BEFORE invoking this function).
+    // Prevents this endpoint from being used as an open email relay.
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    const sixtyMinutesAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const { data: leadRows, error: leadLookupErr } = await supabase
+      .from("leads")
+      .select("id")
+      .eq("email", lead.email)
+      .eq("name", lead.name)
+      .gte("created_at", sixtyMinutesAgo)
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (leadLookupErr || !leadRows || leadRows.length === 0) {
+      console.warn("send-lead-emails: no matching recent lead found, refusing to send", { email: lead.email });
+      return new Response(JSON.stringify({ error: "No matching lead submission found" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // Server-side referral creation (if referral code provided)
     if (lead.referralCode && typeof lead.referralCode === "string" && lead.referralCode.trim().length > 0) {
       try {
-        const supabase = createClient(
-          Deno.env.get("SUPABASE_URL")!,
-          Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-        );
         const code = lead.referralCode.trim();
         // Validate referral code and get student ID
         const { data: studentId } = await supabase.rpc("validate_referral_code", { code });
         if (studentId) {
-          // Find the lead that was just inserted (by email, most recent)
           const { data: leadRecord } = await supabase
             .from("leads")
             .select("id")
