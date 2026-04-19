@@ -25,14 +25,35 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const verifyAdmin = async (userId: string) => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle();
+      return !error && !!data;
+    };
+
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate("/admin"); return; }
+      const isAdmin = await verifyAdmin(session.user.id);
+      if (!isAdmin) {
+        await supabase.auth.signOut();
+        navigate("/admin");
+        return;
+      }
       setLoading(false);
     };
     checkAuth();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      if (!session) navigate("/admin");
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_, session) => {
+      if (!session) { navigate("/admin"); return; }
+      const isAdmin = await verifyAdmin(session.user.id);
+      if (!isAdmin) {
+        await supabase.auth.signOut();
+        navigate("/admin");
+      }
     });
     return () => subscription.unsubscribe();
   }, [navigate]);
