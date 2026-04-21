@@ -146,7 +146,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <div className="text-xs text-gray-500 mb-0.5">Location</div>
-                  <div className="text-sm text-white font-medium">Melbourne, Victoria</div>
+                  <div className="text-sm text-white font-medium">5 Scanlon Drive, Epping</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
