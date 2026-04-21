@@ -444,7 +444,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-slate-900 mb-1">Location</div>
-                    <div className="text-slate-700 font-medium">Melbourne, Victoria</div>
+                    <div className="text-slate-700 font-medium">5 Scanlon Drive, Epping (Melbourne, Victoria)</div>
                     <div className="text-sm text-slate-500 mt-1">Face-to-face training only</div>
                   </div>
                 </div>
@@ -631,7 +631,7 @@ const Contact = () => {
               Face-to-Face Training in Melbourne
             </h3>
             <p className="text-slate-600 text-lg mb-4">
-              All our training is conducted in person in Melbourne, Victoria
+              All our training is conducted in person at 5 Scanlon Drive, Epping (Melbourne, Victoria)
             </p>
             <p className="text-slate-500">
               Interactive map showing location coming soon

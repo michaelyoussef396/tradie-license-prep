@@ -41,7 +41,7 @@ const FAQ = () => {
         {
           question: "Where are you located?",
           answer:
-            "We're based in Melbourne, Victoria. All training is face-to-face only (no online courses).",
+            "We're based at 5 Scanlon Drive, Epping (Melbourne, Victoria). All training is face-to-face only (no online courses).",
         },
       ],
     },
