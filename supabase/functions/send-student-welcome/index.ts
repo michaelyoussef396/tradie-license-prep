@@ -50,17 +50,28 @@ serve(async (req) => {
 
     if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY not configured");
 
+    const esc = (s: string) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    const safeName = esc(name);
+    const safeCode = esc(referralCode);
+
     const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: #1B4FD8; padding: 30px; text-align: center;">
         <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to Qualify Pro</h1>
       </div>
       <div style="padding: 30px; background: #ffffff;">
-        <p style="font-size: 16px; color: #333;">Hi ${name},</p>
+        <p style="font-size: 16px; color: #333;">Hi ${safeName},</p>
         <p style="font-size: 16px; color: #333;">You've completed the course and you're now a registered builder. Welcome to the Qualify Pro community.</p>
         <p style="font-size: 16px; color: #333;">Your referral code is:</p>
         <div style="background: #EBF0FE; border: 2px solid #1B4FD8; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0;">
-          <span style="font-size: 28px; font-weight: bold; color: #1B4FD8; letter-spacing: 2px;">${referralCode}</span>
+          <span style="font-size: 28px; font-weight: bold; color: #1B4FD8; letter-spacing: 2px;">${safeCode}</span>
         </div>
         <p style="font-size: 16px; color: #333;">Share this code with any tradie mates who need their BPC registration. When they enrol using your code, <strong>you'll earn $100 cash</strong> and <strong>they'll get $100 off</strong> their course.</p>
         <p style="font-size: 16px; color: #333;">Track your referrals and rewards anytime on your dashboard:</p>
@@ -77,7 +88,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: "Qualify Pro <hello@qualifypro.com.au>",
         to: [email],
-        subject: `Welcome to Qualify Pro — your referral code is ${referralCode}`,
+        subject: `Welcome to Qualify Pro — your referral code is ${String(referralCode).replace(/[\r\n]/g, "")}`,
         html,
       }),
     });
