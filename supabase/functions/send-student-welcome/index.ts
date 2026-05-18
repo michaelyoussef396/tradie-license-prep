@@ -31,6 +31,19 @@ serve(async (req) => {
     });
   }
 
+  const { data: adminRole, error: roleError } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", user.id)
+    .eq("role", "admin")
+    .maybeSingle();
+
+  if (roleError || !adminRole) {
+    return new Response(JSON.stringify({ error: "Forbidden" }), {
+      status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   try {
     const { name, email, referralCode } = await req.json();
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
