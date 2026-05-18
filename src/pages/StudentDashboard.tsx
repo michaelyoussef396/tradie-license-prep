@@ -34,11 +34,9 @@ const StudentDashboard = () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate("/admin"); return; }
 
-      const email = session.user.email;
       const { data: studentData } = await supabase
         .from("students")
         .select("id, name, referral_code")
-        .eq("email", email!)
         .maybeSingle();
 
       if (!studentData) {
