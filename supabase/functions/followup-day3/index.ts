@@ -9,6 +9,15 @@ const corsHeaders = {
 
 const FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
 
+function esc(s: string): string {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function buildDay3Html(firstName: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -101,7 +110,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    const firstName = name.split(" ")[0];
+    const firstName = esc(String(name).split(" ")[0]);
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
