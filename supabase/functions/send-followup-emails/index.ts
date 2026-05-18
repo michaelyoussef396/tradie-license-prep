@@ -52,6 +52,14 @@ serve(async (req) => {
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
     const results = { day3: 0, day7: 0, day10: 0, errors: [] as string[] };
 
+    const esc = (s: string) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
     const sendEmail = async (to: string, subject: string, html: string) => {
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -84,7 +92,7 @@ serve(async (req) => {
         await sendEmail(
           lead.email,
           `Still thinking about your builders license, ${lead.name}?`,
-          wrapHtml(`<p style="font-size:16px;color:#333;">Hey ${lead.name},</p>
+          wrapHtml(`<p style="font-size:16px;color:#333;">Hey ${esc(lead.name)},</p>
             <p style="font-size:16px;color:#333;">Just checking in — still thinking about getting your BPC registration? Happy to answer any questions. Call or reply anytime.</p>
             <p style="font-size:16px;color:#333;">Adrian — 0411 626 398</p>`)
         );
@@ -106,7 +114,7 @@ serve(async (req) => {
         await sendEmail(
           lead.email,
           `Quick one, ${lead.name}`,
-          wrapHtml(`<p style="font-size:16px;color:#333;">Hey ${lead.name},</p>
+          wrapHtml(`<p style="font-size:16px;color:#333;">Hey ${esc(lead.name)},</p>
             <p style="font-size:16px;color:#333;">Last one from me — no pressure at all. When you're ready, we're here.</p>
             <p style="font-size:16px;color:#333;">Adrian — 0411 626 398</p>`)
         );
