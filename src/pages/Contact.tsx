@@ -66,7 +66,7 @@ const Contact = () => {
 
       // Insert lead with referral code
       // status: "new" is required by the anon INSERT RLS policy on public.leads
-      const { data: leadData, error } = await supabase.from("leads").insert({
+      const { error } = await supabase.from("leads").insert({
         name: validatedData.fullName,
         email: validatedData.email,
         phone: validatedData.phone,
@@ -76,7 +76,7 @@ const Contact = () => {
         source: "contact-form",
         used_referral_code: formData.referralCode.trim() || null,
         status: "new",
-      }).select("id").single();
+      });
 
       if (error) throw error;
 
