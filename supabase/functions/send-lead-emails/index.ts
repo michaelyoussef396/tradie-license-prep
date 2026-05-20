@@ -192,6 +192,61 @@ function buildAutoReplyHtml(firstName: string): string {
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
+interface ResendPayload {
+  from: string;
+  to: string[];
+  subject: string;
+  html: string;
+}
+
+interface ResendResult {
+  ok: boolean;
+  status: number;
+  data: unknown;
+}
+
+async function sendResendEmail(
+  apiKey: string,
+  payload: ResendPayload,
+  label: string,
+): Promise<ResendResult> {
+  console.log(`Resend[${label}] -> POST https://api.resend.com/emails`, {
+    from: payload.from,
+    to: payload.to,
+    subject: payload.subject,
+    htmlBytes: payload.html.length,
+  });
+
+  let res: Response;
+  try {
+    res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`Resend[${label}] fetch threw`, { error: msg });
+    return { ok: false, status: 0, data: { error: msg } };
+  }
+
+  const rawBody = await res.text();
+  let parsed: unknown = rawBody;
+  try { parsed = JSON.parse(rawBody); } catch { /* keep raw */ }
+
+  if (!res.ok) {
+    console.error(`Resend[${label}] FAILED`, {
+      status: res.status,
+      statusText: res.statusText,
+      body: parsed,
+    });
+  } else {
+    console.log(`Resend[${label}] SUCCESS`, { status: res.status, body: parsed });
+  }
+
+  return { ok: res.ok, status: res.status, data: parsed };
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -286,30 +341,25 @@ Deno.serve(async (req) => {
 
     const firstName = esc(lead.name.split(" ")[0]);
 
-    // Send emails + Airtable sync in parallel
-    const [notifRes, replyRes] = await Promise.all([
-      // Email 1: Notification to Adrian
-      fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: FROM_EMAIL,
-          to: [ADMIN_EMAIL],
-          subject: `New Lead: ${esc(lead.name)} – ${esc(lead.phone)}`,
-          html: buildNotificationHtml(lead),
-        }),
-      }),
-      // Email 2: Auto-reply to lead
-      fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: FROM_EMAIL,
-          to: [lead.email],
-          subject: "Thanks for contacting Qualify Pro",
-          html: buildAutoReplyHtml(firstName),
-        }),
-      }),
+    console.log("send-lead-emails: dispatching Resend emails", {
+      adminTo: ADMIN_EMAIL,
+      leadTo: lead.email,
+      from: FROM_EMAIL,
+    });
+
+    const [notifResult, replyResult] = await Promise.all([
+      sendResendEmail(RESEND_API_KEY, {
+        from: FROM_EMAIL,
+        to: [ADMIN_EMAIL],
+        subject: `New Lead: ${esc(lead.name)} – ${esc(lead.phone)}`,
+        html: buildNotificationHtml(lead),
+      }, "notification"),
+      sendResendEmail(RESEND_API_KEY, {
+        from: FROM_EMAIL,
+        to: [lead.email],
+        subject: "Thanks for contacting Qualify Pro",
+        html: buildAutoReplyHtml(firstName),
+      }, "autoReply"),
     ]);
 
     // Airtable sync - fire and forget, don't block response
@@ -317,11 +367,17 @@ Deno.serve(async (req) => {
       console.error("Airtable sync error:", err)
     );
 
-    const notifData = await notifRes.json();
-    const replyData = await replyRes.json();
+    console.log("send-lead-emails: Resend summary", {
+      notification: { ok: notifResult.ok, status: notifResult.status },
+      autoReply: { ok: replyResult.ok, status: replyResult.status },
+    });
 
     return new Response(
-      JSON.stringify({ success: true, notification: notifData, autoReply: replyData }),
+      JSON.stringify({
+        success: notifResult.ok && replyResult.ok,
+        notification: { ok: notifResult.ok, status: notifResult.status, data: notifResult.data },
+        autoReply: { ok: replyResult.ok, status: replyResult.status, data: replyResult.data },
+      }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error: unknown) {
