@@ -44,7 +44,7 @@ const About = () => {
     {
       icon: GraduationCap,
       title: "10+ Years Training Experience",
-      description: "Over a decade helping Melbourne tradies achieve their building registration with a consistently high pass rate."
+      description: "Over a decade helping Melbourne tradies achieve their building registration with a 95% pass rate (based on Qualify Pro's own student records)."
     },
   ];
 
@@ -120,7 +120,7 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "High", label: "Consistently High Pass Rate" },
+    { number: "95%", label: "Pass Rate" },
     { number: "10+", label: "Years Experience" },
     { number: "500+", label: "Students Trained" },
     { number: "5-10", label: "Max Class Size" },
@@ -181,6 +181,7 @@ const About = () => {
                 </motion.div>
               ))}
             </div>
+            <p className="mt-4 text-center text-xs text-blue-200/60">Based on Qualify Pro&apos;s own student records.</p>
           </motion.div>
         </div>
       </section>

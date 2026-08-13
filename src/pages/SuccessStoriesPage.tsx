@@ -254,7 +254,7 @@ const SuccessStoriesPage = () => {
           >
             <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
               <Star className="h-4 w-4 text-blue-400" />
-              <span className="text-blue-300 text-sm font-medium">Consistently High Pass Rate</span>
+              <span className="text-blue-300 text-sm font-medium">95% Pass Rate</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -264,14 +264,14 @@ const SuccessStoriesPage = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-              Our students achieve a consistently high pass rate for their BPC (formerly VBA) registration. Here are their stories of transformation.
+              Our students achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. Here are their stories of transformation.
             </p>
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
               {[
                 { value: "500+", label: "Licensed Tradies" },
-                { value: "High", label: "Pass Rate" },
+                { value: "95%", label: "Pass Rate" },
                 { value: "10+", label: "Years Experience" },
               ].map((stat, index) => (
                 <motion.div
@@ -286,6 +286,7 @@ const SuccessStoriesPage = () => {
                 </motion.div>
               ))}
             </div>
+            <p className="mt-4 text-xs text-slate-400">Based on Qualify Pro&apos;s own student records.</p>
           </motion.div>
         </div>
       </section>
@@ -307,7 +308,7 @@ const SuccessStoriesPage = () => {
               Our Pass Rate
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Students who complete our programs achieve a consistently high pass rate for their BPC (formerly VBA) registration. 
+              Students who complete our programs achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. 
               Here's what happens after they get licensed:
             </p>
           </motion.div>
@@ -512,7 +513,7 @@ const SuccessStoriesPage = () => {
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Every student came from a different background with different challenges. What they 
               all received was personalized training focused on their individual needs. That's why 
-              our students achieve a consistently high pass rate - because we don't believe in one-size-fits-all training.
+              our students achieve a 95% pass rate (based on Qualify Pro's own student records) - because we don't believe in one-size-fits-all training.
             </p>
           </motion.div>
         </div>

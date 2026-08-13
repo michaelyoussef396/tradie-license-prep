@@ -225,7 +225,7 @@ const Courses = () => {
     },
     {
       question: "What's your success rate?",
-      answer: "Students who complete our programs achieve a consistently high pass rate for their registration. This is due to our personalized teaching approach, comprehensive preparation, and ensuring students are truly ready before attempting their licensing."
+      answer: "Students who complete our programs achieve a 95% pass rate for their registration (based on Qualify Pro's own student records). This is due to our personalized teaching approach, comprehensive preparation, and ensuring students are truly ready before attempting their licensing."
     },
     {
       question: "What if I fail the BPC test?",

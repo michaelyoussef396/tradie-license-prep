@@ -79,7 +79,7 @@ const SuccessStories = () => {
             Success Stories
           </h2>
           <p className="text-lg text-blue-200/80 max-w-2xl mx-auto">
-            A <span className="text-white font-semibold">consistently high pass rate</span> — here's what our students have achieved.
+            A <span className="text-white font-semibold">95% pass rate</span> (based on Qualify Pro&apos;s own student records) — here's what our students have achieved.
           </p>
         </motion.div>
 
