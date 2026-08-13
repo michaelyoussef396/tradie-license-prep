@@ -169,7 +169,7 @@ function buildAutoReplyHtml(firstName: string): string {
         <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> Our courses run in small groups (max 10) so you get real support
       </td></tr>
       <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
-        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> 95% of our students pass first time
+        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> Our students achieve a consistently high pass rate
       </td></tr>
       <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
         <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> We focus on getting you registered, not just giving you a certificate
