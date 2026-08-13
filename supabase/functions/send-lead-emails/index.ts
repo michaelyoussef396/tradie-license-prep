@@ -43,7 +43,7 @@ async function syncToAirtable(lead: LeadPayload, source: string): Promise<void> 
         "Name": lead.name || "",
         "Email": lead.email || "",
         "Phone": lead.phone || "",
-        "License Type": lead.licenseType || "",
+        "Licence Type": lead.licenseType || "",
         "Years Experience": parseYearsExperience(lead.yearsExperience),
         "Message": lead.message || "",
         "Source": source || "",
@@ -117,7 +117,7 @@ function buildNotificationHtml(lead: LeadPayload): string {
         <td style="padding:12px 16px;color:#1a56db;border-bottom:1px solid #e0e0e0;">${esc(lead.email)}</td>
       </tr>
       ${lead.licenseType ? `<tr>
-        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">License:</td>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Licence:</td>
         <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${esc(lead.licenseType)}</td>
       </tr>` : ''}
       ${lead.yearsExperience ? `<tr>
@@ -161,7 +161,7 @@ function buildAutoReplyHtml(firstName: string): string {
   </td></tr>
   <tr><td style="padding:32px 28px;font-size:15px;line-height:1.7;color:#333;">
     <p style="margin:0 0 16px 0;">Hey ${firstName},</p>
-    <p style="margin:0 0 16px 0;">Thanks for reaching out about getting your builders license.</p>
+    <p style="margin:0 0 16px 0;">Thanks for reaching out about getting your builders licence.</p>
     <p style="margin:0 0 16px 0;">Our team will give you a call <strong>within 24 hours</strong> to have a chat about where you're at and how we can help.</p>
     <p style="margin:0 0 12px 0;">In the meantime, here's what most tradies want to know:</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px 0;">
@@ -169,7 +169,7 @@ function buildAutoReplyHtml(firstName: string): string {
         <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> Our courses run in small groups (max 10) so you get real support
       </td></tr>
       <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
-        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> 95% of our students pass first time
+        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> Our students achieve a consistently high pass rate
       </td></tr>
       <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
         <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> We focus on getting you registered, not just giving you a certificate

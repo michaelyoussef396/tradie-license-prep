@@ -118,7 +118,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: FROM_EMAIL,
         to: [email],
-        subject: "Still thinking about your builders license?",
+        subject: "Still thinking about your builders licence?",
         html: buildDay3Html(firstName),
       }),
     });

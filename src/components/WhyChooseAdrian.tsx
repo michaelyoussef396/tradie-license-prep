@@ -36,7 +36,7 @@ const WhyChooseAdrian = () => {
     {
       icon: Shield,
       title: "Pass First Time",
-      description: "95% of our students pass on their first attempt. If you don't, your resit is on us.",
+      description: "Pass first time, or we sit you down again for free — at no extra cost.",
       accent: "from-blue-600 to-blue-700",
     },
   ];
@@ -127,7 +127,7 @@ const WhyChooseAdrian = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <p className="text-gray-500 text-sm">
-            <span className="text-blue-600 font-semibold">Real mentorship</span> • Not a factory-line RTO
+            <span className="text-blue-600 font-semibold">Real mentorship</span> • A specialist BPC preparation program
           </p>
         </motion.div>
       </div>

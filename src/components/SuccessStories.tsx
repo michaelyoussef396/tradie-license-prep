@@ -9,8 +9,8 @@ const SuccessStories = () => {
       initials: "F",
       bgGradient: "from-blue-500 to-blue-600",
       licence: "Domestic Builder Unlimited",
-      highlight: "$15M+",
-      highlightLabel: "Annual Revenue",
+      highlight: "Elite",
+      highlightLabel: "Custom Homes",
       highlightIcon: TrendingUp,
       story: "Now runs a thriving building company specialising in elite homes across Melbourne's most prestigious suburbs.",
       timeframe: "Licensed 5 years ago",
@@ -79,7 +79,7 @@ const SuccessStories = () => {
             Success Stories
           </h2>
           <p className="text-lg text-blue-200/80 max-w-2xl mx-auto">
-            <span className="text-white font-semibold">95%</span> of our students gain their registration. Here's what they've achieved.
+            A <span className="text-white font-semibold">consistently high pass rate</span> — here's what our students have achieved.
           </p>
         </motion.div>
 

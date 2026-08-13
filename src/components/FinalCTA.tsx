@@ -111,7 +111,7 @@ const FinalCTA = () => {
   const benefits = [
     { icon: CheckCircle2, text: "Free consultation - no obligation" },
     { icon: Clock, text: "Response within 24 hours" },
-    { icon: Shield, text: "95% success rate" },
+    { icon: Shield, text: "Consistently high pass rate" },
   ];
 
   return (
@@ -144,7 +144,7 @@ const FinalCTA = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Ready to Get Your<br />
               <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                Building License?
+                Building Licence?
               </span>
             </h2>
             
@@ -273,15 +273,15 @@ const FinalCTA = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      License Type *
+                      Licence Type *
                     </label>
                     <Select value={formData.licenseType} onValueChange={(value) => setFormData(prev => ({ ...prev, licenseType: value }))}>
                       <SelectTrigger className="w-full h-12 text-base border-gray-200">
-                        <SelectValue placeholder="Select license type" />
+                        <SelectValue placeholder="Select licence type" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="Domestic Builder Unlimited">Domestic Builder Unlimited</SelectItem>
-                        <SelectItem value="Carpentry License (DB-L)">Carpentry License (DB-L)</SelectItem>
+                        <SelectItem value="Carpentry Licence (DB-L)">Carpentry Licence (DB-L)</SelectItem>
                         <SelectItem value="Commercial Building (Low-Rise)">Commercial Building (Low-Rise)</SelectItem>
                         <SelectItem value="Waterproofing">Waterproofing</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>

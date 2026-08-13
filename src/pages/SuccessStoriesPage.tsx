@@ -30,11 +30,11 @@ const SuccessStoriesPage = () => {
       initials: "F",
       gradientFrom: "from-blue-500",
       gradientTo: "to-blue-600",
-      headline: "From Tradie to $15M Business Owner",
+      headline: "From Tradie to Business Owner",
       achievement: "Domestic Builder – Unlimited",
       yearsAgo: "5 years ago",
       currentBusiness: "Elite Homes Melbourne",
-      revenue: "$15M+ annually",
+      revenue: "Elite custom homes",
       before: {
         title: "The Starting Point",
         description: "Fauzi was an experienced carpenter with solid practical skills and years of on-site experience. He'd worked on numerous residential projects and knew his trade inside out. However, he was working for someone else's building company and wanted to start his own business building high-end homes. The problem? He needed his Domestic Builder Unlimited registration to legally run his own building company and sign off on projects."
@@ -49,7 +49,7 @@ const SuccessStoriesPage = () => {
       },
       result: {
         title: "The Result",
-        description: "Fauzi passed his Domestic Builder Unlimited registration on the first attempt. Within months, he launched his own building company specializing in elite homes across Melbourne's prestigious suburbs including Toorak, Brighton, and Armadale. Five years later, his company turns over $15+ million annually and has built a reputation for exceptional quality and craftsmanship. Fauzi now employs multiple teams and manages several high-end residential projects simultaneously. His success demonstrates how proper licensing preparation can transform a tradie's career trajectory."
+        description: "Fauzi passed his Domestic Builder Unlimited registration on the first attempt. Within months, he launched his own building company specializing in elite homes across Melbourne's prestigious suburbs including Toorak, Brighton, and Armadale. Five years later, his company has built a reputation for exceptional quality and craftsmanship. Fauzi now employs multiple teams and manages several high-end residential projects simultaneously. His success demonstrates how proper licensing preparation can transform a tradie's career trajectory."
       },
       quote: "Adrian's personalized approach helped me understand the regulations I was struggling with. The small class size meant I could ask questions without feeling rushed, and the practice tests prepared me perfectly for the BPC process. I passed first time and never looked back. Now I run my own company building elite homes - something that wouldn't have been possible without my unlimited builder registration.",
       icon: Building2
@@ -61,7 +61,7 @@ const SuccessStoriesPage = () => {
       gradientFrom: "from-emerald-500",
       gradientTo: "to-emerald-600",
       headline: "From Carpenter to Premium Business Owner",
-      achievement: "Carpentry License (DB-L)",
+      achievement: "Carpentry Licence (DB-L)",
       yearsAgo: "3 years ago",
       currentBusiness: "Premium Outdoor Living",
       revenue: "High-end installations",
@@ -75,11 +75,11 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Jordan enrolled in the Carpentry License (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas, while interview coaching taught him how to discuss his practical experience with authority. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
+        description: "Jordan enrolled in the Carpentry Licence (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas, while interview coaching taught him how to discuss his practical experience with authority. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
       },
       result: {
         title: "The Result",
-        description: "Jordan achieved his Carpentry License (DB-L) and immediately launched his own business specializing in high-end outdoor living spaces. He quickly established partnerships with premium suppliers and builders throughout Melbourne. His business focuses on quality over quantity - delivering exceptional outdoor installations that command premium prices. Jordan now works directly with homeowners and builders on upscale projects, earning significantly more than when he was employed. His success shows how specialized licensing can open doors to profitable niche markets."
+        description: "Jordan achieved his Carpentry Licence (DB-L) and immediately launched his own business specializing in high-end outdoor living spaces. He quickly established partnerships with premium suppliers and builders throughout Melbourne. His business focuses on quality over quantity - delivering exceptional outdoor installations. Jordan now works directly with homeowners and builders on upscale projects. His success shows how specialized licensing can open doors to profitable niche markets."
       },
       quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on. His teaching style is clear and practical. I passed first time and launched my business within weeks. Now I'm doing the high-end outdoor work I always wanted to do, working with the best suppliers in Melbourne.",
       icon: Award
@@ -105,7 +105,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm-9pm) meant he could continue working while preparing for his license. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
+        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm-9pm) meant he could continue working while preparing for his licence. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
       },
       result: {
         title: "The Result",
@@ -127,7 +127,7 @@ const SuccessStoriesPage = () => {
       revenue: "50+ homes per year",
       before: {
         title: "The Starting Point",
-        description: "Manny had years of building experience and wanted to scale up from working for others to running his own high-volume building operation. He had the skills and experience but lacked the formal registration needed to legally operate as a builder. He wanted to build volume residential projects but needed his Domestic Builder Unlimited license to do so."
+        description: "Manny had years of building experience and wanted to scale up from working for others to running his own high-volume building operation. He had the skills and experience but lacked the formal registration needed to legally operate as a builder. He wanted to build volume residential projects but needed his Domestic Builder Unlimited licence to do so."
       },
       challenge: {
         title: "The Challenge",
@@ -157,7 +157,7 @@ const SuccessStoriesPage = () => {
       revenue: "40+ projects annually",
       before: {
         title: "The Starting Point",
-        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his license."
+        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his licence."
       },
       challenge: {
         title: "The Challenge",
@@ -165,7 +165,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Ben enrolled in Qualify Pro's program specifically seeking the pass guarantee - knowing he could resit if needed gave him confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations in the interview. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps and teaching interview techniques. The supportive, patient teaching style helped Ben rebuild his confidence. Mock interviews prepared Ben to discuss his renovation experience professionally and demonstrate his understanding of building regulations."
+        description: "Ben enrolled in Qualify Pro's program knowing he could sit down again for free if needed, which gave him the confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations in the interview. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps and teaching interview techniques. The supportive, patient teaching style helped Ben rebuild his confidence. Mock interviews prepared Ben to discuss his renovation experience professionally and demonstrate his understanding of building regulations."
       },
       result: {
         title: "The Result",
@@ -254,7 +254,7 @@ const SuccessStoriesPage = () => {
           >
             <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
               <Star className="h-4 w-4 text-blue-400" />
-              <span className="text-blue-300 text-sm font-medium">95% Success Rate</span>
+              <span className="text-blue-300 text-sm font-medium">Consistently High Pass Rate</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -264,16 +264,15 @@ const SuccessStoriesPage = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-              95% of our students pass their BPC (formerly VBA) registration. Here are their stories of transformation.
+              Our students achieve a consistently high pass rate for their BPC (formerly VBA) registration. Here are their stories of transformation.
             </p>
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
               {[
                 { value: "500+", label: "Licensed Tradies" },
-                { value: "95%", label: "Success Rate" },
+                { value: "High", label: "Pass Rate" },
                 { value: "10+", label: "Years Experience" },
-                { value: "$15M+", label: "Student Revenue" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -302,22 +301,22 @@ const SuccessStoriesPage = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-2xl px-10 py-6 mb-8 shadow-lg">
-              <div className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">95%</div>
+              <div className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">High</div>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Our Success Rate
+              Our Pass Rate
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              95% of students who complete our programs successfully gain their BPC (formerly VBA) registration. 
+              Students who complete our programs achieve a consistently high pass rate for their BPC (formerly VBA) registration. 
               Here's what happens after they get licensed:
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, DB-L Carpentry, or Commercial licenses", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
+              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, DB-L Carpentry, or Commercial licences", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
               { icon: Briefcase, title: "Started Businesses", description: "Many students launched their own building companies and are now their own bosses", gradient: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50" },
-              { icon: TrendingUp, title: "Advanced Careers", description: "Students earn significantly more as licensed builders than unlicensed tradies", gradient: "from-violet-500 to-violet-600", bg: "bg-violet-50" },
+              { icon: TrendingUp, title: "Advanced Careers", description: "Students take on bigger projects and greater responsibility as licensed builders", gradient: "from-violet-500 to-violet-600", bg: "bg-violet-50" },
             ].map((item, index) => {
               const Icon = item.icon;
               return (
@@ -388,9 +387,9 @@ const SuccessStoriesPage = () => {
                   {/* Quick Stats */}
                   <div className="mt-6 space-y-3">
                     {[
-                      { label: "License Type", value: study.achievement },
+                      { label: "Licence Type", value: study.achievement },
                       { label: "Current Business", value: study.currentBusiness },
-                      { label: "Revenue/Scale", value: study.revenue },
+                      { label: "Scale of Work", value: study.revenue },
                     ].map((stat, idx) => (
                       <div key={idx} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                         <div className="text-sm text-slate-500 mb-1">{stat.label}</div>
@@ -513,7 +512,7 @@ const SuccessStoriesPage = () => {
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Every student came from a different background with different challenges. What they 
               all received was personalized training focused on their individual needs. That's why 
-              95% of our students pass and gain registration - because we don't believe in one-size-fits-all training.
+              our students achieve a consistently high pass rate - because we don't believe in one-size-fits-all training.
             </p>
           </motion.div>
         </div>

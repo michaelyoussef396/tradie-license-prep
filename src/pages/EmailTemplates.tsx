@@ -114,7 +114,7 @@ const EmailTemplates = () => {
                       ["Phone:", "0412 345 678"],
                       ["Email:", "jordan.smith@email.com"],
                       ["Course Interest:", "Comprehensive Builder Program"],
-                      ["Message:", "Hi, I'm a carpenter with 5 years experience looking to get my domestic builder license."],
+                      ["Message:", "Hi, I'm a carpenter with 5 years experience looking to get my domestic builder licence."],
                       ["Submitted:", "15 Dec 2025, 2:34 PM"],
                     ].map(([label, value], i) => (
                       <div key={i} className="flex px-4 py-2.5 border-b border-border last:border-b-0">
@@ -143,12 +143,12 @@ const EmailTemplates = () => {
                 </div>
                 <div className="bg-background px-5 py-5 text-sm leading-relaxed text-foreground space-y-4">
                   <p>Hey Jordan,</p>
-                  <p>Thanks for reaching out about getting your builders license.</p>
+                  <p>Thanks for reaching out about getting your builders licence.</p>
                   <p>Our team will give you a call within 24 hours to have a chat about where you're at and how we can help.</p>
                   <p>In the meantime, here's what most tradies want to know:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Our courses run in small groups (max 10) so you get real support</li>
-                    <li>95% of our students pass first time</li>
+                    <li>Our students achieve a consistently high pass rate</li>
                     <li>We focus on getting you registered, not just giving you a certificate</li>
                   </ul>
                   <p>Talk soon,</p>
@@ -168,7 +168,7 @@ const EmailTemplates = () => {
                 <div className="bg-muted/50 px-5 py-3 border-b border-border">
                   <EmailRow label="To:" value="jordan.smith@email.com" />
                   <EmailRow label="From:" value="Qualify Pro <hello@qualifypro.com.au>" />
-                  <EmailRow label="Subject:" value="Still keen to get your builders license?" />
+                  <EmailRow label="Subject:" value="Still keen to get your builders licence?" />
                 </div>
                 <div className="bg-background px-5 py-5 text-sm leading-relaxed text-foreground space-y-4">
                   <p>Hey Jordan,</p>
@@ -201,7 +201,7 @@ const EmailTemplates = () => {
                 <div className="bg-background px-5 py-5 text-sm leading-relaxed text-foreground space-y-4">
                   <p>Hey Jordan,</p>
                   <p>Last one from me – just wanted to check if you had any questions I can help with?</p>
-                  <p>No stress either way. When you're ready to get your license, we're here.</p>
+                  <p>No stress either way. When you're ready to get your licence, we're here.</p>
                   <Sig />
                 </div>
               </div>
@@ -222,7 +222,7 @@ const EmailTemplates = () => {
                 </div>
                 <div className="bg-background px-5 py-5 text-sm leading-relaxed text-foreground space-y-4">
                   <p>Hey mate,</p>
-                  <p>Hope business is going well since getting your license!</p>
+                  <p>Hope business is going well since getting your licence!</p>
                   <p>Would you mind leaving a quick Google review about your experience with Qualify Pro?</p>
                   <p>It really helps other tradies find us.</p>
                   <div className="bg-emerald-50 border-l-4 border-emerald-600 p-3 rounded-r-lg">

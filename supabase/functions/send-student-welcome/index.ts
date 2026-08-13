@@ -76,7 +76,7 @@ serve(async (req) => {
         <p style="font-size: 16px; color: #333;">Share this code with any tradie mates who need their BPC registration. When they enrol using your code, <strong>you'll earn $100 cash</strong> and <strong>they'll get $100 off</strong> their course.</p>
         <p style="font-size: 16px; color: #333;">Track your referrals and rewards anytime on your dashboard:</p>
         <div style="text-align: center; margin: 20px 0;">
-          <a href="https://tradie-license-prep.lovable.app/dashboard" style="display: inline-block; background: #1B4FD8; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">Go to My Dashboard</a>
+          <a href="https://tradie-licence-prep.lovable.app/dashboard" style="display: inline-block; background: #1B4FD8; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">Go to My Dashboard</a>
         </div>
         <p style="font-size: 16px; color: #333;">Cheers,<br/><strong>Adrian</strong><br/>Qualify Pro<br/>0411 626 398</p>
       </div>
