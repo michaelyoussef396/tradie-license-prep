@@ -49,7 +49,7 @@ const BuildersLicenceMelbourne = () => {
 
       <main className="overflow-hidden">
         {/* HERO — designed to fit a mobile screen without scrolling */}
-        <section className="relative min-h-[calc(100svh-3rem)] flex flex-col justify-center bg-slate-900 pt-8 pb-8">
+        <section className="relative min-h-[calc(100svh-3rem)] lg:min-h-0 lg:py-24 flex flex-col justify-center bg-slate-900 pt-8 pb-8">
           {/* Gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-slate-900 to-blue-950" />
 
