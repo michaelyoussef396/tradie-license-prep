@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE = "https://qualifypro.com.au";
+const SITE = "https://www.qualifypro.com.au";
 
 interface SeoProps {
   title: string;

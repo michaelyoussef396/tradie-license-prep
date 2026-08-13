@@ -180,7 +180,7 @@ function buildAutoReplyHtml(firstName: string): string {
       <strong style="color:#333;font-size:15px;">Adrian Nicolazzo</strong><br/>
       <span style="color:#555;font-size:14px;">Qualify Pro</span><br/>
       <span style="color:#555;font-size:14px;">0411 626 398</span><br/>
-      <a href="https://qualifypro.com.au" style="color:#059669;font-size:14px;text-decoration:none;">qualifypro.com.au</a>
+      <a href="https://www.qualifypro.com.au" style="color:#059669;font-size:14px;text-decoration:none;">www.qualifypro.com.au</a>
     </div>
   </td></tr>
 </table>
