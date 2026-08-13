@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
@@ -227,6 +228,7 @@ const SuccessStoriesPage = () => {
 
   return (
     <PageTransition>
+      <Seo title={"Student Success Stories | Qualify Pro Melbourne"} description={"Real Melbourne tradies who gained their building registration with Qualify Pro and went on to build thriving construction businesses."} path="/success-stories" />
       <div className="min-h-screen">
         <Navigation />
       

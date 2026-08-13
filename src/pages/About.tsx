@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -127,6 +128,7 @@ const About = () => {
 
   return (
     <PageTransition>
+      <Seo title={"About Adrian Nicolazzo | Registered Builder & Mentor"} description={"Meet Adrian Nicolazzo: registered building practitioner, commercial licence holder and qualified carpenter with 10+ years mentoring Melbourne tradies."} path="/about" />
       <div className="min-h-screen">
         <Navigation />
       
