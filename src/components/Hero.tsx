@@ -3,17 +3,19 @@ import { ArrowRight, Users, Award, MapPin, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { trackCtaClick } from "@/lib/analytics";
+import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 
 const Hero = () => {
   const navigate = useNavigate();
 
   const handleBookConsultation = () => {
-    trackCtaClick('Book Free Consultation', 'homepage');
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+    trackCtaClick("Check My Eligibility", "homepage");
+    const form = document.getElementById("hero-first-name");
+    if (form) {
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
+      form.focus({ preventScroll: true });
     } else {
-      navigate('/contact');
+      navigate("/contact");
     }
   };
 
@@ -76,7 +78,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Main Content */}
-          <div className="lg:col-span-7 text-center lg:text-left">
+          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1">
             {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -97,13 +99,11 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <span className="text-white">Get Your</span>
-              <br />
-              <span className="text-white">Building License</span>
+              <span className="text-white">Get Your Builder's Licence in Victoria</span>
               <br />
               <span className="relative">
                 <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
-                  Right The First Time
+                  — Without the Guesswork
                 </span>
                 <motion.span 
                   className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
@@ -121,9 +121,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Personalised mentorship for Melbourne tradies seeking BPC 
-              <span className="text-blue-300/70"> (formerly VBA) </span>
-              registration. Small classes, real results, from someone who's been on the tools.
+              Qualify Pro prepares Melbourne tradies for the full Building and Plumbing Commission registration process.
             </motion.p>
 
             {/* CTAs */}
@@ -138,7 +136,7 @@ const Hero = () => {
                 className="group bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 text-base sm:text-lg px-8 py-6 rounded-xl"
                 onClick={handleBookConsultation}
               >
-                Book Free Consultation
+                Check My Eligibility — It's Free
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
@@ -161,13 +159,14 @@ const Hero = () => {
             </motion.p>
           </div>
 
-          {/* Trust Badges Card */}
+          {/* Enquiry Form + Trust Badges */}
           <motion.div 
-            className="lg:col-span-5"
+            className="lg:col-span-5 order-1 lg:order-2 space-y-6"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
+            <HeroEnquiryForm />
             <div className="relative">
               {/* Glow Effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl blur-xl" />

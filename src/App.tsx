@@ -7,6 +7,7 @@ import { useEffect, lazy, Suspense } from "react";
 import ScrollToTopButton from "./components/ScrollToTop";
 import PageSkeleton from "./components/PageSkeleton";
 import AnalyticsProvider from "./components/AnalyticsProvider";
+import CallBar from "./components/CallBar";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -44,6 +45,8 @@ const App = () => (
         <ScrollToTopOnNavigate />
         <AnalyticsProvider />
         <ScrollToTopButton />
+        <CallBar />
+        <div className="pt-12">
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -61,6 +64,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
