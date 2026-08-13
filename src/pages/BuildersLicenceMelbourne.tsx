@@ -15,7 +15,7 @@ const BuildersLicenceMelbourne = () => {
   };
 
   const trustItems = [
-    { icon: TrendingUp, text: "95% BPC pass rate" },
+    { icon: TrendingUp, text: "95% BPC pass rate (own student records)" },
     { icon: Award, text: "10+ years specialist experience" },
     { icon: Users, text: "Small personalised classes" },
     { icon: CheckCircle2, text: "Specialist BPC prep, not a generic course" },
@@ -182,6 +182,7 @@ const BuildersLicenceMelbourne = () => {
                 );
               })}
             </div>
+            <p className="mt-4 text-center text-xs text-slate-500">Based on Qualify Pro&apos;s own student records.</p>
           </div>
         </section>
 

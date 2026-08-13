@@ -530,6 +530,7 @@ const Contact = () => {
               );
             })}
           </div>
+          <p className="mt-6 text-center text-xs text-slate-400">Based on Qualify Pro&apos;s own student records.</p>
         </div>
       </section>
 

@@ -286,6 +286,7 @@ const SuccessStoriesPage = () => {
                 </motion.div>
               ))}
             </div>
+            <p className="mt-4 text-xs text-slate-400">Based on Qualify Pro&apos;s own student records.</p>
           </motion.div>
         </div>
       </section>

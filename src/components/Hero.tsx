@@ -206,6 +206,7 @@ const Hero = () => {
                     );
                   })}
                 </div>
+                <p className="mt-3 text-center text-[11px] text-blue-200/50">Based on Qualify Pro&apos;s own student records.</p>
 
                 {/* Bottom Tag */}
                 <div className="mt-6 pt-6 border-t border-white/10 text-center">

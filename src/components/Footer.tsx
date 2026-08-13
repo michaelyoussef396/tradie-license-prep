@@ -64,6 +64,7 @@ const Footer = () => {
                 10+ Years Experience
               </span>
             </div>
+            <p className="mt-3 text-[11px] text-gray-500">Based on Qualify Pro&apos;s own student records.</p>
           </div>
 
           {/* Quick Links */}
