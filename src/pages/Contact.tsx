@@ -100,6 +100,8 @@ const Contact = () => {
         source: 'contact-form',
       });
 
+      trackLeadConversion();
+
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
@@ -114,6 +116,8 @@ const Contact = () => {
         message: "",
         referralCode: ""
       });
+
+      navigate("/thank-you");
     } catch (error) {
       if (error instanceof z.ZodError) {
         const firstError = error.errors[0];
