@@ -148,7 +148,7 @@ const EmailTemplates = () => {
                   <p>In the meantime, here's what most tradies want to know:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Our courses run in small groups (max 10) so you get real support</li>
-                    <li>95% of our students pass first time</li>
+                    <li>Our students achieve a consistently high pass rate</li>
                     <li>We focus on getting you registered, not just giving you a certificate</li>
                   </ul>
                   <p>Talk soon,</p>

@@ -27,7 +27,7 @@ const FAQ = () => {
     {
       question: "What qualifications do I need and can you help me attain them?",
       answer:
-        "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on BPC interview preparation and application support - we're not an RTO and don't issue certificates. We work with experienced tradies who have the base qualifications but need help passing their licensing interview.",
+        "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on BPC interview preparation and application support - we're a specialist BPC preparation program and don't issue certificates. We work with experienced tradies who have the base qualifications but need help passing their licensing interview.",
     },
     {
       question: "What does the BPC test involve?",

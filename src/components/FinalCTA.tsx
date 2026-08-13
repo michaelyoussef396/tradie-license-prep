@@ -111,7 +111,7 @@ const FinalCTA = () => {
   const benefits = [
     { icon: CheckCircle2, text: "Free consultation - no obligation" },
     { icon: Clock, text: "Response within 24 hours" },
-    { icon: Shield, text: "95% success rate" },
+    { icon: Shield, text: "Consistently high pass rate" },
   ];
 
   return (

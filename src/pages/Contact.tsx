@@ -662,10 +662,10 @@ const Contact = () => {
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: CheckCircle2, value: "95%", label: "Success Rate" },
+              { icon: CheckCircle2, value: "High", label: "Consistently High Pass Rate" },
               { icon: Award, value: "10+", label: "Years Experience" },
               { icon: Users, value: "Free", label: "Consultation" },
-              { icon: Shield, value: "100%", label: "Pass Guarantee" },
+              { icon: Shield, value: "Free", label: "Resit If You Don't Pass First Time" },
             ].map((stat, index) => {
               const Icon = stat.icon;
               return (

@@ -22,17 +22,17 @@ const FAQ = () => {
         {
           question: "What is this mentorship program?",
           answer:
-            "This is NOT an RTO or training college. We provide specialized mentorship to prepare experienced tradies for their BPC (formerly VBA) licensing interviews and registration. We focus on small group training (max 10 students) with personalized teaching.",
+            "This is a specialist BPC preparation program, not a training college. We provide specialised mentorship to prepare experienced tradies for their BPC (formerly VBA) licensing interviews and registration. We focus on small group training (max 10 students) with personalized teaching.",
         },
         {
-          question: "How is this different from TAFE or an RTO?",
+          question: "How is this different from TAFE or a training college?",
           answer:
-            "Unlike RTOs that provide certificates, we focus purely on licensing preparation. We help you understand the Acts, Regulations, and Standards needed for your specific builder class registration. Our small classes allow personalized attention to fill your individual knowledge gaps.",
+            "Unlike a specialist BPC preparation program that issues certificates, we focus purely on licensing preparation. We help you understand the Acts, Regulations, and Standards needed for your specific builder class registration. Our small classes allow personalized attention to fill your individual knowledge gaps.",
         },
         {
           question: "What's the success rate?",
           answer:
-            "95% of students who complete our programs gain their BPC registration.",
+            "Students who complete our programs achieve a consistently high pass rate for their BPC registration.",
         },
         {
           question: "Who is Adrian Nicolazzo?",
@@ -63,7 +63,7 @@ const FAQ = () => {
         {
           question: "What's included in the programs?",
           answer:
-            "All programs include training materials, 450-600+ practice questions, Acts & Regulations guidance, application and portfolio preparation, BPC test and interview preparation, and a pass guarantee (free resit if needed).",
+            "All programs include training materials, 450-600+ practice questions, Acts & Regulations guidance, application and portfolio preparation, BPC test and interview preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost.",
         },
         {
           question: "Do you offer evening classes?",
@@ -120,7 +120,7 @@ const FAQ = () => {
         {
           question: "What if I don't pass the test?",
           answer:
-            "All our programs include a pass guarantee. If you don't pass, you can resit the course for free.",
+            "Pass first time, or we sit you down again for free — at no extra cost.",
         },
         {
           question: "What trade areas do you cover?",
@@ -136,7 +136,7 @@ const FAQ = () => {
         {
           question: "What do your programs cost?",
           answer:
-            "Programs range from $3,790 to $7,995 inc GST depending on duration and format. Contact us for detailed pricing and payment plan options.",
+            "Program fees vary depending on duration and format. Contact us for detailed pricing and payment plan options.",
         },
         {
           question: "Is the consultation really free?",
@@ -144,9 +144,9 @@ const FAQ = () => {
             "Yes! The initial consultation is completely free with no obligation. We'll discuss your experience, goals, and recommend the best program for you.",
         },
         {
-          question: "What's the ROI of getting licensed?",
+          question: "What can change after getting licensed?",
           answer:
-            "Licensed builders earn significantly more and can take on larger projects. Many of our students have started their own businesses or advanced to higher positions after getting licensed.",
+            "Licensed builders can take on larger projects and greater responsibility. Many of our students have started their own businesses or advanced to higher positions after getting licensed.",
         },
       ],
     },

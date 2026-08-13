@@ -44,7 +44,7 @@ const About = () => {
     {
       icon: GraduationCap,
       title: "10+ Years Training Experience",
-      description: "Over a decade helping Melbourne tradies achieve their building registration with a 95% success rate."
+      description: "Over a decade helping Melbourne tradies achieve their building registration with a consistently high pass rate."
     },
   ];
 
@@ -120,7 +120,7 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "95%", label: "Success Rate" },
+    { number: "High", label: "Consistently High Pass Rate" },
     { number: "10+", label: "Years Experience" },
     { number: "500+", label: "Students Trained" },
     { number: "5-10", label: "Max Class Size" },
@@ -207,7 +207,7 @@ const About = () => {
                 </div>
                 {/* Overlay badge */}
                 <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-4 rounded-2xl shadow-xl">
-                  <div className="text-3xl font-bold">95%</div>
+                  <div className="text-3xl font-bold">High</div>
                   <div className="text-sm text-blue-300">Success Rate</div>
                 </div>
               </div>

@@ -20,7 +20,7 @@ const Hero = () => {
   };
 
   const trustBadges = [
-    { icon: TrendingUp, stat: "95%", label: "Success Rate" },
+    { icon: TrendingUp, stat: "High", label: "Pass Rate" },
     { icon: Award, stat: "10+", label: "Years Exp." },
     { icon: Users, stat: "Max 10", label: "Per Class" },
     { icon: MapPin, stat: "Melbourne", label: "In-Person" },
@@ -210,7 +210,7 @@ const Hero = () => {
                 {/* Bottom Tag */}
                 <div className="mt-6 pt-6 border-t border-white/10 text-center">
                   <p className="text-blue-200/60 text-sm">
-                    <span className="text-blue-300">No RTO</span> • Pure mentorship from a licensed builder
+                    <span className="text-blue-300">Specialist BPC preparation program</span> • Pure mentorship from a licensed builder
                   </p>
                 </div>
               </div>

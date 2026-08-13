@@ -60,7 +60,7 @@ const Courses = () => {
         "Comprehensive training materials and resources",
         "Complete application and portfolio preparation",
         "BPC test preparation and practice sessions",
-        "Pass guarantee - free resit if you don't pass",
+        "Pass first time, or we sit you down again for free — at no extra cost",
         "Small group training (maximum 10 students)",
         "One-on-one consultation sessions",
         "Interview preparation and mock interviews",
@@ -72,7 +72,7 @@ const Courses = () => {
       testimonial: {
         text: "Adrian's comprehensive program gave me everything I needed. The small class size meant I got personal attention, and the 600+ practice questions were invaluable. I passed first time and now run my own building company.",
         author: "Fauzi",
-        achievement: "Now running $15M+ building company"
+        achievement: "Now running his own building company"
       },
       featured: false,
       accent: "from-blue-500 to-blue-600"
@@ -101,7 +101,7 @@ const Courses = () => {
         "600+ Q&A practice tests with explanations",
         "Complete application preparation support",
         "Portfolio development and review",
-        "Pass guarantee - free resit available",
+        "Pass first time, or we sit you down again for free — at no extra cost",
         "All training materials included",
         "BPC interview preparation",
         "Post-course support via email/phone",
@@ -192,7 +192,7 @@ const Courses = () => {
       addon: {
         title: "Application Prep Package",
         price: "+$1,460",
-        savings: "Saves $650 vs. purchasing separately",
+        savings: "Discounted vs. purchasing separately",
         includes: [
           "Complete application form assistance",
           "Portfolio compilation and review",
@@ -225,11 +225,11 @@ const Courses = () => {
     },
     {
       question: "What's your success rate?",
-      answer: "95% of students who complete our programs successfully gain their registration. This high success rate is due to our personalized teaching approach, comprehensive preparation, and ensuring students are truly ready before attempting their licensing."
+      answer: "Students who complete our programs achieve a consistently high pass rate for their registration. This is due to our personalized teaching approach, comprehensive preparation, and ensuring students are truly ready before attempting their licensing."
     },
     {
       question: "What if I fail the BPC test?",
-      answer: "All our programs include a pass guarantee. If you complete the program, attempt your test, and don't pass, you can resit the training course for free. We're committed to your success and will work with you until you achieve your registration."
+      answer: "Pass first time, or we sit you down again for free — at no extra cost. We're committed to your success and will work with you until you achieve your registration."
     },
     {
       question: "Can I get a payment plan?",
@@ -238,7 +238,7 @@ const Courses = () => {
   ];
 
   const universalFeatures = [
-    { icon: Shield, title: "Pass Guarantee", description: "If you complete the program and don't pass, resit the training for free." },
+    { icon: Shield, title: "Free Resit", description: "Pass first time, or we sit you down again for free — at no extra cost." },
     { icon: FileText, title: "Application Support", description: "Complete help with BPC applications, portfolio, and documentation." },
     { icon: Target, title: "BPC Test Prep", description: "Hundreds of practice questions that mirror the actual BPC test." },
     { icon: BookOpen, title: "All Materials Included", description: "Training manuals, study guides, and online platform access." },
@@ -282,7 +282,7 @@ const Courses = () => {
               </span>
             </h1>
             <p className="text-xl text-blue-100/80 max-w-2xl mx-auto">
-              Choose the program that fits your schedule and goals. All programs include pass guarantee and complete application support.
+              Choose the program that fits your schedule and goals. All programs include a free resit if you don’t pass first time, plus complete application support.
             </p>
           </motion.div>
         </div>
@@ -640,15 +640,14 @@ const Courses = () => {
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
                 <DollarSign className="h-7 w-7 text-blue-600" />
-                Return on Investment
+                What Registration Unlocks
               </h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Licensed builders in Melbourne earn significantly more than unlicensed tradies. With registration, you can:
+                Registration opens up work that unlicensed tradies can’t take on. With registration, you can:
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   "Start your own building company",
-                  "Command $80-150+ per hour",
                   "Take on projects worth millions",
                   "Build equity in your own business"
                 ].map((item, idx) => (

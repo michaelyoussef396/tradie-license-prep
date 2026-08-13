@@ -14,7 +14,7 @@ import PageTransition from "@/components/PageTransition";
 const Index = () => {
   return (
     <PageTransition>
-      <Seo title={"Qualify Pro | Melbourne BPC Registration Experts"} description={"Get your building license right the first time. Personalised BPC registration prep for Melbourne tradies. Small classes, 95% success rate."} path="/" />
+      <Seo title={"Qualify Pro | Melbourne BPC Registration Experts"} description={"Get your builder’s licence right the first time. Personalised BPC registration prep for Melbourne tradies. Small classes, consistently high pass rate."} path="/" />
       <div className="min-h-screen">
         <Navigation />
         <Hero />
