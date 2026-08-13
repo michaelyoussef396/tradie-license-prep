@@ -34,7 +34,7 @@ const Sig = ({ full }: { full?: boolean }) => (
         <p className="font-semibold text-foreground">Adrian Nicolazzo</p>
         <p>Qualify Pro</p>
         <p>0411 626 398</p>
-        <p>qualifypro.com.au</p>
+        <p>www.qualifypro.com.au</p>
       </>
     ) : (
       <>
