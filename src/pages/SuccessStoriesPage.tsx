@@ -271,7 +271,7 @@ const SuccessStoriesPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
               {[
                 { value: "500+", label: "Licensed Tradies" },
-                { value: "High", label: "Pass Rate" },
+                { value: "95%", label: "Pass Rate" },
                 { value: "10+", label: "Years Experience" },
               ].map((stat, index) => (
                 <motion.div

@@ -5,8 +5,8 @@ const TrustBar = () => {
   const stats = [
     {
       icon: Trophy,
-      stat: "High",
-      description: "95% Pass Rate",
+      stat: "95%",
+      description: "Pass Rate",
     },
     {
       icon: Award,

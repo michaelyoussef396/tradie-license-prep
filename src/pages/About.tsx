@@ -120,7 +120,7 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "High", label: "95% Pass Rate" },
+    { number: "95%", label: "Pass Rate" },
     { number: "10+", label: "Years Experience" },
     { number: "500+", label: "Students Trained" },
     { number: "5-10", label: "Max Class Size" },

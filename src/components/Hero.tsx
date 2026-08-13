@@ -20,7 +20,7 @@ const Hero = () => {
   };
 
   const trustBadges = [
-    { icon: TrendingUp, stat: "High", label: "Pass Rate" },
+    { icon: TrendingUp, stat: "95%", label: "Pass Rate" },
     { icon: Award, stat: "10+", label: "Years Exp." },
     { icon: Users, stat: "Max 10", label: "Per Class" },
     { icon: MapPin, stat: "Melbourne", label: "In-Person" },
