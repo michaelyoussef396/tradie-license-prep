@@ -16,6 +16,7 @@ const About = lazy(() => import("./pages/About"));
 const SuccessStoriesPage = lazy(() => import("./pages/SuccessStoriesPage"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
+const BuildersLicenceMelbourne = lazy(() => import("./pages/BuildersLicenceMelbourne"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const EmailTemplates = lazy(() => import("./pages/EmailTemplates"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
             <Route path="/email-templates" element={<EmailTemplates />} />
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
