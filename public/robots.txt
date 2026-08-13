@@ -19,4 +19,4 @@ Allow: /
 Disallow: /admin
 Disallow: /dashboard
 
-Sitemap: https://qualifypro.com.au/sitemap.xml
+Sitemap: https://www.qualifypro.com.au/sitemap.xml
