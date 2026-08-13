@@ -264,7 +264,7 @@ const SuccessStoriesPage = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-              Our students achieve a 95% pass rate for their BPC (formerly VBA) registration. Here are their stories of transformation.
+              Our students achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. Here are their stories of transformation.
             </p>
 
             {/* Stats Row */}
@@ -307,7 +307,7 @@ const SuccessStoriesPage = () => {
               Our Pass Rate
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Students who complete our programs achieve a 95% pass rate for their BPC (formerly VBA) registration. 
+              Students who complete our programs achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. 
               Here's what happens after they get licensed:
             </p>
           </motion.div>
@@ -512,7 +512,7 @@ const SuccessStoriesPage = () => {
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
               Every student came from a different background with different challenges. What they 
               all received was personalized training focused on their individual needs. That's why 
-              our students achieve a 95% pass rate - because we don't believe in one-size-fits-all training.
+              our students achieve a 95% pass rate (based on Qualify Pro's own student records) - because we don't believe in one-size-fits-all training.
             </p>
           </motion.div>
         </div>

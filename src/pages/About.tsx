@@ -44,7 +44,7 @@ const About = () => {
     {
       icon: GraduationCap,
       title: "10+ Years Training Experience",
-      description: "Over a decade helping Melbourne tradies achieve their building registration with a 95% pass rate."
+      description: "Over a decade helping Melbourne tradies achieve their building registration with a 95% pass rate (based on Qualify Pro's own student records)."
     },
   ];
 

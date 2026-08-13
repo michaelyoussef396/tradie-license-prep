@@ -51,7 +51,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
-              Professional mentorship for Melbourne tradies seeking BPC (formerly VBA) building registration. Small classes, personalised teaching, 95% pass rate.
+              Professional mentorship for Melbourne tradies seeking BPC (formerly VBA) building registration. Small classes, personalised teaching, 95% pass rate (based on Qualify Pro's own student records).
             </p>
             
             {/* Stats mini badges */}
