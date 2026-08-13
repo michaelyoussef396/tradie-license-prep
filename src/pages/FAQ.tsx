@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import {
@@ -153,6 +154,7 @@ const FAQ = () => {
 
   return (
     <PageTransition>
+      <Seo title={"BPC Registration FAQs | Qualify Pro Melbourne"} description={"Answers on timeframes, experience requirements, application support, qualifications and what the Building Practitioner Certificate test involves."} path="/faq" />
       <div className="min-h-screen bg-white">
         <Navigation />
 

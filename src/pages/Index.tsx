@@ -8,11 +8,13 @@ import TradeAreas from "@/components/TradeAreas";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 
 const Index = () => {
   return (
     <PageTransition>
+      <Seo title={"Qualify Pro | Melbourne BPC Registration Experts"} description={"Get your building license right the first time. Personalised BPC registration prep for Melbourne tradies. Small classes, 95% success rate."} path="/" />
       <div className="min-h-screen">
         <Navigation />
         <Hero />

@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -187,6 +188,7 @@ const Contact = () => {
 
   return (
     <PageTransition>
+      <Seo title={"Contact Qualify Pro | Book a Free Consultation"} description={"Talk to Adrian about your building registration. Call 0411 626 398, email hello@qualifypro.com.au or send an enquiry from 5 Scanlon Drive, Epping."} path="/contact" />
       <div className="min-h-screen">
         <Navigation />
       

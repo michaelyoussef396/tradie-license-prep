@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -247,6 +248,7 @@ const Courses = () => {
 
   return (
     <PageTransition>
+      <Seo title={"BPC Training Programs & Pricing | Qualify Pro"} description={"Compare our builder registration courses: 13-week comprehensive, 7-week evening, private 1-on-1 and carpentry DB-L. Durations, pricing and what's included."} path="/courses" />
       <div className="min-h-screen">
         <Navigation />
       
