@@ -3,7 +3,7 @@
 import { writeFileSync } from "fs"
 import { resolve } from "path"
 
-const BASE_URL = "https://tradie-license-prep.lovable.app"
+const BASE_URL = "https://qualifypro.com.au"
 
 interface SitemapEntry {
   path: string
