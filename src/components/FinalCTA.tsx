@@ -6,7 +6,8 @@ import { Phone, Mail, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-rea
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
+import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import {
   Select,
@@ -27,6 +28,7 @@ const ctaSchema = z.object({
 
 const FinalCTA = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formStartedRef = useRef(false);
   const [formData, setFormData] = useState({
@@ -77,12 +79,16 @@ const FinalCTA = () => {
         source: 'homepage-cta',
       });
 
+      trackLeadConversion();
+
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
       });
 
       setFormData({ name: "", phone: "", email: "", licenseType: "", message: "", referralCode: "" });
+
+      navigate("/thank-you");
     } catch (err) {
       if (err instanceof z.ZodError) {
         toast({
