@@ -51,14 +51,14 @@ const Footer = () => {
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
-              Professional mentorship for Melbourne tradies seeking BPC (formerly VBA) building registration. Small classes, personalised teaching, consistently high pass rate.
+              Professional mentorship for Melbourne tradies seeking BPC (formerly VBA) building registration. Small classes, personalised teaching, 95% pass rate.
             </p>
             
             {/* Stats mini badges */}
             <div className="flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs text-blue-300">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                Consistently High Pass Rate
+                95% Pass Rate
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs text-blue-300">
                 10+ Years Experience

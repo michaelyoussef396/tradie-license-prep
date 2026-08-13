@@ -32,7 +32,7 @@ const FAQ = () => {
         {
           question: "What's the success rate?",
           answer:
-            "Students who complete our programs achieve a consistently high pass rate for their BPC registration.",
+            "Students who complete our programs achieve a 95% pass rate for their BPC registration.",
         },
         {
           question: "Who is Adrian Nicolazzo?",

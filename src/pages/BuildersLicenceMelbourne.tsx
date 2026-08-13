@@ -15,7 +15,7 @@ const BuildersLicenceMelbourne = () => {
   };
 
   const trustItems = [
-    { icon: TrendingUp, text: "Consistently high BPC pass rate" },
+    { icon: TrendingUp, text: "95% BPC pass rate" },
     { icon: Award, text: "10+ years specialist experience" },
     { icon: Users, text: "Small personalised classes" },
     { icon: CheckCircle2, text: "Specialist BPC prep, not a generic course" },
