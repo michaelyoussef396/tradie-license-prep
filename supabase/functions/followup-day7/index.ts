@@ -32,7 +32,7 @@ function buildDay7Html(firstName: string): string {
   <tr><td style="padding:32px 28px;font-size:15px;line-height:1.7;color:#333;">
     <p style="margin:0 0 16px 0;">Hey ${firstName},</p>
     <p style="margin:0 0 16px 0;">Last one from me – just wanted to check if you had any questions I can help with?</p>
-    <p style="margin:0 0 20px 0;">No stress either way. When you're ready to get your license, we're here.</p>
+    <p style="margin:0 0 20px 0;">No stress either way. When you're ready to get your licence, we're here.</p>
     <div style="border-top:2px solid #e0e0e0;padding-top:16px;margin-top:8px;">
       <strong style="color:#333;font-size:15px;">Adrian</strong><br/>
       <span style="color:#555;font-size:14px;">0411 626 398</span>

@@ -37,7 +37,7 @@ const FAQ = () => {
         {
           question: "Who is Adrian Nicolazzo?",
           answer:
-            "Adrian Nicolazzo is the owner and lead trainer of Qualify Pro. He's a Registered Building Practitioner (Unlimited), with Commercial License (Low-Rise), Qualified Carpenter, and 10+ years training experience. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
+            "Adrian Nicolazzo is the owner and lead trainer of Qualify Pro. He's a Registered Building Practitioner (Unlimited), with Commercial Licence (Low-Rise), Qualified Carpenter, and 10+ years training experience. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
         },
         {
           question: "Where are you located?",
@@ -51,7 +51,7 @@ const FAQ = () => {
       icon: "📚",
       questions: [
         {
-          question: "How long is the process before getting my license?",
+          question: "How long is the process before getting my licence?",
           answer:
             "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC test and interview. Most students gain registration within a few months of finishing the course.",
         },
@@ -84,7 +84,7 @@ const FAQ = () => {
         {
           question: "What experience do I need?",
           answer:
-            "Minimum 2 years practical experience in your specific trade. Requirements vary by individual circumstances and license class you're seeking.",
+            "Minimum 2 years practical experience in your specific trade. Requirements vary by individual circumstances and licence class you're seeking.",
         },
         {
           question: "What qualifications do I need?",
@@ -110,7 +110,7 @@ const FAQ = () => {
         {
           question: "What does the BPC test involve?",
           answer:
-            "The test covers Building Acts, Regulations, Australian Standards, and practical knowledge for your specific license class. We provide 450-600+ practice questions and mock tests to prepare you thoroughly.",
+            "The test covers Building Acts, Regulations, Australian Standards, and practical knowledge for your specific licence class. We provide 450-600+ practice questions and mock tests to prepare you thoroughly.",
         },
         {
           question: "How do I prepare for the interview?",

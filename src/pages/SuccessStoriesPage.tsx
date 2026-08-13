@@ -61,7 +61,7 @@ const SuccessStoriesPage = () => {
       gradientFrom: "from-emerald-500",
       gradientTo: "to-emerald-600",
       headline: "From Carpenter to Premium Business Owner",
-      achievement: "Carpentry License (DB-L)",
+      achievement: "Carpentry Licence (DB-L)",
       yearsAgo: "3 years ago",
       currentBusiness: "Premium Outdoor Living",
       revenue: "High-end installations",
@@ -75,11 +75,11 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Jordan enrolled in the Carpentry License (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas, while interview coaching taught him how to discuss his practical experience with authority. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
+        description: "Jordan enrolled in the Carpentry Licence (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas, while interview coaching taught him how to discuss his practical experience with authority. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
       },
       result: {
         title: "The Result",
-        description: "Jordan achieved his Carpentry License (DB-L) and immediately launched his own business specializing in high-end outdoor living spaces. He quickly established partnerships with premium suppliers and builders throughout Melbourne. His business focuses on quality over quantity - delivering exceptional outdoor installations. Jordan now works directly with homeowners and builders on upscale projects. His success shows how specialized licensing can open doors to profitable niche markets."
+        description: "Jordan achieved his Carpentry Licence (DB-L) and immediately launched his own business specializing in high-end outdoor living spaces. He quickly established partnerships with premium suppliers and builders throughout Melbourne. His business focuses on quality over quantity - delivering exceptional outdoor installations. Jordan now works directly with homeowners and builders on upscale projects. His success shows how specialized licensing can open doors to profitable niche markets."
       },
       quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on. His teaching style is clear and practical. I passed first time and launched my business within weeks. Now I'm doing the high-end outdoor work I always wanted to do, working with the best suppliers in Melbourne.",
       icon: Award
@@ -105,7 +105,7 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm-9pm) meant he could continue working while preparing for his license. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
+        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm-9pm) meant he could continue working while preparing for his licence. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
       },
       result: {
         title: "The Result",
@@ -127,7 +127,7 @@ const SuccessStoriesPage = () => {
       revenue: "50+ homes per year",
       before: {
         title: "The Starting Point",
-        description: "Manny had years of building experience and wanted to scale up from working for others to running his own high-volume building operation. He had the skills and experience but lacked the formal registration needed to legally operate as a builder. He wanted to build volume residential projects but needed his Domestic Builder Unlimited license to do so."
+        description: "Manny had years of building experience and wanted to scale up from working for others to running his own high-volume building operation. He had the skills and experience but lacked the formal registration needed to legally operate as a builder. He wanted to build volume residential projects but needed his Domestic Builder Unlimited licence to do so."
       },
       challenge: {
         title: "The Challenge",
@@ -157,7 +157,7 @@ const SuccessStoriesPage = () => {
       revenue: "40+ projects annually",
       before: {
         title: "The Starting Point",
-        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his license."
+        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his licence."
       },
       challenge: {
         title: "The Challenge",
@@ -314,7 +314,7 @@ const SuccessStoriesPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, DB-L Carpentry, or Commercial licenses", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
+              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, DB-L Carpentry, or Commercial licences", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
               { icon: Briefcase, title: "Started Businesses", description: "Many students launched their own building companies and are now their own bosses", gradient: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50" },
               { icon: TrendingUp, title: "Advanced Careers", description: "Students take on bigger projects and greater responsibility as licensed builders", gradient: "from-violet-500 to-violet-600", bg: "bg-violet-50" },
             ].map((item, index) => {
@@ -387,7 +387,7 @@ const SuccessStoriesPage = () => {
                   {/* Quick Stats */}
                   <div className="mt-6 space-y-3">
                     {[
-                      { label: "License Type", value: study.achievement },
+                      { label: "Licence Type", value: study.achievement },
                       { label: "Current Business", value: study.currentBusiness },
                       { label: "Scale of Work", value: study.revenue },
                     ].map((stat, idx) => (

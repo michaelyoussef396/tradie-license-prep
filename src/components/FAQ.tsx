@@ -10,9 +10,9 @@ import { HelpCircle, MessageCircle } from "lucide-react";
 const FAQ = () => {
   const faqs = [
     {
-      question: "How long is the process before getting my license?",
+      question: "How long is the process before getting my licence?",
       answer:
-        "The timeline varies depending on your current experience and the course you choose. Our courses range from 6 weeks (Carpentry DB-L) to 13 weeks (Comprehensive Builder Program). After completing the course, you'll submit your application to BPC (formerly VBA). Most students gain their license within 3-6 months of starting with us, including course completion, application processing, and BPC interview.",
+        "The timeline varies depending on your current experience and the course you choose. Our courses range from 6 weeks (Carpentry DB-L) to 13 weeks (Comprehensive Builder Program). After completing the course, you'll submit your application to BPC (formerly VBA). Most students gain their licence within 3-6 months of starting with us, including course completion, application processing, and BPC interview.",
     },
     {
       question: "What experience do I need?",
@@ -32,7 +32,7 @@ const FAQ = () => {
     {
       question: "What does the BPC test involve?",
       answer:
-        "The BPC assessment includes multiple-choice tests covering building regulations, standards, and technical knowledge specific to your license class. You'll also have an interview where they assess your understanding of building principles, problem-solving abilities, and practical knowledge. Our programs include 450-600+ practice questions (depending on your course) and extensive interview preparation to ensure you're fully ready for both components.",
+        "The BPC assessment includes multiple-choice tests covering building regulations, standards, and technical knowledge specific to your licence class. You'll also have an interview where they assess your understanding of building principles, problem-solving abilities, and practical knowledge. Our programs include 450-600+ practice questions (depending on your course) and extensive interview preparation to ensure you're fully ready for both components.",
     },
   ];
 

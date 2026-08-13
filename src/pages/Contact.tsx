@@ -54,7 +54,7 @@ const Contact = () => {
     fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
     phone: z.string().trim().min(10, "Please enter a valid phone number").max(15, "Phone number is too long"),
     email: z.string().trim().email("Please enter a valid email address").max(255, "Email is too long"),
-    licenseType: z.string().min(1, "Please select a license type"),
+    licenseType: z.string().min(1, "Please select a licence type"),
     experience: z.string().min(1, "Please select your experience level"),
     message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional()
   });
@@ -153,7 +153,7 @@ const Contact = () => {
       step: "1",
       icon: MessageSquare,
       title: "Book Your Free Consultation",
-      description: "We'll discuss your trade experience, which license you're seeking, and answer any questions you have"
+      description: "We'll discuss your trade experience, which licence you're seeking, and answer any questions you have"
     },
     {
       step: "2",
@@ -172,7 +172,7 @@ const Contact = () => {
   const faqItems = [
     {
       question: "What will we discuss?",
-      answer: "We'll talk about your trade experience, which license you're seeking, your timeline, and which of our programs would be the best fit for your situation."
+      answer: "We'll talk about your trade experience, which licence you're seeking, your timeline, and which of our programs would be the best fit for your situation."
     },
     {
       question: "How long is the consultation?",
@@ -184,7 +184,7 @@ const Contact = () => {
     },
     {
       question: "What should I have ready?",
-      answer: "Just details of your trade experience, which license you're aiming for, and any questions you have about the registration process."
+      answer: "Just details of your trade experience, which licence you're aiming for, and any questions you have about the registration process."
     },
     {
       question: "Can I start training right away?",
@@ -303,10 +303,10 @@ const Contact = () => {
                     />
                   </div>
 
-                  {/* License Type */}
+                  {/* Licence Type */}
                   <div>
                     <Label htmlFor="licenseType" className="text-slate-900 font-semibold mb-2 block">
-                      License Type You're Seeking *
+                      Licence Type You're Seeking *
                     </Label>
                     <Select 
                       value={formData.licenseType} 
@@ -314,11 +314,11 @@ const Contact = () => {
                       required
                     >
                       <SelectTrigger className="h-12 bg-white border-slate-300">
-                        <SelectValue placeholder="Select license type" />
+                        <SelectValue placeholder="Select licence type" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
                         <SelectItem value="Domestic Builder - Unlimited">Domestic Builder - Unlimited</SelectItem>
-                        <SelectItem value="Carpentry License (DB-L)">Carpentry License (DB-L)</SelectItem>
+                        <SelectItem value="Carpentry Licence (DB-L)">Carpentry Licence (DB-L)</SelectItem>
                         <SelectItem value="Commercial Building (Low-Rise)">Commercial Building (Low-Rise)</SelectItem>
                         <SelectItem value="Other / Not Sure">Other / Not Sure</SelectItem>
                       </SelectContent>

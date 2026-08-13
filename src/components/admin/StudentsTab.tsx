@@ -24,7 +24,7 @@ const COURSES = [
   "Comprehensive Builder Program",
   "Evening Builder Course",
   "Private 1-on-1 Training",
-  "Carpentry License Course (DB-L)",
+  "Carpentry Licence Course (DB-L)",
 ];
 
 const StudentsTab = () => {

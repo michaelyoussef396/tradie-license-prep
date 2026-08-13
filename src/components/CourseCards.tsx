@@ -66,7 +66,7 @@ const CourseCards = () => {
     },
     {
       badge: { text: "Specialist", color: "bg-amber-600" },
-      title: "Carpentry License (DB-L)",
+      title: "Carpentry Licence (DB-L)",
       subtitle: "Carpentry Specific",
       duration: "6 weeks",
       format: "In-person",

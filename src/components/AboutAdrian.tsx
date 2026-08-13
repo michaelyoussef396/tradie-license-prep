@@ -6,7 +6,7 @@ import trainingImage from "@/assets/about-training-materials.jpg";
 const AboutAdrian = () => {
   const credentials = [
     { icon: Building2, label: "Registered Building Practitioner (Unlimited)" },
-    { icon: Award, label: "Commercial License (Low-Rise)" },
+    { icon: Award, label: "Commercial Licence (Low-Rise)" },
     { icon: Hammer, label: "Qualified Carpenter" },
     { icon: GraduationCap, label: "10+ Years Training Experience" },
   ];

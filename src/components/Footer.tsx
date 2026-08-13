@@ -18,7 +18,7 @@ const Footer = () => {
     { name: "Comprehensive Builder Program", href: "/courses" },
     { name: "Evening Builder Course", href: "/courses" },
     { name: "Private 1-on-1 Training", href: "/courses" },
-    { name: "Carpentry License (DB-L)", href: "/courses" },
+    { name: "Carpentry Licence (DB-L)", href: "/courses" },
   ];
 
   const tradeAreas = [

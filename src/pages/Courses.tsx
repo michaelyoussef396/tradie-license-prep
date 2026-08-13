@@ -158,7 +158,7 @@ const Courses = () => {
     {
       id: "carpentry",
       badge: { text: "Specialist", color: "bg-amber-600" },
-      title: "Carpentry License (DB-L)",
+      title: "Carpentry Licence (DB-L)",
       subtitle: "Carpentry Specific",
       duration: "6 weeks",
       format: "In-person",
@@ -208,7 +208,7 @@ const Courses = () => {
 
   const faqItems = [
     {
-      question: "How long is the process before getting my license?",
+      question: "How long is the process before getting my licence?",
       answer: "The training duration varies by program (6-13 weeks), but the complete process including application submission and BPC (formerly VBA) processing typically takes 3-6 months total. We help expedite this by ensuring your application is perfect before submission."
     },
     {
@@ -233,7 +233,7 @@ const Courses = () => {
     },
     {
       question: "Can I get a payment plan?",
-      answer: "Yes! We offer flexible payment plans to make the investment more manageable. Contact us to discuss options that work for your financial situation. We believe cost shouldn't prevent good tradies from getting their license."
+      answer: "Yes! We offer flexible payment plans to make the investment more manageable. Contact us to discuss options that work for your financial situation. We believe cost shouldn't prevent good tradies from getting their licence."
     },
   ];
 
@@ -672,7 +672,7 @@ const Courses = () => {
                 Flexible Payment Plans Available
               </h3>
               <p className="text-gray-700 leading-relaxed mb-6">
-                We offer flexible payment plans to make our programs more accessible. Every tradie deserves the opportunity to get their license.
+                We offer flexible payment plans to make our programs more accessible. Every tradie deserves the opportunity to get their licence.
               </p>
               <Button className="bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" asChild>
                 <Link to="/contact">Contact Us About Payment Plans</Link>

@@ -91,7 +91,7 @@ serve(async (req) => {
       try {
         await sendEmail(
           lead.email,
-          `Still thinking about your builders license, ${lead.name}?`,
+          `Still thinking about your builders licence, ${lead.name}?`,
           wrapHtml(`<p style="font-size:16px;color:#333;">Hey ${esc(lead.name)},</p>
             <p style="font-size:16px;color:#333;">Just checking in — still thinking about getting your BPC registration? Happy to answer any questions. Call or reply anytime.</p>
             <p style="font-size:16px;color:#333;">Adrian — 0411 626 398</p>`)

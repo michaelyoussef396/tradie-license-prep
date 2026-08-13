@@ -33,7 +33,7 @@ const About = () => {
     },
     {
       icon: Award,
-      title: "Commercial License (Low-Rise)",
+      title: "Commercial Licence (Low-Rise)",
       description: "Qualified to supervise low-rise commercial building projects up to three storeys."
     },
     {
@@ -92,7 +92,7 @@ const About = () => {
     {
       quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on.",
       author: "Jordan",
-      achievement: "DB-L Carpentry License",
+      achievement: "DB-L Carpentry Licence",
       initials: "J",
       gradient: "from-emerald-500 to-teal-500"
     },
@@ -106,7 +106,7 @@ const About = () => {
     {
       quote: "Small class sizes made all the difference. I could ask questions without feeling stupid, and Adrian always took the time to explain things properly.",
       author: "Ben",
-      achievement: "Bathroom & Kitchen License",
+      achievement: "Bathroom & Kitchen Licence",
       initials: "B",
       gradient: "from-violet-500 to-purple-500"
     },
