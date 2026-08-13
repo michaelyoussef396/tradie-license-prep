@@ -31,10 +31,12 @@ import { useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
-import { trackContactFormStart, trackContactFormSubmit } from "@/lib/analytics";
+import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formStartedRef = useRef(false);
   const [formData, setFormData] = useState({
@@ -100,6 +102,8 @@ const Contact = () => {
         source: 'contact-form',
       });
 
+      trackLeadConversion();
+
       toast({
         title: "Thanks! We'll be in touch within 24 hours.",
         description: "Your consultation request has been received.",
@@ -114,6 +118,8 @@ const Contact = () => {
         message: "",
         referralCode: ""
       });
+
+      navigate("/thank-you");
     } catch (error) {
       if (error instanceof z.ZodError) {
         const firstError = error.errors[0];

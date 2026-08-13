@@ -83,3 +83,22 @@ export function trackPhoneClick() {
 export function trackCtaClick(buttonText: string, page: string) {
   trackEvent('cta_click', { button_text: buttonText, page });
 }
+
+// ── Google Ads conversion ──
+
+export const GOOGLE_ADS_CONVERSION_ID = 'AW-18192612568/qBXuCL2_jcccENj59OJD';
+
+// Guards against double-firing within a single page session/submission.
+let conversionFired = false;
+
+export function trackLeadConversion() {
+  if (conversionFired) return;
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+
+  conversionFired = true;
+  window.gtag('event', 'conversion', {
+    send_to: GOOGLE_ADS_CONVERSION_ID,
+    value: 1400.0,
+    currency: 'AUD',
+  });
+}
