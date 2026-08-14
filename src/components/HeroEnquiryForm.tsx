@@ -17,7 +17,13 @@ import {
 const TRADES = ["Carpenter", "Bricklayer", "Plumber", "Electrician", "Concreter", "Roof Tiler", "Other"];
 const EXPERIENCE = ["Under 3", "3-5", "5-10", "10+"];
 
-const HeroEnquiryForm = () => {
+interface HeroEnquiryFormProps {
+  /** Hidden source field value stored on the lead, identifying the page it came from. */
+  source?: string;
+  title?: string;
+}
+
+const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquiryFormProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,7 +52,7 @@ const HeroEnquiryForm = () => {
         license_type: trade || null,
         years_experience: experience || null,
         message: null,
-        source: "hero-eligibility-form",
+        source,
         status: "new",
       });
       if (error) throw error;
@@ -67,7 +73,7 @@ const HeroEnquiryForm = () => {
       trackContactFormSubmit({
         license_type: trade || "not specified",
         years_experience: experience || "not specified",
-        source: "hero-eligibility-form",
+        source,
       });
       trackLeadConversion();
       navigate("/thank-you");
@@ -87,7 +93,7 @@ const HeroEnquiryForm = () => {
       <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl blur-xl" />
       <div className="relative bg-white rounded-2xl p-5 sm:p-7 shadow-2xl">
         <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
-          Check Your Eligibility — Free, No Obligation
+          {title ?? "Check Your Eligibility — Free, No Obligation"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
