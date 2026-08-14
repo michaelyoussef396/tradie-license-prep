@@ -17,8 +17,11 @@ export type Database = {
       leads: {
         Row: {
           created_at: string | null
-          email: string
+          email: string | null
+          followup_day3_sent_at: string | null
+          followup_day7_sent_at: string | null
           id: string
+          is_test: boolean
           license_type: string | null
           message: string | null
           name: string
@@ -31,8 +34,11 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
-          email: string
+          email?: string | null
+          followup_day3_sent_at?: string | null
+          followup_day7_sent_at?: string | null
           id?: string
+          is_test?: boolean
           license_type?: string | null
           message?: string | null
           name: string
@@ -45,8 +51,11 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
-          email?: string
+          email?: string | null
+          followup_day3_sent_at?: string | null
+          followup_day7_sent_at?: string | null
           id?: string
+          is_test?: boolean
           license_type?: string | null
           message?: string | null
           name?: string
