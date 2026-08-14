@@ -5,6 +5,7 @@ import CourseCards from "@/components/CourseCards";
 import SuccessStories from "@/components/SuccessStories";
 import AboutAdrian from "@/components/AboutAdrian";
 import TradeAreas from "@/components/TradeAreas";
+import HomeResourceLinks from "@/components/HomeResourceLinks";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -23,6 +24,7 @@ const Index = () => {
         <SuccessStories />
         <AboutAdrian />
         <TradeAreas />
+        <HomeResourceLinks />
         <FAQ />
         <FinalCTA />
         <Footer />
