@@ -17,6 +17,8 @@ const SuccessStoriesPage = lazy(() => import("./pages/SuccessStoriesPage"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const BuildersLicenceMelbourne = lazy(() => import("./pages/BuildersLicenceMelbourne"));
+const BuilderRegistrationCourseMelbourne = lazy(() => import("./pages/BuilderRegistrationCourseMelbourne"));
+const BpcExamChanges = lazy(() => import("./pages/BpcExamChanges"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const EmailTemplates = lazy(() => import("./pages/EmailTemplates"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
@@ -58,6 +60,8 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
+            <Route path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
+            <Route path="/bpc-exam-changes" element={<BpcExamChanges />} />
             <Route path="/email-templates" element={<EmailTemplates />} />
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
