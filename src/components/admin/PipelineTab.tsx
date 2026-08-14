@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Calendar, Loader2, AlertCircle, Mail, Tag, Clock, MessageSquare, Globe, StickyNote } from "lucide-react";
@@ -22,6 +24,7 @@ interface Lead {
   notes: string | null;
   status: string | null;
   used_referral_code: string | null;
+  is_test?: boolean | null;
 }
 
 const STATUS_COLUMNS = [
@@ -52,21 +55,21 @@ const PipelineTab = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editNotes, setEditNotes] = useState("");
+  const [showTest, setShowTest] = useState(false);
   const { toast } = useToast();
 
-  const fetchLeads = async () => {
+  const fetchLeads = useCallback(async () => {
     setError(null);
     setLoading(true);
-    const { data, error: fetchError } = await supabase
-      .from("leads")
-      .select("*")
-      .order("created_at", { ascending: false });
+    let query = supabase.from("leads").select("*");
+    if (!showTest) query = query.eq("is_test", false);
+    const { data, error: fetchError } = await query.order("created_at", { ascending: false });
     if (fetchError) { setError(fetchError.message); setLoading(false); return; }
     setLeads((data || []) as Lead[]);
     setLoading(false);
-  };
+  }, [showTest]);
 
-  useEffect(() => { fetchLeads(); }, []);
+  useEffect(() => { fetchLeads(); }, [fetchLeads]);
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return "";
@@ -120,7 +123,13 @@ const PipelineTab = () => {
 
   return (
     <>
-      <h2 className="text-xl font-bold text-white mb-4">Pipeline</h2>
+      <div className="flex items-center justify-between mb-4 gap-4">
+        <h2 className="text-xl font-bold text-white">Pipeline</h2>
+        <div className="flex items-center gap-2">
+          <Switch id="show-test-pipeline" checked={showTest} onCheckedChange={setShowTest} />
+          <Label htmlFor="show-test-pipeline" className="text-sm text-gray-400">Show test leads</Label>
+        </div>
+      </div>
       <div className="flex gap-4 overflow-x-auto pb-4">
         {STATUS_COLUMNS.map((col) => {
           const colLeads = leads.filter((l) => l.status === col.key);
