@@ -13,13 +13,17 @@ interface SitemapEntry {
 }
 
 const entries: SitemapEntry[] = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/builders-licence-melbourne", changefreq: "weekly", priority: "0.9" },
-  { path: "/courses", changefreq: "monthly", priority: "0.9" },
-  { path: "/about", changefreq: "monthly", priority: "0.7" },
-  { path: "/success-stories", changefreq: "monthly", priority: "0.7" },
-  { path: "/faq", changefreq: "monthly", priority: "0.6" },
-  { path: "/contact", changefreq: "monthly", priority: "0.8" },
+  // lastmod = the date each page was last meaningfully updated (not build time).
+  // /thank-you is intentionally excluded (noindex).
+  { path: "/", lastmod: "2026-08-14", changefreq: "weekly", priority: "1.0" },
+  { path: "/bpc-exam-changes", lastmod: "2026-08-14", changefreq: "weekly", priority: "0.9" },
+  { path: "/builder-registration-course-melbourne", lastmod: "2026-08-14", changefreq: "weekly", priority: "0.9" },
+  { path: "/builders-licence-melbourne", lastmod: "2026-07-31", changefreq: "weekly", priority: "0.9" },
+  { path: "/courses", lastmod: "2026-07-31", changefreq: "monthly", priority: "0.9" },
+  { path: "/about", lastmod: "2026-07-31", changefreq: "monthly", priority: "0.7" },
+  { path: "/success-stories", lastmod: "2026-07-31", changefreq: "monthly", priority: "0.7" },
+  { path: "/faq", lastmod: "2026-07-31", changefreq: "monthly", priority: "0.6" },
+  { path: "/contact", lastmod: "2026-07-31", changefreq: "monthly", priority: "0.8" },
 ]
 
 function generateSitemap(entries: SitemapEntry[]) {
