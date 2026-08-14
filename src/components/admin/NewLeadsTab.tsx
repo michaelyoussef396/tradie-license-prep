@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { Phone, Mail, Calendar, Tag, Clock, MessageSquare, Globe, Loader2, AlertCircle, StickyNote } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -18,6 +20,7 @@ interface Lead {
   created_at: string | null;
   notes: string | null;
   used_referral_code: string | null;
+  is_test?: boolean | null;
 }
 
 const NewLeadsTab = () => {
@@ -25,16 +28,18 @@ const NewLeadsTab = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [notesValues, setNotesValues] = useState<Record<string, string>>({});
+  const [showTest, setShowTest] = useState(false);
   const { toast } = useToast();
 
   const fetchLeads = useCallback(async () => {
     setError(null);
     setLoading(true);
-    const { data, error: fetchError } = await supabase
+    let query = supabase
       .from("leads")
       .select("*")
-      .eq("status", "new")
-      .order("created_at", { ascending: false });
+      .eq("status", "new");
+    if (!showTest) query = query.eq("is_test", false);
+    const { data, error: fetchError } = await query.order("created_at", { ascending: false });
 
     if (fetchError) {
       setError(fetchError.message);
@@ -47,7 +52,7 @@ const NewLeadsTab = () => {
     leadsData.forEach((l) => { notes[l.id] = l.notes || ""; });
     setNotesValues(notes);
     setLoading(false);
-  }, []);
+  }, [showTest]);
 
   useEffect(() => {
     fetchLeads();
@@ -56,6 +61,7 @@ const NewLeadsTab = () => {
       .channel("leads-new-realtime")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "leads", filter: "status=eq.new" }, (payload) => {
         const newLead = payload.new as Lead;
+        if (!showTest && newLead.is_test) return;
         setLeads((prev) => [newLead, ...prev]);
         setNotesValues((prev) => ({ ...prev, [newLead.id]: newLead.notes || "" }));
         toast({ title: "New lead!", description: `${newLead.name} just enquired.` });
@@ -63,7 +69,7 @@ const NewLeadsTab = () => {
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, [fetchLeads, toast]);
+  }, [fetchLeads, toast, showTest]);
 
   const updateStatus = async (id: string, status: string) => {
     const { error: updateError } = await supabase.from("leads").update({ status }).eq("id", id);
@@ -87,6 +93,13 @@ const NewLeadsTab = () => {
     return d.toLocaleString("en-AU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false });
   };
 
+  const testToggle = (
+    <div className="flex items-center gap-2">
+      <Switch id="show-test-leads" checked={showTest} onCheckedChange={setShowTest} />
+      <Label htmlFor="show-test-leads" className="text-sm text-gray-400">Show test leads</Label>
+    </div>
+  );
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -107,7 +120,8 @@ const NewLeadsTab = () => {
 
   if (leads.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20">
+      <div className="flex flex-col items-center justify-center py-20 gap-4">
+        {testToggle}
         <p className="text-2xl text-gray-400">No new leads right now 🎉</p>
       </div>
     );
@@ -115,7 +129,10 @@ const NewLeadsTab = () => {
 
   return (
     <div className="space-y-4 max-w-2xl">
-      <h2 className="text-xl font-bold text-white mb-4">New Leads ({leads.length})</h2>
+      <div className="flex items-center justify-between mb-4 gap-4">
+        <h2 className="text-xl font-bold text-white">New Leads ({leads.length})</h2>
+        {testToggle}
+      </div>
       {leads.map((lead) => (
         <Card key={lead.id} className="bg-[#1e293b] border-gray-700">
           <CardContent className="p-5 space-y-3">
