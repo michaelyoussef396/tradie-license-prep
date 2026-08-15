@@ -32,19 +32,36 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getCourse, GST_SUFFIX, courseById, practiceQuestionsSummary } from "@/data/courses";
 
 const Courses = () => {
+  const fromData = (id: string) => {
+    const c = getCourse(id);
+    return {
+      title: c.name,
+      duration: c.duration,
+      format: c.formatShort,
+      price: c.priceDisplay,
+      whoFor: c.whoItsFor,
+      included: c.inclusions,
+      addon: c.addOn
+        ? {
+            title: c.addOn.name,
+            price: c.addOn.priceDisplay,
+            savings: c.addOn.note,
+            includes: c.addOn.inclusions,
+          }
+        : undefined,
+    };
+  };
+
   const courses = [
     {
       id: "comprehensive",
       badge: { text: "Most Comprehensive", color: "bg-blue-600" },
-      title: "Comprehensive Builder Program",
+      ...fromData("comprehensive"),
       subtitle: "Domestic & Commercial",
-      duration: "13 weeks",
-      format: "In-person",
       formatIcon: Users,
-      price: "$7,995",
-      whoFor: "Ideal for tradies seeking Domestic Builder – Unlimited or Commercial (Low-Rise) registration who want the most thorough preparation possible.",
       whatYouLearn: [
         { icon: Building2, text: "Complete building principles and regulations" },
         { icon: FileText, text: "BPC regulations and compliance requirements" },
@@ -55,19 +72,7 @@ const Courses = () => {
         { icon: TrendingUp, text: "Business planning and contractor management" },
         { icon: Check, text: "Documentation and record-keeping systems" },
       ],
-      included: [
-        "600+ practice questions with detailed explanations",
-        "Comprehensive training materials and resources",
-        "Complete application and portfolio preparation",
-        "BPC test preparation and practice sessions",
-        "Pass first time, or we sit you down again for free — at no extra cost",
-        "Small group training (maximum 10 students)",
-        "One-on-one consultation sessions",
-        "Interview preparation and mock interviews",
-        "Post-registration support and guidance",
-        "8-month access to online testing platform",
-      ],
-      schedule: "13 weeks of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.",
+      schedule: `${getCourse("comprehensive").duration} of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.`,
       requirements: "Minimum 2 years building/construction experience. Trade qualification preferred. Technical references from registered builders required.",
       testimonial: {
         text: "Adrian's comprehensive program gave me everything I needed. The small class size meant I got personal attention, and the 600+ practice questions were invaluable. I passed first time and now run my own building company.",
@@ -80,13 +85,9 @@ const Courses = () => {
     {
       id: "evening",
       badge: { text: "Most Popular", color: "bg-gradient-to-r from-emerald-500 to-teal-500" },
-      title: "Evening Builder Course",
+      ...fromData("evening"),
       subtitle: "For Working Tradies",
-      duration: "7 weeks",
-      format: "1 night/week, 6pm-9pm",
       formatIcon: Clock,
-      price: "$5,650",
-      whoFor: "Perfect for working tradies who can't take time off during the day. Get your builder registration while continuing to work full-time.",
       whatYouLearn: [
         { icon: Building2, text: "Domestic building regulations and compliance" },
         { icon: FileText, text: "BPC requirements and application process" },
@@ -95,18 +96,7 @@ const Courses = () => {
         { icon: Award, text: "Building codes and standards (AS)" },
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
-      included: [
-        "7 evening sessions (6pm-9pm, one night per week)",
-        "Small group training (maximum 10 students)",
-        "600+ Q&A practice tests with explanations",
-        "Complete application preparation support",
-        "Portfolio development and review",
-        "Pass first time, or we sit you down again for free — at no extra cost",
-        "All training materials included",
-        "BPC interview preparation",
-        "Post-course support via email/phone",
-      ],
-      schedule: "One evening per week (6pm-9pm) for 7 weeks. Perfect for working tradies. Choose your preferred weeknight.",
+      schedule: `One evening per week (6pm–9pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
       requirements: "Minimum 2 years relevant trade experience. Currently working in the building/construction industry preferred.",
       testimonial: {
         text: "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex topics easy to understand, and I felt fully prepared for my interview.",
@@ -119,13 +109,9 @@ const Courses = () => {
     {
       id: "private",
       badge: { text: "Personalised", color: "bg-violet-600" },
-      title: "Private 1-on-1 Training",
+      ...fromData("private"),
       subtitle: "Flexible & Remote",
-      duration: "9 weeks",
-      format: "3 hrs/week via Zoom",
       formatIcon: Video,
-      price: "$5,650",
-      whoFor: "Ideal for tradies who prefer one-on-one attention, have unique schedules, or want completely personalized training tailored to their specific needs.",
       whatYouLearn: [
         { icon: Target, text: "Personalized curriculum based on your gaps" },
         { icon: Building2, text: "Building regulations relevant to your experience" },
@@ -134,18 +120,7 @@ const Courses = () => {
         { icon: Award, text: "Interview skills and confidence building" },
         { icon: TrendingUp, text: "Business planning for your specific goals" },
       ],
-      included: [
-        "9 weeks of one-on-one coaching (3 hours per week)",
-        "Flexible scheduling via Zoom",
-        "Completely personalized curriculum",
-        "Licensed builder as your personal coach",
-        "All training materials and resources",
-        "8-month access to online testing platform",
-        "Complete application preparation",
-        "Portfolio development and review",
-        "Unlimited email support during training",
-      ],
-      schedule: "3 hours per week for 9 weeks via Zoom. Flexible scheduling to suit your availability - days, evenings, or weekends.",
+      schedule: `${getCourse("private").format}. Flexible scheduling to suit your availability - days, evenings, or weekends.`,
       requirements: "Minimum 2 years relevant experience. Initial assessment call to determine personalized curriculum needs.",
       testimonial: {
         text: "One-on-one training was worth every dollar. Adrian identified exactly where I was weak and we focused on those areas. The flexible schedule meant I could fit it around my work commitments.",
@@ -158,13 +133,9 @@ const Courses = () => {
     {
       id: "carpentry",
       badge: { text: "Specialist", color: "bg-amber-600" },
-      title: "Carpentry Licence (DB-L)",
+      ...fromData("carpentry"),
       subtitle: "Carpentry Specific",
-      duration: "6 weeks",
-      format: "In-person",
       formatIcon: Wrench,
-      price: "$3,790",
-      whoFor: "Specifically designed for qualified carpenters seeking DB-L (Domestic Builder - Limited) registration to legally supervise carpentry and building projects.",
       whatYouLearn: [
         { icon: Building2, text: "DB-L specific regulations and scope" },
         { icon: FileText, text: "Carpentry-focused building codes" },
@@ -172,34 +143,12 @@ const Courses = () => {
         { icon: BookOpen, text: "Technical carpentry knowledge assessment" },
         { icon: Award, text: "Quality standards for carpentry work" },
       ],
-      included: [
-        "450+ carpentry-specific practice questions",
-        "DB-L focused training materials",
-        "Application guidance and support",
-        "BPC interview preparation",
-        "Technical knowledge assessment",
-        "Portfolio development support",
-        "Small group format (max 10 students)",
-        "Email support throughout the course",
-      ],
-      schedule: "6 weeks of focused DB-L training. Weekly sessions with practice questions and interview preparation.",
+      schedule: `${getCourse("carpentry").duration} of focused DB-L training. Weekly sessions with practice questions and interview preparation.`,
       requirements: "Qualified carpenter with minimum 2 years on-the-job experience. Trade certificate required.",
       testimonial: {
         text: "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what BPC actually asks. Passed first time and now running my own carpentry business.",
         author: "Jordan",
         achievement: "Licensed DB-L carpenter"
-      },
-      addon: {
-        title: "Application Prep Package",
-        price: "+$1,460",
-        savings: "Discounted vs. purchasing separately",
-        includes: [
-          "Complete application form assistance",
-          "Portfolio compilation and review",
-          "Technical reference coordination",
-          "Documentation review and correction",
-          "Submission preparation and checking",
-        ]
       },
       featured: false,
       accent: "from-amber-500 to-orange-500"
@@ -221,7 +170,7 @@ const Courses = () => {
     },
     {
       question: "What does the BPC test involve?",
-      answer: "The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include 450-600+ practice questions that mirror the actual test format. We also prepare you for the interview component."
+      answer: `The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include ${practiceQuestionsSummary} that mirror the actual test format. We also prepare you for the interview component.`
     },
     {
       question: "What's your success rate?",
@@ -248,7 +197,7 @@ const Courses = () => {
 
   return (
     <PageTransition>
-      <Seo title={"BPC Training Programs & Pricing | Qualify Pro"} description={"Compare our builder registration courses: 13-week comprehensive, 7-week evening, private 1-on-1 and carpentry DB-L. Durations, pricing and what's included."} path="/courses" />
+      <Seo title={"BPC Training Programs & Pricing | Qualify Pro"} description={`Compare our builder registration courses: ${courseById.comprehensive.name}, ${courseById.evening.name}, ${courseById.private.name} and ${courseById.carpentry.name}. Durations, pricing and what's included.`} path="/courses" />
       <div className="min-h-screen">
         <Navigation />
       
@@ -348,7 +297,7 @@ const Courses = () => {
 
                       <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-3xl font-bold text-gray-900">{course.price}</span>
-                        <span className="text-sm text-gray-500">inc GST</span>
+                        <span className="text-sm text-gray-500">{GST_SUFFIX}</span>
                       </div>
 
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.whoFor}</p>
@@ -393,7 +342,7 @@ const Courses = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-4xl font-bold text-gray-900">{course.price}</span>
-                  <span className="text-gray-500">inc GST</span>
+                  <span className="text-gray-500">{GST_SUFFIX}</span>
                 </div>
               </div>
             </motion.div>

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
+import { courses, GST_SUFFIX, practiceQuestionsSummary } from "@/data/courses";
 
 const SOURCE = "builder-registration-course-melbourne";
 
@@ -67,41 +68,11 @@ const faqJsonLd = {
   ],
 };
 
-const courses = [
-  {
-    name: "Domestic & Commercial Builder Application Program",
-    duration: "13 weeks",
-    format: "In person, small group",
-    suits: "For applicants going for both domestic and commercial registration.",
-    price: "$7,995 inc GST",
-  },
-  {
-    name: "Domestic Builder Registration Course + Application",
-    duration: "7 weeks",
-    format: "Evenings, 1 night per week, 6pm–9pm · In person, small group",
-    suits: "For working tradies going for domestic builder registration.",
-    price: "$5,650 inc GST",
-  },
-  {
-    name: "Private Domestic Builder Registration Course",
-    duration: "9 weeks",
-    format: "One-on-one, 3 hours per week via Zoom",
-    suits: "For people who want individual coaching and flexible scheduling.",
-    price: "$5,650 inc GST",
-  },
-  {
-    name: "DB-L Carpentry Licence Course",
-    duration: "6 weeks",
-    format: "In person, small group",
-    suits: "For carpenters going for DB-L registration.",
-    price: "$3,790 inc GST — application prep available as an add-on",
-  },
-];
 
 const included = [
   "Small-group training with a registered builder",
   "Your online application and portfolio prepared with you",
-  "600+ practice questions and answers (450+ for the carpentry course)",
+  practiceQuestionsSummary,
   "Study guides, sample questions and mock tests",
   "Guidance on the Acts, Regulations and Australian Standards",
   "Step-by-step preparation for the BPC assessment",
@@ -239,8 +210,16 @@ const BuilderRegistrationCourseMelbourne = () => {
                   <h3 className="text-lg font-bold text-slate-900">{c.name}</h3>
                   <p className="mt-2 text-sm font-semibold text-blue-700">{c.duration}</p>
                   <p className="mt-1 text-sm text-slate-600">{c.format}</p>
-                  <p className="mt-3 flex-1 text-base text-slate-700">{c.suits}</p>
-                  <p className="mt-4 text-lg font-bold text-slate-900">{c.price}</p>
+                  <p className="mt-3 flex-1 text-base text-slate-700">{c.whoItsFor}</p>
+                  <p className="mt-4 text-lg font-bold text-slate-900">
+                    {c.priceDisplay}{" "}
+                    <span className="text-sm font-normal text-slate-500">{GST_SUFFIX}</span>
+                  </p>
+                  {c.addOn && (
+                    <p className="mt-1 text-sm text-slate-600">
+                      {c.addOn.name} add-on {c.addOn.priceDisplay} {GST_SUFFIX}
+                    </p>
+                  )}
                   <Button onClick={scrollToForm} className="mt-5 w-full">
                     Talk to us
                   </Button>

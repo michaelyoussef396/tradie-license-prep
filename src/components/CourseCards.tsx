@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Clock, Users, Video, Wrench, Star, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { courseById, GST_SUFFIX } from "@/data/courses";
 
 const CourseCards = () => {
   const navigate = useNavigate();
@@ -15,72 +16,24 @@ const CourseCards = () => {
     }
   };
 
-  const courses = [
-    {
-      badge: { text: "Most Comprehensive", color: "bg-blue-600" },
-      title: "Comprehensive Builder Program",
-      subtitle: "Domestic & Commercial",
-      duration: "13 weeks",
-      format: "In-person",
-      formatIcon: Users,
-      price: "$7,995",
-      includes: [
-        "600+ practice questions",
-        "Full training materials",
-        "Application & portfolio prep",
-        "Pass first time, or we sit you down again for free — at no extra cost",
-      ],
-      featured: false,
-    },
-    {
-      badge: { text: "Most Popular", color: "bg-gradient-to-r from-emerald-500 to-teal-500" },
-      title: "Evening Builder Course",
-      subtitle: "For Working Tradies",
-      duration: "7 weeks",
-      format: "1 night/week, 6pm-9pm",
-      formatIcon: Clock,
-      price: "$5,650",
-      includes: [
-        "Small group training",
-        "600+ Q&A tests",
-        "Fits around your work",
-        "Pass first time, or we sit you down again for free — at no extra cost",
-      ],
-      featured: true,
-    },
-    {
-      badge: { text: "Personalised", color: "bg-violet-600" },
-      title: "Private 1-on-1 Training",
-      subtitle: "Flexible & Remote",
-      duration: "9 weeks",
-      format: "3 hrs/week via Zoom",
-      formatIcon: Video,
-      price: "$5,650",
-      includes: [
-        "One-on-one coaching",
-        "Flexible scheduling",
-        "All materials included",
-        "Application prep",
-      ],
-      featured: false,
-    },
-    {
-      badge: { text: "Specialist", color: "bg-amber-600" },
-      title: "Carpentry Licence (DB-L)",
-      subtitle: "Carpentry Specific",
-      duration: "6 weeks",
-      format: "In-person",
-      formatIcon: Wrench,
-      price: "$3,790",
-      includes: [
-        "450+ practice questions",
-        "DB-L specific training",
-        "Application guidance",
-        "BPC interview prep",
-      ],
-      featured: false,
-    },
+  const meta = [
+    { id: "comprehensive", badge: { text: "Most Comprehensive", color: "bg-blue-600" }, subtitle: "Domestic & Commercial", formatIcon: Users, featured: false, highlights: [0, 1, 2, 4] },
+    { id: "evening", badge: { text: "Most Popular", color: "bg-gradient-to-r from-emerald-500 to-teal-500" }, subtitle: "For Working Tradies", formatIcon: Clock, featured: true, highlights: [1, 2, 0, 5] },
+    { id: "private", badge: { text: "Personalised", color: "bg-violet-600" }, subtitle: "Flexible & Remote", formatIcon: Video, featured: false, highlights: [0, 1, 4, 6] },
+    { id: "carpentry", badge: { text: "Specialist", color: "bg-amber-600" }, subtitle: "Carpentry Specific", formatIcon: Wrench, featured: false, highlights: [0, 1, 2, 3] },
   ];
+
+  const courses = meta.map((m) => {
+    const course = courseById[m.id];
+    return {
+      ...m,
+      title: course.name,
+      duration: course.duration,
+      format: course.formatShort,
+      price: course.priceDisplay,
+      includes: m.highlights.map((i) => course.inclusions[i]),
+    };
+  });
 
   return (
     <section id="courses" className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-white via-blue-50/50 to-white relative overflow-hidden">
@@ -178,7 +131,7 @@ const CourseCards = () => {
                         <span className="text-3xl sm:text-4xl font-bold text-gray-900">
                           {course.price}
                         </span>
-                        <span className="text-sm text-gray-500">inc GST</span>
+                        <span className="text-sm text-gray-500">{GST_SUFFIX}</span>
                       </div>
                     </div>
 

@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, HelpCircle, ChevronRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { courseById, practiceQuestionsSummary } from "@/data/courses";
 
 const FAQ = () => {
   const faqCategories = [
@@ -42,7 +43,7 @@ const FAQ = () => {
         {
           question: "Where are you located?",
           answer:
-            "We're based at 5 Scanlon Drive, Epping (Melbourne, Victoria). All training is face-to-face only (no online courses).",
+            "We're based at 5 Scanlon Drive, Epping (Melbourne, Victoria). Group courses are delivered in person in Melbourne in small groups. There's also a private one-on-one option delivered online via Zoom for people who need scheduling flexibility.",
         },
       ],
     },
@@ -63,12 +64,12 @@ const FAQ = () => {
         {
           question: "What's included in the programs?",
           answer:
-            "All programs include training materials, 450-600+ practice questions, Acts & Regulations guidance, application and portfolio preparation, BPC test and interview preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost.",
+            `All programs include training materials, ${practiceQuestionsSummary}, Acts & Regulations guidance, application and portfolio preparation, BPC test and interview preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost.`,
         },
         {
           question: "Do you offer evening classes?",
           answer:
-            "Yes! Our most popular program runs 1 night per week, 6pm-9pm, designed for working tradies.",
+            `Yes! Our most popular program, the ${courseById.evening.name}, runs 1 night per week, 6pm–9pm, designed for working tradies.`,
         },
         {
           question: "Do you offer payment plans?",
@@ -110,7 +111,7 @@ const FAQ = () => {
         {
           question: "What does the BPC test involve?",
           answer:
-            "The test covers Building Acts, Regulations, Australian Standards, and practical knowledge for your specific licence class. We provide 450-600+ practice questions and mock tests to prepare you thoroughly.",
+            `The test covers Building Acts, Regulations, Australian Standards, and practical knowledge for your specific licence class. We provide ${practiceQuestionsSummary} and mock tests to prepare you thoroughly.`,
         },
         {
           question: "How do I prepare for the interview?",

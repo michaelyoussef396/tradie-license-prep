@@ -1,6 +1,7 @@
 import { Phone, Mail, MapPin, ArrowUpRight, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import qualifyProLogoWhite from "@/assets/qualify-pro-logo-white.png";
+import { courses as courseData } from "@/data/courses";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -15,10 +16,7 @@ const Footer = () => {
   ];
 
   const courses = [
-    { name: "Comprehensive Builder Program", href: "/courses" },
-    { name: "Evening Builder Course", href: "/courses" },
-    { name: "Private 1-on-1 Training", href: "/courses" },
-    { name: "Carpentry Licence (DB-L)", href: "/courses" },
+    ...courseData.map((c) => ({ name: c.name, href: "/courses" })),
   ];
 
   const tradeAreas = [

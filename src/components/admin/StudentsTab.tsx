@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2, AlertCircle, Plus, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { courses } from "@/data/courses";
 
 interface Student {
   id: string;
@@ -20,12 +21,7 @@ interface Student {
   created_at: string | null;
 }
 
-const COURSES = [
-  "Comprehensive Builder Program",
-  "Evening Builder Course",
-  "Private 1-on-1 Training",
-  "Carpentry Licence Course (DB-L)",
-];
+const COURSES = courses.map((c) => c.name);
 
 const StudentsTab = () => {
   const [students, setStudents] = useState<Student[]>([]);
