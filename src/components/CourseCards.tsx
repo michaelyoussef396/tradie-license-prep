@@ -29,7 +29,7 @@ const CourseCards = () => {
       ...m,
       title: course.name,
       duration: course.duration,
-      format: course.format,
+      format: course.formatShort,
       price: course.priceDisplay,
       includes: m.highlights.map((i) => course.inclusions[i]),
     };

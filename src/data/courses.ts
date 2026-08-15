@@ -28,6 +28,8 @@ export interface Course {
   name: string;
   duration: string;
   format: string;
+  /** Compact format label for cards and pills. */
+  formatShort: string;
   whoItsFor: string;
   price: number;
   priceDisplay: string;
@@ -43,6 +45,7 @@ export const courses: Course[] = [
     name: "Comprehensive Builder Program",
     duration: "13 weeks",
     format: "In person, small group",
+    formatShort: "In person",
     whoItsFor:
       "For applicants going for both domestic and commercial (low-rise) registration who want the most thorough preparation possible.",
     price: 7995,
@@ -68,6 +71,7 @@ export const courses: Course[] = [
     name: "Evening Builder Course",
     duration: "7 weeks",
     format: "Evenings, 1 night per week, 6pm–9pm · In person, small group",
+    formatShort: "1 night/week, 6pm–9pm",
     whoItsFor:
       "For working tradies going for domestic builder registration who can't take time off during the day.",
     price: 5650,
@@ -92,6 +96,7 @@ export const courses: Course[] = [
     name: "Private 1-on-1 Training",
     duration: "9 weeks",
     format: "One-on-one, 3 hours per week via Zoom",
+    formatShort: "3 hrs/week via Zoom",
     whoItsFor:
       "For people who want individual coaching and flexible scheduling, or training tailored to their specific gaps.",
     price: 5650,
@@ -114,6 +119,7 @@ export const courses: Course[] = [
     name: "Carpentry Licence (DB-L)",
     duration: "6 weeks",
     format: "In person, small group",
+    formatShort: "In person",
     whoItsFor:
       "For qualified carpenters going for DB-L (Domestic Builder – Limited) registration.",
     price: 3790,
