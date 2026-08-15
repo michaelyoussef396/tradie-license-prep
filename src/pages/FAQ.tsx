@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, HelpCircle, ChevronRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { courseById, practiceQuestionsSummary } from "@/data/courses";
 
 const FAQ = () => {
   const faqCategories = [
@@ -68,7 +69,7 @@ const FAQ = () => {
         {
           question: "Do you offer evening classes?",
           answer:
-            `Yes! Our most popular program, the ${courseById.evening.name}, runs 1 night per week, 6pm\u20139pm, designed for working tradies.`,
+            `Yes! Our most popular program, the ${courseById.evening.name}, runs 1 night per week, 6pm–9pm, designed for working tradies.`,
         },
         {
           question: "Do you offer payment plans?",
