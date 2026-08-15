@@ -32,8 +32,29 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getCourse, GST_SUFFIX, courseById } from "@/data/courses";
 
 const Courses = () => {
+  const fromData = (id: string) => {
+    const c = getCourse(id);
+    return {
+      title: c.name,
+      duration: c.duration,
+      format: c.formatShort,
+      price: c.priceDisplay,
+      whoFor: c.whoItsFor,
+      included: c.inclusions,
+      addon: c.addOn
+        ? {
+            title: c.addOn.name,
+            price: c.addOn.priceDisplay,
+            savings: c.addOn.note,
+            includes: c.addOn.inclusions,
+          }
+        : undefined,
+    };
+  };
+
   const courses = [
     {
       id: "comprehensive",
@@ -51,7 +72,7 @@ const Courses = () => {
         { icon: TrendingUp, text: "Business planning and contractor management" },
         { icon: Check, text: "Documentation and record-keeping systems" },
       ],
-      schedule: `${getCourse(comprehensive).duration} of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.",
+      schedule: `${getCourse("comprehensive").duration} of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.`,
       requirements: "Minimum 2 years building/construction experience. Trade qualification preferred. Technical references from registered builders required.",
       testimonial: {
         text: "Adrian's comprehensive program gave me everything I needed. The small class size meant I got personal attention, and the 600+ practice questions were invaluable. I passed first time and now run my own building company.",
@@ -99,7 +120,7 @@ const Courses = () => {
         { icon: Award, text: "Interview skills and confidence building" },
         { icon: TrendingUp, text: "Business planning for your specific goals" },
       ],
-      schedule: "3 hours per week for 9 weeks via Zoom. Flexible scheduling to suit your availability - days, evenings, or weekends.",
+      schedule: `${getCourse("private").format}. Flexible scheduling to suit your availability - days, evenings, or weekends.`,
       requirements: "Minimum 2 years relevant experience. Initial assessment call to determine personalized curriculum needs.",
       testimonial: {
         text: "One-on-one training was worth every dollar. Adrian identified exactly where I was weak and we focused on those areas. The flexible schedule meant I could fit it around my work commitments.",
@@ -122,7 +143,7 @@ const Courses = () => {
         { icon: BookOpen, text: "Technical carpentry knowledge assessment" },
         { icon: Award, text: "Quality standards for carpentry work" },
       ],
-      schedule: "6 weeks of focused DB-L training. Weekly sessions with practice questions and interview preparation.",
+      schedule: `${getCourse("carpentry").duration} of focused DB-L training. Weekly sessions with practice questions and interview preparation.`,
       requirements: "Qualified carpenter with minimum 2 years on-the-job experience. Trade certificate required.",
       testimonial: {
         text: "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what BPC actually asks. Passed first time and now running my own carpentry business.",
@@ -149,7 +170,7 @@ const Courses = () => {
     },
     {
       question: "What does the BPC test involve?",
-      answer: "The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include 450-600+ practice questions that mirror the actual test format. We also prepare you for the interview component."
+      answer: "The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include ${courseById.comprehensive.practiceQuestions} practice questions that mirror the actual test format. We also prepare you for the interview component."
     },
     {
       question: "What's your success rate?",
@@ -176,7 +197,7 @@ const Courses = () => {
 
   return (
     <PageTransition>
-      <Seo title={"BPC Training Programs & Pricing | Qualify Pro"} description={"Compare our builder registration courses: 13-week comprehensive, 7-week evening, private 1-on-1 and carpentry DB-L. Durations, pricing and what's included."} path="/courses" />
+      <Seo title={"BPC Training Programs & Pricing | Qualify Pro"} description={`Compare our builder registration courses: ${courseById.comprehensive.name}, ${courseById.evening.name}, ${courseById.private.name} and ${courseById.carpentry.name}. Durations, pricing and what's included.`} path="/courses" />
       <div className="min-h-screen">
         <Navigation />
       
@@ -276,7 +297,7 @@ const Courses = () => {
 
                       <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-3xl font-bold text-gray-900">{course.price}</span>
-                        <span className="text-sm text-gray-500">inc GST</span>
+                        <span className="text-sm text-gray-500">{GST_SUFFIX}</span>
                       </div>
 
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.whoFor}</p>
@@ -321,7 +342,7 @@ const Courses = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-4xl font-bold text-gray-900">{course.price}</span>
-                  <span className="text-gray-500">inc GST</span>
+                  <span className="text-gray-500">{GST_SUFFIX}</span>
                 </div>
               </div>
             </motion.div>
