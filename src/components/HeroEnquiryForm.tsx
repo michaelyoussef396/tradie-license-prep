@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
+import { z } from "zod";
 import {
   Select,
   SelectContent,
@@ -16,6 +17,13 @@ import {
 
 const TRADES = ["Carpenter", "Bricklayer", "Plumber", "Electrician", "Concreter", "Roof Tiler", "Other"];
 const EXPERIENCE = ["Under 3", "3-5", "5-10", "10+"];
+
+const emailSchema = z
+  .string()
+  .trim()
+  .min(1, "Email address is required")
+  .email("Please enter a valid email address")
+  .max(255, "Email is too long");
 
 interface HeroEnquiryFormProps {
   /** Hidden source field value stored on the lead, identifying the page it came from. */
@@ -30,6 +38,8 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
   const startedRef = useRef(false);
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [trade, setTrade] = useState("");
   const [experience, setExperience] = useState("");
 
@@ -43,11 +53,17 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!firstName.trim() || !phone.trim()) return;
+    const parsedEmail = emailSchema.safeParse(email);
+    if (!parsedEmail.success) {
+      setEmailError(parsedEmail.error.errors[0]?.message ?? "Please enter a valid email address");
+      return;
+    }
+    setEmailError(null);
     setIsSubmitting(true);
     try {
       const { error } = await supabase.from("leads").insert({
         name: firstName.trim(),
-        email: "no-email@qualifypro.com.au",
+        email: parsedEmail.data,
         phone: phone.trim(),
         license_type: trade || null,
         years_experience: experience || null,
@@ -61,7 +77,7 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
         .invoke("send-lead-emails", {
           body: {
             name: firstName.trim(),
-            email: "no-email@qualifypro.com.au",
+            email: parsedEmail.data,
             phone: phone.trim(),
             licenseType: trade || "",
             message: `Trade: ${trade || "n/a"} | Years experience: ${experience || "n/a"}`,
@@ -123,6 +139,30 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
               onChange={(e) => { touch(); setPhone(e.target.value); }}
               className="h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
             />
+          </div>
+          <div>
+            <label htmlFor="hero-email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email address *
+            </label>
+            <Input
+              id="hero-email"
+              type="email"
+              required
+              placeholder="you@email.com"
+              value={email}
+              aria-invalid={!!emailError}
+              aria-describedby={emailError ? "hero-email-error" : undefined}
+              onChange={(e) => { touch(); setEmail(e.target.value); if (emailError) setEmailError(null); }}
+              onBlur={() => {
+                if (!email.trim()) return;
+                const r = emailSchema.safeParse(email);
+                setEmailError(r.success ? null : r.error.errors[0]?.message ?? null);
+              }}
+              className={`h-12 text-base focus:border-blue-500 focus:ring-blue-500 ${emailError ? "border-red-500" : "border-gray-200"}`}
+            />
+            {emailError && (
+              <p id="hero-email-error" className="mt-1 text-sm text-red-600">{emailError}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Your trade</label>
