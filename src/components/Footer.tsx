@@ -1,7 +1,7 @@
 import { Phone, Mail, MapPin, ArrowUpRight, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import qualifyProLogoWhite from "@/assets/qualify-pro-logo-white.png";
-import { courses } from "@/data/courses";
+import { courses as courseData } from "@/data/courses";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,7 +16,7 @@ const Footer = () => {
   ];
 
   const courses = [
-    ...courses.map((c) => ({ name: c.name, href: "/courses" })),
+    ...courseData.map((c) => ({ name: c.name, href: "/courses" })),
   ];
 
   const tradeAreas = [
