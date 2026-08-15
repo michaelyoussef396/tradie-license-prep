@@ -32,7 +32,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getCourse, GST_SUFFIX, courseById } from "@/data/courses";
+import { getCourse, GST_SUFFIX, courseById, practiceQuestionsSummary } from "@/data/courses";
 
 const Courses = () => {
   const fromData = (id: string) => {
@@ -170,7 +170,7 @@ const Courses = () => {
     },
     {
       question: "What does the BPC test involve?",
-      answer: "The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include ${courseById.comprehensive.practiceQuestions} practice questions that mirror the actual test format. We also prepare you for the interview component."
+      answer: `The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include ${practiceQuestionsSummary} that mirror the actual test format. We also prepare you for the interview component.`
     },
     {
       question: "What's your success rate?",
