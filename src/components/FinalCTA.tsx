@@ -31,6 +31,7 @@ const FinalCTA = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formStartedRef = useRef(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -45,6 +46,13 @@ const FinalCTA = () => {
     setIsSubmitting(true);
 
     try {
+      const emailCheck = ctaSchema.shape.email.safeParse(formData.email);
+      if (!emailCheck.success) {
+        setEmailError(emailCheck.error.errors[0]?.message ?? "Please enter a valid email address");
+        setIsSubmitting(false);
+        return;
+      }
+      setEmailError(null);
       const validated = ctaSchema.parse(formData);
 
       // Insert lead with referral code
@@ -266,9 +274,19 @@ const FinalCTA = () => {
                       placeholder="your@email.com"
                       required
                       value={formData.email}
-                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, email: e.target.value })); }}
-                      className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      aria-invalid={!!emailError}
+                      aria-describedby={emailError ? "cta-email-error" : undefined}
+                      onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } if (emailError) setEmailError(null); setFormData(prev => ({ ...prev, email: e.target.value })); }}
+                      onBlur={() => {
+                        if (!formData.email.trim()) return;
+                        const r = ctaSchema.shape.email.safeParse(formData.email);
+                        setEmailError(r.success ? null : r.error.errors[0]?.message ?? null);
+                      }}
+                      className={`w-full h-12 text-base focus:border-blue-500 focus:ring-blue-500 ${emailError ? "border-red-500" : "border-gray-200"}`}
                     />
+                    {emailError && (
+                      <p id="cta-email-error" className="mt-1 text-sm text-red-600">{emailError}</p>
+                    )}
                   </div>
 
                   <div>
