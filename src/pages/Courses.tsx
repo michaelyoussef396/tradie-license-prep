@@ -96,7 +96,7 @@ const Courses = () => {
         { icon: Award, text: "Building codes and standards (AS)" },
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
-      schedule: `One evening per week (6pm\u20139pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
+      schedule: `One evening per week (6pm–9pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
       requirements: "Minimum 2 years relevant trade experience. Currently working in the building/construction industry preferred.",
       testimonial: {
         text: "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex topics easy to understand, and I felt fully prepared for my interview.",
