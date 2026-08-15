@@ -467,7 +467,7 @@ const Contact = () => {
                   <div>
                     <div className="font-semibold text-slate-900 mb-1">Training Hours</div>
                     <div className="text-slate-700 font-medium">Evening sessions available</div>
-                    <div className="text-sm text-slate-500 mt-1">6pm - 9pm, one night per week</div>
+                    <div className="text-sm text-slate-500 mt-1">6pm–9pm, one night per week</div>
                   </div>
                 </div>
               </div>
