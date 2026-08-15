@@ -39,6 +39,7 @@ const Contact = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formStartedRef = useRef(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -65,6 +66,13 @@ const Contact = () => {
 
     try {
       // Validate form data
+      const emailCheck = contactSchema.shape.email.safeParse(formData.email);
+      if (!emailCheck.success) {
+        setEmailError(emailCheck.error.errors[0]?.message ?? "Please enter a valid email address");
+        setIsSubmitting(false);
+        return;
+      }
+      setEmailError(null);
       const validatedData = contactSchema.parse(formData);
 
       // Insert lead with referral code
@@ -296,11 +304,21 @@ const Contact = () => {
                       id="email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      aria-invalid={!!emailError}
+                      aria-describedby={emailError ? "email-error" : undefined}
+                      onChange={(e) => { if (emailError) setEmailError(null); handleInputChange("email", e.target.value); }}
+                      onBlur={() => {
+                        if (!formData.email.trim()) return;
+                        const r = contactSchema.shape.email.safeParse(formData.email);
+                        setEmailError(r.success ? null : r.error.errors[0]?.message ?? null);
+                      }}
                       placeholder="john.smith@email.com"
                       required
-                      className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                      className={`h-12 bg-white focus:border-blue-500 focus:ring-blue-500 ${emailError ? "border-red-500" : "border-slate-300"}`}
                     />
+                    {emailError && (
+                      <p id="email-error" className="mt-1 text-sm text-red-600">{emailError}</p>
+                    )}
                   </div>
 
                   {/* Licence Type */}
