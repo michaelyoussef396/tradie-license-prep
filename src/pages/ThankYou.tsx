@@ -19,7 +19,7 @@ const ThankYou = () => {
     <PageTransition>
       <Seo
         title="Thank You | Qualify Pro"
-        description="Thanks for your enquiry. A Qualify Pro BPC prep specialist will call you within one business day to discuss your eligibility."
+        description="Thanks for your enquiry. A Qualify Pro BPC prep specialist will call you within 24 hours to discuss your eligibility."
         path="/thank-you"
         noindex
       />
@@ -52,7 +52,7 @@ const ThankYou = () => {
               </h1>
 
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-300">
-                Your details are through. Someone will call you within one business day to run
+                Your details are through. Someone will call you within 24 hours to run
                 through your eligibility.
               </p>
             </div>

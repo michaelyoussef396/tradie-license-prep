@@ -28,7 +28,7 @@ const FAQ = () => {
         {
           question: "How is this different from TAFE or a training college?",
           answer:
-            "Unlike a specialist BPC preparation program that issues certificates, we focus purely on licensing preparation. We help you understand the Acts, Regulations, and Standards needed for your specific builder class registration. Our small classes allow personalized attention to fill your individual knowledge gaps.",
+            "We're a specialist BPC preparation program. We don't issue qualifications or certificates — we prepare you for registration. We help you understand the Acts, Regulations, and Standards needed for your specific builder class registration. Our small classes allow personalized attention to fill your individual knowledge gaps.",
         },
         {
           question: "What's the success rate?",
@@ -59,7 +59,7 @@ const FAQ = () => {
         {
           question: "What are the class sizes?",
           answer:
-            "We keep classes small - minimum 5 students, maximum 10. This allows us to personalize teaching and address each student's specific weaknesses.",
+            "We keep classes small — a maximum of 10 students. This allows us to personalize teaching and address each student's specific weaknesses.",
         },
         {
           question: "What's included in the programs?",

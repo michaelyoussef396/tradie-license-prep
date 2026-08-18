@@ -21,7 +21,7 @@ const TrustBar = () => {
     {
       icon: MapPin,
       stat: "Melbourne",
-      description: "Based Face-to-Face",
+      description: "Melbourne Based",
     },
   ];
 

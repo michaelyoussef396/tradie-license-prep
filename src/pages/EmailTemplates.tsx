@@ -149,7 +149,7 @@ const EmailTemplates = () => {
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Our courses run in small groups (max 10) so you get real support</li>
                     <li>Our students achieve a consistently high pass rate</li>
-                    <li>We focus on getting you registered, not just giving you a certificate</li>
+                    <li>We focus on one thing: getting you registered</li>
                   </ul>
                   <p>Talk soon,</p>
                   <Sig full />

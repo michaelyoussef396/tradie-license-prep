@@ -477,13 +477,24 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Hours */}
+                {/* Phone Hours */}
                 <div className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-200">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
                     <Clock className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <div className="font-semibold text-slate-900 mb-1">Training Hours</div>
+                    <div className="font-semibold text-slate-900 mb-1">Phone Hours</div>
+                    <div className="text-slate-700 font-medium">9am–9pm, 7 days</div>
+                  </div>
+                </div>
+
+                {/* Class Times */}
+                <div className="flex items-start gap-4 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Clock className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900 mb-1">Class Times</div>
                     <div className="text-slate-700 font-medium">Evening sessions available</div>
                     <div className="text-sm text-slate-500 mt-1">6pm–9pm, one night per week</div>
                   </div>

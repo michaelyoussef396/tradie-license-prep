@@ -172,7 +172,7 @@ function buildAutoReplyHtml(firstName: string): string {
         <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> Our students achieve a consistently high pass rate
       </td></tr>
       <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">
-        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> We focus on getting you registered, not just giving you a certificate
+        <span style="color:#059669;font-weight:700;margin-right:8px;">✓</span> We focus on one thing: getting you registered
       </td></tr>
     </table>
     <p style="margin:0 0 20px 0;">Talk soon,</p>
