@@ -18,7 +18,7 @@ interface LeadPayload {
 
 const ADMIN_EMAIL = "hello@qualifypro.com.au";
 const FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
-const NOTIFICATION_FROM_EMAIL = "Qualify Pro Leads <leads@qualifypro.com.au>";
+const NOTIFICATION_FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
 
 function esc(s: string): string {
   return String(s)
@@ -293,7 +293,7 @@ Deno.serve(async (req) => {
     console.log("send-lead-emails: dispatching Resend emails", {
       adminTo: ADMIN_EMAIL,
       leadTo: lead.email,
-      from: FROM_EMAIL,
+      from: NOTIFICATION_FROM_EMAIL,
     });
 
     const [notifResult, replyResult] = await Promise.all([
