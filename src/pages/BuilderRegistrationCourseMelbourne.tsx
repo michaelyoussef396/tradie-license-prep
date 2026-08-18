@@ -326,7 +326,7 @@ const BuilderRegistrationCourseMelbourne = () => {
               references from registered builders in the same class or higher.
             </P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">
-              What qualifications do I need, and can you help me get them?
+              What qualifications do I need before I start?
             </h3>
             <P>
               Requirements vary by registration class. The eligibility check identifies what you
