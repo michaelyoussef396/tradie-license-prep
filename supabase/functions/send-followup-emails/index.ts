@@ -84,6 +84,7 @@ serve(async (req) => {
       .from("leads")
       .select("id, name, email")
       .eq("status", "thinking_about_it")
+      .or("is_test.eq.false,is_test.is.null")
       .gte("created_at", new Date(Date.now() - 4 * 86400000).toISOString())
       .lte("created_at", new Date(Date.now() - 3 * 86400000).toISOString());
 
@@ -106,6 +107,7 @@ serve(async (req) => {
       .from("leads")
       .select("id, name, email")
       .eq("status", "followed_up_3")
+      .or("is_test.eq.false,is_test.is.null")
       .gte("created_at", new Date(Date.now() - 8 * 86400000).toISOString())
       .lte("created_at", new Date(Date.now() - 7 * 86400000).toISOString());
 
@@ -128,6 +130,7 @@ serve(async (req) => {
       .from("leads")
       .select("id")
       .eq("status", "followed_up_7")
+      .or("is_test.eq.false,is_test.is.null")
       .lte("created_at", new Date(Date.now() - 10 * 86400000).toISOString());
 
     for (const lead of day10Leads || []) {

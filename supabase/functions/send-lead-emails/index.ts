@@ -18,6 +18,7 @@ interface LeadPayload {
 
 const ADMIN_EMAIL = "hello@qualifypro.com.au";
 const FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
+const NOTIFICATION_FROM_EMAIL = "Qualify Pro Leads <leads@qualifypro.com.au>";
 
 const AIRTABLE_BASE_ID = "appdzKGXLVTZe1tHS";
 const AIRTABLE_TABLE_ID = "tbl4uVt3WNhAFYYPO";
@@ -197,6 +198,7 @@ interface ResendPayload {
   to: string[];
   subject: string;
   html: string;
+  reply_to?: string;
 }
 
 interface ResendResult {
@@ -349,8 +351,9 @@ Deno.serve(async (req) => {
 
     const [notifResult, replyResult] = await Promise.all([
       sendResendEmail(RESEND_API_KEY, {
-        from: FROM_EMAIL,
+        from: NOTIFICATION_FROM_EMAIL,
         to: [ADMIN_EMAIL],
+        reply_to: lead.email,
         subject: `New Lead: ${esc(lead.name)} – ${esc(lead.phone)}`,
         html: buildNotificationHtml(lead),
       }, "notification"),
