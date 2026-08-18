@@ -58,7 +58,7 @@ const About = () => {
   const teachingApproach = [
     {
       icon: Users,
-      title: "Small Class Sizes (5-10 Max)",
+      title: "Small Class Sizes (Max 10)",
       description: "Every student gets individual attention. You're not just a number - Adrian knows your name and your specific challenges."
     },
     {
@@ -123,7 +123,7 @@ const About = () => {
     { number: "95%", label: "Pass Rate" },
     { number: "10+", label: "Years Experience" },
     { number: "500+", label: "Students Trained" },
-    { number: "5-10", label: "Max Class Size" },
+    { number: "10", label: "Max Class Size" },
   ];
 
   return (
