@@ -26,7 +26,7 @@ const FAQ = () => {
         "Absolutely! Complete application support is included in all our programs. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets BPC requirements. We've done this hundreds of times and know exactly what BPC is looking for.",
     },
     {
-      question: "What qualifications do I need and can you help me attain them?",
+      question: "What qualifications do I need before I start?",
       answer:
         "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on BPC interview preparation and application support - we're a specialist BPC preparation program and don't issue certificates. We work with experienced tradies who have the base qualifications but need help passing their licensing interview.",
     },
