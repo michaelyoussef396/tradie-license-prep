@@ -312,11 +312,6 @@ Deno.serve(async (req) => {
       }, "autoReply"),
     ]);
 
-    // Airtable sync - fire and forget, don't block response
-    syncToAirtable(lead, "contact-form").catch((err) =>
-      console.error("Airtable sync error:", err)
-    );
-
     console.log("send-lead-emails: Resend summary", {
       notification: { ok: notifResult.ok, status: notifResult.status },
       autoReply: { ok: replyResult.ok, status: replyResult.status },
