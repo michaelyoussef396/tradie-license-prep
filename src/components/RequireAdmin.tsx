@@ -32,8 +32,9 @@ const RequireAdmin = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     let isActive = true;
-    // getSession() and the listener's INITIAL_SESSION carry the same session.
-    // Whichever arrives first performs the one initial check.
+    // getSession() and the listener's INITIAL_SESSION carry the same session,
+    // and either may arrive first. Whichever verification runs first claims the
+    // initial check; the rest are no-ops.
     let hasRunInitialCheck = false;
 
     const redirectToLogin = () => {
@@ -52,6 +53,9 @@ const RequireAdmin = ({ children }: { children: ReactNode }) => {
     };
 
     const verify = async (session: Session | null) => {
+      // Any verification satisfies the initial check, so an event arriving
+      // before INITIAL_SESSION can't leave a second query queued behind it.
+      hasRunInitialCheck = true;
       if (!session) {
         redirectToLogin();
         return;

@@ -15,9 +15,17 @@ let navigations: Array<{ to: string; state?: unknown }> = [];
 let signOutCount = 0;
 let isAdmin = true;
 let currentSession: unknown = ADMIN_SESSION;
-/** When set, the role query hangs until released, so the in-flight window is observable. */
+/**
+ * Each hook holds one async step open so the in-flight window is observable.
+ * Without them React batches the surrounding state updates and an assertion
+ * about that window passes whether or not the guard is there.
+ */
 let deferRoleQuery = false;
 let releaseRoleQuery: (() => void) | null = null;
+let deferGetSession = false;
+let releaseGetSession: (() => void) | null = null;
+let deferSignOut = false;
+let releaseSignOut: (() => void) | null = null;
 
 /** Fires an auth event the way supabase-js would. */
 const emit = (event: string, session: unknown = currentSession) => {
@@ -41,7 +49,14 @@ mock.module("@/integrations/supabase/client", () => {
   return {
     supabase: {
       auth: {
-        getSession: async () => ({ data: { session: currentSession } }),
+        getSession: async () => {
+          if (deferGetSession) {
+            await new Promise<void>((resolve) => {
+              releaseGetSession = resolve;
+            });
+          }
+          return { data: { session: currentSession } };
+        },
         onAuthStateChange: (listener: AuthListener) => {
           listeners.push(listener);
           return {
@@ -55,6 +70,11 @@ mock.module("@/integrations/supabase/client", () => {
           };
         },
         signOut: async () => {
+          if (deferSignOut) {
+            await new Promise<void>((resolve) => {
+              releaseSignOut = resolve;
+            });
+          }
           signOutCount += 1;
           currentSession = null;
         },
@@ -109,6 +129,10 @@ beforeEach(() => {
   currentSession = ADMIN_SESSION;
   deferRoleQuery = false;
   releaseRoleQuery = null;
+  deferGetSession = false;
+  releaseGetSession = null;
+  deferSignOut = false;
+  releaseSignOut = null;
   document.body.innerHTML = "";
 });
 
@@ -176,20 +200,69 @@ describe("RequireAdmin", () => {
     expect(navigations.at(-1)?.to).toBe("/admin");
   });
 
-  test("should not redirect after unmount", async () => {
+  // The three tests below cover the isActive guards. Each unmounts while one
+  // async step is still in flight, then releases it — an emitted event would
+  // not reach an unsubscribed listener, so it cannot exercise these paths.
+
+  test("should not query the role when the session resolves after unmount", async () => {
+    deferGetSession = true;
     const { root } = await renderGuard();
-    await React.act(async () => {
-      emit("INITIAL_SESSION");
-    });
     await React.act(async () => {
       root.unmount();
     });
 
-    const navigationsBefore = navigations.length;
     await React.act(async () => {
-      emit("SIGNED_OUT", null);
+      releaseGetSession?.();
     });
 
-    expect(navigations.length).toBe(navigationsBefore);
+    expect(roleQueryCount).toBe(0);
+  });
+
+  test("should not sign out when the role query resolves after unmount", async () => {
+    isAdmin = false;
+    deferRoleQuery = true;
+    const { root } = await renderGuard();
+    await React.act(async () => {
+      root.unmount();
+    });
+
+    await React.act(async () => {
+      releaseRoleQuery?.();
+    });
+
+    expect(signOutCount).toBe(0);
+    expect(navigations).toEqual([]);
+  });
+
+  test("should not redirect when sign-out completes after unmount", async () => {
+    isAdmin = false;
+    deferSignOut = true;
+    const { root } = await renderGuard();
+    await React.act(async () => {
+      root.unmount();
+    });
+
+    await React.act(async () => {
+      releaseSignOut?.();
+    });
+
+    expect(navigations).toEqual([]);
+  });
+
+  test("should run one role query even if another event precedes INITIAL_SESSION", async () => {
+    deferGetSession = true;
+    await renderGuard();
+
+    await React.act(async () => {
+      emit("SIGNED_IN");
+    });
+    await React.act(async () => {
+      emit("INITIAL_SESSION");
+    });
+    await React.act(async () => {
+      releaseGetSession?.();
+    });
+
+    expect(roleQueryCount).toBe(1);
   });
 });

@@ -12,6 +12,7 @@
 7. `Gate EmailTemplates behind admin auth and hold the 95% pass rate`
 8. `Move EmailTemplates under /admin so analytics and crawlers skip it`
 9. `Fix the RequireAdmin refresh regression and the fallout from holding the pass rate`
+10. `Remove the held pass-rate claim from both emails and mutation-test the admin guard`
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -250,13 +251,18 @@ figure and a stated starting point.
 "Video Testimonials Coming Soon"; body: "We're currently filming video testimonials with our
 successful students. Check back soon to watch them share their stories in their own words."
 
-### 2.12 95% pass rate — REMOVED everywhere, restore on written confirmation
-Only verbally confirmed, so it is held under the Public claims rule. Removed from all 21
-occurrences across 13 files. Adrian is confirming in writing this week; restore in one commit.
+### 2.12 Pass rate — REMOVED everywhere, restore on written confirmation
+Only verbally confirmed, so it is held under the Public claims rule. Adrian is confirming in
+writing this week; restore in one commit.
 
-A plain `95` grep across `src/`, `supabase/`, `public/` and `index.html` now returns only HSL
-colour tokens in `index.css` and the `$7,995` example in a `courses.ts` comment. There is **no
-`public/llms.txt`** in this repo.
+**Verify with wording, not digits.** The figure was removed from 21 numeric occurrences across 13
+files, and a `95` grep is clean — but that grep missed three instances of the same claim written
+without a number, each found by a later review. Re-check with
+`grep -rniIE 'pass rate|success rate|high pass' src supabase` before declaring this closed. There
+is **no `public/llms.txt`** in this repo.
+
+The "pass first time, or we sit you down again for free" wording that this sweep also surfaces is
+the free-resit promise (§2.1), not a pass-rate claim, and is deliberately untouched.
 
 | File | Was |
 |---|---|
@@ -284,12 +290,17 @@ dropped with them; restore those too.
 | `src/pages/Courses.tsx` | whole FAQ entry — Q "What's your success rate?" / A "We use a personalized teaching approach, prepare you thoroughly, and make sure you're genuinely ready before you attempt your registration." |
 | `src/pages/FAQ.tsx` | whole FAQ entry — Q "What's the success rate?" / A "We prepare you thoroughly and make sure you're genuinely ready before you attempt your BPC registration." |
 | `src/pages/About.tsx` | image overlay badge — "**High**" / "Success Rate" |
+| `supabase/functions/send-lead-emails/index.ts` | auto-reply bullet — "Our students achieve a consistently high pass rate" |
+| `src/pages/EmailTemplates.tsx` | the same bullet in the template preview of that email |
 
 The two FAQ entries were first rewritten to drop the figure, which left questions asking for a
 rate their answers no longer gave. They are removed entirely and come back **with** the figure.
 The About badge is the same claim without a number, so a `95` grep could never have found it;
 holding the figure while leaving "High Success Rate" on the About page would have defeated the
-point. No FAQ JSON-LD carried either entry — the only `FAQPage` blocks are in
+point. The same was true of the auto-reply email — and that one was the most consequential of the
+three, because `send-lead-emails` sends it to **every lead**, so the held claim was still going out
+in writing. `EmailTemplates.tsx` is the preview of that email, which is why the wording appeared
+twice. No FAQ JSON-LD carried either entry — the only `FAQPage` blocks are in
 `BuilderRegistrationCourseMelbourne.tsx` and `BpcExamChanges.tsx`, neither of which mentions a
 success rate.
 
@@ -343,6 +354,35 @@ keeps two columns and gives a trailing odd badge `col-span-2` — its badges put
 
 **Not visually verified** — no browser check was run. `About.tsx`'s stats row uses
 `flex flex-wrap justify-center` and re-centres on its own, so it needed nothing.
+
+### 2.16 Admin guard invariants are now mutation-tested
+The first test pass caught the regression it was written for and missed three others: the
+"no redirect after unmount" test unmounted the root, which unsubscribed the listener, so the event
+it then emitted reached nobody. It asserted a true thing for the wrong reason.
+
+The unmount tests now hold one async step open — `getSession()`, the role query, or `signOut()` —
+unmount while it is pending, and release it afterwards, which is the only way to reach the
+`isActive` guards. `resolveAdminDestination` moved to `src/lib/admin-redirect.ts` so it can be
+tested without loading the login page's asset imports, and is hardened against traversal segments
+and backslashes as well as the prefix check.
+
+Every guard was verified by reintroducing the mutation and confirming the suite fails:
+
+| Mutation | Caught by |
+|---|---|
+| `setIsAllowed(false)` on auth events | token-refresh test |
+| initial-check dedupe removed | one-query test (×2) |
+| `isActive` removed from `redirectToLogin` | sign-out-after-unmount test |
+| `isActive` removed from `verify` | role-query-after-unmount test |
+| `isActive` removed from `getSession().then` | session-after-unmount test |
+| order-independent dedupe removed | event-before-INITIAL_SESSION test |
+| prefix check removed | 5 resolver tests |
+| traversal check removed | 2 resolver tests |
+| backslash check removed | 1 resolver test |
+| non-string fallback removed | 1 resolver test |
+
+21 tests across 2 files. **Add a mutation to any new guard before trusting its test** — twice now a
+test here has passed against the bug it was meant to catch.
 
 ---
 

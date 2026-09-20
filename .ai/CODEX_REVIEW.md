@@ -418,3 +418,165 @@ issue there. Cosmetic only; no claim is affected. Not visually verified in a bro
 Static review. No browser, no visual check of the grids in finding 17, and the token-refresh
 behaviour in finding 11 was derived from the client configuration and the supabase-js event model
 rather than observed against a live session. Lint and build were not re-run for this review.
+
+---
+
+# Second follow-up review — `a4fae2a`, `c888b00`, `ff3457b`
+
+Reviewed 21 September 2026, after the fixes for findings 9–17. Same caveat as the previous
+section: these commits were authored by the assistant writing this review, so every claim below
+was re-derived from the code, and the guard invariants were tested by **deliberately
+reintroducing regressions** and observing whether the suite caught them. `RequireAdmin.tsx` and
+`AdminLogin.tsx` were patched and restored during that process; both are byte-identical to the
+committed versions (`shasum` verified, `git status` clean). No code was edited.
+
+**Result: 1 new P2 claim defect, 2 P2 test-coverage defects, 4 P3s. Findings 9–17 are all fixed.**
+
+## P2 findings
+
+### 18. The held pass-rate claim is still live in the lead email template
+
+**Evidence:** `src/pages/EmailTemplates.tsx:151` — "Our students achieve a consistently high pass
+rate" — inside the auto-reply template sent to new leads, alongside "max 10" and the 24-hour
+callback.
+
+`.ai/HANDOFF.md` §2.12 is headed "95% pass rate — **REMOVED everywhere**" and offers a `95` grep as
+proof. Both are true of the *figure* and neither is true of the *claim*. This is the second
+numberless escape: the About page's "High / Success Rate" badge was caught in the last pass, this
+one was not, and both were invisible to every `95`-based check. A grep for a digit cannot find a
+claim expressed in words, so the verification method in §2.12 could not have caught either.
+
+This instance matters more than the badge. It is not page furniture — it is copy Adrian pastes
+into emails to prospects, so the held claim is still going out in writing. Admin-gating the page
+in `c888b00` restricted who can *read* the template; it did nothing about where the text ends up.
+
+Remove it as HOLD material and add it to the §2.12 restore table, and re-verify with a wording
+sweep (`pass rate`, `success rate`, `high`, `most students`) rather than the figure. That sweep was
+run for this review across `src/` and `index.html`: line 151 is the only remaining instance.
+
+### 19. Two of the four guard invariants are untested, and the unmount test is vacuous
+
+The suite catches the regression it was written for, and one more. It does not catch three others.
+Each was verified by patching `RequireAdmin.tsx`, running `bun test`, and restoring:
+
+| Reintroduced regression | Result |
+| --- | --- |
+| `setIsAllowed(false)` on auth events (the original bug) | **caught** — token-refresh test fails |
+| dedupe removed, so `INITIAL_SESSION` re-queries | **caught** — one-query test fails |
+| `isActive` check removed from `redirectToLogin` | **not caught** — 6/6 pass |
+| `isActive` check removed from `verify` after the role query | **not caught** — 6/6 pass |
+| `isActive` check removed from the `getSession().then` callback | **not caught** — 6/6 pass |
+
+`RequireAdmin.test.tsx:156` ("should not redirect after unmount") does not test what its name says.
+It unmounts the root, which runs the effect cleanup, which calls `subscription.unsubscribe()` —
+and the mock's `unsubscribe` (`:50–52`) removes the listener from the array. The subsequent
+`emit("SIGNED_OUT")` therefore reaches nobody. The assertion passes because no listener ran, not
+because `isActive` stopped it. It is a real test of the cleanup's unsubscribe, mislabelled as a
+test of the guard.
+
+The scenario that actually needs `isActive` is an **in-flight** promise resolving after unmount:
+`getSession()` or the role query returning once the component is gone. To exercise it, hold the
+role query open with the existing `deferRoleQuery` hook, unmount while it is pending, release it,
+and assert `navigations` did not grow.
+
+This is the same failure mode as the batching problem recorded in HANDOFF §2.14 — a test that
+passes for a reason unrelated to the behaviour it claims to cover. The fix there was found by
+reintroducing the bug; the same check was not applied to the other tests in the file.
+
+**The code itself is correct.** All four redirect paths are guarded (`:40`, `:60`, `:76`, `:82`),
+so no navigation can occur after unmount. Only the proof is missing.
+
+### 20. The return-to restriction has no test
+
+`src/pages/AdminLogin.tsx` restricts the post-login destination to paths starting `/admin/`.
+Relaxing `resolveDestination` to `typeof from === "string" ? from : DEFAULT_DESTINATION` — removing
+the restriction entirely — leaves the suite at **6/6 passing**. There is no `AdminLogin` test, and
+`RequireAdmin.test.tsx` only asserts that the guard *sends* `{ from }`, never that the login screen
+constrains it.
+
+Of the four invariants named for this review, this is the one with security intent behind it, and
+it is the least covered.
+
+## P3 findings
+
+### 21. `startsWith("/admin/")` does not stop traversal segments
+
+`resolveDestination` accepts `/admin/../../elsewhere`, which satisfies `startsWith` but which the
+browser normalises away on `pushState`, landing outside `/admin`. **Not reachable today:** `from`
+is only ever set by `RequireAdmin` from `useLocation().pathname`, which React Router has already
+normalised, and router state cannot be set from an external URL the way a query parameter can. Noted
+as defence-in-depth for the validator, not as a live open redirect.
+
+### 22. The one-query guarantee assumes `INITIAL_SESSION` arrives first
+
+`runInitialCheck` dedupes `getSession()` against `INITIAL_SESSION`, but any other event arriving
+before `INITIAL_SESSION` calls `verify` directly, and the later `INITIAL_SESSION` still runs the
+initial check — two role queries on that mount. Not the normal mount sequence, where
+`INITIAL_SESSION` is emitted first. The invariant holds in practice; it is narrower than
+"one per mount" implies.
+
+### 23. Moving between the two gated pages re-runs the guard
+
+`/admin/dashboard` and `/admin/email-templates` are separate route elements, so navigating between
+them unmounts and remounts `RequireAdmin`: a loading screen and a fresh `user_roles` query each
+time. Inherent to gating per route rather than around a shared layout, and harmless — but newly
+visible now that two pages are gated, where before only one was.
+
+### 24. Carried over from finding 16, still unfixed
+
+`src/pages/EmailTemplates.tsx:235` — "Reviews are what get you found on Google Maps." Still an
+unverified assertion about search ranking, written to replace the competitor figure. Lower priority
+than finding 18 because it is advice to Adrian rather than a claim sent to a customer.
+
+## Verified correct
+
+- **Auth events do not unmount the gated page.** `setIsAllowed(false)` appears nowhere in
+  `RequireAdmin.tsx`; the only state write is `setIsAllowed(true)` at `:66`. Confirmed by
+  reintroducing the regression and watching the token-refresh test fail.
+- **One `user_roles` query per mount.** `hasRunInitialCheck` is set synchronously before `verify`
+  is awaited (`:69–73`), so whichever of `getSession()` or `INITIAL_SESSION` lands first wins and
+  the other is a no-op. Confirmed by removing the dedupe and watching the count test fail. The
+  subscription effect has empty deps and reaches `navigate` through a ref (`:27–31`), so router
+  identity changes cannot re-subscribe — this was a real bug found while writing the tests, since
+  a mocked `useNavigate` returning a fresh function each render doubled the query count.
+- **No navigation after unmount** — correct in code, unproven by tests. See finding 19.
+- **Return-to resolves only to `/admin/` routes** — correct in code, untested. See findings 20–21.
+  `/admin` itself does not match `/admin/`, so it falls back to the dashboard; `//evil.example`
+  fails `startsWith`.
+- **The old URL redirects at every layer.** `vercel.json` declares the redirect ahead of the SPA
+  rewrite, so Vercel serves it before the app loads; `src/App.tsx:66` renders
+  `<Navigate to="/admin/email-templates" replace />`; `/email-templates` is in
+  `INTERNAL_PATH_PREFIXES` (`src/lib/analytics.ts:19`) so the pre-redirect render is untracked;
+  and `public/robots.txt` disallows `/admin` for Googlebot, Bingbot and `*`. A trailing-slash
+  request that the Vercel rule misses still falls through to the SPA, where React Router matches
+  `/email-templates/` to the redirect route — so the gap is covered rather than open.
+- **No stat grid leaves an orphan at any breakpoint:**
+
+| Grid | Classes | Items | Base | `sm`+ |
+| --- | --- | --- | --- | --- |
+| `TrustBar.tsx:26` | `grid-cols-1 sm:grid-cols-3` | 3 | 3 full rows | one row of 3 |
+| `Contact.tsx:706` | `grid-cols-1 sm:grid-cols-3` | 3 | 3 full rows | one row of 3 |
+| `BuildersLicenceMelbourne.tsx:162` | `grid-cols-1 sm:grid-cols-3` | 3 | 3 full rows | one row of 3 |
+| `Hero.tsx:183` | `grid-cols-2`, trailing item `col-span-2` | 3 | 2 + 1 spanning | same |
+| `SuccessStoriesPage.tsx:185` | `grid-cols-2 max-w-xl` | 2 | one row of 2 | same |
+| `SuccessStoriesPage.tsx:228` | `grid-cols-1 md:grid-cols-2` | 2 | 2 full rows | one row of 2 |
+
+  `About.tsx:138` uses `flex flex-wrap justify-center` and re-centres on its own.
+  `FinalCTA.tsx:163` is `space-y-4`, a vertical stack, not a grid. Arithmetic only — still no
+  browser check, so column *fit* (as opposed to row completeness) is unverified.
+- **Findings 9–17 are fixed.** Both success-rate FAQ entries are gone rather than reworded (no
+  `FAQPage` JSON-LD referenced them); `SuccessStoriesPage.tsx:224` now reads "featured here" and the
+  stale `{/* Success Rate Section */}` comment is now `{/* After Registration */}`;
+  twitter:description matches og:description's confirmed wording, with "in person in Melbourne"
+  gone.
+- **No new unconfirmed public claims** in the three commits. Every added sentence — the three
+  meta descriptions, the Footer line, the About credential card, the SuccessStories intro, and on
+  `SuccessStoriesPage` the hero intro, "After Registration" heading and closing paragraph — traces
+  to the confirmed fact table or to method copy already on the site. `ff3457b` adds no public copy
+  at all beyond the twitter:description correction.
+
+## Limits
+
+Static review plus targeted regression testing of the guard. No browser, so finding 17's grids are
+verified arithmetically and not visually. The `INITIAL_SESSION` ordering in finding 22 is taken from
+the supabase-js event model, not observed against a live session. Lint and build were not re-run.

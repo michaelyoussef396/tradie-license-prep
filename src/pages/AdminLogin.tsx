@@ -6,15 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import qualifyProLogo from "@/assets/qualify-pro-logo.png";
-
-const DEFAULT_DESTINATION = "/admin/dashboard";
-
-/**
- * Only in-app admin paths are honoured, so a crafted router state can't bounce
- * a signed-in admin somewhere unexpected.
- */
-const resolveDestination = (from: unknown) =>
-  typeof from === "string" && from.startsWith("/admin/") ? from : DEFAULT_DESTINATION;
+import { resolveAdminDestination } from "@/lib/admin-redirect";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +16,7 @@ const AdminLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const destination = resolveDestination(
+  const destination = resolveAdminDestination(
     (location.state as { from?: unknown } | null)?.from,
   );
 
