@@ -96,7 +96,7 @@ const Courses = () => {
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
       schedule: `One evening per week (6pm–9pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
-      requirements: `${UNLIMITED_EXPERIENCE_SUMMARY} Currently working in the building/construction industry preferred.`,
+      requirements: `${EXPERIENCE_BY_CLASS_SUMMARY} Currently working in the building/construction industry preferred.`,
       featured: true,
       accent: "from-emerald-500 to-teal-500"
     },

@@ -6,6 +6,8 @@
 1. `Site-wide claims sweep: counts, entry requirement, BPC exam, GST, referral`
 2. `Scope experience by licence class, cut unverified story detail, clear admin discount`
 3. `Remove the referral discount amount from every surface pending the 15%`
+4. `Add CLAUDE.md with a public-claims rule`
+5. `Use class-neutral experience wording for the Evening Builder Course`
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -39,7 +41,7 @@ BPC's minimum is class-dependent, so **no page, form or FAQ states a single figu
 
 **Course requirements** (`src/pages/Courses.tsx`):
 - Comprehensive Builder Program → Unlimited wording (covers domestic + commercial low-rise)
-- Evening Builder Course → Unlimited wording
+- Evening Builder Course → class-neutral; which classes it serves is unconfirmed (§2.7)
 - Private 1-on-1 Training → class-neutral (it is sold as tailored to any class)
 - Carpentry Licence (DB-L) → states BPC's 2-year minimum; **the course's own entry bar is on HOLD** (§2.6)
 
@@ -194,7 +196,15 @@ Prior wording, for reference when the 15% lands: the referrer's side was "$100 c
 ### 2.6 DB-L / limited-class course entry requirement — pending Adrian
 `src/pages/Courses.tsx` carpentry `requirements` now states **BPC's** 2-year regulatory minimum. Whether Qualify Pro sets its own, higher bar for enrolling on the DB-L course is unconfirmed, so no course-level figure is claimed. Same question applies to any future limited-class course.
 
-### 2.7 Named-student quotes — REMOVED, restore verbatim if Adrian confirms
+### 2.7 Which classes the Evening Builder Course serves — pending Adrian
+`src/data/courses.ts` describes it only as "for working tradies going for domestic builder
+registration", which does not name a class. It was briefly written up as Domestic Builder
+(Unlimited) on inference alone; that was wrong to assume, so `src/pages/Courses.tsx:99` now uses
+the class-neutral wording and states both BPC minimums. Once Adrian confirms whether the course
+serves Unlimited only, limited classes too, or both, the requirement can be narrowed — and the
+`whoItsFor` line in `courses.ts` should be made explicit at the same time.
+
+### 2.8 Named-student quotes — REMOVED, restore verbatim if Adrian confirms
 All 13 removed site-wide as unverified testimonials. Line numbers are from the pre-sweep commit.
 
 **`src/pages/SuccessStoriesPage.tsx`**
@@ -220,12 +230,11 @@ All 13 removed site-wide as unverified testimonials. Line numbers are from the p
 
 ## 3. Open questions and judgment calls
 
-1. **Evening Builder Course is treated as Domestic Builder (Unlimited).** Its `whoItsFor` says "domestic builder registration" without naming a class; carpentry is the only course explicitly sold as limited. If the evening course also serves limited classes, its requirement wording needs the class-neutral version instead.
-2. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
-3. **`95% pass rate`** is out of scope and untouched. Always attributed to "Qualify Pro's own student records". It is now the last large unverified number on the site.
-4. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
-5. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
-6. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
+1. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
+2. **`95% pass rate`** is out of scope and untouched. Always attributed to "Qualify Pro's own student records". It is now the last large unverified number on the site.
+3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
+4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
+5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
 
 ---
 
