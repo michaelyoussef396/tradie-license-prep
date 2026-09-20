@@ -21,6 +21,9 @@ interface ReferralRow {
   lead_name?: string;
 }
 
+/** Credited against the referrer's own course cost. Past students get a card (TBC). */
+const REFERRAL_REWARD_AUD = 300;
+
 const StudentDashboard = () => {
   const [student, setStudent] = useState<StudentData | null>(null);
   const [referrals, setReferrals] = useState<ReferralRow[]>([]);
@@ -87,7 +90,7 @@ const StudentDashboard = () => {
   };
 
   const enrolled = referrals.filter((r) => r.status === "Enrolled" || r.status === "Paid Out").length;
-  const totalRewards = enrolled * 100;
+  const totalRewards = enrolled * REFERRAL_REWARD_AUD;
 
   const formatDate = (d: string | null) => {
     if (!d) return "";
@@ -162,7 +165,7 @@ const StudentDashboard = () => {
                 {student.referral_code || "—"}
               </p>
               <p className="text-gray-500 text-sm mt-2">
-                Share this code with tradie mates. They get $100 off, you earn $100 cash.
+                Share this code with tradie mates. They get $100 off, you earn a $300 referral reward.
               </p>
             </div>
             <Button

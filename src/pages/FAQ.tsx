@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, HelpCircle, ChevronRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { courseById, practiceQuestionsSummary } from "@/data/courses";
+import { MINIMUM_EXPERIENCE_SUMMARY } from "@/data/eligibility";
 
 const FAQ = () => {
   const faqCategories = [
@@ -23,7 +24,7 @@ const FAQ = () => {
         {
           question: "What is this mentorship program?",
           answer:
-            "This is a specialist BPC preparation program, not a training college. We provide specialised mentorship to prepare experienced tradies for their BPC (formerly VBA) licensing interviews and registration. We focus on small group training (max 10 students) with personalized teaching.",
+            "This is a specialist BPC preparation program, not a training college. We provide specialised mentorship to prepare experienced tradies for registration with the Building and Plumbing Commission (BPC), formerly the VBA. We focus on small group training (max 10 students) with personalized teaching.",
         },
         {
           question: "How is this different from TAFE or a training college?",
@@ -38,7 +39,7 @@ const FAQ = () => {
         {
           question: "Who is Adrian Nicolazzo?",
           answer:
-            "Adrian Nicolazzo is the owner and lead trainer of Qualify Pro. He's a Registered Building Practitioner (Unlimited), with Commercial Licence (Low-Rise), Qualified Carpenter, and 10+ years training experience. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
+            "Adrian Nicolazzo is the owner and lead trainer of Qualify Pro. He's a Registered Building Practitioner (Unlimited), with Commercial Licence (Low-Rise), Qualified Carpenter, and has been training builders since 2017. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
         },
         {
           question: "Where are you located?",
@@ -54,7 +55,7 @@ const FAQ = () => {
         {
           question: "How long is the process before getting my licence?",
           answer:
-            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC test and interview. Most students gain registration within a few months of finishing the course.",
+            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC exam. Most students gain registration within a few months of finishing the course.",
         },
         {
           question: "What are the class sizes?",
@@ -64,7 +65,7 @@ const FAQ = () => {
         {
           question: "What's included in the programs?",
           answer:
-            `All programs include training materials, ${practiceQuestionsSummary}, Acts & Regulations guidance, application and portfolio preparation, BPC test and interview preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost.`,
+            `All programs include training materials, ${practiceQuestionsSummary}, Acts & Regulations guidance, application and portfolio preparation, BPC exam preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost.`,
         },
         {
           question: "Do you offer evening classes?",
@@ -85,7 +86,7 @@ const FAQ = () => {
         {
           question: "What experience do I need?",
           answer:
-            "Minimum 2 years practical experience in your specific trade. Requirements vary by individual circumstances and licence class you're seeking.",
+            `${MINIMUM_EXPERIENCE_SUMMARY} Requirements vary by individual circumstances and licence class you're seeking.`,
         },
         {
           question: "What qualifications do I need?",
@@ -105,21 +106,21 @@ const FAQ = () => {
       ],
     },
     {
-      category: "BPC Test & Registration",
+      category: "BPC Exam & Registration",
       icon: "✅",
       questions: [
         {
-          question: "What does the BPC test involve?",
+          question: "What does the BPC exam involve?",
           answer:
-            `The test covers Building Acts, Regulations, Australian Standards, and practical knowledge for your specific licence class. We provide ${practiceQuestionsSummary} and mock tests to prepare you thoroughly.`,
+            `The exam covers the Building Act, Regulations, Australian Standards, and practical knowledge for your specific licence class. It is reference-based, so you work with those documents rather than answering from memory. We provide ${practiceQuestionsSummary} and mock tests to prepare you thoroughly.`,
         },
         {
-          question: "How do I prepare for the interview?",
+          question: "How do I prepare for the exam?",
           answer:
-            "We provide step-by-step interview preparation, covering common questions, technical requirements, and how to present your experience confidently.",
+            "The exam is reference-based — the Building Act, the Regulations, the NCC and the relevant Australian Standards are all available to you. What it tests is how fast you can find and apply the right answer, so preparation focuses on knowing your way around those references. Working through the practice questions and answers is what builds that speed.",
         },
         {
-          question: "What if I don't pass the test?",
+          question: "What if I don't pass the exam?",
           answer:
             "Pass first time, or we sit you down again for free — at no extra cost.",
         },

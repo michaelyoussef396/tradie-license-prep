@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import { 
-  Quote, 
   Building2, 
   TrendingUp, 
   Award,
@@ -41,17 +40,16 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "While Fauzi's practical carpentry skills were excellent, he struggled with the theoretical side of building regulations, Australian Standards, and business knowledge required for the BPC licensing process. He'd attempted self-study but found the material overwhelming and wasn't sure what BPC was actually looking for in interviews. He was worried about investing time and money into the licensing process only to fail."
+        description: "While Fauzi's practical carpentry skills were excellent, he struggled with the theoretical side of building regulations, Australian Standards, and business knowledge required for the BPC licensing process. He'd attempted self-study but found the material overwhelming. He was worried about investing time and money into the licensing process only to fail."
       },
       training: {
         title: "The Training",
-        description: "Fauzi enrolled in Qualify Pro's Comprehensive Builder Program. Adrian quickly identified that Fauzi's practical knowledge was strong, but he needed focused work on building regulations, compliance requirements, and understanding Australian Standards. Rather than teaching everything from scratch, Adrian personalized the training to fill Fauzi's specific knowledge gaps. The small class size meant Fauzi could ask questions freely and get immediate feedback. The 600+ practice questions helped Fauzi master the test format, and the interview preparation built his confidence to articulate his practical experience professionally."
+        description: "Fauzi enrolled in Qualify Pro's Comprehensive Builder Program. Adrian quickly identified that Fauzi's practical knowledge was strong, but he needed focused work on building regulations, compliance requirements, and understanding Australian Standards. Rather than teaching everything from scratch, Adrian personalized the training to fill Fauzi's specific knowledge gaps. The small class size meant Fauzi could ask questions freely and get immediate feedback. The 600+ practice questions helped Fauzi master the exam format."
       },
       result: {
         title: "The Result",
         description: "Fauzi passed his Domestic Builder Unlimited registration on the first attempt. Within months, he launched his own building company specializing in elite homes across Melbourne's prestigious suburbs including Toorak, Brighton, and Armadale. Five years later, his company has built a reputation for exceptional quality and craftsmanship. Fauzi now employs multiple teams and manages several high-end residential projects simultaneously. His success demonstrates how proper licensing preparation can transform a tradie's career trajectory."
       },
-      quote: "Adrian's personalized approach helped me understand the regulations I was struggling with. The small class size meant I could ask questions without feeling rushed, and the practice tests prepared me perfectly for the BPC process. I passed first time and never looked back. Now I run my own company building elite homes - something that wouldn't have been possible without my unlimited builder registration.",
       icon: Building2
     },
     {
@@ -71,17 +69,16 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "Jordan's hands-on carpentry skills were excellent from years on the tools, but he lacked confidence in his theoretical knowledge. He wasn't sure he understood building codes well enough to pass the BPC test. He'd also never done a formal interview and was nervous about articulating his experience professionally. Working full-time meant he needed training that fit around his job schedule."
+        description: "Jordan's hands-on carpentry skills were excellent from years on the tools, but he lacked confidence in his theoretical knowledge. He wasn't sure he understood building codes well enough to pass the BPC test. Working full-time meant he needed training that fit around his job schedule."
       },
       training: {
         title: "The Training",
-        description: "Jordan enrolled in the Carpentry Licence (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas, while interview coaching taught him how to discuss his practical experience with authority. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
+        description: "Jordan enrolled in the Carpentry Licence (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
       },
       result: {
         title: "The Result",
         description: "Jordan achieved his Carpentry Licence (DB-L) and immediately launched his own business specializing in high-end outdoor living spaces. He quickly established partnerships with premium suppliers and builders throughout Melbourne. His business focuses on quality over quantity - delivering exceptional outdoor installations. Jordan now works directly with homeowners and builders on upscale projects. His success shows how specialized licensing can open doors to profitable niche markets."
       },
-      quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on. His teaching style is clear and practical. I passed first time and launched my business within weeks. Now I'm doing the high-end outdoor work I always wanted to do, working with the best suppliers in Melbourne.",
       icon: Award
     },
     {
@@ -101,17 +98,16 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "Sidhu's practical site management experience was extensive, but he needed to formalize his technical knowledge for the BPC licensing process. His biggest challenge was time - he was working full-time as a site supervisor and couldn't take time off for daytime training. He also wasn't confident in his test-taking abilities and worried about the BPC interview process."
+        description: "Sidhu's practical site management experience was extensive, but he needed to formalize his technical knowledge for the BPC licensing process. His biggest challenge was time - he was working full-time as a site supervisor and couldn't take time off for daytime training. He also wasn't confident in his test-taking abilities."
       },
       training: {
         title: "The Training",
-        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm–9pm) meant he could continue working while preparing for his licence. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
+        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm–9pm) meant he could continue working while preparing for his licence. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work."
       },
       result: {
         title: "The Result",
         description: "Sidhu passed his Domestic Builder Unlimited registration and launched his own building company. Four years later, he specializes in new homes across northern and western Melbourne's growth corridors. His company has built a reputation for quality construction, modern design, and energy-efficient homes. Sidhu now manages multiple projects simultaneously and has built dozens of homes for Melbourne families. His business continues to grow as word-of-mouth referrals bring new clients. The evening course format allowed him to transition from employee to business owner without financial disruption."
       },
-      quote: "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex regulations easy to understand and gave me the confidence to pass my interview. His focus on understanding principles rather than memorizing really helped. Now I'm building new homes across Melbourne's growth corridors under my own company name.",
       icon: Building2
     },
     {
@@ -131,17 +127,16 @@ const SuccessStoriesPage = () => {
       },
       challenge: {
         title: "The Challenge",
-        description: "Manny found the BPC licensing process intimidating. Despite his extensive practical experience, he wasn't confident about the formal testing and interview process. He'd heard stories of experienced builders failing multiple times and wasn't sure how to prepare effectively. He needed training that would give him confidence and ensure he passed on the first attempt."
+        description: "Manny found the BPC licensing process intimidating. Despite his extensive practical experience, he wasn't confident about the formal assessment process. He'd heard stories of experienced builders failing multiple times and wasn't sure how to prepare effectively. He needed training that would give him confidence and ensure he passed on the first attempt."
       },
       training: {
         title: "The Training",
-        description: "Manny enrolled in Qualify Pro's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. The 600+ practice questions prepared Manny thoroughly for the BPC test format, and the interview coaching taught him how to present his experience professionally."
+        description: "Manny enrolled in Qualify Pro's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. The 600+ practice questions prepared Manny thoroughly for the BPC exam format."
       },
       result: {
         title: "The Result",
         description: "Manny passed his Domestic Builder Unlimited registration first time. Five years later, he leads a high-volume building company completing 50+ homes per year throughout Melbourne. His company has built a strong reputation for quality construction, consistency, and excellent client relationships. Manny has developed efficient systems and processes allowing him to manage multiple projects simultaneously while maintaining quality standards. His success demonstrates how proper licensing preparation combined with business acumen can create a thriving high-volume building operation."
       },
-      quote: "Small classes made all the difference. I could ask questions without feeling rushed or stupid, and Adrian always took the time to explain things properly. He identified exactly where I needed to improve and focused on those areas. I passed first time and now I'm running a successful high-volume building company. Worth every dollar.",
       icon: TrendingUp
     },
     {
@@ -165,13 +160,12 @@ const SuccessStoriesPage = () => {
       },
       training: {
         title: "The Training",
-        description: "Ben enrolled in Qualify Pro's program knowing he could sit down again for free if needed, which gave him the confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations in the interview. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps and teaching interview techniques. The supportive, patient teaching style helped Ben rebuild his confidence. Mock interviews prepared Ben to discuss his renovation experience professionally and demonstrate his understanding of building regulations."
+        description: "Ben enrolled in Qualify Pro's program knowing he could sit down again for free if needed, which gave him the confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps. The supportive, patient teaching style helped Ben rebuild his confidence."
       },
       result: {
         title: "The Result",
         description: "Ben passed his Domestic Builder Unlimited registration on the first attempt after completing Adrian's program. Today, he runs a thriving renovation business specializing in kitchen and bathroom projects across Melbourne's inner suburbs. His company completes 40+ projects annually with a focus on quality workmanship and client satisfaction. Ben's renovation business has grown through word-of-mouth referrals and positive reviews. His success story demonstrates that previous failures don't determine future outcomes - with proper preparation and support, success is achievable."
       },
-      quote: "I failed on my own, but with Adrian's help I passed easily the second time. His teaching style focuses on understanding, not just memorizing answers. He was patient, supportive, and identified exactly what I needed to work on. Now I run my own renovation business doing 40+ projects a year. I'm so glad I didn't give up on my dream.",
       icon: Award
     }
   ];
@@ -195,7 +189,7 @@ const SuccessStoriesPage = () => {
     {
       icon: Star,
       title: "Understanding Over Memorization",
-      description: "Students learned building principles and regulations deeply rather than memorizing answers. This deeper understanding helped them pass interviews and become better builders."
+      description: "Students learned building principles and regulations deeply rather than memorizing answers. This deeper understanding helped them pass and become better builders."
     }
   ];
 
@@ -264,7 +258,7 @@ const SuccessStoriesPage = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-              Our students achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. Here are their stories of transformation.
+              Our students achieve a 95% pass rate for registration with the Building and Plumbing Commission (BPC), formerly the VBA, based on Qualify Pro's own student records. Here are their stories of transformation.
             </p>
 
             {/* Stats Row */}
@@ -308,7 +302,7 @@ const SuccessStoriesPage = () => {
               Our Pass Rate
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Students who complete our programs achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. 
+              Students who complete our programs achieve a 95% pass rate for their BPC registration, based on Qualify Pro's own student records. 
               Here's what happens after they get licensed:
             </p>
           </motion.div>
@@ -439,24 +433,6 @@ const SuccessStoriesPage = () => {
                   ))}
                 </motion.div>
               </div>
-
-              {/* Quote */}
-              <motion.div 
-                className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 md:p-12 rounded-2xl shadow-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <Quote className="h-12 w-12 text-blue-400 mb-4" />
-                <p className="text-white text-lg md:text-xl leading-relaxed mb-6">
-                  "{study.quote}"
-                </p>
-                <div className="text-white">
-                  <div className="font-bold text-2xl">— {study.name}</div>
-                  <div className="text-slate-400">{study.achievement}</div>
-                </div>
-              </motion.div>
             </div>
           </section>
         );
@@ -659,7 +635,7 @@ const SuccessStoriesPage = () => {
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Success Story?</span>
             </h2>
             <p className="text-xl md:text-2xl text-slate-300 mb-10">
-              Join hundreds of Melbourne tradies who have achieved their building registration
+              Join the 100+ Melbourne tradies Adrian has helped achieve their building registration
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">

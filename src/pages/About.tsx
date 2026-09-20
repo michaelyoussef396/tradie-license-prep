@@ -16,7 +16,6 @@ import {
   TrendingUp,
   Star,
   CheckCircle2,
-  Quote,
   MapPin,
   ShieldCheck,
   ArrowRight,
@@ -43,8 +42,8 @@ const About = () => {
     },
     {
       icon: GraduationCap,
-      title: "10+ Years Training Experience",
-      description: "Over a decade helping Melbourne tradies achieve their building registration with a 95% pass rate (based on Qualify Pro's own student records)."
+      title: "Training Builders Since 2017",
+      description: "Helping Melbourne tradies achieve their building registration with a 95% pass rate (based on Qualify Pro's own student records)."
     },
   ];
 
@@ -74,7 +73,7 @@ const About = () => {
     {
       icon: TrendingUp,
       title: "Improve Specific Weaknesses",
-      description: "Whether it's understanding Australian Standards or building interview confidence, Adrian addresses weaknesses head-on."
+      description: "Whether it's understanding Australian Standards or finding your way around the references, Adrian addresses weaknesses head-on."
     },
     {
       icon: Star,
@@ -88,47 +87,17 @@ const About = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on.",
-      author: "Jordan",
-      achievement: "DB-L Carpentry Licence",
-      initials: "J",
-      gradient: "from-emerald-500 to-teal-500"
-    },
-    {
-      quote: "What I appreciated most was how Adrian personalized his teaching. He identified where I was weak and spent extra time helping me improve those areas.",
-      author: "Manny",
-      achievement: "Domestic Builder - Unlimited",
-      initials: "M",
-      gradient: "from-amber-500 to-orange-500"
-    },
-    {
-      quote: "Small class sizes made all the difference. I could ask questions without feeling stupid, and Adrian always took the time to explain things properly.",
-      author: "Ben",
-      achievement: "Bathroom & Kitchen Licence",
-      initials: "B",
-      gradient: "from-violet-500 to-purple-500"
-    },
-    {
-      quote: "Adrian has been on the tools, been a site manager, and been a builder. He understands the practical side of building, not just theory.",
-      author: "Fauzi",
-      achievement: "Domestic Builder - Unlimited",
-      initials: "F",
-      gradient: "from-blue-500 to-blue-600"
-    },
-  ];
 
   const stats = [
     { number: "95%", label: "Pass Rate" },
-    { number: "10+", label: "Years Experience" },
-    { number: "500+", label: "Students Trained" },
+    { number: "2017", label: "Training Since" },
+    { number: "100+", label: "Tradies Helped By Adrian" },
     { number: "10", label: "Max Class Size" },
   ];
 
   return (
     <PageTransition>
-      <Seo title={"About Adrian Nicolazzo | Registered Builder & Mentor"} description={"Meet Adrian Nicolazzo: registered building practitioner, commercial licence holder and qualified carpenter with 10+ years mentoring Melbourne tradies."} path="/about" />
+      <Seo title={"About Adrian Nicolazzo | Registered Builder & Mentor"} description={"Meet Adrian Nicolazzo: registered building practitioner, commercial licence holder and qualified carpenter, training Melbourne tradies since 2017."} path="/about" />
       <div className="min-h-screen">
         <Navigation />
       
@@ -354,53 +323,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
-              Student Feedback
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              What Students Say
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Quote className="h-8 w-8 text-blue-200 mb-4" />
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  "{testimonial.quote}"
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center`}>
-                    <span className="text-lg font-bold text-white">{testimonial.initials}</span>
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-900">{testimonial.author}</div>
-                    <div className="text-sm text-blue-600">{testimonial.achievement}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Industry Expertise */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -468,7 +390,7 @@ const About = () => {
               Ready to Learn From Adrian?
             </h2>
             <p className="text-xl text-blue-200/80 mb-8">
-              Join hundreds of Melbourne tradies who have achieved their building registration
+              Join the 100+ Melbourne tradies Adrian has helped achieve their building registration
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 

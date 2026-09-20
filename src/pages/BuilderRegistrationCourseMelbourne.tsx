@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
-import { courses, GST_SUFFIX, practiceQuestionsSummary } from "@/data/courses";
+import { courses, practiceQuestionsSummary } from "@/data/courses";
 
 const SOURCE = "builder-registration-course-melbourne";
 
@@ -54,7 +54,7 @@ const faqJsonLd = {
       name: "What experience do you need for builder registration in Victoria?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Generally a minimum of two years practical experience in the trade you are applying for, together with technical references from registered builders in the same class or higher, and an evidence portfolio.",
+        text: "Generally at least 3 years' experience working under a registered building practitioner, across a minimum of 3 projects, together with technical references from registered builders in the same class or higher, and an evidence portfolio.",
       },
     },
     {
@@ -189,9 +189,9 @@ const BuilderRegistrationCourseMelbourne = () => {
             </P>
             <P>
               <strong>Taught by someone registered.</strong> Registered Building Practitioner
-              (Unlimited) and Commercial Builder limited to low rise, qualified carpenter, 10+ years
-              training, with site experience across residential, commercial and industrial in every
-              position from carpenter to site manager.
+              (Unlimited) and Commercial Builder limited to low rise, qualified carpenter, training
+              builders since 2017, with site experience across residential, commercial and
+              industrial in every position from carpenter to site manager.
             </P>
             <P>
               <strong>Application done with you.</strong> The online application and portfolio are
@@ -213,11 +213,11 @@ const BuilderRegistrationCourseMelbourne = () => {
                   <p className="mt-3 flex-1 text-base text-slate-700">{c.whoItsFor}</p>
                   <p className="mt-4 text-lg font-bold text-slate-900">
                     {c.priceDisplay}{" "}
-                    <span className="text-sm font-normal text-slate-500">{GST_SUFFIX}</span>
+                    <span className="text-sm font-normal text-slate-500">{c.exGstNote}</span>
                   </p>
                   {c.addOn && (
                     <p className="mt-1 text-sm text-slate-600">
-                      {c.addOn.name} add-on {c.addOn.priceDisplay} {GST_SUFFIX}
+                      {c.addOn.name} add-on +{c.addOn.priceDisplay} {c.addOn.exGstNote}
                     </p>
                   )}
                   <Button onClick={scrollToForm} className="mt-5 w-full">
@@ -296,7 +296,10 @@ const BuilderRegistrationCourseMelbourne = () => {
           <section className="mb-16">
             <H2>Entry requirements</H2>
             <ul className="mb-4 list-disc space-y-2 pl-6 text-base sm:text-lg text-slate-700">
-              <li>Minimum 2 years' practical experience in the trade you're applying for</li>
+              <li>
+                At least 3 years' experience working under a registered building practitioner,
+                across a minimum of 3 projects
+              </li>
               <li>
                 Technical references from registered builders in the same or a higher class
               </li>
@@ -322,8 +325,9 @@ const BuilderRegistrationCourseMelbourne = () => {
             </P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">What experience do I need?</h3>
             <P>
-              Generally a minimum of 2 years' practical experience in your trade, plus technical
-              references from registered builders in the same class or higher.
+              Generally at least 3 years' experience working under a registered building
+              practitioner, across a minimum of 3 projects, plus technical references from
+              registered builders in the same class or higher.
             </P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">
               What qualifications do I need before I start?

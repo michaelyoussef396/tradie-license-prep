@@ -8,7 +8,7 @@ const AboutAdrian = () => {
     { icon: Building2, label: "Registered Building Practitioner (Unlimited)" },
     { icon: Award, label: "Commercial Licence (Low-Rise)" },
     { icon: Hammer, label: "Qualified Carpenter" },
-    { icon: GraduationCap, label: "10+ Years Training Experience" },
+    { icon: GraduationCap, label: "Training Builders Since 2017" },
   ];
 
   const experience = [
@@ -107,7 +107,7 @@ const AboutAdrian = () => {
               </p>
               <p className="text-gray-600 leading-relaxed">
                 That hands-on experience means he understands the gaps between practical knowledge and what the 
-                BPC exam expects. He's helped hundreds of tradies bridge that gap and gain their registration.
+                BPC exam expects. Adrian has helped 100+ tradies bridge that gap and gain their registration.
               </p>
             </motion.div>
 

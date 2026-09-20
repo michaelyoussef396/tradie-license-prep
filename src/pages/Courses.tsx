@@ -18,7 +18,6 @@ import {
   Calendar,
   DollarSign,
   Phone,
-  Quote,
   ArrowRight,
   Star,
   Video,
@@ -32,7 +31,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getCourse, GST_SUFFIX, courseById, practiceQuestionsSummary } from "@/data/courses";
+import { getCourse, courseById, practiceQuestionsSummary } from "@/data/courses";
+import { MINIMUM_EXPERIENCE_SUMMARY, MINIMUM_EXPERIENCE_YEARS, MINIMUM_PROJECTS } from "@/data/eligibility";
 
 const Courses = () => {
   const fromData = (id: string) => {
@@ -42,12 +42,14 @@ const Courses = () => {
       duration: c.duration,
       format: c.formatShort,
       price: c.priceDisplay,
+      exGstNote: c.exGstNote,
       whoFor: c.whoItsFor,
       included: c.inclusions,
       addon: c.addOn
         ? {
             title: c.addOn.name,
-            price: c.addOn.priceDisplay,
+            price: `+${c.addOn.priceDisplay}`,
+            exGstNote: c.addOn.exGstNote,
             savings: c.addOn.note,
             includes: c.addOn.inclusions,
           }
@@ -65,7 +67,6 @@ const Courses = () => {
       whatYouLearn: [
         { icon: Building2, text: "Complete building principles and regulations" },
         { icon: FileText, text: "BPC regulations and compliance requirements" },
-        { icon: Target, text: "Interview techniques and confidence building" },
         { icon: BookOpen, text: "Technical knowledge assessment and improvement" },
         { icon: Users, text: "Site management and supervision principles" },
         { icon: Award, text: "Quality standards and building codes" },
@@ -73,12 +74,7 @@ const Courses = () => {
         { icon: Check, text: "Documentation and record-keeping systems" },
       ],
       schedule: `${getCourse("comprehensive").duration} of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.`,
-      requirements: "Minimum 2 years building/construction experience. Trade qualification preferred. Technical references from registered builders required.",
-      testimonial: {
-        text: "Adrian's comprehensive program gave me everything I needed. The small class size meant I got personal attention, and the 600+ practice questions were invaluable. I passed first time and now run my own building company.",
-        author: "Fauzi",
-        achievement: "Now running his own building company"
-      },
+      requirements: `${MINIMUM_EXPERIENCE_SUMMARY} Trade qualification preferred. Technical references from registered builders required.`,
       featured: false,
       accent: "from-blue-500 to-blue-600"
     },
@@ -91,18 +87,12 @@ const Courses = () => {
       whatYouLearn: [
         { icon: Building2, text: "Domestic building regulations and compliance" },
         { icon: FileText, text: "BPC requirements and application process" },
-        { icon: Target, text: "Interview preparation and techniques" },
         { icon: BookOpen, text: "Technical knowledge for domestic building" },
         { icon: Award, text: "Building codes and standards (AS)" },
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
       schedule: `One evening per week (6pm–9pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
-      requirements: "Minimum 2 years relevant trade experience. Currently working in the building/construction industry preferred.",
-      testimonial: {
-        text: "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex topics easy to understand, and I felt fully prepared for my interview.",
-        author: "Manny",
-        achievement: "Licensed builder completing 50+ homes/year"
-      },
+      requirements: `${MINIMUM_EXPERIENCE_SUMMARY} Currently working in the building/construction industry preferred.`,
       featured: true,
       accent: "from-emerald-500 to-teal-500"
     },
@@ -117,16 +107,10 @@ const Courses = () => {
         { icon: Building2, text: "Building regulations relevant to your experience" },
         { icon: FileText, text: "Application process and documentation" },
         { icon: BookOpen, text: "Technical knowledge in your weak areas" },
-        { icon: Award, text: "Interview skills and confidence building" },
         { icon: TrendingUp, text: "Business planning for your specific goals" },
       ],
       schedule: `${getCourse("private").format}. Flexible scheduling to suit your availability - days, evenings, or weekends.`,
-      requirements: "Minimum 2 years relevant experience. Initial assessment call to determine personalized curriculum needs.",
-      testimonial: {
-        text: "One-on-one training was worth every dollar. Adrian identified exactly where I was weak and we focused on those areas. The flexible schedule meant I could fit it around my work commitments.",
-        author: "Jordan",
-        achievement: "Licensed carpenter running outdoor living business"
-      },
+      requirements: `${MINIMUM_EXPERIENCE_SUMMARY} Initial assessment call to determine personalized curriculum needs.`,
       featured: false,
       accent: "from-violet-500 to-purple-500"
     },
@@ -139,17 +123,11 @@ const Courses = () => {
       whatYouLearn: [
         { icon: Building2, text: "DB-L specific regulations and scope" },
         { icon: FileText, text: "Carpentry-focused building codes" },
-        { icon: Target, text: "BPC interview preparation for DB-L" },
         { icon: BookOpen, text: "Technical carpentry knowledge assessment" },
         { icon: Award, text: "Quality standards for carpentry work" },
       ],
-      schedule: `${getCourse("carpentry").duration} of focused DB-L training. Weekly sessions with practice questions and interview preparation.`,
-      requirements: "Qualified carpenter with minimum 2 years on-the-job experience. Trade certificate required.",
-      testimonial: {
-        text: "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what BPC actually asks. Passed first time and now running my own carpentry business.",
-        author: "Jordan",
-        achievement: "Licensed DB-L carpenter"
-      },
+      schedule: `${getCourse("carpentry").duration} of focused DB-L training. Weekly sessions with practice questions.`,
+      requirements: "Qualified carpenter with at least 3 years' experience working under a registered building practitioner, across a minimum of 3 projects. Trade certificate required.",
       featured: false,
       accent: "from-amber-500 to-orange-500"
     },
@@ -158,26 +136,26 @@ const Courses = () => {
   const faqItems = [
     {
       question: "How long is the process before getting my licence?",
-      answer: "The training duration varies by program (6-13 weeks), but the complete process including application submission and BPC (formerly VBA) processing typically takes 3-6 months total. We help expedite this by ensuring your application is perfect before submission."
+      answer: "The training duration varies by program (6-13 weeks), but the complete process including application submission and processing by the Building and Plumbing Commission (BPC), formerly the VBA, typically takes 3-6 months total. We help expedite this by ensuring your application is perfect before submission."
     },
     {
       question: "What experience do I need to enroll?",
-      answer: "You need a minimum of 2 years practical trade experience in your field. You should be actively working or have recent experience in building/construction. We assess each applicant individually based on their background and circumstances."
+      answer: `You need at least ${MINIMUM_EXPERIENCE_YEARS} years' experience working under a registered building practitioner, across a minimum of ${MINIMUM_PROJECTS} projects. You should be actively working or have recent experience in building/construction. We assess each applicant individually based on their background and circumstances.`
     },
     {
       question: "Do you help with the BPC applications?",
       answer: "Yes! Complete application support is included in all our programs. We help you prepare your portfolio, gather technical references, complete all required documentation, and ensure everything is correct before submission. This significantly increases your chances of approval."
     },
     {
-      question: "What does the BPC test involve?",
-      answer: `The test covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge. Our programs include ${practiceQuestionsSummary} that mirror the actual test format. We also prepare you for the interview component.`
+      question: "What does the BPC exam involve?",
+      answer: `The exam is reference-based: you work with the Building Act, the Regulations, the NCC and the relevant Australian Standards rather than answering from memory. It covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge, and it tests how fast you can find and apply the right answer. Our programs include ${practiceQuestionsSummary} to build that speed.`
     },
     {
       question: "What's your success rate?",
       answer: "Students who complete our programs achieve a 95% pass rate for their registration (based on Qualify Pro's own student records). This is due to our personalized teaching approach, comprehensive preparation, and ensuring students are truly ready before attempting their licensing."
     },
     {
-      question: "What if I fail the BPC test?",
+      question: "What if I fail the BPC exam?",
       answer: "Pass first time, or we sit you down again for free — at no extra cost. We're committed to your success and will work with you until you achieve your registration."
     },
     {
@@ -189,9 +167,9 @@ const Courses = () => {
   const universalFeatures = [
     { icon: Shield, title: "Free Resit", description: "Pass first time, or we sit you down again for free — at no extra cost." },
     { icon: FileText, title: "Application Support", description: "Complete help with BPC applications, portfolio, and documentation." },
-    { icon: Target, title: "BPC Test Prep", description: "Hundreds of practice questions that mirror the actual BPC test." },
+    { icon: Target, title: "BPC Exam Prep", description: `${practiceQuestionsSummary} that mirror the actual BPC exam.` },
     { icon: BookOpen, title: "All Materials Included", description: "Training manuals, study guides, and online platform access." },
-    { icon: Users, title: "Interview Preparation", description: "Mock interviews and technique coaching for the BPC interview." },
+    { icon: BookOpen, title: "Reference Navigation", description: "The exam is open book — practice finding and applying the right clause under time pressure." },
     { icon: TrendingUp, title: "Post-Registration Support", description: "Ongoing support and advice after you get licensed." },
   ];
 
@@ -297,7 +275,7 @@ const Courses = () => {
 
                       <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-3xl font-bold text-gray-900">{course.price}</span>
-                        <span className="text-sm text-gray-500">{GST_SUFFIX}</span>
+                        <span className="text-sm text-gray-500">{course.exGstNote}</span>
                       </div>
 
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.whoFor}</p>
@@ -342,7 +320,7 @@ const Courses = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-4xl font-bold text-gray-900">{course.price}</span>
-                  <span className="text-gray-500">{GST_SUFFIX}</span>
+                  <span className="text-gray-500">{course.exGstNote}</span>
                 </div>
               </div>
             </motion.div>
@@ -458,6 +436,7 @@ const Courses = () => {
                     <h4 className="text-2xl font-bold text-gray-900 mb-2">{course.addon.title}</h4>
                     <div className="flex items-center gap-3">
                       <span className="text-2xl font-bold text-amber-600">{course.addon.price}</span>
+                      <span className="text-sm text-gray-500">{course.addon.exGstNote}</span>
                       <span className="bg-amber-600 text-white text-sm px-3 py-1 rounded-full">{course.addon.savings}</span>
                     </div>
                   </div>
@@ -472,24 +451,6 @@ const Courses = () => {
                 </div>
               </motion.div>
             )}
-
-            {/* Testimonial */}
-            <motion.div 
-              className="bg-slate-900 p-6 md:p-8 rounded-2xl mb-8 relative overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
-              <Quote className="absolute top-4 right-4 h-12 w-12 text-blue-400/20" />
-              <p className="text-white/90 text-lg leading-relaxed mb-4 relative z-10">
-                "{course.testimonial.text}"
-              </p>
-              <div>
-                <div className="font-bold text-xl text-white">— {course.testimonial.author}</div>
-                <div className="text-blue-300 text-sm">{course.testimonial.achievement}</div>
-              </div>
-            </motion.div>
 
             {/* CTA Button */}
             <div className="text-center">

@@ -6,23 +6,53 @@
  * course detail as a literal anywhere else in the codebase.
  *
  * Conventions:
- *  - `price` is the raw number, `priceDisplay` the formatted string.
- *  - "inc GST" is NEVER baked into priceDisplay — render `GST_SUFFIX` as a
- *    separate element next to the price.
+ *  - Adrian quotes every course price EX-GST. `price` is that ex-GST figure and
+ *    is the only money authored by hand; every other price field is derived.
+ *  - The GST-INCLUSIVE total is always the headline. Render `priceDisplay` as
+ *    the prominent figure and `exGstNote` beside it — never the other way
+ *    round, and never label an ex-GST figure "inc GST".
  *  - Time ranges use an en-dash: 6pm–9pm.
  */
 
-export const GST_SUFFIX = "inc GST";
+const GST_RATE = 0.1;
 
-export interface CourseAddOn {
-  name: string;
+/** Formats AUD, dropping a trailing ".00" but keeping real cents ($8,794.50). */
+function formatAud(amount: number): string {
+  const hasCents = Math.round(amount * 100) % 100 !== 0;
+  return `$${amount.toLocaleString("en-AU", {
+    minimumFractionDigits: hasCents ? 2 : 0,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+export interface GstPricing {
+  /** Ex-GST, as quoted by Adrian. */
   price: number;
+  /** GST-inclusive total — what the customer actually pays. */
+  priceIncGst: number;
+  /** GST-inclusive total, formatted. This is the headline price. */
   priceDisplay: string;
+  /** e.g. "($7,995 + GST)". Render beside `priceDisplay`, never instead of it. */
+  exGstNote: string;
+}
+
+function gstPricing(exGst: number): GstPricing {
+  const priceIncGst = Math.round(exGst * (1 + GST_RATE) * 100) / 100;
+  return {
+    price: exGst,
+    priceIncGst,
+    priceDisplay: formatAud(priceIncGst),
+    exGstNote: `(${formatAud(exGst)} + GST)`,
+  };
+}
+
+export interface CourseAddOn extends GstPricing {
+  name: string;
   note: string;
   inclusions: string[];
 }
 
-export interface Course {
+export interface Course extends GstPricing {
   id: string;
   /** Canonical short name — use this everywhere. */
   name: string;
@@ -31,8 +61,6 @@ export interface Course {
   /** Compact format label for cards and pills. */
   formatShort: string;
   whoItsFor: string;
-  price: number;
-  priceDisplay: string;
   /** Practice question count, e.g. "600+". Never use the "450-600+" phrasing. */
   practiceQuestions: string;
   inclusions: string[];
@@ -48,18 +76,16 @@ export const courses: Course[] = [
     formatShort: "In person",
     whoItsFor:
       "For applicants going for both domestic and commercial (low-rise) registration who want the most thorough preparation possible.",
-    price: 7995,
-    priceDisplay: "$7,995",
+    ...gstPricing(7995),
     practiceQuestions: "600+",
     inclusions: [
       "600+ practice questions with detailed explanations",
       "Comprehensive training materials and resources",
       "Complete application and portfolio preparation",
-      "BPC test preparation and practice sessions",
+      "BPC exam preparation and practice sessions",
       "Pass first time, or we sit you down again for free — at no extra cost",
       "Small group training (maximum 10 students)",
       "One-on-one consultation sessions",
-      "Interview preparation and mock interviews",
       "Post-registration support and guidance",
       "8-month access to online testing platform",
     ],
@@ -74,8 +100,7 @@ export const courses: Course[] = [
     formatShort: "1 night/week, 6pm–9pm",
     whoItsFor:
       "For working tradies going for domestic builder registration who can't take time off during the day.",
-    price: 5650,
-    priceDisplay: "$5,650",
+    ...gstPricing(5650),
     practiceQuestions: "600+",
     inclusions: [
       "7 evening sessions (6pm–9pm, one night per week)",
@@ -85,7 +110,6 @@ export const courses: Course[] = [
       "Portfolio development and review",
       "Pass first time, or we sit you down again for free — at no extra cost",
       "All training materials included",
-      "BPC interview preparation",
       "Post-course support via email/phone",
     ],
   },
@@ -99,8 +123,7 @@ export const courses: Course[] = [
     formatShort: "3 hrs/week via Zoom",
     whoItsFor:
       "For people who want individual coaching and flexible scheduling, or training tailored to their specific gaps.",
-    price: 5650,
-    priceDisplay: "$5,650",
+    ...gstPricing(5650),
     practiceQuestions: "600+",
     inclusions: [
       "9 weeks of one-on-one coaching (3 hours per week)",
@@ -122,14 +145,12 @@ export const courses: Course[] = [
     formatShort: "In person",
     whoItsFor:
       "For qualified carpenters going for DB-L (Domestic Builder – Limited) registration.",
-    price: 3790,
-    priceDisplay: "$3,790",
+    ...gstPricing(3790),
     practiceQuestions: "450+",
     inclusions: [
       "450+ carpentry-specific practice questions",
       "DB-L focused training materials",
       "Application guidance and support",
-      "BPC interview preparation",
       "Technical knowledge assessment",
       "Portfolio development support",
       "Small group format (max 10 students)",
@@ -137,8 +158,7 @@ export const courses: Course[] = [
     ],
     addOn: {
       name: "Application Prep Package",
-      price: 1460,
-      priceDisplay: "+$1,460",
+      ...gstPricing(1460),
       note: "Discounted vs. purchasing separately",
       inclusions: [
         "Complete application form assistance",
