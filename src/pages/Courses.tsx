@@ -156,10 +156,6 @@ const Courses = () => {
       answer: `The exam is reference-based: you work with the Building Act, the Regulations, the NCC and the relevant Australian Standards rather than answering from memory. It covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge, and it tests how fast you can find and apply the right answer. Our programs include ${practiceQuestionsSummary} to build that speed.`
     },
     {
-      question: "What's your success rate?",
-      answer: "We use a personalized teaching approach, prepare you thoroughly, and make sure you're genuinely ready before you attempt your registration."
-    },
-    {
       question: "What if I fail the BPC exam?",
       answer: "Pass first time, or we sit you down again for free — at no extra cost. We're committed to your success and will work with you until you achieve your registration."
     },

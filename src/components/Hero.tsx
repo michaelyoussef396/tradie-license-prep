@@ -5,6 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { trackCtaClick } from "@/lib/analytics";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 
+/** Lets a trailing odd item fill the row so a two-column grid never shows a gap. */
+const isLastInOddRow = (index: number, total: number) =>
+  total % 2 === 1 && index === total - 1;
+
 const Hero = () => {
   const navigate = useNavigate();
 
@@ -182,7 +186,9 @@ const Hero = () => {
                     return (
                       <motion.div
                         key={index}
-                        className="group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-3 sm:p-4 hover:border-blue-400/40 transition-all duration-300"
+                        className={`group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-3 sm:p-4 hover:border-blue-400/40 transition-all duration-300 ${
+                          isLastInOddRow(index, trustBadges.length) ? "col-span-2" : ""
+                        }`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}

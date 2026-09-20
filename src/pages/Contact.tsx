@@ -703,7 +703,7 @@ const Contact = () => {
         </div>
 
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               { icon: Award, value: "2017", label: "Training Builders Since" },
               { icon: Users, value: "Free", label: "Consultation" },

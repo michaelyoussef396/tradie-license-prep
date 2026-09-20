@@ -13,9 +13,16 @@ bun run build                # production build (build:dev for a development-mod
 bun run preview
 bun run lint                 # eslint .
 bunx tsc -b --noEmit         # typecheck (no `typecheck` script exists)
+bun test                     # bun's built-in runner; no `test` script exists
+bun test src/components/RequireAdmin.test.tsx   # a single file
 ```
 
-No test runner is configured — there are no tests in the repo.
+Tests use bun's built-in runner with `happy-dom` for the DOM; there is no vitest/jest config
+and no `test` npm script. `src/components/RequireAdmin.test.tsx` is currently the only suite —
+it mocks `@/integrations/supabase/client` and `react-router-dom` via `mock.module` and drives
+React with `React.act` + `createRoot`. Note the role query it mocks can be held open
+(`deferRoleQuery`) so the in-flight re-verification window is observable; without that, React
+batches the state updates and the assertions pass vacuously.
 
 `predev`/`prebuild` run `scripts/generate-sitemap.ts`, which **overwrites `public/sitemap.xml`** from a hand-maintained array. Adding a public route means adding it to that array; `sitemap.xml` itself is generated output.
 

@@ -182,7 +182,7 @@ const SuccessStoriesPage = () => {
             </p>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <div className="grid grid-cols-2 gap-4 max-w-xl mx-auto">
               {[
                 { value: "100+", label: "Tradies Helped By Adrian" },
                 { value: "2017", label: "Training Since" },
@@ -204,7 +204,7 @@ const SuccessStoriesPage = () => {
         </div>
       </section>
 
-      {/* Success Rate Section */}
+      {/* After Registration */}
       <section className="py-20 bg-white">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -221,7 +221,7 @@ const SuccessStoriesPage = () => {
               After Registration
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Here's what the students featured above went on to do after they got licensed:
+              Here's what the students featured here went on to do after they got licensed:
             </p>
           </motion.div>
 

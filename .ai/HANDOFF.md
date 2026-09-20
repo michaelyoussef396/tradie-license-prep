@@ -10,6 +10,8 @@
 5. `Use class-neutral experience wording for the Evening Builder Course`
 6. `Resolve the Codex review: three missed claim surfaces, four unsupported promises`
 7. `Gate EmailTemplates behind admin auth and hold the 95% pass rate`
+8. `Move EmailTemplates under /admin so analytics and crawlers skip it`
+9. `Fix the RequireAdmin refresh regression and the fallout from holding the pass rate`
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -275,6 +277,22 @@ colour tokens in `index.css` and the `$7,995` example in a `courses.ts` comment.
 Five unused icon imports (`Trophy`, `Shield`, `TrendingUp` ×2, and `TrendingUp` in Hero) were
 dropped with them; restore those too.
 
+**Also removed in the follow-up pass**, once it was clear the figure was going:
+
+| File | Was |
+|---|---|
+| `src/pages/Courses.tsx` | whole FAQ entry — Q "What's your success rate?" / A "We use a personalized teaching approach, prepare you thoroughly, and make sure you're genuinely ready before you attempt your registration." |
+| `src/pages/FAQ.tsx` | whole FAQ entry — Q "What's the success rate?" / A "We prepare you thoroughly and make sure you're genuinely ready before you attempt your BPC registration." |
+| `src/pages/About.tsx` | image overlay badge — "**High**" / "Success Rate" |
+
+The two FAQ entries were first rewritten to drop the figure, which left questions asking for a
+rate their answers no longer gave. They are removed entirely and come back **with** the figure.
+The About badge is the same claim without a number, so a `95` grep could never have found it;
+holding the figure while leaving "High Success Rate" on the About page would have defeated the
+point. No FAQ JSON-LD carried either entry — the only `FAQPage` blocks are in
+`BuilderRegistrationCourseMelbourne.tsx` and `BpcExamChanges.tsx`, neither of which mentions a
+success rate.
+
 ### 2.13 EmailTemplates is now admin-gated
 `/email-templates` was publicly routed. It is now wrapped in the shared `RequireAdmin` guard,
 the same one `/admin/dashboard` uses — `AdminDashboard`'s inline copy was extracted into
@@ -293,6 +311,38 @@ so production never renders it), a client-side `<Navigate replace>` for dev and 
 `/email-templates` is listed in `INTERNAL_PATH_PREFIXES` so even the brief render before the
 client-side redirect fires is not tracked. The Vercel redirect is `permanent: false` (307)
 deliberately — a 308 would be cached hard by browsers and is awkward to undo for an internal page.
+
+### 2.14 `RequireAdmin` refresh regression — fixed, now covered by a test
+The first extraction cleared `isAllowed` on every auth event, so `TOKEN_REFRESHED` unmounted the
+gated page: the dashboard's open tab reset to New Leads, the sidebar collapsed and all four panels
+refetched. The original inline guard never did this — it re-verified in the background.
+
+Now: auth events re-verify without clearing `isAllowed`; only `SIGNED_OUT` or a failed role check
+redirects. `getSession()` and the listener's `INITIAL_SESSION` are deduped so each mount runs one
+`user_roles` query with no loading flash. The redirect is held in a ref and the subscription effect
+has empty deps, so router identity changes cannot re-subscribe or re-query. Redirects are skipped
+after unmount.
+
+`RequireAdmin` now passes the attempted path to the login screen as router state, and `AdminLogin`
+returns there after sign-in — a saved `/email-templates` link ends up on the templates page rather
+than the dashboard. Only paths beginning `/admin/` are honoured, so crafted router state cannot
+redirect a signed-in admin elsewhere.
+
+**Covered by `src/components/RequireAdmin.test.tsx`** (6 tests, `bun test`). The token-refresh test
+was confirmed to fail against the regressed version before the fix was restored. Getting it to fail
+required holding the mocked role query open — with an immediately-resolving mock React batches the
+two state updates and the intermediate unmount never commits, so the test passed vacuously. Worth
+remembering if these are extended.
+
+### 2.15 Stat grids rebalanced after the pass-rate removal
+Removing a tile left five fixed-column grids with a short row. `TrustBar`, `Contact` and
+`BuildersLicenceMelbourne` are now `grid-cols-1 sm:grid-cols-3` for their three items;
+`SuccessStoriesPage`'s hero stats are `grid-cols-2` in a narrower container for their two. `Hero`
+keeps two columns and gives a trailing odd badge `col-span-2` — its badges put an icon beside a
+`text-2xl` stat, and "Melbourne" at that size would crowd a third column even on desktop.
+
+**Not visually verified** — no browser check was run. `About.tsx`'s stats row uses
+`flex flex-wrap justify-center` and re-centres on its own, so it needed nothing.
 
 ---
 

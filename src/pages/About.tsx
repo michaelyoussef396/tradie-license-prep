@@ -174,11 +174,6 @@ const About = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Overlay badge */}
-                <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-4 rounded-2xl shadow-xl">
-                  <div className="text-3xl font-bold">High</div>
-                  <div className="text-sm text-blue-300">Success Rate</div>
-                </div>
               </div>
             </motion.div>
 

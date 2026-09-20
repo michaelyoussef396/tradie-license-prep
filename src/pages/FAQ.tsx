@@ -32,11 +32,6 @@ const FAQ = () => {
             "We're a specialist BPC preparation program. We don't issue qualifications or certificates — we prepare you for registration. We help you understand the Acts, Regulations, and Standards needed for your specific builder class registration. Our small classes allow personalized attention to fill your individual knowledge gaps.",
         },
         {
-          question: "What's the success rate?",
-          answer:
-            "We prepare you thoroughly and make sure you're genuinely ready before you attempt your BPC registration.",
-        },
-        {
           question: "Who is Adrian Nicolazzo?",
           answer:
             "Adrian Nicolazzo is the owner and lead trainer of Qualify Pro. He's a Registered Building Practitioner (Unlimited), with Commercial Licence (Low-Rise), Qualified Carpenter, and has been training builders since 2017. He's worked in all positions from carpenter to builder across industrial, commercial, and residential projects.",
