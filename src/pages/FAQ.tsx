@@ -34,7 +34,7 @@ const FAQ = () => {
         {
           question: "What's the success rate?",
           answer:
-            "Students who complete our programs achieve a 95% pass rate for their BPC registration (based on Qualify Pro's own student records).",
+            "We prepare you thoroughly and make sure you're genuinely ready before you attempt your BPC registration.",
         },
         {
           question: "Who is Adrian Nicolazzo?",

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Award, MapPin, TrendingUp } from "lucide-react";
+import { ArrowRight, Users, Award, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { trackCtaClick } from "@/lib/analytics";
@@ -20,7 +20,6 @@ const Hero = () => {
   };
 
   const trustBadges = [
-    { icon: TrendingUp, stat: "95%", label: "Pass Rate" },
     { icon: Award, stat: "10+", label: "Years Exp." },
     { icon: Users, stat: "Max 10", label: "Per Class" },
     { icon: MapPin, stat: "Melbourne", label: "In-Person" },

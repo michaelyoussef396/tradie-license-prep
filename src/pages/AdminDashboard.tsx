@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -19,57 +19,14 @@ const tabs = [
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("leads");
-  const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const verifyAdmin = async (userId: string) => {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .eq("role", "admin")
-        .maybeSingle();
-      return !error && !!data;
-    };
-
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate("/admin"); return; }
-      const isAdmin = await verifyAdmin(session.user.id);
-      if (!isAdmin) {
-        await supabase.auth.signOut();
-        navigate("/admin");
-        return;
-      }
-      setLoading(false);
-    };
-    checkAuth();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_, session) => {
-      if (!session) { navigate("/admin"); return; }
-      const isAdmin = await verifyAdmin(session.user.id);
-      if (!isAdmin) {
-        await supabase.auth.signOut();
-        navigate("/admin");
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [navigate]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/admin");
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0f172a]">
-        <div className="text-white text-lg">Loading...</div>
-      </div>
-    );
-  }
 
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);

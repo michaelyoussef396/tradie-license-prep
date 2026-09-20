@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, CheckCircle2, Award, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, Phone, CheckCircle2, Award, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import Seo from "@/components/Seo";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
@@ -15,7 +15,6 @@ const BuildersLicenceMelbourne = () => {
   };
 
   const trustItems = [
-    { icon: TrendingUp, text: "95% BPC pass rate (own student records)" },
     { icon: Award, text: "Training builders since 2017" },
     { icon: Users, text: "Small personalised classes" },
     { icon: CheckCircle2, text: "Specialist BPC prep, not a generic course" },

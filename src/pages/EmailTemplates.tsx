@@ -232,7 +232,7 @@ const EmailTemplates = () => {
                   <Sig />
                 </div>
               </div>
-              <WhyNote text="Your competitors have 100-400+ reviews. You need to start collecting them to compete on Google Maps." />
+              <WhyNote text="Reviews are what get you found on Google Maps. Ask every student who finishes." />
             </ScrollReveal>
 
           </div>

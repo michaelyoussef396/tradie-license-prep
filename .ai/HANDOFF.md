@@ -9,6 +9,7 @@
 4. `Add CLAUDE.md with a public-claims rule`
 5. `Use class-neutral experience wording for the Evening Builder Course`
 6. `Resolve the Codex review: three missed claim surfaces, four unsupported promises`
+7. `Gate EmailTemplates behind admin auth and hold the 95% pass rate`
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -247,12 +248,52 @@ figure and a stated starting point.
 "Video Testimonials Coming Soon"; body: "We're currently filming video testimonials with our
 successful students. Check back soon to watch them share their stories in their own words."
 
+### 2.12 95% pass rate — REMOVED everywhere, restore on written confirmation
+Only verbally confirmed, so it is held under the Public claims rule. Removed from all 21
+occurrences across 13 files. Adrian is confirming in writing this week; restore in one commit.
+
+A plain `95` grep across `src/`, `supabase/`, `public/` and `index.html` now returns only HSL
+colour tokens in `index.css` and the `$7,995` example in a `courses.ts` comment. There is **no
+`public/llms.txt`** in this repo.
+
+| File | Was |
+|---|---|
+| `index.html` ×3 | meta description "Small classes, 95% pass rate, training builders since 2017"; og:description "Small classes, 95% pass rate"; twitter:description "95% pass rate" |
+| `src/pages/Index.tsx` | Seo description "Small classes, 95% pass rate." |
+| `src/components/Hero.tsx` | trust badge `{ icon: TrendingUp, stat: "95%", label: "Pass Rate" }` |
+| `src/components/Footer.tsx` ×2 | "…personalised teaching, 95% pass rate (based on Qualify Pro's own student records)." + "95% Pass Rate" badge and its "Based on Qualify Pro's own student records." footnote |
+| `src/components/TrustBar.tsx` | stat tile `{ icon: Trophy, stat: "95%", description: "Pass Rate" }` (grid 4→3 cols) |
+| `src/components/FinalCTA.tsx` | benefit `{ icon: Shield, text: "95% pass rate (own student records)" }` |
+| `src/components/SuccessStories.tsx` | "A **95% pass rate** (based on Qualify Pro's own student records) — here's what our students have achieved." |
+| `src/pages/About.tsx` ×2 | credential card "…with a 95% pass rate (based on Qualify Pro's own student records)." + stat `{ number: "95%", label: "Pass Rate" }` |
+| `src/pages/Contact.tsx` | stat tile `{ icon: CheckCircle2, value: "95%", label: "Pass Rate" }` |
+| `src/pages/Courses.tsx` | FAQ "What's your success rate?" — "…achieve a 95% pass rate for their registration (based on Qualify Pro's own student records). This is due to our personalized teaching approach…" |
+| `src/pages/FAQ.tsx` | "Students who complete our programs achieve a 95% pass rate for their BPC registration (based on Qualify Pro's own student records)." |
+| `src/pages/BuildersLicenceMelbourne.tsx` | trust item `{ icon: TrendingUp, text: "95% BPC pass rate (own student records)" }` |
+| `src/pages/SuccessStoriesPage.tsx` ×5 | hero badge "95% Pass Rate"; hero intro "Our students achieve a 95% pass rate for registration with the BPC…"; hero stat `{ value: "95%", label: "Pass Rate" }`; section heading "Our Pass Rate" + body "…achieve a 95% pass rate… Here's what happens after they get licensed:"; closing "What they all received was personalized training… That's why our students achieve a 95% pass rate…" |
+
+Five unused icon imports (`Trophy`, `Shield`, `TrendingUp` ×2, and `TrendingUp` in Hero) were
+dropped with them; restore those too.
+
+### 2.13 EmailTemplates is now admin-gated
+`/email-templates` was publicly routed. It is now wrapped in the shared `RequireAdmin` guard,
+the same one `/admin/dashboard` uses — `AdminDashboard`'s inline copy was extracted into
+`src/components/RequireAdmin.tsx` so the two cannot drift. The competitor-review figure
+("Your competitors have 100-400+ reviews") is removed from the review-request template.
+
+**Caveat:** this is a client-side guard, so it stops casual access but the page's markup still
+ships in the JS bundle. It holds no data and makes no authenticated calls, so nothing privileged
+is exposed — but it is not a server-side control. The route also still sits outside `/admin*`,
+which is the prefix `src/lib/analytics.ts` uses to suppress GA4/Clarity, so this internal page is
+still tracked. Moving it to `/admin/email-templates` would fix that; not done, as it changes a URL
+Adrian may have bookmarked.
+
 ---
 
 ## 3. Open questions and judgment calls
 
 1. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
-2. **`95% pass rate`** is out of scope and untouched. **Correction:** an earlier draft of this file said it is "always attributed to Qualify Pro's own student records" — that was wrong. `index.html:29`, `:37`, `:43` and `src/pages/Index.tsx:18` publish it bare in metadata, and `Hero.tsx:23` / `Footer.tsx:59` render it as an unqualified stat. It is the last large unverified number on the site and is in the confirmation queue (§5).
+2. **`95% pass rate`** — now removed from the site entirely and held (§2.12). Adrian is confirming it in writing this week.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
 4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
 5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.

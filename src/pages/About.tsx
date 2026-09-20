@@ -43,7 +43,7 @@ const About = () => {
     {
       icon: GraduationCap,
       title: "Training Builders Since 2017",
-      description: "Helping Melbourne tradies achieve their building registration with a 95% pass rate (based on Qualify Pro's own student records)."
+      description: "Helping Melbourne tradies achieve their building registration since 2017."
     },
   ];
 
@@ -89,7 +89,6 @@ const About = () => {
 
 
   const stats = [
-    { number: "95%", label: "Pass Rate" },
     { number: "2017", label: "Training Since" },
     { number: "100+", label: "Tradies Helped By Adrian" },
     { number: "10", label: "Max Class Size" },
