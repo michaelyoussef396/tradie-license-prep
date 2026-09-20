@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, HelpCircle, ChevronRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { courseById, practiceQuestionsSummary } from "@/data/courses";
-import { MINIMUM_EXPERIENCE_SUMMARY } from "@/data/eligibility";
+import { EXPERIENCE_BY_CLASS_SUMMARY } from "@/data/eligibility";
 
 const FAQ = () => {
   const faqCategories = [
@@ -86,7 +86,7 @@ const FAQ = () => {
         {
           question: "What experience do I need?",
           answer:
-            `${MINIMUM_EXPERIENCE_SUMMARY} Requirements vary by individual circumstances and licence class you're seeking.`,
+            `${EXPERIENCE_BY_CLASS_SUMMARY} Requirements also vary by individual circumstances.`,
         },
         {
           question: "What qualifications do I need?",

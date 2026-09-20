@@ -2,7 +2,11 @@
 
 **Branch:** `claims-sweep-2026-09` (not merged)
 **Source of truth:** Adrian's written confirmations, 9 Sep 2026
-**Result:** 17 files changed, +150 / −252. `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, all in files this sweep did not touch).
+**Commits:**
+1. `Site-wide claims sweep: counts, entry requirement, BPC exam, GST, referral`
+2. `Scope experience by licence class, cut unverified story detail, clear admin discount`
+
+`bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
 ---
 
@@ -10,62 +14,70 @@
 
 ### (a) Builder count → "100+", credited to Adrian personally
 
-| File:line | Before | After |
+| File | Before | After |
 |---|---|---|
-| `src/components/AboutAdrian.tsx:110` | "He's helped hundreds of tradies bridge that gap" | "Adrian has helped 100+ tradies bridge that gap" |
+| `src/components/AboutAdrian.tsx:110` | "He's helped hundreds of tradies" | "Adrian has helped 100+ tradies" |
 | `src/components/FAQ.tsx:26` | "We've done this hundreds of times" | "Adrian has guided 100+ tradies through this" |
 | `src/pages/About.tsx:393` | "Join hundreds of Melbourne tradies" | "Join the 100+ Melbourne tradies Adrian has helped" |
-| `src/pages/SuccessStoriesPage.tsx:638` | "Join hundreds of Melbourne tradies" | "Join the 100+ Melbourne tradies Adrian has helped" |
-| `src/pages/About.tsx` stats | **"500+ Students Trained"** | "100+ Tradies Helped By Adrian" |
+| `src/pages/SuccessStoriesPage.tsx` | "Join hundreds of Melbourne tradies" | "Join the 100+ Melbourne tradies Adrian has helped" |
+| `src/pages/About.tsx` stat | **"500+ Students Trained"** | "100+ Tradies Helped By Adrian" |
+| `src/pages/SuccessStoriesPage.tsx` hero stat | **"500+ Licensed Tradies"** | "100+ Tradies Helped By Adrian" |
 | `src/pages/Courses.tsx` feature card | "Hundreds of practice questions…" | "600+ practice questions and answers (450+ for the carpentry course)…" |
 
-> **Not on your term list but same claim class:** the About page carried a `500+ Students Trained` stat. It directly contradicts the confirmed 100+, so it was changed. Flagging it because it was a bigger number than anything the word "hundreds" was hiding.
+> **Two `500+` stats, not one.** Neither was on your term list. The second (`SuccessStoriesPage` hero) was missed on the first pass because the value and label live in separate JSX fields, so `500+ students` never matched as one string. A `value:`/`number:`/`highlight:` field sweep now confirms no stale figures remain anywhere.
 
-### (b) Entry requirement → 3 years / 3 projects
+### (b) Entry requirement — scoped by registration class
 
-Canonical wording, now centralised in the new **`src/data/eligibility.ts`**:
+BPC's minimum is class-dependent, so **no page, form or FAQ states a single figure as "the" BPC minimum.** All of it derives from `src/data/eligibility.ts`:
 
-> At least 3 years' experience working under a registered building practitioner, across a minimum of 3 projects.
+| Class | Minimum |
+|---|---|
+| Domestic Builder (Unlimited) | 3 years under a registered building practitioner, across a minimum of 3 projects |
+| Domestic Builder (Limited), e.g. carpentry DB-L | 2 years' practical experience |
+| Anything else / not yet chosen | both stated, neither presented as universal |
 
-Copy updated at: `src/components/FAQ.tsx:21` · `src/pages/FAQ.tsx:88` · `src/pages/Courses.tsx` (4 × `requirements`, 1 × FAQ answer) · `src/pages/BuilderRegistrationCourseMelbourne.tsx` (entry-requirements bullet, "What experience do I need?", and the **FAQPage JSON-LD** answer).
+**Course requirements** (`src/pages/Courses.tsx`):
+- Comprehensive Builder Program → Unlimited wording (covers domestic + commercial low-rise)
+- Evening Builder Course → Unlimited wording
+- Private 1-on-1 Training → class-neutral (it is sold as tailored to any class)
+- Carpentry Licence (DB-L) → states BPC's 2-year minimum; **the course's own entry bar is on HOLD** (§2.6)
 
-**Form options and logic** — so under-3 never reads as eligible:
+**Class-neutral copy** now states both minimums: `src/components/FAQ.tsx:21`, `src/pages/FAQ.tsx:89`, `src/pages/Courses.tsx` FAQ, and on `BuilderRegistrationCourseMelbourne.tsx` the entry-requirements list (now two bullets), the "What experience do I need?" answer, and the **FAQPage JSON-LD**.
 
-- `src/pages/Contact.tsx` buckets were `2-3 / 4-5 / 6-10 / 10+`. The `2-3` bucket straddled the threshold, so the set is now `Under 3 / 3-5 / 5-10 / 10+`, matching the hero form.
-- Both enquiry forms (`HeroEnquiryForm`, `Contact`) now render an inline note when `Under 3` is selected, stating the real BPC minimum. Submission is **not** blocked — the lead is still captured, it just is not told it qualifies.
-- Both forms import the options and the note from `src/data/eligibility.ts`, so the threshold cannot drift between them.
-- `src/pages/Courses.tsx` (3 × `requirements`, 1 × FAQ answer) and `src/pages/FAQ.tsx` also build their copy from that module. The old "2 years" wording was duplicated as a literal in 9 places, which is how it went stale; the figure is now stated once. Prose that embeds the requirement mid-sentence was left as plain copy.
+**Forms.** The under-3 note branches on the selected licence type via `getUnderMinimumNote(licenceType)`:
+
+```
+Domestic Builder - Unlimited  → "For Domestic Builder (Unlimited), BPC requires at least 3 years'
+                                 experience working under a registered building practitioner,
+                                 across a minimum of 3 projects. …"
+Carpentry Licence (DB-L)      → "For Domestic Builder (Limited) classes such as carpentry, BPC
+                                 requires at least 2 years' practical experience. …"
+Commercial / Other / unset    → both minimums, neither presented as universal
+```
+
+`Contact.tsx` passes the selected licence type. **`HeroEnquiryForm` collects trade, not registration class**, so it always gets the both-classes wording — it has no way to know which class the applicant wants. Leads submit in every case; nothing is blocked.
+
+`Contact.tsx` licence-type options now come from `LICENCE_TYPE_OPTIONS` in the same module, so the branch keys cannot drift from the dropdown values.
 
 ### (c) BPC exam — interview removed, VBA renamed
 
-**Interview-prep claims deleted (removed, not reworded):**
+Interview-prep claims were **deleted rather than reworded**: 4 course inclusions (`courses.ts`), 4 `whatYouLearn` bullets and a schedule tail (`Courses.tsx`), 10 narrative clauses (`SuccessStoriesPage.tsx`), and "building interview confidence" (`About.tsx:76`).
 
-- `src/data/courses.ts` — dropped `"Interview preparation and mock interviews"` (comprehensive) and `"BPC interview preparation"` (evening, carpentry).
-- `src/pages/Courses.tsx` — dropped 4 `whatYouLearn` bullets ("Interview techniques and confidence building", "Interview preparation and techniques", "Interview skills and confidence building", "BPC interview preparation for DB-L") and the carpentry `schedule` tail "and interview preparation".
-- `src/pages/SuccessStoriesPage.tsx` — 10 interview-prep clauses cut from the case-study narratives (see §4 for what was deliberately *not* cut).
-- `src/pages/About.tsx:76` — "building interview confidence" → "finding your way around the references".
+Three entries existed purely to sell interview prep and now carry factual exam copy — reference-based, Building Act / Regulations / NCC / Australian Standards, speed of finding the answer over memory, citing only prep features already on the site: the `pages/FAQ.tsx` prepare-for-the-exam entry, the `components/FAQ.tsx` and `Courses.tsx` "what does the exam involve" answers, and the Courses feature card (now "Reference Navigation").
 
-**Entries whose whole purpose was interview prep → replaced with factual exam copy** (reference-based; Building Act, Regulations, NCC, Australian Standards; speed of finding the answer over memory; only prep features already on the site cited):
-
-- `src/pages/FAQ.tsx` — "How do I prepare for the interview?" → "How do I prepare for the exam?"; "What does the BPC test involve?" → exam wording; category heading "BPC Test & Registration" → "BPC Exam & Registration".
-- `src/components/FAQ.tsx` — "What does the BPC test involve?" → single supervised online exam, reference-based.
-- `src/pages/Courses.tsx` — "What does the BPC test involve?" → exam wording; feature card "Interview Preparation / Mock interviews and technique coaching" → "Reference Navigation / The exam is open book — practice finding and applying the right clause under time pressure."
-
-**VBA → BPC.** First mention per page is now *"the Building and Plumbing Commission (BPC), formerly the VBA"* on: `components/FAQ.tsx:16`, `pages/Courses.tsx:138`, `pages/Contact.tsx:177`, `pages/FAQ.tsx:26`, `pages/SuccessStoriesPage.tsx:261`. Later same-page mentions are plain "BPC" (`SuccessStoriesPage.tsx:305`).
-
-Two deliberate exceptions:
-- **`src/components/Footer.tsx`** renders below the body on *every* page, so it can never be a page's first mention. It now says plain "BPC"; using the full introduction there would re-introduce VBA at the bottom of pages that already used BPC above.
-- **`src/pages/BpcExamChanges.tsx:121`** keeps "the VBA" — it is past tense ("the VBA … were merged into one regulator"), which your brief exempts. All the "the interview was replaced" copy on that page, plus `HomeResourceLinks.tsx:10` and `ThankYou.tsx:84`, was left intact as instructed.
+**VBA → BPC.** First mention per page is "the Building and Plumbing Commission (BPC), formerly the VBA" on `components/FAQ.tsx`, `pages/Courses.tsx`, `pages/Contact.tsx`, `pages/FAQ.tsx`, `pages/SuccessStoriesPage.tsx`; later same-page mentions are plain "BPC". Two deliberate exceptions:
+- **`Footer.tsx`** renders below the body on every page, so it can never be a page's first mention — it says plain "BPC".
+- **`BpcExamChanges.tsx:121`** keeps "the VBA" because it is past tense ("the VBA … were merged into one regulator"). All "the interview was replaced" copy on that page, plus `HomeResourceLinks.tsx` and `ThankYou.tsx`, is intact as instructed.
 
 ### (d) History → "training builders since 2017"
 
-`src/components/AboutAdrian.tsx:11` (credential chip) · `src/components/Footer.tsx:62` (badge) · `src/pages/About.tsx:45` + `:100` (credential card and meta description) · `src/pages/FAQ.tsx:41` · `src/pages/BuildersLicenceMelbourne.tsx:19` · `src/pages/BuilderRegistrationCourseMelbourne.tsx:192` · `index.html:29` (meta description) · `src/pages/About.tsx` stat `10+ / Years Experience` → `2017 / Training Since` · `src/pages/Contact.tsx:703` stat → `2017 / Training Builders Since`.
+`AboutAdrian.tsx:11` · `Footer.tsx:62` · `About.tsx:45`, `:100` (meta), stat → `2017 / Training Since` · `FAQ.tsx:41` · `BuildersLicenceMelbourne.tsx:19` · `BuilderRegistrationCourseMelbourne.tsx:192` · `Contact.tsx:703` stat · `SuccessStoriesPage.tsx` hero stat · `index.html:29` (meta).
 
-Left alone as instructed: building-industry experience claims (site experience, positions from carpenter to site manager) and the `10+` **form option** in both enquiry forms. Qualify Pro's own 2024 founding date does not appear anywhere on the site, so nothing needed changing there. No other business is named.
+Building-industry experience claims and the `10+` **form option** are untouched, as instructed. Qualify Pro's 2024 founding date appears nowhere on the site. No other business is named.
 
-### (e) GST — inc-GST is now the headline
+### (e) GST — inc-GST is the headline
 
-`src/data/courses.ts` was restructured so **ex-GST is the only money authored by hand** and every display string derives from it. This removes the class of error the sweep was cleaning up.
+`src/data/courses.ts` now takes **one hand-authored ex-GST figure per course** and derives everything else.
 
 | Course | Headline (inc GST) | Beside it |
 |---|---|---|
@@ -75,20 +87,56 @@ Left alone as instructed: building-industry experience claims (site experience, 
 | Carpentry Licence (DB-L) | **$4,169** | ($3,790 + GST) |
 | Application Prep add-on | **+$1,606** | ($1,460 + GST) |
 
-Verified by executing the module — all five match your figures exactly.
+Verified by executing the module — all five match your figures.
 
-- The `GST_SUFFIX = "inc GST"` export is **deleted**. It was being rendered next to ex-GST figures on every price on the site, which was the mislabel.
-- `priceDisplay` now means the GST-inclusive total, so all four render sites show the total as the prominent figure; the new `exGstNote` sits beside it in smaller text. Updated in `CourseCards.tsx`, `Courses.tsx` (card grid, detail header, add-on), `BuilderRegistrationCourseMelbourne.tsx` (card grid, add-on line).
-- **JSON-LD:** nothing to convert. The repo has three JSON-LD blocks — `Course` and `FAQPage` in `BuilderRegistrationCourseMelbourne.tsx`, `LocalBusiness` in `index.html` — and **none carries an `offers` or `price` field**. No Offer prices were invented. If you want price-bearing `Offer` markup, that is a separate call.
-- **"Save $X" maths:** no numeric savings claim exists. The only one is the add-on badge `"Discounted vs. purchasing separately"` (`courses.ts`, rendered `Courses.tsx:461`) — no figure, so no maths to break.
+- `GST_SUFFIX = "inc GST"` is **deleted**. It was rendered beside every ex-GST figure on the site; that was the mislabel.
+- `priceDisplay` now means the GST-inclusive total, so all four render sites show the total prominently with the new `exGstNote` beside it (`CourseCards.tsx`, `Courses.tsx` ×3, `BuilderRegistrationCourseMelbourne.tsx` ×2).
+- **"Save $X" maths:** no numeric savings claim exists. The only one is the add-on badge "Discounted vs. purchasing separately" — no figure, nothing to break.
 
 ### (f) Referral reward → $300, no "cash"
 
-- `src/pages/StudentDashboard.tsx` — reward total now `enrolled * REFERRAL_REWARD_AUD` (named constant, 300) instead of a bare `* 100`. Copy: "you earn a $300 referral reward".
+- `StudentDashboard.tsx` — `enrolled * REFERRAL_REWARD_AUD` (named constant, 300) replaces a bare `* 100`; copy reads "you earn a $300 referral reward".
 - `supabase/functions/send-student-welcome/index.ts:76` — "you'll earn $100 cash" → "you'll earn a $300 referral reward".
-- The word **"cash" appears nowhere** in `src/` or `supabase/` any more.
+- The word **"cash" appears nowhere** in `src/` or `supabase/`.
 
-The mate's discount was deliberately **not** touched — see HOLD §2.5.
+### (g) Success stories — unverified detail cut
+
+Each story now carries **only** what is in Adrian's source, plus one generic training line ("Prepared for BPC registration with Adrian at Qualify Pro.") that is true of every student and makes no per-student claim.
+
+| Student | Licence | Licensed | Outcome (verbatim from source) |
+|---|---|---|---|
+| Fauzi | Domestic Builder (Unlimited) | 5 years ago | Building company turning over $15M+ a year, elite homes across Melbourne's most prestigious suburbs |
+| Jordan | Carpentry Licence (DB-L) | *(not in source — omitted)* | High-end outdoor living spaces; partners with numerous suppliers across Melbourne |
+| Sidhu | Domestic Builder | 6 years ago | Building company constructing new homes across Melbourne's northern and western suburbs |
+| Manny | *(not in source — omitted)* | 5 years ago | High-volume building company completing 50+ homes a year |
+| Ben | Bathroom and Kitchen (Limited) | 4 years ago | 40+ renovation projects a year in Melbourne's inner suburbs |
+
+**Deleted:** the four-part The Starting Point / The Challenge / The Training / The Result narrative for all five students — it was invented end to end. With it went "Elite Homes Melbourne", Toorak / Brighton / Armadale, "employs multiple teams", "Sidhu Building Constructions", "Manny's Building Company", "Ben's Renovations", "Premium Outdoor Living", "dozens of homes", "energy-efficient homes", the `currentBusiness` and `revenue` fields, and all five invented `headline`s.
+
+**Corrections this surfaced:**
+- Sidhu was "4 years ago"; source says **6**.
+- Ben was "3 years ago" on the stories page and "4 years ago" on the homepage; source says **4**, now used in both.
+- Ben's narrative claimed he "passed his **Domestic Builder Unlimited** registration" — source says **Bathroom and Kitchen Limited**. Directly contradictory; gone.
+- Jordan had "Licensed 3 years ago" in both places; source gives no timeframe, so the field is now null and the badge does not render.
+- Manny had "Domestic Builder – Unlimited"; source gives no class, so the field is null and does not render.
+
+The homepage strip (`src/components/SuccessStories.tsx`) was aligned to the same five facts. Its blurbs were also rendered **inside quotation marks**, which made third-person copy read as attributed testimony — the quote marks are gone.
+
+### (h) Admin panel — stale discount cleared
+
+| File:line | Before | After |
+|---|---|---|
+| `PipelineTab.tsx:149` | "🎁 REFERRAL: $100 OFF" | "🎁 REFERRAL" |
+| `NewLeadsTab.tsx:143-144` | "Owed $100 Discount" / "Apply $100 off when invoicing" | "🎁 REFERRAL LEAD" / "referral discount pending confirmation" |
+| `PipelineTab.tsx:177` | "You must apply a **$100 discount** … when invoicing" | "A referral discount applies … amount pending confirmation" |
+
+> **A third location, beyond the two you named.** `PipelineTab.tsx:177` is the lead detail panel and carried the same stale instruction in stronger terms ("You must apply a $100 discount"). My earlier inventory missed it. Leaving it would have meant the badge no longer quoted a figure while the panel behind it still told Adrian to take $100 off, so it was cleared the same way. Say the word if you want it reverted.
+
+> ⚠️ **This does not yet match the admin lead email.** `send-lead-emails/index.ts:35,39` still says "DISCOUNT REQUIRED" and "Remember to quote them $100 off" — it is in HOLD because you asked for the mate's discount to be held pending the 15%. So the admin UI is now silent on the amount while the email Adrian receives still names $100. **Do you want the email stripped too, or the amount put back in the UI until the 15% lands?**
+
+### (i) JSON-LD offers — deliberately left out
+
+No `offers` or `price` field exists in any of the three JSON-LD blocks (`Course` and `FAQPage` in `BuilderRegistrationCourseMelbourne.tsx`, `LocalBusiness` in `index.html`). Per your call this is a separate SEO job once prices are final — **not** an oversight.
 
 ---
 
@@ -98,25 +146,24 @@ The mate's discount was deliberately **not** touched — see HOLD §2.5.
 ```
 src/components/WhyChooseAdrian.tsx:39
 src/data/courses.ts:86, :111
-src/pages/Contact.tsx:705          "Resit If You Don't Pass First Time"
+src/pages/Contact.tsx      "Resit If You Don't Pass First Time"
 src/pages/Courses.tsx:158, :167, :211
 src/pages/FAQ.tsx:67, :124
 ```
-One adjacent edit for disclosure: the FAQ **question** text `"What if I fail the BPC test?"` → `"…the BPC exam?"` (`Courses.tsx`) and `"What if I don't pass the test?"` → `"…the exam?"` (`FAQ.tsx`). The guarantee **answers** are byte-for-byte untouched.
+One adjacent edit, disclosed: the FAQ **question** text "What if I fail the BPC test?" → "…the BPC exam?" and "What if I don't pass the test?" → "…the exam?". The guarantee **answers** are byte-for-byte untouched.
 
 ### 2.2 Class times
 ```
-src/components/Footer.tsx:157                        9am–9pm
-src/data/courses.ts:99, :100, :106                   6pm–9pm, 1 night per week
-src/pages/Contact.tsx:494, :505, :506                9am–9pm 7 days; 6pm–9pm
+src/components/Footer.tsx:157                                9am–9pm
+src/data/courses.ts:99, :100, :106                           6pm–9pm, 1 night per week
+src/pages/Contact.tsx:494, :505, :506                        9am–9pm 7 days; 6pm–9pm
 src/pages/BuilderRegistrationCourseMelbourne.tsx:155, :188   "Evening classes"
-src/pages/FAQ.tsx:70, :72                            evening classes Q&A
-src/pages/Courses.tsx:93                             One evening per week (6pm–9pm)
-src/pages/SuccessStoriesPage.tsx:105                 One evening per week (6pm–9pm)
+src/pages/FAQ.tsx:70, :72                                    evening classes Q&A
+src/pages/Courses.tsx:93                                     One evening per week (6pm–9pm)
 ```
 
 ### 2.3 Evening vs Private 1-on-1 price parity
-`src/data/courses.ts:94–126` — both remain $5,650 ex-GST ($6,215 inc). The two existing "price is identical … pending Adrian's sign-off" comments are preserved. Treated as ex-GST per your instruction; still pending confirmation.
+`src/data/courses.ts` — both remain $5,650 ex-GST ($6,215 inc). Both existing "price is identical … pending Adrian's sign-off" comments are preserved.
 
 ### 2.4 Payment plans
 ```
@@ -128,30 +175,29 @@ src/pages/Courses.tsx:161, :162, :581, :584, :587
 ```
 
 ### 2.5 Mate's discount — returns as 15% once Adrian confirms
-Left at `$100 off` everywhere, including the form hint and the admin lead email, as instructed:
+Customer-facing copy left at `$100 off` as instructed. The admin panel entries are no longer on this list (see §1h).
 ```
-src/pages/Contact.tsx:389                       form hint: "Enter it for $100 off"
-src/components/FinalCTA.tsx:322                 form hint: "Enter it for $100 off"
-src/pages/StudentDashboard.tsx:168              "They get $100 off, you earn a $300 referral reward"
-supabase/functions/send-student-welcome/index.ts:76   "they'll get $100 off"
-supabase/functions/send-lead-emails/index.ts:35       admin email: "REFERRAL LEAD — DISCOUNT REQUIRED"
-supabase/functions/send-lead-emails/index.ts:39       admin email: "quote them $100 off"
-src/components/admin/PipelineTab.tsx:149        admin badge: "REFERRAL: $100 OFF"
-src/components/admin/NewLeadsTab.tsx:144        admin note: "Apply $100 off when invoicing"
+src/pages/Contact.tsx:395                              form hint: "Enter it for $100 off"
+src/components/FinalCTA.tsx:322                        form hint: "Enter it for $100 off"
+src/pages/StudentDashboard.tsx:168                     "They get $100 off, you earn a $300 referral reward"
+supabase/functions/send-student-welcome/index.ts:76    "they'll get $100 off"
+supabase/functions/send-lead-emails/index.ts:35, :39   admin email: "DISCOUNT REQUIRED" / "quote them $100 off"
 ```
-> The last two are internal admin UI that I did not list earlier — they carry the same instruction to Adrian and will need the same 15% edit.
 
-### 2.6 Named-student quotes — REMOVED, restore verbatim if Adrian confirms
-All 13 removed site-wide as unverified testimonials. Exact text and original location below.
+### 2.6 DB-L / limited-class course entry requirement — pending Adrian
+`src/pages/Courses.tsx` carpentry `requirements` now states **BPC's** 2-year regulatory minimum. Whether Qualify Pro sets its own, higher bar for enrolling on the DB-L course is unconfirmed, so no course-level figure is claimed. Same question applies to any future limited-class course.
 
-**`src/pages/SuccessStoriesPage.tsx`** (also removed the quote render block, lines 438–453)
+### 2.7 Named-student quotes — REMOVED, restore verbatim if Adrian confirms
+All 13 removed site-wide as unverified testimonials. Line numbers are from the pre-sweep commit.
+
+**`src/pages/SuccessStoriesPage.tsx`**
 - `:54` **Fauzi** — "Adrian's personalized approach helped me understand the regulations I was struggling with. The small class size meant I could ask questions without feeling rushed, and the practice tests prepared me perfectly for the BPC process. I passed first time and never looked back. Now I run my own company building elite homes - something that wouldn't have been possible without my unlimited builder registration."
 - `:84` **Jordan** — "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on. His teaching style is clear and practical. I passed first time and launched my business within weeks. Now I'm doing the high-end outdoor work I always wanted to do, working with the best suppliers in Melbourne."
 - `:114` **Sidhu** — "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex regulations easy to understand and gave me the confidence to pass my interview. His focus on understanding principles rather than memorizing really helped. Now I'm building new homes across Melbourne's growth corridors under my own company name."
 - `:144` **Manny** — "Small classes made all the difference. I could ask questions without feeling rushed or stupid, and Adrian always took the time to explain things properly. He identified exactly where I needed to improve and focused on those areas. I passed first time and now I'm running a successful high-volume building company. Worth every dollar."
 - `:174` **Ben** — "I failed on my own, but with Adrian's help I passed easily the second time. His teaching style focuses on understanding, not just memorizing answers. He was patient, supportive, and identified exactly what I needed to work on. Now I run my own renovation business doing 40+ projects a year. I'm so glad I didn't give up on my dream."
 
-**`src/pages/About.tsx`** — the entire "What Students Say" section was removed, because all four of its items were quotes.
+**`src/pages/About.tsx`** — the entire "What Students Say" section was removed; all four items were quotes.
 - `:93` **Jordan** (DB-L Carpentry Licence) — "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on."
 - `:100` **Manny** (Domestic Builder - Unlimited) — "What I appreciated most was how Adrian personalized his teaching. He identified where I was weak and spent extra time helping me improve those areas."
 - `:107` **Ben** (Bathroom & Kitchen Licence) — "Small class sizes made all the difference. I could ask questions without feeling stupid, and Adrian always took the time to explain things properly."
@@ -163,47 +209,30 @@ All 13 removed site-wide as unverified testimonials. Exact text and original loc
 - `:126` **Jordan** ("Licensed carpenter running outdoor living business") — "One-on-one training was worth every dollar. Adrian identified exactly where I was weak and we focused on those areas. The flexible schedule meant I could fit it around my work commitments."
 - `:149` **Jordan** ("Licensed DB-L carpenter") — "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what BPC actually asks. Passed first time and now running my own carpentry business."
 
-> **Layout consequence:** About lost a whole section and Courses lost its testimonial cards. Both pages still read fine, but they are noticeably lighter on social proof. The success stories themselves were kept.
+---
+
+## 3. Open questions and judgment calls
+
+1. **Admin email vs admin UI** — see the flag in §1h. This is the one live inconsistency and needs a decision.
+2. **Evening Builder Course is treated as Domestic Builder (Unlimited).** Its `whoItsFor` says "domestic builder registration" without naming a class; carpentry is the only course explicitly sold as limited. If the evening course also serves limited classes, its requirement wording needs the class-neutral version instead.
+3. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
+4. **`95% pass rate`** is out of scope and untouched. Always attributed to "Qualify Pro's own student records". It is now the last large unverified number on the site.
+5. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
+6. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
+7. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
 
 ---
 
-## 3. Narrative detail beyond Adrian's one-liners — flagged, not cut
-
-Adrian's source material gave one outcome line per student. Everything else on the page is unverified. Not cut, per instruction.
-
-| Student | Adrian confirmed | On the site, unconfirmed |
-|---|---|---|
-| **Fauzi** | $15M+/yr building company | "Elite Homes Melbourne"; "Elite custom homes"; Toorak, Brighton, Armadale; "employs multiple teams"; "Licensed 5 years ago". **The $15M+/yr figure appears nowhere on the site.** |
-| **Jordan** | Carpentry licence, outdoor living business | "Premium Outdoor Living"; "High-end installations"; "partnering with top suppliers"; "Licensed 3 years ago" |
-| **Sidhu** | Domestic builder, new homes in Melbourne's north and west | "Sidhu Building Constructions"; "dozens of homes"; "energy-efficient homes"; "Licensed 4 years ago" |
-| **Manny** | 50+ homes/yr | volume matches ✓ — but "Manny's Building Company"; "Licensed 5 years ago" |
-| **Ben** | 40+ renos/yr | volume matches ✓ — but "Ben's Renovations"; kitchen/bathroom, inner suburbs; timeframe (see below) |
-
-Also flagged:
-- **Internal inconsistency:** Ben is "Licensed 4 years ago" on the homepage (`src/components/SuccessStories.tsx:49`) but `yearsAgo: "3 years ago"` on the success stories page (`src/pages/SuccessStoriesPage.tsx:150`).
-- The homepage story strip (`src/components/SuccessStories.tsx`) carries its own third-person blurbs for Fauzi, Jordan, Manny and Ben, with the same unverified business detail. **Sidhu is missing from it entirely.**
-- All five `currentBusiness` names look like descriptive placeholders rather than registered trading names.
-
----
-
-## 4. Other decisions worth a second opinion
-
-1. **"BPC test" → "BPC exam" terminology.** Your brief did not ask for this, but leaving "test" next to the new exam copy read as two different assessments. Changed in headings, FAQ questions and one `courses.ts` inclusion. Easy to revert if you want "test" kept.
-2. **Success-story narratives** had their interview-prep clauses cut per your call, but the surrounding history was kept. Those students genuinely did sit interviews pre-2026, so the pages now describe their journeys without saying what the interview prep did for them. Worth a read-through for tone.
-3. **`95% pass rate`** is out of scope and untouched everywhere. It is always attributed to "Qualify Pro's own student records". Mentioning it only because it is the last big unverified number left on the site.
-4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position** — removing a bullet silently changes which ones a card shows. I checked all four; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment". That is the desired outcome, but the index coupling is fragile and worth replacing with keys.
-5. **`.env` is committed to git** and is not in `.gitignore`. Unrelated to this sweep, but I hit it while scanning and it should probably be untracked.
-
----
-
-## 5. Verification
+## 4. Verification
 
 ```
-bun run build    ✓ built in 2.40s
-bun run lint     14 problems (7 errors, 7 warnings) — identical to HEAD baseline;
+bun run build    ✓ passes
+bun run lint     14 problems (7 errors, 7 warnings) — identical to baseline;
                  none in files this sweep touched
-bunx tsc -b      no syntax or type errors introduced
 prices           executed src/data/courses.ts — all 5 totals match the brief
+eligibility      executed src/data/eligibility.ts — all 4 licence-type branches
+                 checked; none states a single minimum for every class
+stat fields      swept every value:/number:/highlight: literal; no stale figures
 ```
 
 Not merged. Branch `claims-sweep-2026-09`.

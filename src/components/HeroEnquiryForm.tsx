@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
-import { EXPERIENCE_OPTIONS, MINIMUM_EXPERIENCE_NOTE, UNDER_MINIMUM_EXPERIENCE } from "@/data/eligibility";
+import { EXPERIENCE_OPTIONS, UNDER_MINIMUM_EXPERIENCE, getUnderMinimumNote } from "@/data/eligibility";
 import { z } from "zod";
 import {
   Select,
@@ -192,7 +192,7 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
               </SelectContent>
             </Select>
             {experience === UNDER_MINIMUM_EXPERIENCE && (
-              <p className="mt-1 text-xs text-amber-700">{MINIMUM_EXPERIENCE_NOTE}</p>
+              <p className="mt-1 text-xs text-amber-700">{getUnderMinimumNote()}</p>
             )}
           </div>
           <Button

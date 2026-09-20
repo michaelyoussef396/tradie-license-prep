@@ -32,7 +32,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getCourse, courseById, practiceQuestionsSummary } from "@/data/courses";
-import { MINIMUM_EXPERIENCE_SUMMARY, MINIMUM_EXPERIENCE_YEARS, MINIMUM_PROJECTS } from "@/data/eligibility";
+import {
+  EXPERIENCE_BY_CLASS_SUMMARY,
+  LIMITED_EXPERIENCE_SUMMARY,
+  UNLIMITED_EXPERIENCE_SUMMARY,
+} from "@/data/eligibility";
 
 const Courses = () => {
   const fromData = (id: string) => {
@@ -74,7 +78,7 @@ const Courses = () => {
         { icon: Check, text: "Documentation and record-keeping systems" },
       ],
       schedule: `${getCourse("comprehensive").duration} of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.`,
-      requirements: `${MINIMUM_EXPERIENCE_SUMMARY} Trade qualification preferred. Technical references from registered builders required.`,
+      requirements: `${UNLIMITED_EXPERIENCE_SUMMARY} Trade qualification preferred. Technical references from registered builders required.`,
       featured: false,
       accent: "from-blue-500 to-blue-600"
     },
@@ -92,7 +96,7 @@ const Courses = () => {
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
       schedule: `One evening per week (6pm–9pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
-      requirements: `${MINIMUM_EXPERIENCE_SUMMARY} Currently working in the building/construction industry preferred.`,
+      requirements: `${UNLIMITED_EXPERIENCE_SUMMARY} Currently working in the building/construction industry preferred.`,
       featured: true,
       accent: "from-emerald-500 to-teal-500"
     },
@@ -110,7 +114,7 @@ const Courses = () => {
         { icon: TrendingUp, text: "Business planning for your specific goals" },
       ],
       schedule: `${getCourse("private").format}. Flexible scheduling to suit your availability - days, evenings, or weekends.`,
-      requirements: `${MINIMUM_EXPERIENCE_SUMMARY} Initial assessment call to determine personalized curriculum needs.`,
+      requirements: `${EXPERIENCE_BY_CLASS_SUMMARY} Initial assessment call to determine personalized curriculum needs.`,
       featured: false,
       accent: "from-violet-500 to-purple-500"
     },
@@ -127,7 +131,7 @@ const Courses = () => {
         { icon: Award, text: "Quality standards for carpentry work" },
       ],
       schedule: `${getCourse("carpentry").duration} of focused DB-L training. Weekly sessions with practice questions.`,
-      requirements: "Qualified carpenter with at least 3 years' experience working under a registered building practitioner, across a minimum of 3 projects. Trade certificate required.",
+      requirements: `Qualified carpenter, trade certificate required. ${LIMITED_EXPERIENCE_SUMMARY}`,
       featured: false,
       accent: "from-amber-500 to-orange-500"
     },
@@ -140,7 +144,7 @@ const Courses = () => {
     },
     {
       question: "What experience do I need to enroll?",
-      answer: `You need at least ${MINIMUM_EXPERIENCE_YEARS} years' experience working under a registered building practitioner, across a minimum of ${MINIMUM_PROJECTS} projects. You should be actively working or have recent experience in building/construction. We assess each applicant individually based on their background and circumstances.`
+      answer: `${EXPERIENCE_BY_CLASS_SUMMARY} You should be actively working or have recent experience in building/construction. We assess each applicant individually based on their background and circumstances.`
     },
     {
       question: "Do you help with the BPC applications?",

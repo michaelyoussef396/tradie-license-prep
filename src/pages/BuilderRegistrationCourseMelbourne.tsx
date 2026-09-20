@@ -54,7 +54,7 @@ const faqJsonLd = {
       name: "What experience do you need for builder registration in Victoria?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Generally at least 3 years' experience working under a registered building practitioner, across a minimum of 3 projects, together with technical references from registered builders in the same class or higher, and an evidence portfolio.",
+        text: "It depends on the class. Domestic Builder (Unlimited) needs at least 3 years working under a registered building practitioner, across a minimum of 3 projects. Domestic Builder (Limited) classes such as carpentry need at least 2 years' practical experience. Both also need technical references from registered builders in the same class or higher, and an evidence portfolio.",
       },
     },
     {
@@ -297,8 +297,12 @@ const BuilderRegistrationCourseMelbourne = () => {
             <H2>Entry requirements</H2>
             <ul className="mb-4 list-disc space-y-2 pl-6 text-base sm:text-lg text-slate-700">
               <li>
-                At least 3 years' experience working under a registered building practitioner,
-                across a minimum of 3 projects
+                Domestic Builder (Unlimited): at least 3 years' experience working under a
+                registered building practitioner, across a minimum of 3 projects
+              </li>
+              <li>
+                Domestic Builder (Limited) classes such as carpentry: at least 2 years' practical
+                experience
               </li>
               <li>
                 Technical references from registered builders in the same or a higher class
@@ -325,9 +329,11 @@ const BuilderRegistrationCourseMelbourne = () => {
             </P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">What experience do I need?</h3>
             <P>
-              Generally at least 3 years' experience working under a registered building
-              practitioner, across a minimum of 3 projects, plus technical references from
-              registered builders in the same class or higher.
+              It depends on the class you're applying for. Domestic Builder (Unlimited) needs at
+              least 3 years working under a registered building practitioner, across a minimum of 3
+              projects. Domestic Builder (Limited) classes such as carpentry need at least 2 years'
+              practical experience. Both also need technical references from registered builders in
+              the same class or higher.
             </P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">
               What qualifications do I need before I start?

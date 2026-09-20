@@ -140,8 +140,8 @@ const NewLeadsTab = () => {
 
             {lead.used_referral_code && (
               <div className="bg-amber-500/20 border border-amber-500 rounded-lg px-4 py-3">
-                <p className="text-amber-300 font-bold text-sm">🎁 REFERRAL: Owed $100 Discount</p>
-                <p className="text-amber-200 text-xs mt-1">Code used: <span className="font-mono font-bold">{lead.used_referral_code}</span> — Apply $100 off when invoicing.</p>
+                <p className="text-amber-300 font-bold text-sm">🎁 REFERRAL LEAD</p>
+                <p className="text-amber-200 text-xs mt-1">Code used: <span className="font-mono font-bold">{lead.used_referral_code}</span> — referral discount pending confirmation.</p>
               </div>
             )}
 

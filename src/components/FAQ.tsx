@@ -7,6 +7,7 @@ import {
 import { motion } from "framer-motion";
 import { HelpCircle, MessageCircle } from "lucide-react";
 import { courseById, practiceQuestionsSummary } from "@/data/courses";
+import { EXPERIENCE_BY_CLASS_SUMMARY } from "@/data/eligibility";
 
 const FAQ = () => {
   const faqs = [
@@ -18,7 +19,7 @@ const FAQ = () => {
     {
       question: "What experience do I need?",
       answer:
-        "You need at least 3 years' experience working under a registered building practitioner, across a minimum of 3 projects. BPC requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.",
+        `${EXPERIENCE_BY_CLASS_SUMMARY} BPC also requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.`,
     },
     {
       question: "Do you help with the applications?",

@@ -32,7 +32,12 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
-import { EXPERIENCE_OPTIONS, MINIMUM_EXPERIENCE_NOTE, UNDER_MINIMUM_EXPERIENCE } from "@/data/eligibility";
+import {
+  EXPERIENCE_OPTIONS,
+  LICENCE_TYPE_OPTIONS,
+  UNDER_MINIMUM_EXPERIENCE,
+  getUnderMinimumNote,
+} from "@/data/eligibility";
 import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
@@ -336,10 +341,11 @@ const Contact = () => {
                         <SelectValue placeholder="Select licence type" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
-                        <SelectItem value="Domestic Builder - Unlimited">Domestic Builder - Unlimited</SelectItem>
-                        <SelectItem value="Carpentry Licence (DB-L)">Carpentry Licence (DB-L)</SelectItem>
-                        <SelectItem value="Commercial Building (Low-Rise)">Commercial Building (Low-Rise)</SelectItem>
-                        <SelectItem value="Other / Not Sure">Other / Not Sure</SelectItem>
+                        {LICENCE_TYPE_OPTIONS.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -367,7 +373,7 @@ const Contact = () => {
                     </Select>
                     {formData.experience === UNDER_MINIMUM_EXPERIENCE && (
                       <p className="text-xs text-amber-700 mt-1">
-                        {MINIMUM_EXPERIENCE_NOTE}
+                        {getUnderMinimumNote(formData.licenseType)}
                       </p>
                     )}
                   </div>

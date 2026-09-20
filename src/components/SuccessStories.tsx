@@ -8,44 +8,44 @@ const SuccessStories = () => {
       name: "Fauzi",
       initials: "F",
       bgGradient: "from-blue-500 to-blue-600",
-      licence: "Domestic Builder Unlimited",
+      licence: "Domestic Builder (Unlimited)",
       highlight: "Elite",
       highlightLabel: "Custom Homes",
       highlightIcon: TrendingUp,
-      story: "Now runs a thriving building company specialising in elite homes across Melbourne's most prestigious suburbs.",
+      story: "Runs a building company turning over $15M+ a year, specialising in elite homes across Melbourne's most prestigious suburbs.",
       timeframe: "Licensed 5 years ago",
     },
     {
       name: "Jordan",
       initials: "J",
       bgGradient: "from-emerald-500 to-teal-500",
-      licence: "Carpentry Licence",
+      licence: "Carpentry Licence (DB-L)",
       highlight: "High-End",
       highlightLabel: "Outdoor Living",
       highlightIcon: Building2,
-      story: "Launched a successful business focused on premium outdoor spaces, partnering with top suppliers across Melbourne.",
-      timeframe: "Licensed 3 years ago",
+      story: "Launched a business focused on high-end outdoor living spaces, partnering with numerous suppliers to deliver premium installations throughout Melbourne.",
+      timeframe: null,
     },
     {
       name: "Manny",
       initials: "M",
       bgGradient: "from-amber-500 to-orange-500",
-      licence: "Domestic Builder",
+      licence: null,
       highlight: "50+",
       highlightLabel: "Homes Per Year",
       highlightIcon: Home,
-      story: "Leads a building company known for quality and consistency, completing major residential projects across Melbourne.",
+      story: "Leads a high-volume building company completing 50+ homes a year.",
       timeframe: "Licensed 5 years ago",
     },
     {
       name: "Ben",
       initials: "B",
       bgGradient: "from-violet-500 to-purple-500",
-      licence: "Bathroom & Kitchen",
+      licence: "Bathroom and Kitchen (Limited)",
       highlight: "40+",
       highlightLabel: "Projects Annually",
       highlightIcon: Wrench,
-      story: "Completes renovation projects throughout Melbourne's inner suburbs with a reputation for exceptional craftsmanship.",
+      story: "Completes 40+ renovation projects a year in Melbourne's inner suburbs.",
       timeframe: "Licensed 4 years ago",
     },
   ];
@@ -114,7 +114,7 @@ const SuccessStories = () => {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">{story.name}</h3>
-                        <p className="text-sm text-blue-300">{story.licence}</p>
+                        {story.licence && <p className="text-sm text-blue-300">{story.licence}</p>}
                       </div>
                     </div>
                   </div>
@@ -134,13 +134,15 @@ const SuccessStories = () => {
                     
                     {/* Story */}
                     <p className="text-white/80 leading-relaxed mb-4">
-                      "{story.story}"
+                      {story.story}
                     </p>
                     
                     {/* Timeframe */}
-                    <span className="inline-block text-xs text-blue-400/60 bg-blue-500/10 px-3 py-1 rounded-full">
-                      {story.timeframe}
-                    </span>
+                    {story.timeframe && (
+                      <span className="inline-block text-xs text-blue-400/60 bg-blue-500/10 px-3 py-1 rounded-full">
+                        {story.timeframe}
+                      </span>
+                    )}
                   </div>
                 </div>
               </motion.div>
