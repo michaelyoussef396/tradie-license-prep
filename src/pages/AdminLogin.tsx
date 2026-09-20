@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import qualifyProLogo from "@/assets/qualify-pro-logo.png";
+import { resolveAdminDestination } from "@/lib/admin-redirect";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,10 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const destination = resolveAdminDestination(
+    (location.state as { from?: unknown } | null)?.from,
+  );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +29,7 @@ const AdminLogin = () => {
       setError(error.message);
       setLoading(false);
     } else {
-      navigate("/admin/dashboard");
+      navigate(destination, { replace: true });
     }
   };
 

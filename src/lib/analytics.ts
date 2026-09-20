@@ -1,5 +1,5 @@
 // Google Analytics 4 + Microsoft Clarity tracking utilities
-// Scripts only load if env vars are set and route is not /admin*
+// Scripts only load if env vars are set and the route is not internal.
 
 declare global {
   interface Window {
@@ -8,16 +8,24 @@ declare global {
   }
 }
 
-const isAdminRoute = () => {
-  const path = window.location.pathname;
-  return path.startsWith('/admin');
-};
+/**
+ * Paths that must never reach GA4 or Clarity.
+ *
+ * `/admin` covers the login, the dashboard and the email templates page. The
+ * legacy `/email-templates` URL is listed too: it only redirects, but the
+ * redirect happens in an effect, so without this the brief render before it
+ * would still be tracked.
+ */
+const INTERNAL_PATH_PREFIXES = ['/admin', '/email-templates'];
+
+export const isInternalRoute = (pathname: string = window.location.pathname) =>
+  INTERNAL_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
 // ── GA4 ──
 
 export function initGA4() {
   const id = import.meta.env.VITE_GA4_MEASUREMENT_ID;
-  if (!id || isAdminRoute()) return;
+  if (!id || isInternalRoute()) return;
 
   // Load gtag.js
   const script = document.createElement('script');
@@ -35,12 +43,12 @@ export function initGA4() {
 }
 
 export function trackPageView(path: string) {
-  if (!window.gtag || isAdminRoute()) return;
+  if (!window.gtag || isInternalRoute()) return;
   window.gtag('event', 'page_view', { page_path: path });
 }
 
 export function trackEvent(name: string, params?: Record<string, any>) {
-  if (!window.gtag || isAdminRoute()) return;
+  if (!window.gtag || isInternalRoute()) return;
   window.gtag('event', name, params);
 }
 
@@ -48,7 +56,7 @@ export function trackEvent(name: string, params?: Record<string, any>) {
 
 export function initClarity() {
   const id = import.meta.env.VITE_CLARITY_PROJECT_ID;
-  if (!id || isAdminRoute()) return;
+  if (!id || isInternalRoute()) return;
 
   const script = document.createElement('script');
   script.type = 'text/javascript';

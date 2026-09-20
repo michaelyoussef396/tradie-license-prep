@@ -32,6 +32,12 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
+import {
+  EXPERIENCE_OPTIONS,
+  LICENCE_TYPE_OPTIONS,
+  UNDER_MINIMUM_EXPERIENCE,
+  getUnderMinimumNote,
+} from "@/data/eligibility";
 import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
@@ -173,7 +179,7 @@ const Contact = () => {
       step: "3",
       icon: CheckCircle2,
       title: "Start Your Training",
-      description: "Begin your personalized journey to BPC (formerly VBA) registration with small classes and expert guidance"
+      description: "Begin your personalized journey to registration with the Building and Plumbing Commission (BPC), formerly the VBA, with small classes and expert guidance"
     }
   ];
 
@@ -335,10 +341,11 @@ const Contact = () => {
                         <SelectValue placeholder="Select licence type" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
-                        <SelectItem value="Domestic Builder - Unlimited">Domestic Builder - Unlimited</SelectItem>
-                        <SelectItem value="Carpentry Licence (DB-L)">Carpentry Licence (DB-L)</SelectItem>
-                        <SelectItem value="Commercial Building (Low-Rise)">Commercial Building (Low-Rise)</SelectItem>
-                        <SelectItem value="Other / Not Sure">Other / Not Sure</SelectItem>
+                        {LICENCE_TYPE_OPTIONS.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -357,12 +364,18 @@ const Contact = () => {
                         <SelectValue placeholder="Select experience level" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
-                        <SelectItem value="2-3">2-3 years</SelectItem>
-                        <SelectItem value="4-5">4-5 years</SelectItem>
-                        <SelectItem value="6-10">6-10 years</SelectItem>
-                        <SelectItem value="10+">10+ years</SelectItem>
+                        {EXPERIENCE_OPTIONS.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option === UNDER_MINIMUM_EXPERIENCE ? "Under 3 years" : `${option} years`}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
+                    {formData.experience === UNDER_MINIMUM_EXPERIENCE && (
+                      <p className="text-xs text-amber-700 mt-1">
+                        {getUnderMinimumNote(formData.licenseType)}
+                      </p>
+                    )}
                   </div>
 
                   {/* Referral Code */}
@@ -379,7 +392,7 @@ const Contact = () => {
                       maxLength={20}
                       className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it for $100 off.</p>
+                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it here.</p>
                   </div>
 
                   {/* Message */}
@@ -690,10 +703,9 @@ const Contact = () => {
         </div>
 
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { icon: CheckCircle2, value: "95%", label: "Pass Rate" },
-              { icon: Award, value: "10+", label: "Years Experience" },
+              { icon: Award, value: "2017", label: "Training Builders Since" },
               { icon: Users, value: "Free", label: "Consultation" },
               { icon: Shield, value: "Free", label: "Resit If You Don't Pass First Time" },
             ].map((stat, index) => {

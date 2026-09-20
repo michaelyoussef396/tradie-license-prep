@@ -1,4 +1,4 @@
-import { Award, Building2, Hammer, GraduationCap, HardHat, Briefcase, Quote, ArrowRight } from "lucide-react";
+import { Award, Building2, Hammer, GraduationCap, HardHat, Briefcase, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import trainingImage from "@/assets/about-training-materials.jpg";
@@ -8,7 +8,7 @@ const AboutAdrian = () => {
     { icon: Building2, label: "Registered Building Practitioner (Unlimited)" },
     { icon: Award, label: "Commercial Licence (Low-Rise)" },
     { icon: Hammer, label: "Qualified Carpenter" },
-    { icon: GraduationCap, label: "10+ Years Training Experience" },
+    { icon: GraduationCap, label: "Training Builders Since 2017" },
   ];
 
   const experience = [
@@ -42,7 +42,7 @@ const AboutAdrian = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column - Image & Quote */}
+          {/* Left Column - Image */}
           <motion.div 
             className="lg:col-span-5"
             initial={{ opacity: 0, x: -30 }}
@@ -74,20 +74,6 @@ const AboutAdrian = () => {
               </div>
             </div>
 
-            {/* Student Quote */}
-            <motion.div 
-              className="relative bg-slate-900 rounded-2xl p-6 text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Quote className="absolute top-4 right-4 w-8 h-8 text-blue-400/30" />
-              <p className="text-lg leading-relaxed mb-4 text-white/90">
-                "Patient and understandable - makes things simple and straightforward. Adrian doesn't just teach from a book, he explains it like a tradie would."
-              </p>
-              <div className="text-sm text-blue-300">— Graduate feedback</div>
-            </motion.div>
           </motion.div>
 
           {/* Right Column - Content */}
@@ -107,7 +93,7 @@ const AboutAdrian = () => {
               </p>
               <p className="text-gray-600 leading-relaxed">
                 That hands-on experience means he understands the gaps between practical knowledge and what the 
-                BPC exam expects. He's helped hundreds of tradies bridge that gap and gain their registration.
+                BPC exam expects. Adrian has helped 100+ tradies bridge that gap and gain their registration.
               </p>
             </motion.div>
 

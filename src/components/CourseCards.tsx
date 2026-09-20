@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Clock, Users, Video, Wrench, Star, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { courseById, GST_SUFFIX } from "@/data/courses";
+import { courseById } from "@/data/courses";
 
 const CourseCards = () => {
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ const CourseCards = () => {
       duration: course.duration,
       format: course.formatShort,
       price: course.priceDisplay,
+      exGstNote: course.exGstNote,
       includes: m.highlights.map((i) => course.inclusions[i]),
     };
   });
@@ -131,7 +132,7 @@ const CourseCards = () => {
                         <span className="text-3xl sm:text-4xl font-bold text-gray-900">
                           {course.price}
                         </span>
-                        <span className="text-sm text-gray-500">{GST_SUFFIX}</span>
+                        <span className="text-sm text-gray-500">{course.exGstNote}</span>
                       </div>
                     </div>
 

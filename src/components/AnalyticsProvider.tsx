@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { initGA4, initClarity, trackPageView, trackPhoneClick } from "@/lib/analytics";
+import { initGA4, initClarity, isInternalRoute, trackPageView, trackPhoneClick } from "@/lib/analytics";
 
 /**
- * Initialises GA4 + Clarity on mount (non-admin routes only).
+ * Initialises GA4 + Clarity on mount (public routes only).
  * Tracks page_view on every route change.
  * Adds a global click listener for tel: links (phone_click event).
  */
@@ -14,7 +14,7 @@ const AnalyticsProvider = () => {
   // Init scripts once
   useEffect(() => {
     if (initialised.current) return;
-    if (location.pathname.startsWith("/admin")) return;
+    if (isInternalRoute(location.pathname)) return;
     initGA4();
     initClarity();
     initialised.current = true;
@@ -22,7 +22,7 @@ const AnalyticsProvider = () => {
 
   // Track page views
   useEffect(() => {
-    if (location.pathname.startsWith("/admin")) return;
+    if (isInternalRoute(location.pathname)) return;
     trackPageView(location.pathname);
   }, [location.pathname]);
 

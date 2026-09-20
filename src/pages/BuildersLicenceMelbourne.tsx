@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, CheckCircle2, Award, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, Phone, CheckCircle2, Award, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import Seo from "@/components/Seo";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
@@ -15,8 +15,7 @@ const BuildersLicenceMelbourne = () => {
   };
 
   const trustItems = [
-    { icon: TrendingUp, text: "95% BPC pass rate (own student records)" },
-    { icon: Award, text: "10+ years specialist experience" },
+    { icon: Award, text: "Training builders since 2017" },
     { icon: Users, text: "Small personalised classes" },
     { icon: CheckCircle2, text: "Specialist BPC prep, not a generic course" },
   ];
@@ -160,7 +159,7 @@ const BuildersLicenceMelbourne = () => {
         {/* TRUST STRIP — immediately below hero */}
         <section className="py-6 sm:py-8 bg-white border-b border-slate-100">
           <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               {trustItems.map((item, index) => {
                 const Icon = item.icon;
                 return (

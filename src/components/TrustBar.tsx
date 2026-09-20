@@ -1,13 +1,8 @@
-import { Trophy, Award, Users, MapPin } from "lucide-react";
+import { Award, Users, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
 const TrustBar = () => {
   const stats = [
-    {
-      icon: Trophy,
-      stat: "95%",
-      description: "Pass Rate",
-    },
     {
       icon: Award,
       stat: "10+",
@@ -28,7 +23,7 @@ const TrustBar = () => {
   return (
     <section className="py-12 sm:py-16 md:py-20 bg-background">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {stats.map((item, index) => {
             const Icon = item.icon;
             return (

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import { 
-  Quote, 
   Building2, 
   TrendingUp, 
   Award,
@@ -14,7 +13,6 @@ import {
   Users,
   Target,
   Rocket,
-  Video,
   Star,
   Briefcase,
   Phone,
@@ -23,6 +21,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 const SuccessStoriesPage = () => {
+  // Every claim below is traceable to Adrian's written confirmation of 9 Sep 2026.
+  // Do not add business names, suburbs, headcounts or timeframes without sign-off.
   const caseStudies = [
     {
       id: "fauzi",
@@ -30,29 +30,11 @@ const SuccessStoriesPage = () => {
       initials: "F",
       gradientFrom: "from-blue-500",
       gradientTo: "to-blue-600",
-      headline: "From Tradie to Business Owner",
-      achievement: "Domestic Builder – Unlimited",
-      yearsAgo: "5 years ago",
-      currentBusiness: "Elite Homes Melbourne",
-      revenue: "Elite custom homes",
-      before: {
-        title: "The Starting Point",
-        description: "Fauzi was an experienced carpenter with solid practical skills and years of on-site experience. He'd worked on numerous residential projects and knew his trade inside out. However, he was working for someone else's building company and wanted to start his own business building high-end homes. The problem? He needed his Domestic Builder Unlimited registration to legally run his own building company and sign off on projects."
-      },
-      challenge: {
-        title: "The Challenge",
-        description: "While Fauzi's practical carpentry skills were excellent, he struggled with the theoretical side of building regulations, Australian Standards, and business knowledge required for the BPC licensing process. He'd attempted self-study but found the material overwhelming and wasn't sure what BPC was actually looking for in interviews. He was worried about investing time and money into the licensing process only to fail."
-      },
-      training: {
-        title: "The Training",
-        description: "Fauzi enrolled in Qualify Pro's Comprehensive Builder Program. Adrian quickly identified that Fauzi's practical knowledge was strong, but he needed focused work on building regulations, compliance requirements, and understanding Australian Standards. Rather than teaching everything from scratch, Adrian personalized the training to fill Fauzi's specific knowledge gaps. The small class size meant Fauzi could ask questions freely and get immediate feedback. The 600+ practice questions helped Fauzi master the test format, and the interview preparation built his confidence to articulate his practical experience professionally."
-      },
-      result: {
-        title: "The Result",
-        description: "Fauzi passed his Domestic Builder Unlimited registration on the first attempt. Within months, he launched his own building company specializing in elite homes across Melbourne's prestigious suburbs including Toorak, Brighton, and Armadale. Five years later, his company has built a reputation for exceptional quality and craftsmanship. Fauzi now employs multiple teams and manages several high-end residential projects simultaneously. His success demonstrates how proper licensing preparation can transform a tradie's career trajectory."
-      },
-      quote: "Adrian's personalized approach helped me understand the regulations I was struggling with. The small class size meant I could ask questions without feeling rushed, and the practice tests prepared me perfectly for the BPC process. I passed first time and never looked back. Now I run my own company building elite homes - something that wouldn't have been possible without my unlimited builder registration.",
-      icon: Building2
+      achievement: "Domestic Builder (Unlimited)",
+      licensedAgo: "5 years ago",
+      outcome:
+        "Runs a building company turning over $15M+ a year, specialising in elite homes across Melbourne's most prestigious suburbs.",
+      icon: Building2,
     },
     {
       id: "jordan",
@@ -60,29 +42,11 @@ const SuccessStoriesPage = () => {
       initials: "J",
       gradientFrom: "from-emerald-500",
       gradientTo: "to-emerald-600",
-      headline: "From Carpenter to Premium Business Owner",
       achievement: "Carpentry Licence (DB-L)",
-      yearsAgo: "3 years ago",
-      currentBusiness: "Premium Outdoor Living",
-      revenue: "High-end installations",
-      before: {
-        title: "The Starting Point",
-        description: "Jordan was a qualified carpenter with years of experience but wanted to specialize in outdoor living spaces - pergolas, decks, outdoor kitchens, and entertainment areas. He saw a market opportunity in high-end outdoor installations but needed his DB-L (Domestic Builder Limited - Carpentry) registration to legally supervise these projects and run his own business."
-      },
-      challenge: {
-        title: "The Challenge",
-        description: "Jordan's hands-on carpentry skills were excellent from years on the tools, but he lacked confidence in his theoretical knowledge. He wasn't sure he understood building codes well enough to pass the BPC test. He'd also never done a formal interview and was nervous about articulating his experience professionally. Working full-time meant he needed training that fit around his job schedule."
-      },
-      training: {
-        title: "The Training",
-        description: "Jordan enrolled in the Carpentry Licence (DB-L) course designed specifically for carpenters. Adrian focused on building Jordan's confidence by showing him he already knew more than he realized - he just needed to learn how to express it properly. The 450+ carpentry-specific practice questions helped Jordan master technical knowledge areas, while interview coaching taught him how to discuss his practical experience with authority. Adrian's teaching style made complex regulations understandable and relevant to real carpentry work."
-      },
-      result: {
-        title: "The Result",
-        description: "Jordan achieved his Carpentry Licence (DB-L) and immediately launched his own business specializing in high-end outdoor living spaces. He quickly established partnerships with premium suppliers and builders throughout Melbourne. His business focuses on quality over quantity - delivering exceptional outdoor installations. Jordan now works directly with homeowners and builders on upscale projects. His success shows how specialized licensing can open doors to profitable niche markets."
-      },
-      quote: "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on. His teaching style is clear and practical. I passed first time and launched my business within weeks. Now I'm doing the high-end outdoor work I always wanted to do, working with the best suppliers in Melbourne.",
-      icon: Award
+      licensedAgo: null,
+      outcome:
+        "Launched a business focused on high-end outdoor living spaces, partnering with numerous suppliers to deliver premium installations throughout Melbourne.",
+      icon: Award,
     },
     {
       id: "sidhu",
@@ -90,29 +54,11 @@ const SuccessStoriesPage = () => {
       initials: "S",
       gradientFrom: "from-violet-500",
       gradientTo: "to-violet-600",
-      headline: "Building New Homes Across Melbourne",
-      achievement: "Domestic Builder – Unlimited",
-      yearsAgo: "4 years ago",
-      currentBusiness: "Sidhu Building Constructions",
-      revenue: "Multiple new homes annually",
-      before: {
-        title: "The Starting Point",
-        description: "Sidhu had been working as a site supervisor for a building company for years. He managed projects, coordinated trades, and handled day-to-day construction operations. He was essentially doing a builder's job but working for someone else. Sidhu wanted to start his own building company and build new homes under his own name, but he needed his Domestic Builder Unlimited registration to make that happen."
-      },
-      challenge: {
-        title: "The Challenge",
-        description: "Sidhu's practical site management experience was extensive, but he needed to formalize his technical knowledge for the BPC licensing process. His biggest challenge was time - he was working full-time as a site supervisor and couldn't take time off for daytime training. He also wasn't confident in his test-taking abilities and worried about the BPC interview process."
-      },
-      training: {
-        title: "The Training",
-        description: "Sidhu chose Qualify Pro's Evening Builder Course specifically designed for working tradies. One evening per week (6pm–9pm) meant he could continue working while preparing for his licence. Adrian's teaching focused on understanding building principles rather than just memorizing answers - this approach resonated with Sidhu's practical experience. The small group format meant Sidhu could discuss real site scenarios and learn how regulations applied to actual building work. The interview preparation gave Sidhu the confidence to articulate his extensive site management experience professionally."
-      },
-      result: {
-        title: "The Result",
-        description: "Sidhu passed his Domestic Builder Unlimited registration and launched his own building company. Four years later, he specializes in new homes across northern and western Melbourne's growth corridors. His company has built a reputation for quality construction, modern design, and energy-efficient homes. Sidhu now manages multiple projects simultaneously and has built dozens of homes for Melbourne families. His business continues to grow as word-of-mouth referrals bring new clients. The evening course format allowed him to transition from employee to business owner without financial disruption."
-      },
-      quote: "The evening course was perfect for me - I could work during the day and study at night. Adrian made complex regulations easy to understand and gave me the confidence to pass my interview. His focus on understanding principles rather than memorizing really helped. Now I'm building new homes across Melbourne's growth corridors under my own company name.",
-      icon: Building2
+      achievement: "Domestic Builder",
+      licensedAgo: "6 years ago",
+      outcome:
+        "Runs a building company constructing new homes across Melbourne's northern and western suburbs.",
+      icon: Building2,
     },
     {
       id: "manny",
@@ -120,82 +66,50 @@ const SuccessStoriesPage = () => {
       initials: "M",
       gradientFrom: "from-amber-500",
       gradientTo: "to-amber-600",
-      headline: "From Licensed to High-Volume Builder",
-      achievement: "Domestic Builder – Unlimited",
-      yearsAgo: "5 years ago",
-      currentBusiness: "Manny's Building Company",
-      revenue: "50+ homes per year",
-      before: {
-        title: "The Starting Point",
-        description: "Manny had years of building experience and wanted to scale up from working for others to running his own high-volume building operation. He had the skills and experience but lacked the formal registration needed to legally operate as a builder. He wanted to build volume residential projects but needed his Domestic Builder Unlimited licence to do so."
-      },
-      challenge: {
-        title: "The Challenge",
-        description: "Manny found the BPC licensing process intimidating. Despite his extensive practical experience, he wasn't confident about the formal testing and interview process. He'd heard stories of experienced builders failing multiple times and wasn't sure how to prepare effectively. He needed training that would give him confidence and ensure he passed on the first attempt."
-      },
-      training: {
-        title: "The Training",
-        description: "Manny enrolled in Qualify Pro's Comprehensive Builder Program seeking thorough preparation. Adrian assessed Manny's knowledge and identified specific areas needing improvement while recognizing his strong practical foundation. The personalized approach meant Manny focused training time on his weak areas rather than covering material he already knew. The small class size (maximum 10 students) provided an environment where Manny could ask questions freely without feeling rushed. The 600+ practice questions prepared Manny thoroughly for the BPC test format, and the interview coaching taught him how to present his experience professionally."
-      },
-      result: {
-        title: "The Result",
-        description: "Manny passed his Domestic Builder Unlimited registration first time. Five years later, he leads a high-volume building company completing 50+ homes per year throughout Melbourne. His company has built a strong reputation for quality construction, consistency, and excellent client relationships. Manny has developed efficient systems and processes allowing him to manage multiple projects simultaneously while maintaining quality standards. His success demonstrates how proper licensing preparation combined with business acumen can create a thriving high-volume building operation."
-      },
-      quote: "Small classes made all the difference. I could ask questions without feeling rushed or stupid, and Adrian always took the time to explain things properly. He identified exactly where I needed to improve and focused on those areas. I passed first time and now I'm running a successful high-volume building company. Worth every dollar.",
-      icon: TrendingUp
+      // Adrian's source gives no licence class for Manny.
+      achievement: null,
+      licensedAgo: "5 years ago",
+      outcome: "Leads a high-volume building company completing 50+ homes a year.",
+      icon: TrendingUp,
     },
     {
       id: "ben",
       name: "Ben",
       initials: "B",
-      gradientFrom: "from-teal-500",
-      gradientTo: "to-teal-600",
-      headline: "Renovation Specialist Success",
-      achievement: "Domestic Builder – Unlimited",
-      yearsAgo: "3 years ago",
-      currentBusiness: "Ben's Renovations",
-      revenue: "40+ projects annually",
-      before: {
-        title: "The Starting Point",
-        description: "Ben was an experienced tradie specializing in renovations, particularly kitchen and bathroom projects. He'd been working in the renovation space for years but wanted to run his own renovation business and take on larger projects. However, he'd previously attempted the BPC licensing process independently and failed. The experience left him frustrated and questioning whether he was capable of getting his licence."
-      },
-      challenge: {
-        title: "The Challenge",
-        description: "Ben's biggest challenge was rebuilding confidence after his previous failed attempt at BPC registration. He wasn't sure what he'd done wrong the first time or how to improve for a second attempt. He was considering giving up on his dream of running his own renovation business. He needed training that would show him exactly where his knowledge gaps were and how to address them effectively."
-      },
-      training: {
-        title: "The Training",
-        description: "Ben enrolled in Qualify Pro's program knowing he could sit down again for free if needed, which gave him the confidence to try again. Adrian identified that Ben's practical renovation knowledge was strong, but he'd struggled with articulating building principles and regulations in the interview. Rather than starting from scratch, Adrian focused on filling specific knowledge gaps and teaching interview techniques. The supportive, patient teaching style helped Ben rebuild his confidence. Mock interviews prepared Ben to discuss his renovation experience professionally and demonstrate his understanding of building regulations."
-      },
-      result: {
-        title: "The Result",
-        description: "Ben passed his Domestic Builder Unlimited registration on the first attempt after completing Adrian's program. Today, he runs a thriving renovation business specializing in kitchen and bathroom projects across Melbourne's inner suburbs. His company completes 40+ projects annually with a focus on quality workmanship and client satisfaction. Ben's renovation business has grown through word-of-mouth referrals and positive reviews. His success story demonstrates that previous failures don't determine future outcomes - with proper preparation and support, success is achievable."
-      },
-      quote: "I failed on my own, but with Adrian's help I passed easily the second time. His teaching style focuses on understanding, not just memorizing answers. He was patient, supportive, and identified exactly what I needed to work on. Now I run my own renovation business doing 40+ projects a year. I'm so glad I didn't give up on my dream.",
-      icon: Award
-    }
+      gradientFrom: "from-slate-500",
+      gradientTo: "to-slate-600",
+      achievement: "Bathroom and Kitchen (Limited)",
+      licensedAgo: "4 years ago",
+      outcome: "Completes 40+ renovation projects a year in Melbourne's inner suburbs.",
+      icon: Award,
+    },
   ];
 
+  /** Generic and true of every student — not a per-student claim. */
+  const TRAINING_LINE = "Prepared for BPC registration with Adrian at Qualify Pro.";
+
+  // Describes how the program is run — deliberately not a claim about what the
+  // featured students experienced, which Adrian's source material does not cover.
   const successFactors = [
     {
       icon: Users,
       title: "Small Class Sizes",
-      description: "Every student received individual attention in classes of maximum 10 people. This personalized approach allowed Adrian to identify and address each student's specific needs."
+      description: "Group courses are capped at 10 students, so Adrian can work to each person's specific needs rather than teach to the room."
     },
     {
       icon: Target,
       title: "Identified Knowledge Gaps",
-      description: "Rather than generic training, Adrian assessed each student's strengths and weaknesses, focusing on filling specific knowledge gaps rather than teaching everything from scratch."
+      description: "Rather than generic training, Adrian assesses your strengths and weaknesses and focuses on filling specific gaps rather than teaching everything from scratch."
     },
     {
       icon: CheckCircle2,
       title: "Built on Existing Strengths",
-      description: "Adrian recognized what students already knew from practical experience and built confidence by showing them their strengths while systematically improving weak areas."
+      description: "Adrian recognises what you already know from practical experience and builds on it while systematically improving weaker areas."
     },
     {
       icon: Star,
-      title: "Understanding Over Memorization",
-      description: "Students learned building principles and regulations deeply rather than memorizing answers. This deeper understanding helped them pass interviews and become better builders."
+      title: "Understanding Over Memorisation",
+      description: "The focus is on understanding building principles and regulations, and on finding and applying the right reference quickly, rather than memorising answers."
     }
   ];
 
@@ -228,7 +142,7 @@ const SuccessStoriesPage = () => {
 
   return (
     <PageTransition>
-      <Seo title={"Student Success Stories | Qualify Pro Melbourne"} description={"Real Melbourne tradies who gained their building registration with Qualify Pro and went on to build thriving construction businesses."} path="/success-stories" />
+      <Seo title={"Student Success Stories | Qualify Pro Melbourne"} description={"Real Melbourne tradies who gained their building registration with Qualify Pro and went on to run their own businesses."} path="/success-stories" />
       <div className="min-h-screen">
         <Navigation />
       
@@ -254,7 +168,7 @@ const SuccessStoriesPage = () => {
           >
             <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
               <Star className="h-4 w-4 text-blue-400" />
-              <span className="text-blue-300 text-sm font-medium">95% Pass Rate</span>
+              <span className="text-blue-300 text-sm font-medium">Real Student Outcomes</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -264,15 +178,14 @@ const SuccessStoriesPage = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-              Our students achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. Here are their stories of transformation.
+              Tradies who gained their registration with the Building and Plumbing Commission (BPC), formerly the VBA. Here is where they are now.
             </p>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <div className="grid grid-cols-2 gap-4 max-w-xl mx-auto">
               {[
-                { value: "500+", label: "Licensed Tradies" },
-                { value: "95%", label: "Pass Rate" },
-                { value: "10+", label: "Years Experience" },
+                { value: "100+", label: "Tradies Helped By Adrian" },
+                { value: "2017", label: "Training Since" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -291,7 +204,7 @@ const SuccessStoriesPage = () => {
         </div>
       </section>
 
-      {/* Success Rate Section */}
+      {/* After Registration */}
       <section className="py-20 bg-white">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -305,20 +218,18 @@ const SuccessStoriesPage = () => {
               <div className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">High</div>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Our Pass Rate
+              After Registration
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Students who complete our programs achieve a 95% pass rate for their BPC (formerly VBA) registration, based on Qualify Pro's own student records. 
-              Here's what happens after they get licensed:
+              Here's what the students featured here went on to do after they got licensed:
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, DB-L Carpentry, or Commercial licences", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
+              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, Domestic Builder, DB-L Carpentry and Bathroom and Kitchen Limited registration", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
               { icon: Briefcase, title: "Started Businesses", description: "Many students launched their own building companies and are now their own bosses", gradient: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50" },
-              { icon: TrendingUp, title: "Advanced Careers", description: "Students take on bigger projects and greater responsibility as licensed builders", gradient: "from-violet-500 to-violet-600", bg: "bg-violet-50" },
-            ].map((item, index) => {
+                          ].map((item, index) => {
               const Icon = item.icon;
               return (
                 <motion.div
@@ -352,7 +263,7 @@ const SuccessStoriesPage = () => {
           >
             <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
               {/* Header */}
-              <motion.div 
+              <motion.div
                 className="text-center mb-12"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -360,21 +271,22 @@ const SuccessStoriesPage = () => {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                  {study.headline}
+                  {study.name}
                 </h2>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-lg text-slate-600">
-                  <span className="font-semibold text-blue-600">{study.achievement}</span>
-                  <span className="hidden sm:block">•</span>
-                  <span>Licensed {study.yearsAgo}</span>
-                  <span className="hidden sm:block">•</span>
-                  <span>{study.currentBusiness}</span>
+                  {study.achievement && (
+                    <span className="font-semibold text-blue-600">{study.achievement}</span>
+                  )}
+                  {study.achievement && study.licensedAgo && (
+                    <span className="hidden sm:block">•</span>
+                  )}
+                  {study.licensedAgo && <span>Licensed {study.licensedAgo}</span>}
                 </div>
               </motion.div>
 
-              {/* Avatar and Stats */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                 {/* Avatar */}
-                <motion.div 
+                <motion.div
                   className="lg:col-span-1"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -384,79 +296,29 @@ const SuccessStoriesPage = () => {
                   <div className={`aspect-square max-w-[200px] mx-auto rounded-2xl bg-gradient-to-br ${study.gradientFrom} ${study.gradientTo} flex items-center justify-center shadow-2xl`}>
                     <span className="text-7xl font-bold text-white">{study.initials}</span>
                   </div>
-
-                  {/* Quick Stats */}
-                  <div className="mt-6 space-y-3">
-                    {[
-                      { label: "Licence Type", value: study.achievement },
-                      { label: "Current Business", value: study.currentBusiness },
-                      { label: "Scale of Work", value: study.revenue },
-                    ].map((stat, idx) => (
-                      <div key={idx} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                        <div className="text-sm text-slate-500 mb-1">{stat.label}</div>
-                        <div className="font-semibold text-slate-900">{stat.value}</div>
-                      </div>
-                    ))}
-                  </div>
                 </motion.div>
 
-                {/* Story Content */}
-                <motion.div 
+                {/* Outcome */}
+                <motion.div
                   className="lg:col-span-2 space-y-6"
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  {[
-                    { data: study.before, color: "slate", number: 1 },
-                    { data: study.challenge, color: "amber", number: 2 },
-                    { data: study.training, color: "blue", number: 3 },
-                    { data: study.result, color: "emerald", number: 4 },
-                  ].map((section, idx) => (
-                    <div 
-                      key={idx} 
-                      className={`bg-white p-6 rounded-xl shadow-sm border-l-4 ${
-                        section.color === "slate" ? "border-slate-400" :
-                        section.color === "amber" ? "border-amber-500" :
-                        section.color === "blue" ? "border-blue-600" :
-                        "border-emerald-500"
-                      }`}
-                    >
-                      <h3 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold ${
-                          section.color === "slate" ? "bg-slate-400" :
-                          section.color === "amber" ? "bg-amber-500" :
-                          section.color === "blue" ? "bg-blue-600" :
-                          "bg-emerald-500"
-                        }`}>
-                          {section.number}
-                        </div>
-                        {section.data.title}
-                      </h3>
-                      <p className="text-slate-600 leading-relaxed">{section.data.description}</p>
-                    </div>
-                  ))}
+                  <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-3">
+                      <Icon className="h-6 w-6 text-emerald-600" />
+                      Where {study.name} is now
+                    </h3>
+                    <p className="text-slate-600 leading-relaxed">{study.outcome}</p>
+                  </div>
+                  <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">The training</h3>
+                    <p className="text-slate-600 leading-relaxed">{TRAINING_LINE}</p>
+                  </div>
                 </motion.div>
               </div>
-
-              {/* Quote */}
-              <motion.div 
-                className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 md:p-12 rounded-2xl shadow-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <Quote className="h-12 w-12 text-blue-400 mb-4" />
-                <p className="text-white text-lg md:text-xl leading-relaxed mb-6">
-                  "{study.quote}"
-                </p>
-                <div className="text-white">
-                  <div className="font-bold text-2xl">— {study.name}</div>
-                  <div className="text-slate-400">{study.achievement}</div>
-                </div>
-              </motion.div>
             </div>
           </section>
         );
@@ -473,11 +335,11 @@ const SuccessStoriesPage = () => {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              What These Success Stories{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Have In Common</span>
+              How The Program{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Works</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Different backgrounds, same outcome - how Adrian's approach helped each one succeed
+              Different backgrounds, different classes — the same approach to preparing for registration
             </p>
           </motion.div>
 
@@ -511,9 +373,9 @@ const SuccessStoriesPage = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Every student came from a different background with different challenges. What they 
-              all received was personalized training focused on their individual needs. That's why 
-              our students achieve a 95% pass rate (based on Qualify Pro's own student records) - because we don't believe in one-size-fits-all training.
+              Every student comes from a different background with different gaps. The training is
+              built around those gaps rather than a fixed syllabus — we don't believe in
+              one-size-fits-all training.
             </p>
           </motion.div>
         </div>
@@ -610,30 +472,6 @@ const SuccessStoriesPage = () => {
         </div>
       </section>
 
-      {/* Video Testimonials Placeholder */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <Video className="h-10 w-10 text-white" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Video Testimonials Coming Soon
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              We're currently filming video testimonials with our successful students. 
-              Check back soon to watch them share their stories in their own words.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
         {/* Background Pattern */}
@@ -659,7 +497,7 @@ const SuccessStoriesPage = () => {
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Success Story?</span>
             </h2>
             <p className="text-xl md:text-2xl text-slate-300 mb-10">
-              Join hundreds of Melbourne tradies who have achieved their building registration
+              Join the 100+ Melbourne tradies Adrian has helped achieve their building registration
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">

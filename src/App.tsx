@@ -2,12 +2,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import ScrollToTopButton from "./components/ScrollToTop";
 import PageSkeleton from "./components/PageSkeleton";
 import AnalyticsProvider from "./components/AnalyticsProvider";
 import CallBar from "./components/CallBar";
+import RequireAdmin from "./components/RequireAdmin";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -62,9 +63,10 @@ const App = () => (
             <Route path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
             <Route path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
             <Route path="/bpc-exam-changes" element={<BpcExamChanges />} />
-            <Route path="/email-templates" element={<EmailTemplates />} />
+            <Route path="/email-templates" element={<Navigate to="/admin/email-templates" replace />} />
             <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
+            <Route path="/admin/email-templates" element={<RequireAdmin><EmailTemplates /></RequireAdmin>} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

@@ -148,7 +148,6 @@ const EmailTemplates = () => {
                   <p>In the meantime, here's what most tradies want to know:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Our courses run in small groups (max 10) so you get real support</li>
-                    <li>Our students achieve a consistently high pass rate</li>
                     <li>We focus on one thing: getting you registered</li>
                   </ul>
                   <p>Talk soon,</p>
@@ -232,7 +231,7 @@ const EmailTemplates = () => {
                   <Sig />
                 </div>
               </div>
-              <WhyNote text="Your competitors have 100-400+ reviews. You need to start collecting them to compete on Google Maps." />
+              <WhyNote text="Ask every student who finishes — the best time is right after they get their result." />
             </ScrollReveal>
 
           </div>

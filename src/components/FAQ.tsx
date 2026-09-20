@@ -7,33 +7,34 @@ import {
 import { motion } from "framer-motion";
 import { HelpCircle, MessageCircle } from "lucide-react";
 import { courseById, practiceQuestionsSummary } from "@/data/courses";
+import { EXPERIENCE_BY_CLASS_SUMMARY } from "@/data/eligibility";
 
 const FAQ = () => {
   const faqs = [
     {
       question: "How long is the process before getting my licence?",
       answer:
-        `The timeline varies depending on your current experience and the course you choose. Our courses range from ${courseById.carpentry.duration} (${courseById.carpentry.name}) to ${courseById.comprehensive.duration} (${courseById.comprehensive.name}). After completing the course, you'll submit your application to BPC (formerly VBA). Most students gain their licence within 3-6 months of starting with us, including course completion, application processing, and BPC interview.`,
+        `The timeline varies depending on your current experience and the course you choose. Our courses range from ${courseById.carpentry.duration} (${courseById.carpentry.name}) to ${courseById.comprehensive.duration} (${courseById.comprehensive.name}). After completing the course, you'll submit your application to the Building and Plumbing Commission (BPC), formerly the VBA. BPC's assessment and processing time sits on top of the course and varies by application, so the total time to registration depends on them rather than on us.`,
     },
     {
       question: "What experience do I need?",
       answer:
-        "You need a minimum of 2 years practical trade experience in your field. BPC requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.",
+        `${EXPERIENCE_BY_CLASS_SUMMARY} BPC also requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.`,
     },
     {
       question: "Do you help with the applications?",
       answer:
-        "Absolutely! Complete application support is included in all our programs. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets BPC requirements. We've done this hundreds of times and know exactly what BPC is looking for.",
+        "Application support is included in every program. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets BPC requirements. The Carpentry Licence (DB-L) course covers application guidance and portfolio support; its Application Prep Package add-on adds complete form assistance, reference coordination and submission checking. Adrian has guided 100+ tradies through this and knows exactly what BPC is looking for.",
     },
     {
       question: "What qualifications do I need before I start?",
       answer:
-        "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on BPC interview preparation and application support - we're a specialist BPC preparation program and don't issue certificates. We work with experienced tradies who have the base qualifications but need help passing their licensing interview.",
+        "You'll need your trade certificate and relevant work experience. If you're missing certain qualifications, we can guide you on what's needed and point you in the right direction. However, we focus on BPC exam preparation and application support - we're a specialist BPC preparation program and don't issue certificates. We work with experienced tradies who have the base qualifications but need help getting registered.",
     },
     {
-      question: "What does the BPC test involve?",
+      question: "What does the BPC exam involve?",
       answer:
-        `The BPC assessment includes multiple-choice tests covering building regulations, standards, and technical knowledge specific to your licence class. You'll also have an interview where they assess your understanding of building principles, problem-solving abilities, and practical knowledge. Our programs include ${practiceQuestionsSummary} and extensive interview preparation to ensure you're fully ready for both components.`,
+        `BPC now runs a single supervised online exam covering building regulations, standards, and technical knowledge specific to your licence class. It is reference-based — you work with the Building Act, the Regulations, the NCC and the relevant Australian Standards — so it tests how fast you can find and apply the right answer rather than what you have memorised. Our programs include ${practiceQuestionsSummary} to build that speed.`,
     },
   ];
 

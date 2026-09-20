@@ -1,6 +1,6 @@
 # Tradie License Prep
 
-Professional mentorship for Melbourne tradies seeking VBA building registration.
+Professional mentorship for Melbourne tradies seeking BPC building registration.
 
 ## Technologies
 

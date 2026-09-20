@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Award, MapPin, TrendingUp } from "lucide-react";
+import { ArrowRight, Users, Award, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { trackCtaClick } from "@/lib/analytics";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
+
+/** Lets a trailing odd item fill the row so a two-column grid never shows a gap. */
+const isLastInOddRow = (index: number, total: number) =>
+  total % 2 === 1 && index === total - 1;
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -20,7 +24,6 @@ const Hero = () => {
   };
 
   const trustBadges = [
-    { icon: TrendingUp, stat: "95%", label: "Pass Rate" },
     { icon: Award, stat: "10+", label: "Years Exp." },
     { icon: Users, stat: "Max 10", label: "Per Class" },
     { icon: MapPin, stat: "Melbourne", label: "In-Person" },
@@ -155,7 +158,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              Join <span className="text-blue-300 font-semibold">500+</span> tradies who've gained their registration
+              Join the <span className="text-blue-300 font-semibold">100+</span> tradies Adrian has helped gain their registration
             </motion.p>
           </div>
 
@@ -183,7 +186,9 @@ const Hero = () => {
                     return (
                       <motion.div
                         key={index}
-                        className="group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-3 sm:p-4 hover:border-blue-400/40 transition-all duration-300"
+                        className={`group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-3 sm:p-4 hover:border-blue-400/40 transition-all duration-300 ${
+                          isLastInOddRow(index, trustBadges.length) ? "col-span-2" : ""
+                        }`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}

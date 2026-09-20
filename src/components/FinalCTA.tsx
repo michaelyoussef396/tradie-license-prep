@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, ArrowRight, CheckCircle2, Clock, Shield } from "lucide-react";
+import { Phone, Mail, ArrowRight, CheckCircle2, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -119,7 +119,6 @@ const FinalCTA = () => {
   const benefits = [
     { icon: CheckCircle2, text: "Free consultation - no obligation" },
     { icon: Clock, text: "Response within 24 hours" },
-    { icon: Shield, text: "95% pass rate (own student records)" },
   ];
 
   return (
@@ -291,7 +290,7 @@ const FinalCTA = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Licence Type *
+                      Licence Type
                     </label>
                     <Select value={formData.licenseType} onValueChange={(value) => setFormData(prev => ({ ...prev, licenseType: value }))}>
                       <SelectTrigger className="w-full h-12 text-base border-gray-200">
@@ -319,7 +318,7 @@ const FinalCTA = () => {
                       onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, referralCode: e.target.value })); }}
                       className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-gray-400 mt-1">Got a code from a mate? Enter it for $100 off.</p>
+                    <p className="text-xs text-gray-400 mt-1">Got a code from a mate? Enter it here.</p>
                   </div>
 
                   <div>
