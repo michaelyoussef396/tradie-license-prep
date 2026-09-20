@@ -55,7 +55,7 @@ Status values are plain text, defined in `src/components/admin/PipelineTab.tsx`:
 All five in `supabase/functions/` are Deno, run with **`verify_jwt = false`** (`supabase/config.toml`), and are therefore publicly callable — each must validate its own input. Email goes through Resend (`RESEND_API_KEY`); HTML is hand-built inline with table layouts and every interpolated value passed through the local `esc()`.
 
 ### Analytics
-Two deliberate layers: hardcoded gtag/Clarity snippets in `index.html` for first paint, and `src/lib/analytics.ts` + `AnalyticsProvider` for SPA route changes and custom events. **Everything is suppressed on `/admin*`** — keep that guard in any new tracking. `trackLeadConversion()` fires the Google Ads conversion at most once per page session.
+Two deliberate layers: hardcoded gtag/Clarity snippets in `index.html` for first paint, and `src/lib/analytics.ts` + `AnalyticsProvider` for SPA route changes and custom events. **Everything is suppressed on internal routes** — `isInternalRoute()` in `src/lib/analytics.ts` is the single guard, covering `/admin*` plus the legacy `/email-templates` redirect. `AnalyticsProvider` imports it rather than re-testing the prefix; keep that guard in any new tracking. `trackLeadConversion()` fires the Google Ads conversion at most once per page session.
 
 ### SEO
 Per-page `<Seo>` (react-helmet-async) sets title/description/canonical/OG against `https://www.qualifypro.com.au`; `/thank-you` is `noindex` and excluded from the sitemap. Site-wide `LocalBusiness` JSON-LD lives in `index.html`.

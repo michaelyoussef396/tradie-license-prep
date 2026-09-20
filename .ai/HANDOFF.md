@@ -281,12 +281,18 @@ the same one `/admin/dashboard` uses — `AdminDashboard`'s inline copy was extr
 `src/components/RequireAdmin.tsx` so the two cannot drift. The competitor-review figure
 ("Your competitors have 100-400+ reviews") is removed from the review-request template.
 
-**Caveat:** this is a client-side guard, so it stops casual access but the page's markup still
-ships in the JS bundle. It holds no data and makes no authenticated calls, so nothing privileged
-is exposed — but it is not a server-side control. The route also still sits outside `/admin*`,
-which is the prefix `src/lib/analytics.ts` uses to suppress GA4/Clarity, so this internal page is
-still tracked. Moving it to `/admin/email-templates` would fix that; not done, as it changes a URL
-Adrian may have bookmarked.
+**Caveat:** this is a client-side guard, so it stops casual access but the gated page's markup
+still ships in the JS bundle. It holds no data and makes no authenticated calls, so nothing
+privileged is exposed — but it is not a server-side control.
+
+**Analytics and crawling, now resolved.** The page moved to `/admin/email-templates`, so it is
+covered by the `/admin*` analytics suppression and by the existing `Disallow: /admin` in
+`public/robots.txt` — at `/email-templates` it was crawlable, though it was never in the sitemap.
+The old URL redirects three ways over: a Vercel `redirects` entry (applied before the SPA rewrite,
+so production never renders it), a client-side `<Navigate replace>` for dev and in-app links, and
+`/email-templates` is listed in `INTERNAL_PATH_PREFIXES` so even the brief render before the
+client-side redirect fires is not tracked. The Vercel redirect is `permanent: false` (307)
+deliberately — a 308 would be cached hard by browsers and is awkward to undo for an internal page.
 
 ---
 
