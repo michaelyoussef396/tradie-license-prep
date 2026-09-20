@@ -291,7 +291,7 @@ const FinalCTA = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Licence Type *
+                      Licence Type
                     </label>
                     <Select value={formData.licenseType} onValueChange={(value) => setFormData(prev => ({ ...prev, licenseType: value }))}>
                       <SelectTrigger className="w-full h-12 text-base border-gray-200">

@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/accordion";
 import { getCourse, courseById, practiceQuestionsSummary } from "@/data/courses";
 import {
+  COMMERCIAL_EXPERIENCE_NOTE,
   EXPERIENCE_BY_CLASS_SUMMARY,
   LIMITED_EXPERIENCE_SUMMARY,
   UNLIMITED_EXPERIENCE_SUMMARY,
@@ -78,7 +79,7 @@ const Courses = () => {
         { icon: Check, text: "Documentation and record-keeping systems" },
       ],
       schedule: `${getCourse("comprehensive").duration} of intensive training with flexible scheduling options. Classes run weekly with additional consultation sessions available.`,
-      requirements: `${UNLIMITED_EXPERIENCE_SUMMARY} Trade qualification preferred. Technical references from registered builders required.`,
+      requirements: `${UNLIMITED_EXPERIENCE_SUMMARY} ${COMMERCIAL_EXPERIENCE_NOTE} Trade qualification preferred. Technical references from registered builders required.`,
       featured: false,
       accent: "from-blue-500 to-blue-600"
     },
@@ -140,7 +141,7 @@ const Courses = () => {
   const faqItems = [
     {
       question: "How long is the process before getting my licence?",
-      answer: "The training duration varies by program (6-13 weeks), but the complete process including application submission and processing by the Building and Plumbing Commission (BPC), formerly the VBA, typically takes 3-6 months total. We help expedite this by ensuring your application is perfect before submission."
+      answer: "The training duration varies by program (6-13 weeks). Application submission and processing by the Building and Plumbing Commission (BPC), formerly the VBA, sits on top of that and varies by application. We help by making sure your application is complete and correct before it goes in."
     },
     {
       question: "What experience do I need to enroll?",
@@ -148,7 +149,7 @@ const Courses = () => {
     },
     {
       question: "Do you help with the BPC applications?",
-      answer: "Yes! Complete application support is included in all our programs. We help you prepare your portfolio, gather technical references, complete all required documentation, and ensure everything is correct before submission. This significantly increases your chances of approval."
+      answer: "Yes. Application support is included in every program. We help you prepare your portfolio, gather technical references, complete the required documentation, and check everything before submission. The Carpentry Licence (DB-L) course covers application guidance and portfolio support; its Application Prep Package add-on adds complete form assistance, reference coordination and submission checking."
     },
     {
       question: "What does the BPC exam involve?",
@@ -213,7 +214,7 @@ const Courses = () => {
               </span>
             </h1>
             <p className="text-xl text-blue-100/80 max-w-2xl mx-auto">
-              Choose the program that fits your schedule and goals. All programs include a free resit if you don’t pass first time, plus complete application support.
+              Choose the program that fits your schedule and goals. All programs include a free resit if you don’t pass first time, plus application support.
             </p>
           </motion.div>
         </div>

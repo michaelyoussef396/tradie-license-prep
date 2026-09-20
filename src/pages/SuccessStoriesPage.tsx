@@ -13,7 +13,6 @@ import {
   Users,
   Target,
   Rocket,
-  Video,
   Star,
   Briefcase,
   Phone,
@@ -89,26 +88,28 @@ const SuccessStoriesPage = () => {
   /** Generic and true of every student — not a per-student claim. */
   const TRAINING_LINE = "Prepared for BPC registration with Adrian at Qualify Pro.";
 
+  // Describes how the program is run — deliberately not a claim about what the
+  // featured students experienced, which Adrian's source material does not cover.
   const successFactors = [
     {
       icon: Users,
       title: "Small Class Sizes",
-      description: "Every student received individual attention in classes of maximum 10 people. This personalized approach allowed Adrian to identify and address each student's specific needs."
+      description: "Group courses are capped at 10 students, so Adrian can work to each person's specific needs rather than teach to the room."
     },
     {
       icon: Target,
       title: "Identified Knowledge Gaps",
-      description: "Rather than generic training, Adrian assessed each student's strengths and weaknesses, focusing on filling specific knowledge gaps rather than teaching everything from scratch."
+      description: "Rather than generic training, Adrian assesses your strengths and weaknesses and focuses on filling specific gaps rather than teaching everything from scratch."
     },
     {
       icon: CheckCircle2,
       title: "Built on Existing Strengths",
-      description: "Adrian recognized what students already knew from practical experience and built confidence by showing them their strengths while systematically improving weak areas."
+      description: "Adrian recognises what you already know from practical experience and builds on it while systematically improving weaker areas."
     },
     {
       icon: Star,
-      title: "Understanding Over Memorization",
-      description: "Students learned building principles and regulations deeply rather than memorizing answers. This deeper understanding helped them pass and become better builders."
+      title: "Understanding Over Memorisation",
+      description: "The focus is on understanding building principles and regulations, and on finding and applying the right reference quickly, rather than memorising answers."
     }
   ];
 
@@ -226,12 +227,11 @@ const SuccessStoriesPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, DB-L Carpentry, or Commercial licences", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
+              { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, Domestic Builder, DB-L Carpentry and Bathroom and Kitchen Limited registration", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
               { icon: Briefcase, title: "Started Businesses", description: "Many students launched their own building companies and are now their own bosses", gradient: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50" },
-              { icon: TrendingUp, title: "Advanced Careers", description: "Students take on bigger projects and greater responsibility as licensed builders", gradient: "from-violet-500 to-violet-600", bg: "bg-violet-50" },
-            ].map((item, index) => {
+                          ].map((item, index) => {
               const Icon = item.icon;
               return (
                 <motion.div
@@ -337,11 +337,11 @@ const SuccessStoriesPage = () => {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              What These Success Stories{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Have In Common</span>
+              How The Program{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Works</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Different backgrounds, same outcome - how Adrian's approach helped each one succeed
+              Different backgrounds, different classes — the same approach to preparing for registration
             </p>
           </motion.div>
 
@@ -470,30 +470,6 @@ const SuccessStoriesPage = () => {
                 <Link to="/courses">View Our Programs</Link>
               </Button>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Video Testimonials Placeholder */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <Video className="h-10 w-10 text-white" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Video Testimonials Coming Soon
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              We're currently filming video testimonials with our successful students. 
-              Check back soon to watch them share their stories in their own words.
-            </p>
           </motion.div>
         </div>
       </section>

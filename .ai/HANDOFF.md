@@ -8,6 +8,7 @@
 3. `Remove the referral discount amount from every surface pending the 15%`
 4. `Add CLAUDE.md with a public-claims rule`
 5. `Use class-neutral experience wording for the Evening Builder Course`
+6. `Resolve the Codex review: three missed claim surfaces, four unsupported promises`
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -214,6 +215,9 @@ All 13 removed site-wide as unverified testimonials. Line numbers are from the p
 - `:144` **Manny** — "Small classes made all the difference. I could ask questions without feeling rushed or stupid, and Adrian always took the time to explain things properly. He identified exactly where I needed to improve and focused on those areas. I passed first time and now I'm running a successful high-volume building company. Worth every dollar."
 - `:174` **Ben** — "I failed on my own, but with Adrian's help I passed easily the second time. His teaching style focuses on understanding, not just memorizing answers. He was patient, supportive, and identified exactly what I needed to work on. Now I run my own renovation business doing 40+ projects a year. I'm so glad I didn't give up on my dream."
 
+**`src/components/AboutAdrian.tsx`** (homepage) — found by the Codex review; hardcoded in JSX rather than a `quote:` field, so the original inventory missed it. Attributed only to "Graduate feedback", i.e. to no one.
+- **unattributed** — "Patient and understandable - makes things simple and straightforward. Adrian doesn't just teach from a book, he explains it like a tradie would."
+
 **`src/pages/About.tsx`** — the entire "What Students Say" section was removed; all four items were quotes.
 - `:93` **Jordan** (DB-L Carpentry Licence) — "Adrian is patient and makes everything easy to understand. He doesn't rush through material - he makes sure everyone gets it before moving on."
 - `:100` **Manny** (Domestic Builder - Unlimited) — "What I appreciated most was how Adrian personalized his teaching. He identified where I was weak and spent extra time helping me improve those areas."
@@ -226,12 +230,29 @@ All 13 removed site-wide as unverified testimonials. Line numbers are from the p
 - `:126` **Jordan** ("Licensed carpenter running outdoor living business") — "One-on-one training was worth every dollar. Adrian identified exactly where I was weak and we focused on those areas. The flexible schedule meant I could fit it around my work commitments."
 - `:149` **Jordan** ("Licensed DB-L carpenter") — "The DB-L course was exactly what I needed. Adrian knows the carpentry trade inside out and focused on what BPC actually asks. Passed first time and now running my own carpentry business."
 
+### 2.9 Commercial (Low-Rise) experience minimum — pending Adrian
+The Comprehensive course is sold for domestic **and** commercial low-rise, but the confirmed
+3-years/3-projects figure covers Domestic Builder (Unlimited) only. `UNLIMITED_EXPERIENCE_SUMMARY`
+now names its class and `COMMERCIAL_EXPERIENCE_NOTE` says commercial requirements differ and will
+be confirmed on enquiry. No commercial figure is claimed. Needs Adrian's confirmation.
+
+### 2.10 Registration turnaround — removed pending confirmation
+"Most students gain their licence within 3-6 months" (and "within a few months") came off
+`components/FAQ.tsx`, `pages/Courses.tsx` and `pages/FAQ.tsx`. Course durations remain; BPC
+processing is now described as theirs and varying. Restore a turnaround only with a confirmed
+figure and a stated starting point.
+
+### 2.11 Video testimonials — removed pending confirmation
+`SuccessStoriesPage` promised testimonials "currently being filmed". Removed. Prior heading:
+"Video Testimonials Coming Soon"; body: "We're currently filming video testimonials with our
+successful students. Check back soon to watch them share their stories in their own words."
+
 ---
 
 ## 3. Open questions and judgment calls
 
 1. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
-2. **`95% pass rate`** is out of scope and untouched. Always attributed to "Qualify Pro's own student records". It is now the last large unverified number on the site.
+2. **`95% pass rate`** is out of scope and untouched. **Correction:** an earlier draft of this file said it is "always attributed to Qualify Pro's own student records" — that was wrong. `index.html:29`, `:37`, `:43` and `src/pages/Index.tsx:18` publish it bare in metadata, and `Hero.tsx:23` / `Footer.tsx:59` render it as an unqualified stat. It is the last large unverified number on the site and is in the confirmation queue (§5).
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
 4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
 5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
@@ -251,3 +272,34 @@ stat fields      swept every value:/number:/highlight: literal; no stale figures
 ```
 
 Not merged. Branch `claims-sweep-2026-09`.
+
+---
+
+## 5. Confirmation queue — send to Adrian
+
+Concrete claims already live on the site for which no written confirmation is on record.
+Raised by the Codex review as traceability gaps. **Not removed** — the review is explicit these
+are gaps in the record, not findings that the facts are false, and stripping them would delete
+course durations, credentials and the whole BPC explainer. They need one confirmation pass.
+
+| # | Claim | Where |
+|---|---|---|
+| 1 | 95% pass rate (and whether the student-record attribution must appear everywhere) | `Hero.tsx:23`, `TrustBar.tsx:8`, `Footer.tsx:52`, `:59`, `index.html:29`, `:37`, `:43`, `Index.tsx:18`, + 10 more |
+| 2 | Course durations: 13 / 7 / 9 / 6 weeks; 3 hrs per week private; 8-month platform access | `src/data/courses.ts` |
+| 3 | Maximum 10 students per group course | `courses.ts` ×3, `Hero.tsx`, `TrustBar.tsx`, `WhyChooseAdrian.tsx`, `About.tsx`, `FAQ.tsx`, `send-lead-emails`, `EmailTemplates.tsx` |
+| 4 | Response / callback within 24 hours | `Contact.tsx` ×5, `FinalCTA.tsx` ×3, `ThankYou.tsx` ×2, `BuildersLicenceMelbourne.tsx`, `send-lead-emails`, `EmailTemplates.tsx` |
+| 5 | Consultation 15–20 minutes; eligibility check 2 minutes | `Contact.tsx:193`, `BuilderRegistrationCourseMelbourne.tsx` ×3, `BpcExamChanges.tsx:54` |
+| 6 | Adrian's Unlimited + commercial low-rise registration, carpentry qualification, no domestic project-value limit, commercial scope to three storeys | `AboutAdrian.tsx:8-10`, `About.tsx:30-41`, `FAQ.tsx:42` |
+| 7 | 10+ years industry experience (distinct from training since 2017, which is confirmed) | `Hero.tsx:24`, `TrustBar.tsx:13` |
+| 8 | Enrolment preferences beyond the class minimums: trade qualification preferred, references required, currently working preferred, trade certificate required | `Courses.tsx` ×5 |
+| 9 | Trade quals, same-or-higher-class references and portfolio as general BPC requirements | `components/FAQ.tsx`, `pages/FAQ.tsx`, `BuilderRegistrationCourseMelbourne.tsx` |
+| 10 | Evening course is "Most Popular" — no enrolment comparison on record | `CourseCards.tsx:21`, `Courses.tsx`, `FAQ.tsx` |
+| 11 | Coverage of waterproofing, bricklaying, cabinetry, external fixtures and other listed classes | `TradeAreas.tsx:28-34`, `FAQ.tsx:130` |
+| 12 | Post-registration support scope, insurance guidance, unlimited private-course email support | `Courses.tsx:177`, `BuilderRegistrationCourseMelbourne.tsx:79-80`, `courses.ts:137` |
+| 13 | Free consultation, no obligation | `Contact.tsx:197`, `FAQ.tsx:146` |
+| 14 | Competitors have 100–400+ reviews — on a **publicly routed** page (`App.tsx:65`), not admin-only | `EmailTemplates.tsx:235` |
+| 15 | BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines | `BpcExamChanges.tsx` throughout |
+
+Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
+— it is a comparative claim about named competitors on a public URL.
+

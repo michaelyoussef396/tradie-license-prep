@@ -55,7 +55,7 @@ const FAQ = () => {
         {
           question: "How long is the process before getting my licence?",
           answer:
-            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC exam. Most students gain registration within a few months of finishing the course.",
+            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC exam. BPC's processing time then varies by application.",
         },
         {
           question: "What are the class sizes?",
@@ -96,7 +96,7 @@ const FAQ = () => {
         {
           question: "Do you help with the applications?",
           answer:
-            "Yes! All our programs include complete application preparation, portfolio development, and guidance through the BPC portal process.",
+            "Yes. Every program includes application preparation, portfolio development, and guidance through the BPC portal process. The Carpentry Licence (DB-L) course covers application guidance and portfolio support; its Application Prep Package add-on adds complete form assistance, reference coordination and submission checking.",
         },
         {
           question: "What documents do I need?",

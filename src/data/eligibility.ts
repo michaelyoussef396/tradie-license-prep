@@ -10,8 +10,16 @@ export const UNLIMITED_MINIMUM_YEARS = 3;
 export const UNLIMITED_MINIMUM_PROJECTS = 3;
 export const LIMITED_MINIMUM_YEARS = 2;
 
-/** Domestic Builder (Unlimited). */
-export const UNLIMITED_EXPERIENCE_SUMMARY = `At least ${UNLIMITED_MINIMUM_YEARS} years' experience working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects.`;
+/**
+ * Domestic Builder (Unlimited). Names its class deliberately: the figure is
+ * confirmed for that class only, and the Comprehensive course is also sold for
+ * Commercial (Low-Rise), whose minimum is not yet confirmed.
+ */
+export const UNLIMITED_EXPERIENCE_SUMMARY = `For Domestic Builder (Unlimited), at least ${UNLIMITED_MINIMUM_YEARS} years' experience working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects.`;
+
+/** Commercial (Low-Rise) minimum is unconfirmed — never state a figure for it. */
+export const COMMERCIAL_EXPERIENCE_NOTE =
+  "Requirements for Commercial (Low-Rise) registration differ — ask and we'll confirm what applies to you.";
 
 /** Domestic Builder (Limited) classes, e.g. carpentry DB-L. */
 export const LIMITED_EXPERIENCE_SUMMARY = `BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;

@@ -14,7 +14,7 @@ const FAQ = () => {
     {
       question: "How long is the process before getting my licence?",
       answer:
-        `The timeline varies depending on your current experience and the course you choose. Our courses range from ${courseById.carpentry.duration} (${courseById.carpentry.name}) to ${courseById.comprehensive.duration} (${courseById.comprehensive.name}). After completing the course, you'll submit your application to the Building and Plumbing Commission (BPC), formerly the VBA. Most students gain their licence within 3-6 months of starting with us, including course completion, application processing and the BPC exam.`,
+        `The timeline varies depending on your current experience and the course you choose. Our courses range from ${courseById.carpentry.duration} (${courseById.carpentry.name}) to ${courseById.comprehensive.duration} (${courseById.comprehensive.name}). After completing the course, you'll submit your application to the Building and Plumbing Commission (BPC), formerly the VBA. BPC's assessment and processing time sits on top of the course and varies by application, so the total time to registration depends on them rather than on us.`,
     },
     {
       question: "What experience do I need?",
@@ -24,7 +24,7 @@ const FAQ = () => {
     {
       question: "Do you help with the applications?",
       answer:
-        "Absolutely! Complete application support is included in all our programs. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets BPC requirements. Adrian has guided 100+ tradies through this and knows exactly what BPC is looking for.",
+        "Application support is included in every program. We help you prepare your portfolio, gather the right evidence, complete your application forms correctly, and ensure everything meets BPC requirements. The Carpentry Licence (DB-L) course covers application guidance and portfolio support; its Application Prep Package add-on adds complete form assistance, reference coordination and submission checking. Adrian has guided 100+ tradies through this and knows exactly what BPC is looking for.",
     },
     {
       question: "What qualifications do I need before I start?",

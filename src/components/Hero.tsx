@@ -155,7 +155,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              Join <span className="text-blue-300 font-semibold">500+</span> tradies who've gained their registration
+              Join the <span className="text-blue-300 font-semibold">100+</span> tradies Adrian has helped gain their registration
             </motion.p>
           </div>
 
