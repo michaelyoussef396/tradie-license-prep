@@ -165,7 +165,7 @@ const StudentDashboard = () => {
                 {student.referral_code || "—"}
               </p>
               <p className="text-gray-500 text-sm mt-2">
-                Share this code with tradie mates. They get $100 off, you earn a $300 referral reward.
+                Share this code with tradie mates. You earn a $300 referral reward.
               </p>
             </div>
             <Button

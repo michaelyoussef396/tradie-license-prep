@@ -392,7 +392,7 @@ const Contact = () => {
                       maxLength={20}
                       className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it for $100 off.</p>
+                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it here.</p>
                   </div>
 
                   {/* Message */}

@@ -5,6 +5,7 @@
 **Commits:**
 1. `Site-wide claims sweep: counts, entry requirement, BPC exam, GST, referral`
 2. `Scope experience by licence class, cut unverified story detail, clear admin discount`
+3. `Remove the referral discount amount from every surface pending the 15%`
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -132,7 +133,7 @@ The homepage strip (`src/components/SuccessStories.tsx`) was aligned to the same
 
 > **A third location, beyond the two you named.** `PipelineTab.tsx:177` is the lead detail panel and carried the same stale instruction in stronger terms ("You must apply a $100 discount"). My earlier inventory missed it. Leaving it would have meant the badge no longer quoted a figure while the panel behind it still told Adrian to take $100 off, so it was cleared the same way. Say the word if you want it reverted.
 
-> ⚠️ **This does not yet match the admin lead email.** `send-lead-emails/index.ts:35,39` still says "DISCOUNT REQUIRED" and "Remember to quote them $100 off" — it is in HOLD because you asked for the mate's discount to be held pending the 15%. So the admin UI is now silent on the amount while the email Adrian receives still names $100. **Do you want the email stripped too, or the amount put back in the UI until the 15% lands?**
+> **Resolved.** The admin lead email was stripped too (`send-lead-emails/index.ts:35, :39`): the referral is still flagged, but no amount is named anywhere. See §2.5 — no discount figure now appears on any surface until the 15% is confirmed.
 
 ### (i) JSON-LD offers — deliberately left out
 
@@ -174,15 +175,21 @@ src/pages/FAQ.tsx:75, :77, :140
 src/pages/Courses.tsx:161, :162, :581, :584, :587
 ```
 
-### 2.5 Mate's discount — returns as 15% once Adrian confirms
-Customer-facing copy left at `$100 off` as instructed. The admin panel entries are no longer on this list (see §1h).
-```
-src/pages/Contact.tsx:395                              form hint: "Enter it for $100 off"
-src/components/FinalCTA.tsx:322                        form hint: "Enter it for $100 off"
-src/pages/StudentDashboard.tsx:168                     "They get $100 off, you earn a $300 referral reward"
-supabase/functions/send-student-welcome/index.ts:76    "they'll get $100 off"
-supabase/functions/send-lead-emails/index.ts:35, :39   admin email: "DISCOUNT REQUIRED" / "quote them $100 off"
-```
+### 2.5 Mate's discount — REMOVED everywhere, returns as 15% in one commit
+No discount figure appears on any surface. The referral mechanism is untouched: codes are still entered, validated, stored and flagged to Adrian — only the amount is gone. When Adrian confirms 15%, it goes into all four surfaces together.
+
+| Surface | File:line | Now reads |
+|---|---|---|
+| Site — student portal | `src/pages/StudentDashboard.tsx:168` | "Share this code with tradie mates. You earn a $300 referral reward." |
+| Form hint — contact | `src/pages/Contact.tsx:395` | "Got a code from a mate? Enter it here." |
+| Form hint — final CTA | `src/components/FinalCTA.tsx:322` | "Got a code from a mate? Enter it here." |
+| Email — student welcome | `supabase/functions/send-student-welcome/index.ts:76` | "…you'll earn a $300 referral reward." |
+| Email — admin lead | `supabase/functions/send-lead-emails/index.ts:35, :39` | "🚨 REFERRAL LEAD" / "A referral discount applies — amount pending confirmation." |
+| Admin UI — pipeline badge | `src/components/admin/PipelineTab.tsx:149` | "🎁 REFERRAL" |
+| Admin UI — lead detail | `src/components/admin/PipelineTab.tsx:177` | "A referral discount applies … amount pending confirmation" |
+| Admin UI — new lead | `src/components/admin/NewLeadsTab.tsx:143-144` | "🎁 REFERRAL LEAD" / "referral discount pending confirmation" |
+
+Prior wording, for reference when the 15% lands: the referrer's side was "$100 cash" (now a $300 referral reward); the mate's side was "$100 off" on the site and both form hints, "they'll get $100 off" in the welcome email, "DISCOUNT REQUIRED / Remember to quote them $100 off" in the admin email, and "$100 OFF" / "Owed $100 Discount" / "You must apply a $100 discount" in the admin UI.
 
 ### 2.6 DB-L / limited-class course entry requirement — pending Adrian
 `src/pages/Courses.tsx` carpentry `requirements` now states **BPC's** 2-year regulatory minimum. Whether Qualify Pro sets its own, higher bar for enrolling on the DB-L course is unconfirmed, so no course-level figure is claimed. Same question applies to any future limited-class course.
@@ -213,13 +220,12 @@ All 13 removed site-wide as unverified testimonials. Line numbers are from the p
 
 ## 3. Open questions and judgment calls
 
-1. **Admin email vs admin UI** — see the flag in §1h. This is the one live inconsistency and needs a decision.
-2. **Evening Builder Course is treated as Domestic Builder (Unlimited).** Its `whoItsFor` says "domestic builder registration" without naming a class; carpentry is the only course explicitly sold as limited. If the evening course also serves limited classes, its requirement wording needs the class-neutral version instead.
-3. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
-4. **`95% pass rate`** is out of scope and untouched. Always attributed to "Qualify Pro's own student records". It is now the last large unverified number on the site.
-5. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
-6. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
-7. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
+1. **Evening Builder Course is treated as Domestic Builder (Unlimited).** Its `whoItsFor` says "domestic builder registration" without naming a class; carpentry is the only course explicitly sold as limited. If the evening course also serves limited classes, its requirement wording needs the class-neutral version instead.
+2. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
+3. **`95% pass rate`** is out of scope and untouched. Always attributed to "Qualify Pro's own student records". It is now the last large unverified number on the site.
+4. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
+5. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
+6. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
 
 ---
 

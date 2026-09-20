@@ -32,11 +32,11 @@ function buildNotificationHtml(lead: LeadPayload): string {
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
   const referralBlock = lead.referralCode ? `
   <tr><td style="background:#dc2626;padding:16px 24px;border-radius:10px 10px 0 0;">
-    <span style="color:#ffffff;font-size:16px;font-weight:700;">🚨 REFERRAL LEAD — DISCOUNT REQUIRED</span>
+    <span style="color:#ffffff;font-size:16px;font-weight:700;">🚨 REFERRAL LEAD</span>
   </td></tr>
   <tr><td style="background:#fef2f2;border:2px solid #dc2626;padding:16px 24px;">
     <p style="margin:0;font-size:15px;color:#991b1b;font-weight:700;">This person was referred using code: ${esc(lead.referralCode)}</p>
-    <p style="margin:8px 0 0 0;font-size:15px;color:#991b1b;font-weight:600;">⚡ Remember to quote them <span style="text-decoration:underline;">$100 off</span> the standard course price!</p>
+    <p style="margin:8px 0 0 0;font-size:15px;color:#991b1b;font-weight:600;">A referral discount applies — amount pending confirmation.</p>
   </td></tr>` : '';
 
   return `<!DOCTYPE html>
