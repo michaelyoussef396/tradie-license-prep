@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Phone, Mail, Calendar, Tag, Clock, MessageSquare, Globe, Loader2, AlertCircle, StickyNote } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { fetchReferredLeadIds } from "./referred-leads";
 
 interface Lead {
   id: string;
@@ -28,6 +29,7 @@ const NewLeadsTab = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [notesValues, setNotesValues] = useState<Record<string, string>>({});
+  const [referredLeadIds, setReferredLeadIds] = useState<Set<string>>(new Set());
   const [showTest, setShowTest] = useState(false);
   const { toast } = useToast();
 
@@ -51,6 +53,16 @@ const NewLeadsTab = () => {
     const notes: Record<string, string> = {};
     leadsData.forEach((l) => { notes[l.id] = l.notes || ""; });
     setNotesValues(notes);
+
+    const { referredLeadIds: referred, error: referralError } = await fetchReferredLeadIds(
+      leadsData.map((l) => l.id),
+    );
+    if (referralError) {
+      setError(referralError);
+      setLoading(false);
+      return;
+    }
+    setReferredLeadIds(referred);
     setLoading(false);
   }, [showTest]);
 
@@ -65,6 +77,10 @@ const NewLeadsTab = () => {
         setLeads((prev) => [newLead, ...prev]);
         setNotesValues((prev) => ({ ...prev, [newLead.id]: newLead.notes || "" }));
         toast({ title: "New lead!", description: `${newLead.name} just enquired.` });
+      })
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "referrals" }, (payload) => {
+        const leadId = (payload.new as { referred_lead_id: string | null }).referred_lead_id;
+        if (leadId) setReferredLeadIds((prev) => new Set(prev).add(leadId));
       })
       .subscribe();
 
@@ -138,11 +154,17 @@ const NewLeadsTab = () => {
           <CardContent className="p-5 space-y-3">
             <h3 className="text-xl font-bold text-white">{lead.name}</h3>
 
-            {lead.used_referral_code && (
+            {lead.used_referral_code && referredLeadIds.has(lead.id) && (
               <div className="bg-amber-500/20 border border-amber-500 rounded-lg px-4 py-3">
                 <p className="text-amber-300 font-bold text-sm">🎁 REFERRAL LEAD</p>
                 <p className="text-amber-200 text-xs mt-1">Code used: <span className="font-mono font-bold">{lead.used_referral_code}</span> — referral discount pending confirmation.</p>
               </div>
+            )}
+
+            {lead.used_referral_code && !referredLeadIds.has(lead.id) && (
+              <p className="text-gray-400 text-xs">
+                Code entered: <span className="font-mono">{lead.used_referral_code}</span> (not a valid code)
+              </p>
             )}
 
             {lead.phone && (

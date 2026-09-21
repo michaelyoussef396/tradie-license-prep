@@ -13,6 +13,8 @@
 8. `Move EmailTemplates under /admin so analytics and crawlers skip it`
 9. `Fix the RequireAdmin refresh regression and the fallout from holding the pass rate`
 10. `Remove the held pass-rate claim from both emails and mutation-test the admin guard`
+11. `Ignore supabase/.temp and record the 21 Sep edge function deploys`
+12. `Clear the claim scaffolding the pass-rate removal left behind` (branch `fix-live-site-claims-2026-09-21`)
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -109,7 +111,7 @@ Verified by executing the module — all five match your figures.
 
 ### (g) Success stories — unverified detail cut
 
-Each story now carries **only** what is in Adrian's source, plus one generic training line ("Prepared for BPC registration with Adrian at Qualify Pro.") that is true of every student and makes no per-student claim.
+Each story now carries **only** what is in Adrian's source, plus one generic training line ("Trained with Adrian before registering." — reworded in §2.17) that is true of every student and makes no per-student claim.
 
 | Student | Licence | Licensed | Outcome (verbatim from source) |
 |---|---|---|---|
@@ -355,6 +357,83 @@ keeps two columns and gives a trailing odd badge `col-span-2` — its badges put
 **Not visually verified** — no browser check was run. `About.tsx`'s stats row uses
 `flex flex-wrap justify-center` and re-centres on its own, so it needed nothing.
 
+### 2.17 Post-deploy pass — orphaned scaffolding and a false referral badge
+
+Found on the live site after PR #1 shipped. Five fixes, all on
+`fix-live-site-claims-2026-09-21`.
+
+**The footnote outlived its figure.** "Based on Qualify Pro's own student records." was written to
+source the 95%. §2.12 removed the figure from `Footer.tsx` **with** its footnote, but six other
+copies of the same footnote were attached to stat blocks rather than to the tile, so they survived
+the tile's deletion and now sourced whatever was left beside them — "10+ Years Experience",
+"Max 10 Per Class", "Melbourne", "Training builders since 2017". None of those comes from student
+records, and one of the two figures it still sat under (`100+`) is Adrian's estimate, not a record
+count. Removed from `Hero.tsx`, `BuildersLicenceMelbourne.tsx`, `About.tsx`, `Contact.tsx` and
+`SuccessStoriesPage.tsx` — and from `TrustBar.tsx`, which was then deleted outright as dead code
+(see below), so that sixth removal never mattered.
+
+**A second "High" survived.** §2.12's follow-up caught the About page's "High / Success Rate"
+overlay badge but missed the identical construction on `SuccessStoriesPage.tsx:216` — a
+`text-7xl` **"High"** in an emerald card directly above the heading "After Registration". It was
+the pass-rate tile with its number taken out. Removed; the heading now opens the section.
+
+**The training line named two things that did not exist yet.** "Prepared for BPC registration with
+Adrian at Qualify Pro." → **"Trained with Adrian before registering."** The featured students were
+licensed 4–6 years ago; Qualify Pro dates to 2024 and the BPC to 2025, so the old line
+back-dated both the business and the regulator onto registrations that predate them.
+
+**Fauzi's homepage tile invented a specialty.** `highlight: "Elite" / highlightLabel: "Custom
+Homes"` — the source says *elite* homes, never *custom*, and "Elite" in the value slot was a
+non-figure where the other three tiles ("$15M+"-scale, "50+", "40+") carry numbers. Now
+`"$15M+" / "Annual Turnover"`, which is the figure already in his own `story` string and in the
+table at §1(g).
+
+**An invalid referral code produced a discount promise.** Reported from a live submission with
+`jrodna-1234`, which matches no `referral_codes` row. `send-lead-emails` validated the code
+*only* to decide whether to insert the `referrals` row — the admin email keyed its red
+**REFERRAL LEAD** banner and "A referral discount applies" line off the raw `lead.referralCode`
+string instead, so any typed text triggered both. The admin UI had the same bug against
+`leads.used_referral_code`.
+
+- The email now takes a `ReferralCheck` (`none` | `valid` | `invalid` | `unverified`). Only
+  `valid` renders the banner and the discount line; `invalid` shows "Code entered: X (not a valid
+  code)". `unverified` — the RPC itself errored — says "could not be checked — verify manually",
+  because a failed check is not a rejection and the email must not claim a verdict it never got.
+- `NewLeadsTab` and `PipelineTab` now gate every referral badge on a **`referrals` row existing**
+  for that lead (`fetchReferredLeadIds`, covered by `referred-leads.test.ts`), since that row is
+  only ever created server-side after `validate_referral_code` matches. A code that was typed but
+  not matched is shown as plain grey text, not an amber action-required badge. `NewLeadsTab`'s
+  realtime channel also subscribes to `referrals` inserts, so a genuine referral still lights up
+  live — the row lands a moment after the lead.
+
+**Swept for the same failure elsewhere; two things surfaced that needed a decision rather than a
+fix. Both are now resolved.**
+
+1. **`src/components/TrustBar.tsx` rendered nowhere — deleted.** `grep -rn "TrustBar"` returned
+   only its own declaration and its `export default`; `Index.tsx` goes
+   `Hero → WhyChooseAdrian → CourseCards → SuccessStories → AboutAdrian → TradeAreas →
+   HomeResourceLinks → FAQ → FinalCTA → Footer`. §2.12 re-gridded this file 4→3 cols and this
+   pass deleted its footnote — **two rounds of claim surgery on a dead component**, neither of
+   which ever reached the live site. The file is gone; its citations in the §5 queue (rows 1, 3
+   and 7) no longer resolve, and those claims remain live via the other files in the same rows.
+   Its `stat: "Melbourne"` above `description: "Melbourne Based"` was a separate pre-existing wart
+   from `6469761` and went with it.
+
+2. **Jordan's homepage tile no longer renders.** It read `"High-End" / "Outdoor Living"`;
+   `git log -p` shows it was born that way in `d710efa`, so no figure was ever removed from it.
+   But once Fauzi's tile became `$15M+`, it was the only word-valued tile in a row of
+   `$15M+` / `50+` / `40+` and **read as a number that had been pulled.** Adrian's source gives
+   Jordan no turnover or volume figure, so rather than invent one, `highlight` and `highlightLabel`
+   are now `null` and the block is guarded — the same treatment his missing `timeframe` and
+   Manny's missing `licence` already get. His card keeps its name, licence and story; it is the one
+   homepage story with no headline figure. **A figure for it is §5 row 16.**
+
+**The pattern to watch.** Four of these five are the same failure: a held or corrected figure was
+deleted, and the label, footnote, unit or container it lived in was left behind to attach itself
+to whatever was nearby. §2.12's advice to "verify with wording, not digits" holds, and should
+extend to the scaffolding — grep the *labels* ("Pass Rate", "Success Rate", "Based on"), not just
+the numbers.
+
 ### 2.16 Admin guard invariants are now mutation-tested
 The first test pass caught the regression it was written for and missed three others: the
 "no redirect after unmount" test unmounted the root, which unsubscribed the listener, so the event
@@ -393,6 +472,8 @@ test here has passed against the bug it was meant to catch.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
 4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
 5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
+6. ~~**`TrustBar.tsx` is dead code**~~ — resolved: deleted in §2.17.
+7. ~~**Jordan's homepage highlight tile has no figure to show**~~ — resolved: the tile is nulled and guarded (§2.17); a figure is queued for Adrian as §5 row 16.
 
 ---
 
@@ -436,9 +517,15 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 | 13 | Free consultation, no obligation | `Contact.tsx:197`, `FAQ.tsx:146` |
 | 14 | Competitors have 100–400+ reviews — on a **publicly routed** page (`App.tsx:65`), not admin-only | `EmailTemplates.tsx:235` |
 | 15 | BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines | `BpcExamChanges.tsx` throughout |
+| 16 | **A figure for Jordan's tile** — annual turnover, project volume or similar, in the shape of Fauzi's `$15M+`, Manny's `50+` or Ben's `40+`. His tile currently renders no highlight at all (§2.17) | `SuccessStories.tsx:24-26` |
 
 Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
-— it is a comparative claim about named competitors on a public URL.
+— it is a comparative claim about named competitors on a public URL. Item 16 is the only one here
+that is *blocking a visible gap* rather than backfilling an existing claim — Jordan's card is now
+the one story on the homepage with no headline figure beside it.
+
+**`TrustBar.tsx` was deleted in §2.17**, so its citations in rows 1, 3 and 7 no longer resolve.
+Those claims are still live via the other files listed in the same rows.
 
 ---
 

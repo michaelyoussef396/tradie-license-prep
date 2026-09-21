@@ -85,8 +85,9 @@ const SuccessStoriesPage = () => {
     },
   ];
 
-  /** Generic and true of every student — not a per-student claim. */
-  const TRAINING_LINE = "Prepared for BPC registration with Adrian at Qualify Pro.";
+  // Generic and true of every student. Deliberately avoids naming Qualify Pro (2024)
+  // or the BPC (2025), both of which postdate these students' registrations.
+  const TRAINING_LINE = "Trained with Adrian before registering.";
 
   // Describes how the program is run — deliberately not a claim about what the
   // featured students experienced, which Adrian's source material does not cover.
@@ -199,7 +200,6 @@ const SuccessStoriesPage = () => {
                 </motion.div>
               ))}
             </div>
-            <p className="mt-4 text-xs text-slate-400">Based on Qualify Pro&apos;s own student records.</p>
           </motion.div>
         </div>
       </section>
@@ -214,9 +214,6 @@ const SuccessStoriesPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-block bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-2xl px-10 py-6 mb-8 shadow-lg">
-              <div className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">High</div>
-            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
               After Registration
             </h2>
@@ -229,7 +226,7 @@ const SuccessStoriesPage = () => {
             {[
               { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, Domestic Builder, DB-L Carpentry and Bathroom and Kitchen Limited registration", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
               { icon: Briefcase, title: "Started Businesses", description: "Many students launched their own building companies and are now their own bosses", gradient: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50" },
-                          ].map((item, index) => {
+            ].map((item, index) => {
               const Icon = item.icon;
               return (
                 <motion.div

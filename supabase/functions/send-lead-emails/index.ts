@@ -28,14 +28,31 @@ function esc(s: string): string {
     .replace(/"/g, '&quot;');
 }
 
-function buildNotificationHtml(lead: LeadPayload): string {
+/**
+ * Outcome of checking `leads.used_referral_code` against `referral_codes`.
+ * "unverified" means the check itself failed, which is not the same as the
+ * code being rejected — the email must not claim a verdict it never got.
+ */
+type ReferralCheck = "none" | "valid" | "invalid" | "unverified";
+
+const REFERRAL_CHECK_NOTE: Record<ReferralCheck, string> = {
+  none: "",
+  valid: "",
+  invalid: " (not a valid code)",
+  unverified: " (could not be checked — verify manually)",
+};
+
+function buildNotificationHtml(lead: LeadPayload, referralCheck: ReferralCheck): string {
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Melbourne" });
-  const referralBlock = lead.referralCode ? `
+  // Only a code that passed validate_referral_code earns the banner and the
+  // discount line. Anything else is reported as entered, nothing more.
+  const isReferralCodeValid = referralCheck === "valid";
+  const referralBlock = isReferralCodeValid ? `
   <tr><td style="background:#dc2626;padding:16px 24px;border-radius:10px 10px 0 0;">
     <span style="color:#ffffff;font-size:16px;font-weight:700;">🚨 REFERRAL LEAD</span>
   </td></tr>
   <tr><td style="background:#fef2f2;border:2px solid #dc2626;padding:16px 24px;">
-    <p style="margin:0;font-size:15px;color:#991b1b;font-weight:700;">This person was referred using code: ${esc(lead.referralCode)}</p>
+    <p style="margin:0;font-size:15px;color:#991b1b;font-weight:700;">This person was referred using code: ${esc(lead.referralCode!)}</p>
     <p style="margin:8px 0 0 0;font-size:15px;color:#991b1b;font-weight:600;">A referral discount applies — amount pending confirmation.</p>
   </td></tr>` : '';
 
@@ -47,7 +64,7 @@ function buildNotificationHtml(lead: LeadPayload): string {
 <tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
   ${referralBlock}
-  <tr><td style="background:#1a56db;padding:20px 24px;${lead.referralCode ? '' : 'border-radius:10px 10px 0 0;'}">
+  <tr><td style="background:#1a56db;padding:20px 24px;${isReferralCodeValid ? '' : 'border-radius:10px 10px 0 0;'}">
     <span style="color:#ffffff;font-size:18px;font-weight:700;">🔔 NEW ENQUIRY FROM WEBSITE</span>
   </td></tr>
   <tr><td style="background:#ffffff;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 10px 10px;padding:0;">
@@ -77,8 +94,8 @@ function buildNotificationHtml(lead: LeadPayload): string {
         <td style="padding:12px 16px;color:#333;border-bottom:1px solid #e0e0e0;">${esc(lead.message)}</td>
       </tr>` : ''}
       ${lead.referralCode ? `<tr>
-        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">Referral Code:</td>
-        <td style="padding:12px 16px;color:#1a56db;font-weight:600;border-bottom:1px solid #e0e0e0;">${esc(lead.referralCode)}</td>
+        <td style="padding:12px 16px;font-weight:600;color:#555;border-bottom:1px solid #e0e0e0;">${isReferralCodeValid ? 'Referral Code:' : 'Code entered:'}</td>
+        <td style="padding:12px 16px;color:${isReferralCodeValid ? '#1a56db' : '#6b7280'};font-weight:600;border-bottom:1px solid #e0e0e0;">${esc(lead.referralCode)}${REFERRAL_CHECK_NOTE[referralCheck]}</td>
       </tr>` : ''}
       <tr>
         <td style="padding:12px 16px;font-weight:600;color:#555;">Submitted:</td>
@@ -258,11 +275,15 @@ Deno.serve(async (req) => {
     }
 
     // Server-side referral creation (if referral code provided)
+    let referralCheck: ReferralCheck = "none";
     if (lead.referralCode && typeof lead.referralCode === "string" && lead.referralCode.trim().length > 0) {
+      referralCheck = "unverified";
       try {
         const code = lead.referralCode.trim();
         // Validate referral code and get student ID
-        const { data: studentId } = await supabase.rpc("validate_referral_code", { code });
+        const { data: studentId, error: validateErr } = await supabase.rpc("validate_referral_code", { code });
+        if (validateErr) throw validateErr;
+        referralCheck = studentId ? "valid" : "invalid";
         if (studentId) {
           const { data: leadRecord } = await supabase
             .from("leads")
@@ -279,6 +300,8 @@ Deno.serve(async (req) => {
               status: "Pending",
             });
           }
+        } else {
+          console.warn("send-lead-emails: referral code did not match any referral_codes row", { code });
         }
       } catch (refErr) {
         console.error("Referral creation error (non-blocking):", refErr);
@@ -299,7 +322,7 @@ Deno.serve(async (req) => {
         to: [ADMIN_EMAIL],
         reply_to: lead.email,
         subject: `New Lead: ${esc(lead.name)} – ${esc(lead.phone)}`,
-        html: buildNotificationHtml(lead),
+        html: buildNotificationHtml(lead, referralCheck),
       }, "notification"),
       sendResendEmail(RESEND_API_KEY, {
         from: FROM_EMAIL,

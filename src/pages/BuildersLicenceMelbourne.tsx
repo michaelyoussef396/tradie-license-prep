@@ -181,7 +181,6 @@ const BuildersLicenceMelbourne = () => {
                 );
               })}
             </div>
-            <p className="mt-4 text-center text-xs text-slate-500">Based on Qualify Pro&apos;s own student records.</p>
           </div>
         </section>
 
