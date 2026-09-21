@@ -405,6 +405,27 @@ string instead, so any typed text triggered both. The admin UI had the same bug 
   realtime channel also subscribes to `referrals` inserts, so a genuine referral still lights up
   live — the row lands a moment after the lead.
 
+**Swept for the same failure elsewhere; two things surfaced that are *not* being changed
+here, because both need a decision rather than a fix.**
+
+1. **`src/components/TrustBar.tsx` renders nowhere.** `grep -rn "TrustBar"` returns only its own
+   declaration and its `export default`; `Index.tsx` goes
+   `Hero → WhyChooseAdrian → CourseCards → SuccessStories → AboutAdrian → TradeAreas →
+   HomeResourceLinks → FAQ → FinalCTA → Footer`. §2.12 re-gridded this file 4→3 cols and this
+   pass deleted its footnote — **two rounds of claim surgery on a dead component.** The footnote
+   removal above is therefore a no-op on the live site. Delete the file or re-mount it
+   deliberately; it should not keep absorbing edits. (Its `stat: "Melbourne"` above
+   `description: "Melbourne Based"` is a separate pre-existing wart from `6469761`, not a removal
+   orphan.)
+
+2. **Jordan's homepage tile is `"High-End" / "Outdoor Living"`** (`SuccessStories.tsx:23-24`).
+   `git log -p` shows it was born that way in `d710efa` — no figure was ever removed from it, so
+   it is not an orphan. But now that Fauzi's tile reads `$15M+`, it is the only word-valued tile
+   in a row of `$15M+` / `50+` / `40+` and **will read to a visitor as a number that was pulled.**
+   Adrian's source gives Jordan no turnover or volume figure, so one cannot be supplied without
+   inventing it. Either get a figure from Adrian or drop the highlight tile for students who have
+   none — not a change to make unilaterally.
+
 **The pattern to watch.** Four of these five are the same failure: a held or corrected figure was
 deleted, and the label, footnote, unit or container it lived in was left behind to attach itself
 to whatever was nearby. §2.12's advice to "verify with wording, not digits" holds, and should
@@ -449,6 +470,8 @@ test here has passed against the bug it was meant to catch.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
 4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
 5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
+6. **`TrustBar.tsx` is dead code** — imported by nothing, yet edited by two claims passes (§2.17). Delete or re-mount.
+7. **Jordan's homepage highlight tile has no figure to show** and now sits in a row of three numeric tiles (§2.17). Needs a figure from Adrian or a tile that does not imply one.
 
 ---
 

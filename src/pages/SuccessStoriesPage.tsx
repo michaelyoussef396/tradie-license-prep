@@ -226,7 +226,7 @@ const SuccessStoriesPage = () => {
             {[
               { icon: Award, title: "Gained Registration", description: "Students achieved Domestic Builder Unlimited, Domestic Builder, DB-L Carpentry and Bathroom and Kitchen Limited registration", gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50" },
               { icon: Briefcase, title: "Started Businesses", description: "Many students launched their own building companies and are now their own bosses", gradient: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50" },
-                          ].map((item, index) => {
+            ].map((item, index) => {
               const Icon = item.icon;
               return (
                 <motion.div
