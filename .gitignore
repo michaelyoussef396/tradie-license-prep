@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Supabase CLI scratch state. linked-project.json records the project ref the CLI
+# last targeted; committing it gives every clone and worktree a default target,
+# which is how an unapproved apply reached production on another project in
+# August 2026. Never track it.
+supabase/.temp/

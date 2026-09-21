@@ -440,3 +440,64 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
 — it is a comparative claim about named competitors on a public URL.
 
+---
+
+## 6. Deployment log
+
+### 21 September 2026 — PR #1 merged, two edge functions deployed
+
+PR #1 merged as `b867d1a` (merge commit; `mergedAt 2026-09-20T15:02:55Z` UTC). `main` was pulled
+and `a0c38fa` confirmed as an ancestor **before** any deploy, and both function files were read
+back on `main` to confirm they were the post-sweep versions rather than trusting ancestry alone.
+That check mattered: an earlier attempt was made from a `main` checkout that still held the
+pre-sweep code, which would have redeployed the old copy and reinstated both held claims.
+
+| Function | Deployed | What went live |
+|---|---|---|
+| `send-lead-emails` | yes | Admin notification no longer reads "DISCOUNT REQUIRED" / "quote them $100 off"; the auto-reply sent to every lead no longer claims "a consistently high pass rate" |
+| `send-student-welcome` | yes | "$100 cash and they'll get $100 off" becomes "a $300 referral reward" |
+| `send-followup-emails` | no, deliberately | PR #1 did not change it, and it holds the Day 10 auto-dead logic below |
+
+Both went to project `dpceyonfjfjaogwkyrhp` with the deploy command plus
+`--project-ref dpceyonfjfjaogwkyrhp --no-verify-jwt`, run by Michael in his own terminal because
+the agent's Bash tool is gated by the Supabase guard hook. Supabase CLI 2.101.0.
+
+**Not verified against a live send.** The deploys succeeded; no test enquiry was submitted, so the
+new copy has not been observed in a received email. A submission through /contact would exercise
+`send-lead-emails` end to end.
+
+### Day 10 auto-dead — still undeployed, needs a decision
+
+`send-followup-emails` is the only function containing it
+(`supabase/functions/send-followup-emails/index.ts:128-142`). Day 3 and Day 7 each bound their
+query with both `.gte` and `.lte`, a one-day window. Day 10 has only `.lte`, so on a first run it
+sweeps the entire history of `followed_up_7` leads with no lower bound and no limit.
+
+Because the function has never run, nothing reached `followed_up_7` automatically — every affected
+lead is one Adrian set by hand. `followed_up_7` is not in `STATUS_COLUMNS`
+(`src/components/admin/PipelineTab.tsx`), so those leads are invisible on the Kanban today and the
+count cannot be read off the board. No email is sent by this branch; the effect is pipeline state
+only. It is not cleanly reversible: `status` is overwritten with no `previous_status` column, and
+the response returns a count rather than ids, so afterwards an auto-dead lead cannot be told apart
+from a manually-dead one. Test leads are correctly skipped.
+
+Before it ever runs:
+
+    select count(*) from public.leads
+    where status = 'followed_up_7'
+      and (is_test = false or is_test is null)
+      and created_at <= now() - interval '10 days';
+
+    create table leads_status_backup_20260921 as
+    select id, status from public.leads where status = 'followed_up_7';
+
+### supabase/.temp/ is untracked but not ignored
+
+The deploys created `supabase/.temp/`, and `linked-project.json` inside it records
+`{"ref":"dpceyonfjfjaogwkyrhp", ...}` along with the organization id. It is **not** matched by
+`.gitignore`, so a careless `git add` would commit a default target into the repo. That is the
+shape of the 2026-08-27 incident the Supabase guard was written for, where a tracked
+`supabase/.temp/project-ref` carried the PROD ref and every clone and worktree inherited it.
+Harmless here because the ref is the correct one, but `supabase/.temp/` should be added to
+`.gitignore`.
+
