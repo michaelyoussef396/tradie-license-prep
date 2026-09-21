@@ -20,8 +20,10 @@ const SuccessStories = () => {
       initials: "J",
       bgGradient: "from-emerald-500 to-teal-500",
       licence: "Carpentry Licence (DB-L)",
-      highlight: "High-End",
-      highlightLabel: "Outdoor Living",
+      // Adrian's source gives Jordan no turnover or volume figure, and a word
+      // in a row of numbers reads as a figure that was pulled. See HANDOFF 5.
+      highlight: null,
+      highlightLabel: null,
       highlightIcon: Building2,
       story: "Launched a business focused on high-end outdoor living spaces, partnering with numerous suppliers to deliver premium installations throughout Melbourne.",
       timeframe: null,
@@ -122,15 +124,17 @@ const SuccessStories = () => {
                   {/* Content */}
                   <div className={`${isLarge ? 'lg:flex-1' : ''}`}>
                     {/* Highlight stat */}
-                    <div className="flex items-center gap-3 mb-4 mt-2">
-                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${story.bgGradient} bg-opacity-20 flex items-center justify-center`}>
-                        <HighlightIcon className="w-5 h-5 text-white" />
+                    {story.highlight && (
+                      <div className="flex items-center gap-3 mb-4 mt-2">
+                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${story.bgGradient} bg-opacity-20 flex items-center justify-center`}>
+                          <HighlightIcon className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-white leading-none">{story.highlight}</div>
+                          <div className="text-xs text-blue-300/80">{story.highlightLabel}</div>
+                        </div>
                       </div>
-                      <div>
-                        <div className="text-2xl font-bold text-white leading-none">{story.highlight}</div>
-                        <div className="text-xs text-blue-300/80">{story.highlightLabel}</div>
-                      </div>
-                    </div>
+                    )}
                     
                     {/* Story */}
                     <p className="text-white/80 leading-relaxed mb-4">

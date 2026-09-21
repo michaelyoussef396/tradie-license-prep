@@ -368,8 +368,9 @@ copies of the same footnote were attached to stat blocks rather than to the tile
 the tile's deletion and now sourced whatever was left beside them — "10+ Years Experience",
 "Max 10 Per Class", "Melbourne", "Training builders since 2017". None of those comes from student
 records, and one of the two figures it still sat under (`100+`) is Adrian's estimate, not a record
-count. Removed from `Hero.tsx`, `TrustBar.tsx`, `BuildersLicenceMelbourne.tsx`, `About.tsx`,
-`Contact.tsx` and `SuccessStoriesPage.tsx`.
+count. Removed from `Hero.tsx`, `BuildersLicenceMelbourne.tsx`, `About.tsx`, `Contact.tsx` and
+`SuccessStoriesPage.tsx` — and from `TrustBar.tsx`, which was then deleted outright as dead code
+(see below), so that sixth removal never mattered.
 
 **A second "High" survived.** §2.12's follow-up caught the About page's "High / Success Rate"
 overlay badge but missed the identical construction on `SuccessStoriesPage.tsx:216` — a
@@ -405,26 +406,27 @@ string instead, so any typed text triggered both. The admin UI had the same bug 
   realtime channel also subscribes to `referrals` inserts, so a genuine referral still lights up
   live — the row lands a moment after the lead.
 
-**Swept for the same failure elsewhere; two things surfaced that are *not* being changed
-here, because both need a decision rather than a fix.**
+**Swept for the same failure elsewhere; two things surfaced that needed a decision rather than a
+fix. Both are now resolved.**
 
-1. **`src/components/TrustBar.tsx` renders nowhere.** `grep -rn "TrustBar"` returns only its own
-   declaration and its `export default`; `Index.tsx` goes
+1. **`src/components/TrustBar.tsx` rendered nowhere — deleted.** `grep -rn "TrustBar"` returned
+   only its own declaration and its `export default`; `Index.tsx` goes
    `Hero → WhyChooseAdrian → CourseCards → SuccessStories → AboutAdrian → TradeAreas →
    HomeResourceLinks → FAQ → FinalCTA → Footer`. §2.12 re-gridded this file 4→3 cols and this
-   pass deleted its footnote — **two rounds of claim surgery on a dead component.** The footnote
-   removal above is therefore a no-op on the live site. Delete the file or re-mount it
-   deliberately; it should not keep absorbing edits. (Its `stat: "Melbourne"` above
-   `description: "Melbourne Based"` is a separate pre-existing wart from `6469761`, not a removal
-   orphan.)
+   pass deleted its footnote — **two rounds of claim surgery on a dead component**, neither of
+   which ever reached the live site. The file is gone; its citations in the §5 queue (rows 1, 3
+   and 7) no longer resolve, and those claims remain live via the other files in the same rows.
+   Its `stat: "Melbourne"` above `description: "Melbourne Based"` was a separate pre-existing wart
+   from `6469761` and went with it.
 
-2. **Jordan's homepage tile is `"High-End" / "Outdoor Living"`** (`SuccessStories.tsx:23-24`).
-   `git log -p` shows it was born that way in `d710efa` — no figure was ever removed from it, so
-   it is not an orphan. But now that Fauzi's tile reads `$15M+`, it is the only word-valued tile
-   in a row of `$15M+` / `50+` / `40+` and **will read to a visitor as a number that was pulled.**
-   Adrian's source gives Jordan no turnover or volume figure, so one cannot be supplied without
-   inventing it. Either get a figure from Adrian or drop the highlight tile for students who have
-   none — not a change to make unilaterally.
+2. **Jordan's homepage tile no longer renders.** It read `"High-End" / "Outdoor Living"`;
+   `git log -p` shows it was born that way in `d710efa`, so no figure was ever removed from it.
+   But once Fauzi's tile became `$15M+`, it was the only word-valued tile in a row of
+   `$15M+` / `50+` / `40+` and **read as a number that had been pulled.** Adrian's source gives
+   Jordan no turnover or volume figure, so rather than invent one, `highlight` and `highlightLabel`
+   are now `null` and the block is guarded — the same treatment his missing `timeframe` and
+   Manny's missing `licence` already get. His card keeps its name, licence and story; it is the one
+   homepage story with no headline figure. **A figure for it is §5 row 16.**
 
 **The pattern to watch.** Four of these five are the same failure: a held or corrected figure was
 deleted, and the label, footnote, unit or container it lived in was left behind to attach itself
@@ -470,8 +472,8 @@ test here has passed against the bug it was meant to catch.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
 4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
 5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
-6. **`TrustBar.tsx` is dead code** — imported by nothing, yet edited by two claims passes (§2.17). Delete or re-mount.
-7. **Jordan's homepage highlight tile has no figure to show** and now sits in a row of three numeric tiles (§2.17). Needs a figure from Adrian or a tile that does not imply one.
+6. ~~**`TrustBar.tsx` is dead code**~~ — resolved: deleted in §2.17.
+7. ~~**Jordan's homepage highlight tile has no figure to show**~~ — resolved: the tile is nulled and guarded (§2.17); a figure is queued for Adrian as §5 row 16.
 
 ---
 
@@ -515,9 +517,15 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 | 13 | Free consultation, no obligation | `Contact.tsx:197`, `FAQ.tsx:146` |
 | 14 | Competitors have 100–400+ reviews — on a **publicly routed** page (`App.tsx:65`), not admin-only | `EmailTemplates.tsx:235` |
 | 15 | BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines | `BpcExamChanges.tsx` throughout |
+| 16 | **A figure for Jordan's tile** — annual turnover, project volume or similar, in the shape of Fauzi's `$15M+`, Manny's `50+` or Ben's `40+`. His tile currently renders no highlight at all (§2.17) | `SuccessStories.tsx:24-26` |
 
 Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
-— it is a comparative claim about named competitors on a public URL.
+— it is a comparative claim about named competitors on a public URL. Item 16 is the only one here
+that is *blocking a visible gap* rather than backfilling an existing claim — Jordan's card is now
+the one story on the homepage with no headline figure beside it.
+
+**`TrustBar.tsx` was deleted in §2.17**, so its citations in rows 1, 3 and 7 no longer resolve.
+Those claims are still live via the other files listed in the same rows.
 
 ---
 
