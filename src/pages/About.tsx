@@ -149,7 +149,6 @@ const About = () => {
                 </motion.div>
               ))}
             </div>
-            <p className="mt-4 text-center text-xs text-blue-200/60">Based on Qualify Pro&apos;s own student records.</p>
           </motion.div>
         </div>
       </section>

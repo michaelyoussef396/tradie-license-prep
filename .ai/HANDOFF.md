@@ -13,6 +13,8 @@
 8. `Move EmailTemplates under /admin so analytics and crawlers skip it`
 9. `Fix the RequireAdmin refresh regression and the fallout from holding the pass rate`
 10. `Remove the held pass-rate claim from both emails and mutation-test the admin guard`
+11. `Ignore supabase/.temp and record the 21 Sep edge function deploys`
+12. `Clear the claim scaffolding the pass-rate removal left behind` (branch `fix-live-site-claims-2026-09-21`)
 
 `bun run build` passes. `bun run lint` is unchanged from baseline (14 problems, 7 errors — all pre-existing, none in files this sweep touched).
 
@@ -109,7 +111,7 @@ Verified by executing the module — all five match your figures.
 
 ### (g) Success stories — unverified detail cut
 
-Each story now carries **only** what is in Adrian's source, plus one generic training line ("Prepared for BPC registration with Adrian at Qualify Pro.") that is true of every student and makes no per-student claim.
+Each story now carries **only** what is in Adrian's source, plus one generic training line ("Trained with Adrian before registering." — reworded in §2.17) that is true of every student and makes no per-student claim.
 
 | Student | Licence | Licensed | Outcome (verbatim from source) |
 |---|---|---|---|
@@ -354,6 +356,60 @@ keeps two columns and gives a trailing odd badge `col-span-2` — its badges put
 
 **Not visually verified** — no browser check was run. `About.tsx`'s stats row uses
 `flex flex-wrap justify-center` and re-centres on its own, so it needed nothing.
+
+### 2.17 Post-deploy pass — orphaned scaffolding and a false referral badge
+
+Found on the live site after PR #1 shipped. Five fixes, all on
+`fix-live-site-claims-2026-09-21`.
+
+**The footnote outlived its figure.** "Based on Qualify Pro's own student records." was written to
+source the 95%. §2.12 removed the figure from `Footer.tsx` **with** its footnote, but six other
+copies of the same footnote were attached to stat blocks rather than to the tile, so they survived
+the tile's deletion and now sourced whatever was left beside them — "10+ Years Experience",
+"Max 10 Per Class", "Melbourne", "Training builders since 2017". None of those comes from student
+records, and one of the two figures it still sat under (`100+`) is Adrian's estimate, not a record
+count. Removed from `Hero.tsx`, `TrustBar.tsx`, `BuildersLicenceMelbourne.tsx`, `About.tsx`,
+`Contact.tsx` and `SuccessStoriesPage.tsx`.
+
+**A second "High" survived.** §2.12's follow-up caught the About page's "High / Success Rate"
+overlay badge but missed the identical construction on `SuccessStoriesPage.tsx:216` — a
+`text-7xl` **"High"** in an emerald card directly above the heading "After Registration". It was
+the pass-rate tile with its number taken out. Removed; the heading now opens the section.
+
+**The training line named two things that did not exist yet.** "Prepared for BPC registration with
+Adrian at Qualify Pro." → **"Trained with Adrian before registering."** The featured students were
+licensed 4–6 years ago; Qualify Pro dates to 2024 and the BPC to 2025, so the old line
+back-dated both the business and the regulator onto registrations that predate them.
+
+**Fauzi's homepage tile invented a specialty.** `highlight: "Elite" / highlightLabel: "Custom
+Homes"` — the source says *elite* homes, never *custom*, and "Elite" in the value slot was a
+non-figure where the other three tiles ("$15M+"-scale, "50+", "40+") carry numbers. Now
+`"$15M+" / "Annual Turnover"`, which is the figure already in his own `story` string and in the
+table at §1(g).
+
+**An invalid referral code produced a discount promise.** Reported from a live submission with
+`jrodna-1234`, which matches no `referral_codes` row. `send-lead-emails` validated the code
+*only* to decide whether to insert the `referrals` row — the admin email keyed its red
+**REFERRAL LEAD** banner and "A referral discount applies" line off the raw `lead.referralCode`
+string instead, so any typed text triggered both. The admin UI had the same bug against
+`leads.used_referral_code`.
+
+- The email now takes a `ReferralCheck` (`none` | `valid` | `invalid` | `unverified`). Only
+  `valid` renders the banner and the discount line; `invalid` shows "Code entered: X (not a valid
+  code)". `unverified` — the RPC itself errored — says "could not be checked — verify manually",
+  because a failed check is not a rejection and the email must not claim a verdict it never got.
+- `NewLeadsTab` and `PipelineTab` now gate every referral badge on a **`referrals` row existing**
+  for that lead (`fetchReferredLeadIds`, covered by `referred-leads.test.ts`), since that row is
+  only ever created server-side after `validate_referral_code` matches. A code that was typed but
+  not matched is shown as plain grey text, not an amber action-required badge. `NewLeadsTab`'s
+  realtime channel also subscribes to `referrals` inserts, so a genuine referral still lights up
+  live — the row lands a moment after the lead.
+
+**The pattern to watch.** Four of these five are the same failure: a held or corrected figure was
+deleted, and the label, footnote, unit or container it lived in was left behind to attach itself
+to whatever was nearby. §2.12's advice to "verify with wording, not digits" holds, and should
+extend to the scaffolding — grep the *labels* ("Pass Rate", "Success Rate", "Based on"), not just
+the numbers.
 
 ### 2.16 Admin guard invariants are now mutation-tested
 The first test pass caught the regression it was written for and missed three others: the

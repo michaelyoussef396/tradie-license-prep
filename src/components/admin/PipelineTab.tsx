@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Calendar, Loader2, AlertCircle, Mail, Tag, Clock, MessageSquare, Globe, StickyNote } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { fetchReferredLeadIds } from "./referred-leads";
 
 interface Lead {
   id: string;
@@ -55,6 +56,7 @@ const PipelineTab = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editNotes, setEditNotes] = useState("");
+  const [referredLeadIds, setReferredLeadIds] = useState<Set<string>>(new Set());
   const [showTest, setShowTest] = useState(false);
   const { toast } = useToast();
 
@@ -65,7 +67,14 @@ const PipelineTab = () => {
     if (!showTest) query = query.eq("is_test", false);
     const { data, error: fetchError } = await query.order("created_at", { ascending: false });
     if (fetchError) { setError(fetchError.message); setLoading(false); return; }
-    setLeads((data || []) as Lead[]);
+    const leadsData = (data || []) as Lead[];
+    setLeads(leadsData);
+
+    const { referredLeadIds: referred, error: referralError } = await fetchReferredLeadIds(
+      leadsData.map((l) => l.id),
+    );
+    if (referralError) { setError(referralError); setLoading(false); return; }
+    setReferredLeadIds(referred);
     setLoading(false);
   }, [showTest]);
 
@@ -145,7 +154,7 @@ const PipelineTab = () => {
                   <Card key={lead.id} className="bg-[#1e293b] border-gray-700 cursor-pointer hover:border-gray-500 transition-colors" onClick={() => openDetail(lead)}>
                     <CardContent className="p-3 space-y-2">
                       <p className="text-white font-semibold text-sm">{lead.name}</p>
-                      {lead.used_referral_code && (
+                      {referredLeadIds.has(lead.id) && (
                         <span className="inline-block bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">🎁 REFERRAL</span>
                       )}
                       {lead.phone && (
@@ -171,11 +180,17 @@ const PipelineTab = () => {
           </SheetHeader>
           {selectedLead && (
             <div className="space-y-4 mt-4">
-              {selectedLead.used_referral_code && (
+              {referredLeadIds.has(selectedLead.id) && (
                 <div className="bg-amber-500/20 border-2 border-amber-500 rounded-lg px-4 py-3">
                   <p className="text-amber-300 font-bold text-sm">⚠️ Action Required: REFERRAL LEAD</p>
                   <p className="text-amber-200 text-sm mt-1">This lead was referred using code <span className="font-mono font-bold">{selectedLead.used_referral_code}</span>. A referral discount applies to their course fee when invoicing — amount pending confirmation.</p>
                 </div>
+              )}
+
+              {selectedLead.used_referral_code && !referredLeadIds.has(selectedLead.id) && (
+                <p className="text-gray-400 text-sm">
+                  Code entered: <span className="font-mono">{selectedLead.used_referral_code}</span> (not a valid code)
+                </p>
               )}
               {selectedLead.phone && (
                 <a href={`tel:${selectedLead.phone}`} className="flex items-center gap-2 text-lg font-bold text-[#1B4FD8] hover:underline">
