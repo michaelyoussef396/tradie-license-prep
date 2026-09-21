@@ -553,6 +553,41 @@ the agent's Bash tool is gated by the Supabase guard hook. Supabase CLI 2.101.0.
 new copy has not been observed in a received email. A submission through /contact would exercise
 `send-lead-emails` end to end.
 
+### 21 September 2026 — `send-lead-emails` redeployed from an **unmerged branch**
+
+Deployed by Michael in his own terminal, Supabase CLI 2.101.0, Docker not running (asset upload
+path):
+
+    supabase functions deploy send-lead-emails \
+      --project-ref dpceyonfjfjaogwkyrhp --no-verify-jwt
+
+**What went live:** the referral fix from §2.17. An unmatched code no longer produces the red
+**REFERRAL LEAD** banner or the "A referral discount applies" line in the admin email; it reads
+`Code entered: X (not a valid code)`, and a code whose check errored reads
+`could not be checked — verify manually`. Confirmed at deploy time that the working tree was
+clean at `71a3d6d`, so the uploaded file is exactly the committed version — the CLI uploads the
+working tree, not a ref.
+
+⚠️ **Production is now ahead of `main`.** The change lives in `629f91d` on
+`fix-live-site-claims-2026-09-21` (PR #3, open). `git show main:…/send-lead-emails/index.ts`
+has no `ReferralCheck` — `main` still carries the version that banners any typed string.
+
+This is the **inverse** of the hazard recorded for PR #1 above, and the same failure shape: there,
+a deploy was attempted from a `main` checkout holding pre-sweep code, which would have reinstated
+held claims. Here the good code is deployed and the stale code is the one on `main`, so:
+
+- **Do not redeploy `send-lead-emails` from a `main` checkout until PR #3 merges.** It would
+  silently reinstate the false discount promise.
+- Merging PR #3 requires no redeploy — production already runs that code. The merge just ends the
+  drift.
+- If PR #3 is ever closed unmerged, production keeps running code that exists in no merged branch.
+  Redeploy from `main` deliberately at that point, rather than leaving it.
+
+**Not verified against a live send.** The deploy succeeded; no test enquiry has been submitted, so
+the new copy has not been observed in a received email. A submission through /contact with a
+junk referral code (e.g. `jrodna-1234`) would exercise all of it — that is the reproduction the
+fix came from. `send-student-welcome` and `send-followup-emails` were not touched or redeployed.
+
 ### Day 10 auto-dead — still undeployed, needs a decision
 
 `send-followup-emails` is the only function containing it
@@ -585,6 +620,7 @@ The deploys created `supabase/.temp/`, and `linked-project.json` inside it recor
 `.gitignore`, so a careless `git add` would commit a default target into the repo. That is the
 shape of the 2026-08-27 incident the Supabase guard was written for, where a tracked
 `supabase/.temp/project-ref` carried the PROD ref and every clone and worktree inherited it.
-Harmless here because the ref is the correct one, but `supabase/.temp/` should be added to
-`.gitignore`.
+Harmless here because the ref is the correct one. **Resolved** in `82b3d50`: `.gitignore:30` now
+carries `supabase/.temp/`, confirmed with `git check-ignore -v`, so the 21 Sep redeploy above left
+the working tree clean.
 
