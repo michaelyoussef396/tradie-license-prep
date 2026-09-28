@@ -298,7 +298,8 @@ const Courses = () => {
         <section 
           key={course.id}
           id={course.id}
-          className={index % 2 === 0 ? "py-16 md:py-24 bg-slate-50" : "py-16 md:py-24 bg-white"}
+          // overflow-hidden stops the cards' slide-in offset from widening the page on phones
+          className={index % 2 === 0 ? "py-16 md:py-24 bg-slate-50 overflow-hidden" : "py-16 md:py-24 bg-white overflow-hidden"}
         >
           <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div 
@@ -458,7 +459,7 @@ const Courses = () => {
             {/* CTA Button */}
             <div className="text-center">
               <Button
-                className={`bg-gradient-to-r ${course.accent} hover:opacity-90 text-white text-lg px-8 py-6 h-auto rounded-xl shadow-lg group`}
+                className={`bg-gradient-to-r ${course.accent} hover:opacity-90 text-white text-lg px-8 py-6 h-auto rounded-xl shadow-lg group max-w-full whitespace-normal text-center`}
                 asChild
               >
                 <Link to="/contact" className="flex items-center gap-2">
