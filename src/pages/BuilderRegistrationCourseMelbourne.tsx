@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
+import PaymentOptionsNote from "@/components/PaymentOptionsNote";
+import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
 import { courses, practiceQuestionsSummary } from "@/data/courses";
 import {
   EXPERIENCE_BY_CLASS_SUMMARY,
@@ -135,6 +137,9 @@ const BuilderRegistrationCourseMelbourne = () => {
               backgroundSize: "60px 60px",
             }}
           />
+          <div className="container relative z-10 mx-auto mb-10 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <PracticeExamsAddOn tone="dark" />
+          </div>
           <div className="container relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-white">
@@ -343,8 +348,10 @@ const BuilderRegistrationCourseMelbourne = () => {
               The group courses are in person in Melbourne. There's also a private one-on-one option
               delivered online via Zoom for people who need the flexibility.
             </P>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Are payment plans available?</h3>
-            <P>Get in touch and we'll work something out based on your situation.</P>
+            <h3 className="mb-2 text-xl font-bold text-slate-900">What are the payment options?</h3>
+            <P>
+              <PaymentOptionsNote />
+            </P>
           </section>
 
           <section>

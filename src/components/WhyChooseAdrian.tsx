@@ -1,4 +1,4 @@
-import { Users, Target, BookOpen, TrendingUp, Award, Shield } from "lucide-react";
+import { Users, Target, BookOpen, TrendingUp, Award } from "lucide-react";
 import { motion } from "framer-motion";
 
 const WhyChooseAdrian = () => {
@@ -33,12 +33,7 @@ const WhyChooseAdrian = () => {
       description: "Knowing the content is half the battle. We teach you how to approach the exam itself.",
       accent: "from-blue-500 to-blue-600",
     },
-    {
-      icon: Shield,
-      title: "Pass First Time",
-      description: "Pass first time, or we sit you down again for free — at no extra cost.",
-      accent: "from-blue-600 to-blue-700",
-    },
+    // HOLD: resit wording pending Adrian's written answer
   ];
 
   return (
@@ -75,8 +70,8 @@ const WhyChooseAdrian = () => {
           </p>
         </motion.div>
 
-        {/* Benefits - Staggered Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Benefits - Staggered Layout; flex-wrap centres a short last row */}
+        <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             const isEven = index % 2 === 0;
@@ -84,7 +79,7 @@ const WhyChooseAdrian = () => {
             return (
               <motion.div
                 key={index}
-                className={`group relative ${index >= 3 ? 'lg:mt-8' : ''}`}
+                className={`group relative w-full md:w-[calc(50%_-_0.75rem)] lg:w-[calc((100%_-_4rem)/3)] ${index >= 3 ? 'lg:mt-8' : ''}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

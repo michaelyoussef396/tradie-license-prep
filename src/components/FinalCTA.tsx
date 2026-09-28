@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
+import { REFERRED_DISCOUNT_PERCENT } from "@/data/referral";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import {
@@ -318,7 +319,7 @@ const FinalCTA = () => {
                       onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } setFormData(prev => ({ ...prev, referralCode: e.target.value })); }}
                       className="w-full h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-gray-400 mt-1">Got a code from a mate? Enter it here.</p>
+                    <p className="text-xs text-gray-400 mt-1">Got a code from a mate? Enter it for {REFERRED_DISCOUNT_PERCENT}% off your course fee.</p>
                   </div>
 
                   <div>

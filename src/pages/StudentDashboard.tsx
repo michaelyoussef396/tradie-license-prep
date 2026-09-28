@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Copy, CheckCircle, Users, DollarSign, LogOut, Loader2, Gift } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import qualifyProLogo from "@/assets/qualify-pro-logo.png";
+import { REFERRED_DISCOUNT_PERCENT, REFERRER_GIFT_CARD_AUD } from "@/data/referral";
 
 interface StudentData {
   id: string;
@@ -20,9 +21,6 @@ interface ReferralRow {
   referred_lead_id: string;
   lead_name?: string;
 }
-
-/** Credited against the referrer's own course cost. Past students get a card (TBC). */
-const REFERRAL_REWARD_AUD = 300;
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState<StudentData | null>(null);
@@ -90,7 +88,7 @@ const StudentDashboard = () => {
   };
 
   const enrolled = referrals.filter((r) => r.status === "Enrolled" || r.status === "Paid Out").length;
-  const totalRewards = enrolled * REFERRAL_REWARD_AUD;
+  const totalRewards = enrolled * REFERRER_GIFT_CARD_AUD;
 
   const formatDate = (d: string | null) => {
     if (!d) return "";
@@ -165,7 +163,8 @@ const StudentDashboard = () => {
                 {student.referral_code || "—"}
               </p>
               <p className="text-gray-500 text-sm mt-2">
-                Share this code with tradie mates. You earn a $300 referral reward.
+                Share this code with tradie mates. They get {REFERRED_DISCOUNT_PERCENT}% off their course fee.
+                You get a ${REFERRER_GIFT_CARD_AUD} gift card once their course is fully paid.
               </p>
             </div>
             <Button

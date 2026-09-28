@@ -22,7 +22,6 @@ import {
   CheckCircle2,
   Award,
   Users,
-  Shield,
   MessageSquare,
   ArrowRight,
   Send
@@ -32,6 +31,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import { trackContactFormStart, trackContactFormSubmit, trackLeadConversion } from "@/lib/analytics";
+import { courseById } from "@/data/courses";
+import { REFERRED_DISCOUNT_PERCENT } from "@/data/referral";
 import {
   EXPERIENCE_OPTIONS,
   LICENCE_TYPE_OPTIONS,
@@ -392,7 +393,7 @@ const Contact = () => {
                       maxLength={20}
                       className="h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it here.</p>
+                    <p className="text-xs text-slate-500 mt-1">Got a code from a mate? Enter it for {REFERRED_DISCOUNT_PERCENT}% off your course fee.</p>
                   </div>
 
                   {/* Message */}
@@ -509,7 +510,7 @@ const Contact = () => {
                   <div>
                     <div className="font-semibold text-slate-900 mb-1">Class Times</div>
                     <div className="text-slate-700 font-medium">Evening sessions available</div>
-                    <div className="text-sm text-slate-500 mt-1">6pm–9pm, one night per week</div>
+                    <div className="text-sm text-slate-500 mt-1">{courseById.evening.sessionTime}</div>
                   </div>
                 </div>
               </div>
@@ -701,12 +702,12 @@ const Contact = () => {
           }} />
         </div>
 
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
               { icon: Award, value: "2017", label: "Training Builders Since" },
               { icon: Users, value: "Free", label: "Consultation" },
-              { icon: Shield, value: "Free", label: "Resit If You Don't Pass First Time" },
+              // HOLD: resit wording pending Adrian's written answer
             ].map((stat, index) => {
               const Icon = stat.icon;
               return (

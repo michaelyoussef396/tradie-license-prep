@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Calendar, Loader2, AlertCircle, Mail, Tag, Clock, MessageSquare, Globe, StickyNote } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { REFERRED_DISCOUNT_PERCENT } from "@/data/referral";
 import { fetchReferredLeadIds } from "./referred-leads";
 
 interface Lead {
@@ -155,7 +156,7 @@ const PipelineTab = () => {
                     <CardContent className="p-3 space-y-2">
                       <p className="text-white font-semibold text-sm">{lead.name}</p>
                       {referredLeadIds.has(lead.id) && (
-                        <span className="inline-block bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">🎁 REFERRAL</span>
+                        <span className="inline-block bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">🎁 REFERRAL: {REFERRED_DISCOUNT_PERCENT}% OFF</span>
                       )}
                       {lead.phone && (
                         <a href={`tel:${lead.phone}`} onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 text-[#1B4FD8] text-xs hover:underline">
@@ -183,7 +184,7 @@ const PipelineTab = () => {
               {referredLeadIds.has(selectedLead.id) && (
                 <div className="bg-amber-500/20 border-2 border-amber-500 rounded-lg px-4 py-3">
                   <p className="text-amber-300 font-bold text-sm">⚠️ Action Required: REFERRAL LEAD</p>
-                  <p className="text-amber-200 text-sm mt-1">This lead was referred using code <span className="font-mono font-bold">{selectedLead.used_referral_code}</span>. A referral discount applies to their course fee when invoicing — amount pending confirmation.</p>
+                  <p className="text-amber-200 text-sm mt-1">This lead was referred using code <span className="font-mono font-bold">{selectedLead.used_referral_code}</span>. You must apply a <span className="font-bold">{REFERRED_DISCOUNT_PERCENT}% discount</span> to their course fee when invoicing.</p>
                 </div>
               )}
 

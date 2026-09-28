@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
+import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import {
   Accordion,
   AccordionContent,
@@ -59,18 +60,18 @@ const FAQ = () => {
         },
         {
           question: "What's included in the programs?",
+          // HOLD: resit wording pending Adrian's written answer
           answer:
-            `All programs include training materials, ${practiceQuestionsSummary}, Acts & Regulations guidance, application and portfolio preparation, BPC exam preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost.`,
+            `All programs include training materials, ${practiceQuestionsSummary}, Acts & Regulations guidance, application and portfolio preparation, and BPC exam preparation.`,
         },
         {
           question: "Do you offer evening classes?",
           answer:
-            `Yes! Our most popular program, the ${courseById.evening.name}, runs 1 night per week, 6pm–9pm, designed for working tradies.`,
+            `Yes! Our most popular program, the ${courseById.evening.name}, runs in the evening, ${courseById.evening.sessionTime}, designed for working tradies.`,
         },
         {
-          question: "Do you offer payment plans?",
-          answer:
-            "Yes. Contact us to discuss payment options based on your individual needs. We're flexible and want to make training accessible.",
+          question: "What are the payment options?",
+          answer: <PaymentOptionsNote />,
         },
       ],
     },
@@ -114,11 +115,7 @@ const FAQ = () => {
           answer:
             "The exam is reference-based — the Building Act, the Regulations, the NCC and the relevant Australian Standards are all available to you. What it tests is how fast you can find and apply the right answer, so preparation focuses on knowing your way around those references. Working through the practice questions and answers is what builds that speed.",
         },
-        {
-          question: "What if I don't pass the exam?",
-          answer:
-            "Pass first time, or we sit you down again for free — at no extra cost.",
-        },
+        // HOLD: resit wording pending Adrian's written answer
         {
           question: "What trade areas do you cover?",
           answer:
@@ -132,8 +129,12 @@ const FAQ = () => {
       questions: [
         {
           question: "What do your programs cost?",
-          answer:
-            "Program fees vary depending on duration and format. Contact us for detailed pricing and payment plan options.",
+          answer: (
+            <>
+              Program fees vary depending on duration and format. Contact us for detailed pricing.{" "}
+              <PaymentOptionsNote />
+            </>
+          ),
         },
         {
           question: "Is the consultation really free?",

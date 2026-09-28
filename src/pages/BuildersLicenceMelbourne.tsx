@@ -287,7 +287,7 @@ const BuildersLicenceMelbourne = () => {
         {/* 
           TODO: Add FAQ accordion here once content is provided.
           Suggested topics: eligibility requirements, BPC assessment format,
-          class sizes, payment plans, and how long the process takes.
+          class sizes, payment options, and how long the process takes.
         */}
 
         {/* Minimal bottom strip — no navigation links except phone */}

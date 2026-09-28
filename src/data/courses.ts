@@ -11,10 +11,13 @@
  *  - The GST-INCLUSIVE total is always the headline. Render `priceDisplay` as
  *    the prominent figure and `exGstNote` beside it — never the other way
  *    round, and never label an ex-GST figure "inc GST".
- *  - Time ranges use an en-dash: 6pm–9pm.
+ *  - Time ranges use an en-dash: 5pm–9pm.
  */
 
 const GST_RATE = 0.1;
+
+/** Confirmed by Adrian (Vryan email, 27 Sep 2026). Nights per week is not confirmed. */
+const EVENING_SESSION_TIME = "5pm–9pm";
 
 /** Formats AUD, dropping a trailing ".00" but keeping real cents ($8,794.50). */
 function formatAud(amount: number): string {
@@ -60,6 +63,8 @@ export interface Course extends GstPricing {
   format: string;
   /** Compact format label for cards and pills. */
   formatShort: string;
+  /** Class time for courses with a fixed session, e.g. "5pm–9pm". */
+  sessionTime?: string;
   whoItsFor: string;
   /** Practice question count, e.g. "600+". Never use the "450-600+" phrasing. */
   practiceQuestions: string;
@@ -83,7 +88,7 @@ export const courses: Course[] = [
       "Comprehensive training materials and resources",
       "Complete application and portfolio preparation",
       "BPC exam preparation and practice sessions",
-      "Pass first time, or we sit you down again for free — at no extra cost",
+      // HOLD: resit wording pending Adrian's written answer
       "Small group training (maximum 10 students)",
       "One-on-one consultation sessions",
       "Post-registration support and guidance",
@@ -92,38 +97,39 @@ export const courses: Course[] = [
   },
   {
     id: "evening",
-    // NOTE: price is identical to the 9-week Private 1-on-1 Training below.
-    // Pending client (Adrian) confirmation — do not change without sign-off.
+    // NOTE: same price as Private 1-on-1 Training below — confirmed by Adrian
+    // (Vryan email, 27 Sep 2026).
     name: "Evening Builder Course",
     duration: "7 weeks",
-    format: "Evenings, 1 night per week, 6pm–9pm · In person, small group",
-    formatShort: "1 night/week, 6pm–9pm",
+    format: `Evenings, ${EVENING_SESSION_TIME} · In person, small group`,
+    formatShort: `Evenings, ${EVENING_SESSION_TIME}`,
+    sessionTime: EVENING_SESSION_TIME,
     whoItsFor:
       "For working tradies going for domestic builder registration who can't take time off during the day.",
-    ...gstPricing(5650),
+    ...gstPricing(6650),
     practiceQuestions: "600+",
     inclusions: [
-      "7 evening sessions (6pm–9pm, one night per week)",
+      `7 evening sessions (${EVENING_SESSION_TIME})`,
       "Small group training (maximum 10 students)",
       "600+ Q&A practice tests with explanations",
       "Complete application preparation support",
       "Portfolio development and review",
-      "Pass first time, or we sit you down again for free — at no extra cost",
+      // HOLD: resit wording pending Adrian's written answer
       "All training materials included",
       "Post-course support via email/phone",
     ],
   },
   {
     id: "private",
-    // NOTE: price is identical to the 7-week Evening Builder Course above.
-    // Pending client (Adrian) confirmation — do not change without sign-off.
+    // NOTE: same price as the Evening Builder Course above — confirmed by Adrian
+    // (Vryan email, 27 Sep 2026).
     name: "Private 1-on-1 Training",
     duration: "9 weeks",
     format: "One-on-one, 3 hours per week via Zoom",
     formatShort: "3 hrs/week via Zoom",
     whoItsFor:
       "For people who want individual coaching and flexible scheduling, or training tailored to their specific gaps.",
-    ...gstPricing(5650),
+    ...gstPricing(6650),
     practiceQuestions: "600+",
     inclusions: [
       "9 weeks of one-on-one coaching (3 hours per week)",
@@ -176,6 +182,19 @@ export const courseById = Object.fromEntries(
 ) as Record<string, Course>;
 
 export const getCourse = (id: string): Course => courseById[id];
+
+/**
+ * Offered alongside every course and NOT included in any course fee. Confirmed
+ * by Adrian (Vryan email, 27 Sep 2026). There is no price field on purpose: the
+ * unit it would be priced in is pending, so the call to action stands in for it.
+ */
+export const practiceExamsAddOn = {
+  label: "Add-on · Not included in course fees",
+  name: "Practice exams and book tabbing",
+  description:
+    "The BPC exam is reference-based: the Building Act, the Regulations, the NCC and the Australian Standards. It tests how fast you can find and apply the right answer. Adrian runs practice exams and teaches you to tab your books.",
+  callToAction: "Ask us about it",
+};
 
 /** e.g. "600+ practice questions and answers (450+ for the carpentry course)" */
 export const practiceQuestionsSummary = `${courseById.comprehensive.practiceQuestions} practice questions and answers (${courseById.carpentry.practiceQuestions} for the carpentry course)`;

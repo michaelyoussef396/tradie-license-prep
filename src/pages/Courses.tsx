@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
+import PaymentOptionsNote from "@/components/PaymentOptionsNote";
+import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
 import { 
   Check, 
   Clock, 
@@ -22,8 +24,7 @@ import {
   Star,
   Video,
   Wrench,
-  HelpCircle,
-  Shield
+  HelpCircle
 } from "lucide-react";
 import {
   Accordion,
@@ -96,7 +97,7 @@ const Courses = () => {
         { icon: Award, text: "Building codes and standards (AS)" },
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
-      schedule: `One evening per week (6pm–9pm) for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
+      schedule: `Evening classes, ${getCourse("evening").sessionTime}, over ${getCourse("evening").duration}. Perfect for working tradies.`,
       requirements: `${EXPERIENCE_BY_CLASS_SUMMARY} Currently working in the building/construction industry preferred.`,
       featured: true,
       accent: "from-emerald-500 to-teal-500"
@@ -155,18 +156,15 @@ const Courses = () => {
       question: "What does the BPC exam involve?",
       answer: `The exam is reference-based: you work with the Building Act, the Regulations, the NCC and the relevant Australian Standards rather than answering from memory. It covers building regulations, Australian Standards, building codes, construction techniques, site management, and business knowledge, and it tests how fast you can find and apply the right answer. Our programs include ${practiceQuestionsSummary} to build that speed.`
     },
+    // HOLD: resit wording pending Adrian's written answer
     {
-      question: "What if I fail the BPC exam?",
-      answer: "Pass first time, or we sit you down again for free — at no extra cost. We're committed to your success and will work with you until you achieve your registration."
-    },
-    {
-      question: "Can I get a payment plan?",
-      answer: "Yes! We offer flexible payment plans to make the investment more manageable. Contact us to discuss options that work for your financial situation. We believe cost shouldn't prevent good tradies from getting their licence."
+      question: "What are the payment options?",
+      answer: <PaymentOptionsNote />
     },
   ];
 
   const universalFeatures = [
-    { icon: Shield, title: "Free Resit", description: "Pass first time, or we sit you down again for free — at no extra cost." },
+    // HOLD: resit wording pending Adrian's written answer
     { icon: FileText, title: "Application Support", description: "Complete help with BPC applications, portfolio, and documentation." },
     { icon: Target, title: "BPC Exam Prep", description: `${practiceQuestionsSummary} that mirror the actual BPC exam.` },
     { icon: BookOpen, title: "All Materials Included", description: "Training manuals, study guides, and online platform access." },
@@ -200,6 +198,7 @@ const Courses = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <PracticeExamsAddOn tone="dark" className="mb-10" />
             <span className="inline-block px-4 py-1.5 bg-blue-500/20 border border-blue-400/30 text-blue-300 rounded-full text-sm font-medium mb-6">
               Training Programs
             </span>
@@ -209,8 +208,9 @@ const Courses = () => {
                 Registration Training
               </span>
             </h1>
+            {/* HOLD: resit wording pending Adrian's written answer */}
             <p className="text-xl text-blue-100/80 max-w-2xl mx-auto">
-              Choose the program that fits your schedule and goals. All programs include a free resit if you don’t pass first time, plus application support.
+              Choose the program that fits your schedule and goals. All programs include application support.
             </p>
           </motion.div>
         </div>
@@ -453,6 +453,8 @@ const Courses = () => {
               </motion.div>
             )}
 
+            <PracticeExamsAddOn tone="light" className="mb-12" />
+
             {/* CTA Button */}
             <div className="text-center">
               <Button
@@ -496,13 +498,14 @@ const Courses = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* flex-wrap centres a short last row */}
+          <div className="flex flex-wrap justify-center gap-6">
             {universalFeatures.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <motion.div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                  className="w-full md:w-[calc(50%_-_0.75rem)] lg:w-[calc((100%_-_3rem)/3)] bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -579,15 +582,9 @@ const Courses = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Flexible Payment Plans Available
-              </h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                We offer flexible payment plans to make our programs more accessible. Every tradie deserves the opportunity to get their licence.
+              <p className="text-xl font-bold text-gray-900">
+                <PaymentOptionsNote />
               </p>
-              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" asChild>
-                <Link to="/contact">Contact Us About Payment Plans</Link>
-              </Button>
             </motion.div>
           </div>
         </div>
