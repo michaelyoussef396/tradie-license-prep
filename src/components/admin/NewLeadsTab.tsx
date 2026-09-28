@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Phone, Mail, Calendar, Tag, Clock, MessageSquare, Globe, Loader2, AlertCircle, StickyNote } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { REFERRED_DISCOUNT_PERCENT } from "@/data/referral";
 import { fetchReferredLeadIds } from "./referred-leads";
 
 interface Lead {
@@ -156,8 +157,8 @@ const NewLeadsTab = () => {
 
             {lead.used_referral_code && referredLeadIds.has(lead.id) && (
               <div className="bg-amber-500/20 border border-amber-500 rounded-lg px-4 py-3">
-                <p className="text-amber-300 font-bold text-sm">🎁 REFERRAL LEAD</p>
-                <p className="text-amber-200 text-xs mt-1">Code used: <span className="font-mono font-bold">{lead.used_referral_code}</span> — referral discount pending confirmation.</p>
+                <p className="text-amber-300 font-bold text-sm">🎁 REFERRAL: Owed {REFERRED_DISCOUNT_PERCENT}% Discount</p>
+                <p className="text-amber-200 text-xs mt-1">Code used: <span className="font-mono font-bold">{lead.used_referral_code}</span> — Apply {REFERRED_DISCOUNT_PERCENT}% off their course fee when invoicing.</p>
               </div>
             )}
 

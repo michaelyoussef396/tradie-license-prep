@@ -1,21 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Check, Clock, Users, Video, Wrench, Star, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { courseById } from "@/data/courses";
+import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 
 const CourseCards = () => {
-  const navigate = useNavigate();
-
-  const handleContactClick = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate('/contact');
-    }
-  };
-
   const meta = [
     { id: "comprehensive", badge: { text: "Most Comprehensive", color: "bg-blue-600" }, subtitle: "Domestic & Commercial", formatIcon: Users, featured: false, highlights: [0, 1, 2, 4] },
     { id: "evening", badge: { text: "Most Popular", color: "bg-gradient-to-r from-emerald-500 to-teal-500" }, subtitle: "For Working Tradies", formatIcon: Clock, featured: true, highlights: [1, 2, 0, 5] },
@@ -171,23 +161,17 @@ const CourseCards = () => {
           })}
         </div>
 
-        {/* Payment Plans Note */}
-        <motion.div 
+        <motion.div
           className="text-center mt-12 sm:mt-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-full shadow-md border border-gray-100">
-            <span className="text-gray-600">Payment plans available</span>
-            <span className="text-gray-300">|</span>
-            <button 
-              onClick={handleContactClick} 
-              className="text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors"
-            >
-              Contact us to discuss
-            </button>
+          <div className="inline-flex items-center px-6 py-3 bg-white rounded-full shadow-md border border-gray-100">
+            <span className="text-gray-600">
+              <PaymentOptionsNote />
+            </span>
           </div>
         </motion.div>
       </div>

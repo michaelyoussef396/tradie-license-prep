@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { trackCtaClick } from "@/lib/analytics";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
+import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
 
 /** Lets a trailing odd item fill the row so a two-column grid never shows a gap. */
 const isLastInOddRow = (index: number, total: number) =>
@@ -78,6 +79,15 @@ const Hero = () => {
       />
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          className="mb-6 lg:mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <PracticeExamsAddOn tone="dark" />
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Main Content */}

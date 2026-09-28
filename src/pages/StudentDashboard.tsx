@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Copy, CheckCircle, Users, DollarSign, LogOut, Loader2, Gift } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import qualifyProLogo from "@/assets/qualify-pro-logo.png";
+import { REFERRED_DISCOUNT_PERCENT, REFERRER_GIFT_CARD_AUD, summariseReferralRewards } from "@/data/referral";
 
 interface StudentData {
   id: string;
@@ -20,9 +21,6 @@ interface ReferralRow {
   referred_lead_id: string;
   lead_name?: string;
 }
-
-/** Credited against the referrer's own course cost. Past students get a card (TBC). */
-const REFERRAL_REWARD_AUD = 300;
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState<StudentData | null>(null);
@@ -89,8 +87,8 @@ const StudentDashboard = () => {
     navigate("/admin");
   };
 
-  const enrolled = referrals.filter((r) => r.status === "Enrolled" || r.status === "Paid Out").length;
-  const totalRewards = enrolled * REFERRAL_REWARD_AUD;
+  const { successfulEnrolments, earnedAud: earnedRewards, pendingAud: pendingRewards } =
+    summariseReferralRewards(referrals);
 
   const formatDate = (d: string | null) => {
     if (!d) return "";
@@ -165,7 +163,8 @@ const StudentDashboard = () => {
                 {student.referral_code || "—"}
               </p>
               <p className="text-gray-500 text-sm mt-2">
-                Share this code with tradie mates. You earn a $300 referral reward.
+                Share this code with tradie mates. They get {REFERRED_DISCOUNT_PERCENT}% off their course fee.
+                You get a ${REFERRER_GIFT_CARD_AUD} gift card once their course is fully paid.
               </p>
             </div>
             <Button
@@ -197,7 +196,7 @@ const StudentDashboard = () => {
               </div>
               <span className="text-gray-400 text-sm">Successful Enrolments</span>
             </div>
-            <p className="text-3xl font-bold text-white">{enrolled}</p>
+            <p className="text-3xl font-bold text-white">{successfulEnrolments}</p>
           </div>
           <div className="bg-[#1e293b] border border-gray-700 rounded-xl p-5">
             <div className="flex items-center gap-3 mb-2">
@@ -206,7 +205,12 @@ const StudentDashboard = () => {
               </div>
               <span className="text-gray-400 text-sm">Total Rewards Earned</span>
             </div>
-            <p className="text-3xl font-bold text-white">${totalRewards}</p>
+            <p className="text-3xl font-bold text-white">${earnedRewards}</p>
+            {pendingRewards > 0 && (
+              <p className="text-gray-500 text-sm mt-1">
+                +${pendingRewards} pending, paid once each referred course is fully paid
+              </p>
+            )}
           </div>
         </div>
 
@@ -234,7 +238,14 @@ const StudentDashboard = () => {
                     <TableRow key={r.id} className="border-gray-700 hover:bg-gray-800/50">
                       <TableCell className="text-gray-400 text-sm">{formatDate(r.created_at)}</TableCell>
                       <TableCell className="text-white">{firstName(r.lead_name)}</TableCell>
-                      <TableCell>{statusBadge(r.status)}</TableCell>
+                      <TableCell>
+                        {statusBadge(r.status)}
+                        {r.status === "Enrolled" && (
+                          <p className="text-gray-500 text-xs mt-1">
+                            Pending: ${REFERRER_GIFT_CARD_AUD} gift card once their course is fully paid
+                          </p>
+                        )}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
