@@ -97,7 +97,7 @@ const Courses = () => {
         { icon: Award, text: "Building codes and standards (AS)" },
         { icon: TrendingUp, text: "Business and contractor management" },
       ],
-      schedule: `Evening classes, ${getCourse("evening").nightsPerWeek}, ${getCourse("evening").sessionTime}, for ${getCourse("evening").duration}. Perfect for working tradies. Choose your preferred weeknight.`,
+      schedule: `Evening classes, ${getCourse("evening").nightsPerWeek}, ${getCourse("evening").sessionTime}, for ${getCourse("evening").duration}. Perfect for working tradies.`,
       requirements: `${EXPERIENCE_BY_CLASS_SUMMARY} Currently working in the building/construction industry preferred.`,
       featured: true,
       accent: "from-emerald-500 to-teal-500"

@@ -85,8 +85,16 @@ Comprehensive's slot 4 and Evening's slot 5 were the resit line; they now show "
 **Nights per week — removed on 27 Sep, restored on 28 Sep.** The first pass took "1 night per week"
 out with the old time, treating it as unconfirmed. It is in Adrian's written course info, so it came
 back with only the time changed. It now reads "1 night per week, 5pm–9pm" everywhere, from
-`nightsPerWeek` in `courses.ts`. The `/courses` schedule line is back to its prior wording too,
-including "Choose your preferred weeknight." Prior wording, for reference:
+`nightsPerWeek` in `courses.ts`.
+
+**"Choose your preferred weeknight." — removed 28 Sep.** It isn't in any of Adrian's written info; his
+docs only say 1 night per week. It was briefly restored with the nights, then taken out. The
+`/courses` Evening schedule line (`Courses.tsx:100`) now reads "Evening classes, 1 night per week,
+5pm–9pm, for 7 weeks. Perfect for working tradies." Old wording: "One evening per week (6pm–9pm) for
+7 weeks. Perfect for working tradies. Choose your preferred weeknight." Restore it only if Adrian
+confirms students choose their night (§0.5).
+
+Prior wording of the nights-per-week lines, for reference:
 
 | File | Was (before 27 Sep) |
 |---|---|
@@ -144,9 +152,9 @@ Pending and deliberately left live as is: the auto-reply's "within 24 hours" cal
 1. **Are the add-on practice exams separate from the included Q&A tests and mock tests?** The site
    now presents them as extra practice on top of the course (§0.1). If they are the same tests, the
    add-on copy needs to change.
-2. **Confirm Evening is still 1 night per week.** It is live from his written course info, where the
-   time has since moved from 6pm–9pm to 5pm–9pm. The `/courses` schedule line also still says
-   "Choose your preferred weeknight."
+2. **Evening course: is it still 1 night per week, and is it a set night or do students choose?**
+   "1 night per week" is live from his written course info, where the time has since moved from
+   6pm–9pm to 5pm–9pm. "Choose your preferred weeknight." is off the site until he answers (§0.2).
 3. **Follow-up email greetings** (`followup-day3`, `followup-day7`, `send-followup-emails`) still use
    the name as typed. Item 9 was scoped to the auto-reply only.
 
@@ -172,6 +180,7 @@ The 28 Sep changes (§0.7) touch no edge function.
 | 4 | Non-students can't get a code: by design | No change (§0.4) |
 | 5 | "Right the first time" meta line stays removed | No change (§0.2) |
 | 6 | Fix the `/courses` horizontal scroll on phones, layout only | Own commit, below |
+| 7 | Drop "Choose your preferred weeknight."; it isn't in Adrian's written info | Removed from `Courses.tsx:100`; old wording in §0.2; question in §0.5 |
 
 **`/courses` on phones — before and after.** The page is a sitelink target for the Google Ads relaunch.
 Measured on production builds (`vite preview`) in headless Chrome with mobile emulation. Mobile
