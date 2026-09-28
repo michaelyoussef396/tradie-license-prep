@@ -67,7 +67,7 @@ const FAQ = () => {
         {
           question: "Do you offer evening classes?",
           answer:
-            `Yes! Our most popular program, the ${courseById.evening.name}, runs in the evening, ${courseById.evening.sessionTime}, designed for working tradies.`,
+            `Yes! Our most popular program, the ${courseById.evening.name}, runs ${courseById.evening.nightsPerWeek}, ${courseById.evening.sessionTime}, designed for working tradies.`,
         },
         {
           question: "What are the payment options?",

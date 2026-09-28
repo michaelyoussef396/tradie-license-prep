@@ -510,7 +510,7 @@ const Contact = () => {
                   <div>
                     <div className="font-semibold text-slate-900 mb-1">Class Times</div>
                     <div className="text-slate-700 font-medium">Evening sessions available</div>
-                    <div className="text-sm text-slate-500 mt-1">{courseById.evening.sessionTime}</div>
+                    <div className="text-sm text-slate-500 mt-1">{courseById.evening.nightsPerWeek}, {courseById.evening.sessionTime}</div>
                   </div>
                 </div>
               </div>

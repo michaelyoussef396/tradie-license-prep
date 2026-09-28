@@ -16,7 +16,9 @@
 
 const GST_RATE = 0.1;
 
-/** Confirmed by Adrian (Vryan email, 27 Sep 2026). Nights per week is not confirmed. */
+/** From Adrian's written course info ("Evening courses: 1 night/week"). */
+const EVENING_NIGHTS_PER_WEEK = "1 night per week";
+/** Confirmed by Adrian (Vryan email, 27 Sep 2026); his course info said 6pm–9pm. */
 const EVENING_SESSION_TIME = "5pm–9pm";
 
 /** Formats AUD, dropping a trailing ".00" but keeping real cents ($8,794.50). */
@@ -65,6 +67,8 @@ export interface Course extends GstPricing {
   formatShort: string;
   /** Class time for courses with a fixed session, e.g. "5pm–9pm". */
   sessionTime?: string;
+  /** How often a fixed-session course meets, e.g. "1 night per week". */
+  nightsPerWeek?: string;
   whoItsFor: string;
   /** Practice question count, e.g. "600+". Never use the "450-600+" phrasing. */
   practiceQuestions: string;
@@ -101,15 +105,16 @@ export const courses: Course[] = [
     // (Vryan email, 27 Sep 2026).
     name: "Evening Builder Course",
     duration: "7 weeks",
-    format: `Evenings, ${EVENING_SESSION_TIME} · In person, small group`,
-    formatShort: `Evenings, ${EVENING_SESSION_TIME}`,
+    format: `Evenings, ${EVENING_NIGHTS_PER_WEEK}, ${EVENING_SESSION_TIME} · In person, small group`,
+    formatShort: `${EVENING_NIGHTS_PER_WEEK}, ${EVENING_SESSION_TIME}`,
     sessionTime: EVENING_SESSION_TIME,
+    nightsPerWeek: EVENING_NIGHTS_PER_WEEK,
     whoItsFor:
       "For working tradies going for domestic builder registration who can't take time off during the day.",
     ...gstPricing(6650),
     practiceQuestions: "600+",
     inclusions: [
-      `7 evening sessions (${EVENING_SESSION_TIME})`,
+      `7 evening sessions (${EVENING_NIGHTS_PER_WEEK}, ${EVENING_SESSION_TIME})`,
       "Small group training (maximum 10 students)",
       "600+ Q&A practice tests with explanations",
       "Complete application preparation support",
@@ -184,15 +189,17 @@ export const courseById = Object.fromEntries(
 export const getCourse = (id: string): Course => courseById[id];
 
 /**
- * Offered alongside every course and NOT included in any course fee. Confirmed
- * by Adrian (Vryan email, 27 Sep 2026). There is no price field on purpose: the
- * unit it would be priced in is pending, so the call to action stands in for it.
+ * Paid add-on on top of any course, confirmed by Adrian (Vryan email, 27 Sep
+ * 2026). Every course already includes practice questions, sample questions and
+ * mock tests, so this is framed as EXTRA practice — never say or imply that
+ * practice exams are not included. There is no price field on purpose: the unit
+ * it would be priced in is pending, so the call to action stands in for it.
  */
 export const practiceExamsAddOn = {
-  label: "Add-on · Not included in course fees",
-  name: "Practice exams and book tabbing",
+  label: "Optional add-on",
+  name: "Extra exam practice and tabbing coaching",
   description:
-    "The BPC exam is reference-based: the Building Act, the Regulations, the NCC and the Australian Standards. It tests how fast you can find and apply the right answer. Adrian runs practice exams and teaches you to tab your books.",
+    "The BPC exam is reference-based: the Building Act, the Regulations, the NCC and the Australian Standards. It tests how fast you can find and apply the right answer. On top of your course, Adrian runs extra practice exams and coaches you on tabbing your books.",
   callToAction: "Ask us about it",
 };
 
