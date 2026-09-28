@@ -20,6 +20,136 @@
 
 ---
 
+## 0. Adrian's 27 Sep answers — branch `adrian-answers-2026-09` (not merged)
+
+**Source for every row marked confirmed:** Vryan email 27 Sep 2026 (relaying Adrian) — "Qualify Pro —
+Adrian's confirmed answers, action items". This section supersedes §2.1–§2.5 and §2.12 where they
+overlap; those sections carry a status line pointing back here.
+
+### 0.1 Confirmed — shipped on this branch
+
+| Fact | Source module | Where it renders |
+|---|---|---|
+| Evening Builder Course **$6,650 + GST** → headline **$7,315**, "($6,650 + GST)" beside it | `src/data/courses.ts` `gstPricing(6650)` | every course card and price row, via `priceDisplay` / `exGstNote` |
+| Private 1-on-1 Training **$6,650 + GST** → same display | same | same |
+| Evening classes run **5pm–9pm** | `courses.ts` `EVENING_SESSION_TIME`, exposed as `sessionTime` | course `format` / `formatShort` / inclusion, `Courses.tsx` schedule, `FAQ.tsx` evening answer, `Contact.tsx` Class Times |
+| Referred new student: **15% off their course fee** | `src/data/referral.ts` `REFERRED_DISCOUNT_PERCENT` | both form hints, student dashboard, welcome email, admin email, admin UI ×3 |
+| Referrer (past student or never a student): **$300 gift card, paid once the referred student's course is fully paid** | `referral.ts` `REFERRER_GIFT_CARD_AUD` | student dashboard, welcome email |
+| Payment: **"Payment options: talk to us"** plus the phone link, nothing more | `src/components/PaymentOptionsNote.tsx` | homepage course section, `/courses` FAQ + payment box, `/faq` ×2, `/builder-registration-course-melbourne` FAQ |
+| Extra one-on-one coaching: **$150 + GST per hour ($165 inc GST)** | — | **Nowhere.** No surface displayed a coaching price, so there was nothing to replace and nothing was added |
+| **Practice exams + book tabbing** — add-on, not included in course fees, "Ask us about it" | `courses.ts` `practiceExamsAddOn`, rendered by `PracticeExamsAddOn.tsx` | above the fold on `/`, `/courses` and `/builder-registration-course-melbourne`; an add-on box in each of the four course sections on `/courses` |
+| Lead auto-reply greets with the first letter of the first name capitalised | `send-lead-emails` `capitaliseFirstLetter` | auto-reply email |
+
+> **15% referral discount. Adrian approved a 3-month trial; internal review due 3 months after merge.**
+> Internal only: the site carries no end date, countdown or "limited time" wording.
+
+The practice-exams copy uses only the two confirmed facts: the exam is reference-based (Building
+Act, Regulations, NCC, Australian Standards) and tests how fast you find and apply the right answer;
+Adrian runs practice exams and teaches students to tab their books. Master Builders is not mentioned.
+
+### 0.2 Removed from rendered copy — prior wording, for a one-commit restore
+
+**Resit / pass-first-time promise.** Each spot carries `HOLD: resit wording pending Adrian's written
+answer`.
+
+| File | Was |
+|---|---|
+| `src/components/WhyChooseAdrian.tsx` | benefit card — title "Pass First Time", description "Pass first time, or we sit you down again for free — at no extra cost." (`Shield` icon) |
+| `src/data/courses.ts` ×2 | Comprehensive and Evening inclusion "Pass first time, or we sit you down again for free — at no extra cost" |
+| `src/pages/Courses.tsx` | hero "All programs include a free resit if you don’t pass first time, plus application support." → now "All programs include application support." |
+| `src/pages/Courses.tsx` | "Every Program Includes" tile — "Free Resit" / "Pass first time, or we sit you down again for free — at no extra cost." (`Shield`) |
+| `src/pages/Courses.tsx` | FAQ — Q "What if I fail the BPC exam?" / A "Pass first time, or we sit you down again for free — at no extra cost. We're committed to your success and will work with you until you achieve your registration." |
+| `src/pages/FAQ.tsx` | "What's included" answer ended "…BPC exam preparation, and this promise: pass first time, or we sit you down again for free — at no extra cost." |
+| `src/pages/FAQ.tsx` | FAQ — Q "What if I don't pass the exam?" / A "Pass first time, or we sit you down again for free — at no extra cost." |
+| `src/pages/Contact.tsx` | trust stat `{ icon: Shield, value: "Free", label: "Resit If You Don't Pass First Time" }` (strip now 2 columns, `max-w-3xl`) |
+| `index.html`, `src/pages/Index.tsx` | meta description opened "Get your builder’s licence right the first time." — the same first-time promise in search results |
+
+Removing a tile left two six-item grids at five (`WhyChooseAdrian`, `Courses.tsx` "Every Program
+Includes"). Both are now `flex flex-wrap justify-center` with the same column widths, so the short
+last row centres instead of leaving a hole. `Shield` imports were dropped from all three files.
+
+**`CourseCards` highlights shifted.** They index `courses.ts` inclusions by position (§3.4).
+Comprehensive's slot 4 and Evening's slot 5 were the resit line; they now show "Small group training
+(maximum 10 students)" and "All training materials included" — both existing inclusions.
+
+**Nights per week.** Only the 5pm–9pm time is confirmed. Every string that carried the old time also
+carried a nights-per-week count, so it came out when the time was rewritten:
+
+| File | Was |
+|---|---|
+| `src/data/courses.ts` | format "Evenings, 1 night per week, 6pm–9pm · In person, small group"; formatShort "1 night/week, 6pm–9pm"; inclusion "7 evening sessions (6pm–9pm, one night per week)" |
+| `src/pages/Courses.tsx` | schedule "One evening per week (6pm–9pm) for 7 weeks. Perfect for working tradies. Choose your preferred weeknight." |
+| `src/pages/FAQ.tsx` | "…runs 1 night per week, 6pm–9pm, designed for working tradies." |
+| `src/pages/Contact.tsx` | Class Times sub-line "6pm–9pm, one night per week" |
+
+**Payment plans.** "Payment plans available | Contact us to discuss" (`CourseCards.tsx`); "Can I get a
+payment plan?" / "Yes! We offer flexible payment plans…" and the "Flexible Payment Plans Available"
+box with its "Contact Us About Payment Plans" button (`Courses.tsx`); "Do you offer payment plans?" /
+"Yes. Contact us to discuss payment options… We're flexible…" and "…detailed pricing and payment plan
+options." (`FAQ.tsx`); "Are payment plans available?" / "Get in touch and we'll work something out…"
+(`BuilderRegistrationCourseMelbourne.tsx`). The TODO comment in `BuildersLicenceMelbourne.tsx` now
+says "payment options".
+
+### 0.3 HOLD — not on the site until Adrian confirms in writing
+
+1. **95% pass rate.** Needs Adrian's own written wording. Credit it to Adrian, not Qualify Pro.
+   Define "pass". Say whether it covers the old interview, the new exam, or both. Removal record and
+   verification grep: §2.12.
+2. **Resit wording.** Removed everywhere (§0.2); restore only with Adrian's written wording.
+3. **Comprehensive GST display.** Comprehensive Builder Program is unchanged at **$8,794.50** headline /
+   "($7,995 + GST)". Do not touch its price or display until Adrian answers.
+4. **"$300 off your own course"** as an alternative to the referrer's gift card — pending who chooses
+   (referrer or Adrian). Not published anywhere.
+5. **Limited-class entry requirements.** Entry-requirement copy is untouched (§2.6, §2.7).
+6. **Practice exams / tabbing price unit.** No price shown; "Ask us about it" stands in until the unit
+   (per exam, per session, bundle) is confirmed. `practiceExamsAddOn` has no price field by design.
+7. **Testimonials.** Each quote needs that student's written approval, saved under `.ai/evidence/`
+   (the folder does not exist yet). The 13 removed quotes are in §2.8.
+8. **Evening nights per week.** Not confirmed; prior wording in §0.2.
+
+Pending and deliberately left live as is: the auto-reply's "within 24 hours" callback line (§5 row 4).
+
+### 0.4 Referral restrictions already in place — left as they are
+
+- A code is only valid if it matches `students.referral_code` (`validate_referral_code`). Codes are
+  issued from the admin Students tab, which also sends a welcome email saying the recipient has
+  "completed the course". **A referrer who has never been a student has no way to get a code today**
+  without being added as a student.
+- The code is entered at enquiry time, on `/contact` or the homepage final CTA form. The hero /
+  eligibility form (`HeroEnquiryForm`) has no referral field and always sends an empty code.
+- Codes are capped at 20 characters in both forms.
+- The `referrals` row is created server-side, only after `send-lead-emails` finds a matching lead
+  from the last 60 minutes and the code validates.
+- Admin moves a referral one way: Pending → Enrolled → Paid Out.
+- Copy conditions: "share this code with tradie mates"; the welcome email's "when they enrol using
+  your code".
+
+### 0.5 Open questions raised by this pass (not decided here)
+
+1. **Included practice vs. the paid add-on.** The site still says course fees include "BPC exam
+   preparation and practice sessions" (`courses.ts:90`), "600+ Q&A practice tests" (`courses.ts:114`),
+   "mock tests" (`BuilderRegistrationCourseMelbourne.tsx:83`, `FAQ.tsx:111`), practice questions "that
+   mirror the actual BPC exam" and timed "Reference Navigation" (`Courses.tsx:169`, `:171`). The new
+   add-on says practice exams are **not** included. A reader can see a contradiction. Adrian needs to
+   say how the add-on differs from what the fee covers.
+2. **Student dashboard "Total Rewards Earned"** counts a referral as $300 earned from status
+   **Enrolled** (`StudentDashboard.tsx:90-91`). The gift card is now paid once the course is **fully
+   paid**, and no status records that. Either Adrian marks Enrolled only on full payment, or the
+   count should use Paid Out.
+3. **Non-student referrers** (§0.4, first bullet) — needs a way to issue them codes.
+4. **Follow-up email greetings** (`followup-day3`, `followup-day7`, `send-followup-emails`) still use
+   the name as typed. Item 9 was scoped to the auto-reply only.
+
+### 0.6 Deploy — two edge functions changed
+
+`supabase/functions/send-lead-emails` (15% line in the admin email, "DISCOUNT REQUIRED" banner,
+capitalised greeting) and `supabase/functions/send-student-welcome` (15% for the mate, $300 gift card
+for the referrer). They ship by Supabase CLI, not with the Vercel build — the same way as the 21 Sep
+deploys in §6. Until they are deployed, the live emails still say "amount pending confirmation" and
+"$300 referral reward". `send-followup-emails`, `followup-day3` and `followup-day7` are unchanged.
+
+---
+
 ## 1. Changes by category
 
 ### (a) Builder count → "100+", credited to Adrian personally
@@ -153,6 +283,7 @@ No `offers` or `price` field exists in any of the three JSON-LD blocks (`Course`
 ## 2. HOLD — not edited, listed for the follow-up
 
 ### 2.1 Guarantee / resit / "until you pass"
+**Status 27 Sep:** removed from every rendered surface, still HOLD — see §0.2 and §0.3 item 2.
 ```
 src/components/WhyChooseAdrian.tsx:39
 src/data/courses.ts:86, :111
@@ -163,6 +294,9 @@ src/pages/FAQ.tsx:67, :124
 One adjacent edit, disclosed: the FAQ **question** text "What if I fail the BPC test?" → "…the BPC exam?" and "What if I don't pass the test?" → "…the exam?". The guarantee **answers** are byte-for-byte untouched.
 
 ### 2.2 Class times
+**Status 27 Sep:** evening time confirmed as 5pm–9pm and shipped (§0.1); nights per week still HOLD
+(§0.3 item 8). The 9am–9pm lines in `Footer.tsx` and `Contact.tsx` are phone hours, not class times,
+and were not changed.
 ```
 src/components/Footer.tsx:157                                9am–9pm
 src/data/courses.ts:99, :100, :106                           6pm–9pm, 1 night per week
@@ -173,9 +307,13 @@ src/pages/Courses.tsx:93                                     One evening per wee
 ```
 
 ### 2.3 Evening vs Private 1-on-1 price parity
+**Status 27 Sep:** resolved — both confirmed at $6,650 + GST ($7,315 inc), shipped (§0.1).
+
 `src/data/courses.ts` — both remain $5,650 ex-GST ($6,215 inc). Both existing "price is identical … pending Adrian's sign-off" comments are preserved.
 
 ### 2.4 Payment plans
+**Status 27 Sep:** resolved — every mention is now "Payment options: talk to us" plus the phone link
+(§0.1); prior wording in §0.2.
 ```
 src/components/CourseCards.tsx:174, :183
 src/pages/BuildersLicenceMelbourne.tsx:292
@@ -185,6 +323,10 @@ src/pages/Courses.tsx:161, :162, :581, :584, :587
 ```
 
 ### 2.5 Mate's discount — REMOVED everywhere, returns as 15% in one commit
+**Status 27 Sep:** restored at 15% on every surface in the table below, and the referrer side is now
+a $300 gift card paid once the referred course is fully paid (§0.1). The table records the
+pre-restore wording.
+
 No discount figure appears on any surface. The referral mechanism is untouched: codes are still entered, validated, stored and flagged to Adrian — only the amount is gone. When Adrian confirms 15%, it goes into all four surfaces together.
 
 | Surface | File:line | Now reads |
@@ -254,6 +396,8 @@ figure and a stated starting point.
 successful students. Check back soon to watch them share their stories in their own words."
 
 ### 2.12 Pass rate — REMOVED everywhere, restore on written confirmation
+**Status 27 Sep:** still HOLD, with the conditions in §0.3 item 1.
+
 Only verbally confirmed, so it is held under the Public claims rule. Adrian is confirming in
 writing this week; restore in one commit.
 

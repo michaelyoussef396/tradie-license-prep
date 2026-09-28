@@ -68,7 +68,7 @@ Two deliberate layers: hardcoded gtag/Clarity snippets in `index.html` for first
 Per-page `<Seo>` (react-helmet-async) sets title/description/canonical/OG against `https://www.qualifypro.com.au`; `/thank-you` is `noindex` and excluded from the sitemap. Site-wide `LocalBusiness` JSON-LD lives in `index.html`.
 
 ### Content
-`src/data/courses.ts` is the single source of truth for course names, prices, durations and inclusions; `src/data/eligibility.ts` is the same for BPC experience minimums. Both headers document their conventions. Prices are authored ex-GST only — the GST-inclusive total is derived and is always the headline figure, with `exGstNote` ("($7,995 + GST)") beside it. Never repeat a course or eligibility detail as a literal elsewhere, including in JSON-LD.
+`src/data/courses.ts` is the single source of truth for course names, prices, durations and inclusions; `src/data/eligibility.ts` is the same for BPC experience minimums; `src/data/referral.ts` is the same for the referral offer, whose two figures are also repeated as literals in `send-lead-emails` and `send-student-welcome` (edge functions can't import from `src/`). Both headers document their conventions. Prices are authored ex-GST only — the GST-inclusive total is derived and is always the headline figure, with `exGstNote` ("($7,995 + GST)") beside it. Never repeat a course or eligibility detail as a literal elsewhere, including in JSON-LD.
 
 ## Public claims
 
