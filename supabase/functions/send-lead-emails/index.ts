@@ -20,12 +20,20 @@ const ADMIN_EMAIL = "hello@qualifypro.com.au";
 const FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
 const NOTIFICATION_FROM_EMAIL = "Qualify Pro <hello@qualifypro.com.au>";
 
+// Keep in step with src/data/referral.ts — this function can't import it.
+const REFERRED_DISCOUNT_PERCENT = 15;
+
 function esc(s: string): string {
   return String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/** "jordan" → "Jordan". Only the first letter changes; the rest stays as typed. */
+function capitaliseFirstLetter(word: string): string {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 /**
@@ -49,11 +57,11 @@ function buildNotificationHtml(lead: LeadPayload, referralCheck: ReferralCheck):
   const isReferralCodeValid = referralCheck === "valid";
   const referralBlock = isReferralCodeValid ? `
   <tr><td style="background:#dc2626;padding:16px 24px;border-radius:10px 10px 0 0;">
-    <span style="color:#ffffff;font-size:16px;font-weight:700;">🚨 REFERRAL LEAD</span>
+    <span style="color:#ffffff;font-size:16px;font-weight:700;">🚨 REFERRAL LEAD — DISCOUNT REQUIRED</span>
   </td></tr>
   <tr><td style="background:#fef2f2;border:2px solid #dc2626;padding:16px 24px;">
     <p style="margin:0;font-size:15px;color:#991b1b;font-weight:700;">This person was referred using code: ${esc(lead.referralCode!)}</p>
-    <p style="margin:8px 0 0 0;font-size:15px;color:#991b1b;font-weight:600;">A referral discount applies — amount pending confirmation.</p>
+    <p style="margin:8px 0 0 0;font-size:15px;color:#991b1b;font-weight:600;">⚡ Remember to quote them <span style="text-decoration:underline;">${REFERRED_DISCOUNT_PERCENT}% off</span> their course fee.</p>
   </td></tr>` : '';
 
   return `<!DOCTYPE html>
@@ -308,7 +316,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    const firstName = esc(lead.name.split(" ")[0]);
+    const firstName = esc(capitaliseFirstLetter(lead.name.trim().split(/\s+/)[0]));
 
     console.log("send-lead-emails: dispatching Resend emails", {
       adminTo: ADMIN_EMAIL,

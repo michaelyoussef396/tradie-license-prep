@@ -6,6 +6,10 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Keep in step with src/data/referral.ts — this function can't import it.
+const REFERRED_DISCOUNT_PERCENT = 15;
+const REFERRER_GIFT_CARD_AUD = 300;
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -73,7 +77,7 @@ serve(async (req) => {
         <div style="background: #EBF0FE; border: 2px solid #1B4FD8; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0;">
           <span style="font-size: 28px; font-weight: bold; color: #1B4FD8; letter-spacing: 2px;">${safeCode}</span>
         </div>
-        <p style="font-size: 16px; color: #333;">Share this code with any tradie mates who need their BPC registration. When they enrol using your code, <strong>you'll earn a $300 referral reward</strong>.</p>
+        <p style="font-size: 16px; color: #333;">Share this code with any tradie mates who need their BPC registration. When they enrol using your code, <strong>they'll get ${REFERRED_DISCOUNT_PERCENT}% off their course fee</strong>, and <strong>you'll get a $${REFERRER_GIFT_CARD_AUD} gift card</strong> once their course is fully paid.</p>
         <p style="font-size: 16px; color: #333;">Track your referrals and rewards anytime on your dashboard:</p>
         <div style="text-align: center; margin: 20px 0;">
           <a href="https://tradie-licence-prep.lovable.app/dashboard" style="display: inline-block; background: #1B4FD8; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">Go to My Dashboard</a>
