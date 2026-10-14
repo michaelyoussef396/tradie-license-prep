@@ -17,6 +17,7 @@ could not run `deno check` (Deno is not installed), so its review was static onl
 | 2 | `e9ae1d6` copy.ts | 70 | 45 s | 2 |
 | 3 | `7efbf9c` index.ts rewrite | 273 (147+ / 126−, whole-file rewrite) | 78 s | 5 |
 | 4 | `19bd0d6` round-1 fixes | 24 | 66 s | 1 (partial close of 3.2) |
+| 5 | `e5e68a0` include status `new` (Michael's blocker), targeted | 19 | 39 s | 0 new (1 restatement of 3.3) |
 
 Runs 1 and 3 exceed the 150-line cap by line count. Run 1 is pure deletion. Run 3 replaces one
 147-line file, and the email copy was split into its own commit (run 2) to keep the logic review
@@ -36,4 +37,12 @@ as small as the rewrite allowed.
 | 3.5 | P2 | Raw Resend error text (can include an email address) goes into `errors[]`, which pg_net stores | **confirmed-fixed** `19bd0d6`: only `status` + Resend error `name`; thrown errors log `e.name` only |
 | 4.1 | P2 | Duplicate send still possible if the DB write fails and the next run is >24 h later | **deferred, Michael's call**: closing it needs a write before the send (a claim column), which requirement 4 forbids. The failure is reported as `email SENT but … not written` in `errors[]` |
 
-Found later that Codex missed: none yet.
+| 5.1 | P2 | Lead moved on mid-run still gets its email (pre-existing, not from `e5e68a0`) | **deferred**: same as 3.3, deferred by Michael 14 Oct |
+
+Michael's rulings, 14 Oct: 4.1 and 3.3 deferred, 3.4 rejected. Run 5 confirmed the `.in()` and
+nested `.or()` syntax, NULL/unknown/handled statuses excluded, the status guard works for `new`,
+and no lead can get day-3 and day-7 in one run.
+
+Found later that Codex missed: excluding status `new` (rounds 1–4 accepted it). Michael caught it
+from prod knowledge, not the code: every real lead sits at `new`, so it would have repeated the
+March bug. A harness that evaluates the filters against fixtures now fails if `new` is dropped.
