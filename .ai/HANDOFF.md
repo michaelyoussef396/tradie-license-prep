@@ -20,6 +20,39 @@
 
 ---
 
+## Follow-up emails fix — branch `fix/followup-cron-auth`, 14 Oct 2026 (not merged, not deployed)
+
+**Why:** cron job 3 `send-followup-emails-daily` POSTs `{}` with `x-cron-secret`; deployed v28
+required an admin JWT, so every run since 18 Aug returned 401 and no follow-up went out.
+
+**What changed:** `supabase/functions/send-followup-emails/` rewritten (`index.ts` logic, `copy.ts`
+email copy). `followup-day3` and `followup-day7` deleted along with their `config.toml` entries;
+nothing called them. Review: `docs/codex-review-log.md`.
+
+- Auth: `x-cron-secret` only, constant-time against env `CRON_SECRET`.
+- Day 3: 3 to <7 days, `thinking_about_it`, `followup_day3_sent_at` null.
+  Day 7: 7 to <10 days, `thinking_about_it` or a `followed_up_3` this function set,
+  `followup_day7_sent_at` null. Nothing is sent outside its window.
+- Auto-dead: only `followed_up_7` leads whose day-7 email this function sent, at 10+ days.
+  **The unbounded sweep of hand-set `followed_up_7` history (§6, Day 10) can no longer happen.**
+- Never emailed: `is_test`, blank or `no-email@` addresses, and status `new`, `qualified`,
+  `enrolled`, `completed`, `review_requested`, `dead`, or a hand-set `followed_up_*`.
+- `{"dry_run": true}` returns ids per step and sends and writes nothing.
+
+**Deploy (Michael, own terminal):**
+1. `supabase secrets set CRON_SECRET=<value of vault followup_cron_secret> --project-ref dpceyonfjfjaogwkyrhp`.
+   Without it, every call 401s, as it does today.
+2. `supabase functions deploy send-followup-emails --project-ref dpceyonfjfjaogwkyrhp --no-verify-jwt`.
+3. Dry run first: POST `{"dry_run": true}` with the header and read the ids before the next 9am run.
+4. `followup-day3` / `followup-day7` / `follow-up-emails` may still exist as deployed functions;
+   the repo no longer has them. Delete them from the dashboard if `list_edge_functions` shows them.
+
+**Deferred (Michael's call):** a Resend success followed by a failed DB write is reported in
+`errors[]` and protected by a 24 h idempotency key. The next daily run lands at about 24 h, so
+it can still resend. Closing that needs a write before the send.
+
+---
+
 ## 0. Adrian's 27 Sep answers — branch `adrian-answers-2026-09` (not merged)
 
 **Source for every row marked confirmed:** Vryan email 27 Sep 2026 (relaying Adrian) — "Qualify Pro —
@@ -155,7 +188,8 @@ Pending and deliberately left live as is: the auto-reply's "within 24 hours" cal
 2. **Evening course: is it still 1 night per week, and is it a set night or do students choose?**
    "1 night per week" is live from his written course info, where the time has since moved from
    6pm–9pm to 5pm–9pm. "Choose your preferred weeknight." is off the site until he answers (§0.2).
-3. **Follow-up email greetings** (`followup-day3`, `followup-day7`, `send-followup-emails`) still use
+3. **Follow-up email greetings** — superseded 14 Oct: `send-followup-emails` now greets by capitalised
+   first name, as the auto-reply does (`followup-day3`/`followup-day7` deleted). Original note: still use
    the name as typed. Item 9 was scoped to the auto-reply only.
 
 Resolved on 28 Sep, no longer open: the dashboard reward count (fixed, display only) and non-student
@@ -756,6 +790,9 @@ new copy has not been observed in a received email. A submission through /contac
 `send-lead-emails` end to end.
 
 ### Day 10 auto-dead — still undeployed, needs a decision
+
+**14 Oct:** resolved on branch `fix/followup-cron-auth` (see top section): auto-dead now requires
+`followup_day7_sent_at`, so hand-set `followed_up_7` leads are never swept.
 
 `send-followup-emails` is the only function containing it
 (`supabase/functions/send-followup-emails/index.ts:128-142`). Day 3 and Day 7 each bound their
