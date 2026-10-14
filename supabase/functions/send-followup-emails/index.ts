@@ -87,7 +87,10 @@ Deno.serve(async (req) => {
     ),
     fetchStep(
       "day7",
-      base().in("status", ["thinking_about_it", "followed_up_3"]).is("followup_day7_sent_at", null).lte("created_at", ago(7)).gt("created_at", ago(10)),
+      base()
+        // followed_up_3 counts only if this function sent day 3; a hand-set one means Adrian took over.
+        .or("status.eq.thinking_about_it,and(status.eq.followed_up_3,followup_day3_sent_at.not.is.null)")
+        .is("followup_day7_sent_at", null).lte("created_at", ago(7)).gt("created_at", ago(10)),
     ),
     fetchStep("dead", base().eq("status", "followed_up_7").not("followup_day7_sent_at", "is", null).lte("created_at", ago(10))),
   ]);
@@ -118,15 +121,22 @@ Deno.serve(async (req) => {
     try {
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+          // Resend drops a repeat within 24h, so a run that sent but failed to record can't resend next hour.
+          "Idempotency-Key": `followup-${step}-${lead.id}`,
+        },
         body: JSON.stringify({ from: FROM_EMAIL, to: [lead.email!.trim()], subject, html }),
       });
       if (!res.ok) {
-        errors.push(`${step} ${lead.id}: Resend ${res.status} ${(await res.text()).slice(0, 200)}`);
+        // Error name only: Resend's message text can carry email addresses, and pg_net stores this response.
+        const name = await res.json().then((b) => String(b?.name ?? ""), () => "");
+        errors.push(`${step} ${lead.id}: Resend ${res.status} ${name}`.trim());
         return;
       }
     } catch (e) {
-      errors.push(`${step} ${lead.id}: send failed: ${e instanceof Error ? e.message : String(e)}`);
+      errors.push(`${step} ${lead.id}: send failed: ${e instanceof Error ? e.name : "unknown"}`);
       return;
     }
 

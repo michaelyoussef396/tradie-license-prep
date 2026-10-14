@@ -50,8 +50,8 @@ const p = (text: string) => `<p style="margin:0 0 16px 0;">${text}</p>`;
 export function day3Html(name: string): string {
   return wrapHtml(
     p(`Hey ${esc(firstName(name))},`) +
-      p("Just checking in – I tried to reach you but might have missed you.") +
-      p("If you're still thinking about getting your BPC registration, I'm happy to have a quick chat about:") +
+      p("Just checking in on your enquiry about BPC registration.") +
+      p("If you're still thinking about it, I'm happy to have a quick chat about:") +
       `<ul style="margin:0 0 16px 0;padding-left:20px;">
         <li>What experience you need for your registration class</li>
         <li>Which course suits your situation</li>
@@ -64,7 +64,7 @@ export function day3Html(name: string): string {
 export function day7Html(name: string): string {
   return wrapHtml(
     p(`Hey ${esc(firstName(name))},`) +
-      p("Last one from me – just wanted to check if you had any questions I can help with.") +
+      p("Just wanted to check if you had any questions I can help with.") +
       p("No stress either way. When you're ready to go for your registration, reply to this email or give me a call."),
   );
 }
