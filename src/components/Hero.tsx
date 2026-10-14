@@ -25,7 +25,7 @@ const Hero = () => {
   };
 
   const trustBadges = [
-    { icon: Award, stat: "10+", label: "Years Exp." },
+    { icon: Award, stat: "Since 2017", label: "Training Builders" },
     { icon: Users, stat: "Max 10", label: "Per Class" },
     { icon: MapPin, stat: "Melbourne", label: "In-Person" },
   ];
