@@ -30,12 +30,14 @@ email copy). `followup-day3` and `followup-day7` deleted along with their `confi
 nothing called them. Review: `docs/codex-review-log.md`.
 
 - Auth: `x-cron-secret` only, constant-time against env `CRON_SECRET`.
-- Day 3: 3 to <7 days, `thinking_about_it`, `followup_day3_sent_at` null.
-  Day 7: 7 to <10 days, `thinking_about_it` or a `followed_up_3` this function set,
+- Day 3: 3 to <7 days, `new` or `thinking_about_it`, `followup_day3_sent_at` null.
+  Day 7: 7 to <10 days, `new`, `thinking_about_it`, or a `followed_up_3` this function set,
   `followup_day7_sent_at` null. Nothing is sent outside its window.
 - Auto-dead: only `followed_up_7` leads whose day-7 email this function sent, at 10+ days.
   **The unbounded sweep of hand-set `followed_up_7` history (§6, Day 10) can no longer happen.**
-- Never emailed: `is_test`, blank or `no-email@` addresses, and status `new`, `qualified`,
+- `new` is included on purpose: every real lead in prod sits at `new` and Adrian never moves
+  them. Keying off a status he doesn't set is why follow-ups never sent in March.
+- Never emailed: `is_test`, blank or `no-email@` addresses, and status `qualified`,
   `enrolled`, `completed`, `review_requested`, `dead`, or a hand-set `followed_up_*`.
 - `{"dry_run": true}` returns ids per step and sends and writes nothing.
 

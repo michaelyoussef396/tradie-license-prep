@@ -10,10 +10,11 @@ import { day3Html, day7Html } from "./copy.ts";
  * verify_jwt is off, so this check is the only gate.
  *
  * By age since `created_at`, non-test leads with a usable email:
- *   Day 3  — 3 to <7 days,  status `thinking_about_it`,                  day-3 not yet sent
- *   Day 7  — 7 to <10 days, status `thinking_about_it` | `followed_up_3`, day-7 not yet sent
+ *   Day 3  — 3 to <7 days,  status `new` | `thinking_about_it`, day-3 not yet sent
+ *   Day 7  — 7 to <10 days, status `new` | `thinking_about_it`, or a `followed_up_3` this
+ *            function set (day-3 sent), day-7 not yet sent
  *   Dead   — 10+ days,      status `followed_up_7` with day-7 actually sent by this function
- * A lead outside its window gets nothing late. Any other status (`new`, `qualified`,
+ * A lead outside its window gets nothing late. Any other status (`qualified`,
  * `enrolled`, `completed`, `review_requested`, `dead`, or a hand-set `followed_up_*`) means
  * Adrian has handled it and is left alone. Status strings match `PipelineTab.tsx`.
  *
@@ -83,13 +84,13 @@ Deno.serve(async (req) => {
   const [day3Leads, day7Leads, deadLeads] = await Promise.all([
     fetchStep(
       "day3",
-      base().eq("status", "thinking_about_it").is("followup_day3_sent_at", null).lte("created_at", ago(3)).gt("created_at", ago(7)),
+      base().in("status", ["new", "thinking_about_it"]).is("followup_day3_sent_at", null).lte("created_at", ago(3)).gt("created_at", ago(7)),
     ),
     fetchStep(
       "day7",
       base()
         // followed_up_3 counts only if this function sent day 3; a hand-set one means Adrian took over.
-        .or("status.eq.thinking_about_it,and(status.eq.followed_up_3,followup_day3_sent_at.not.is.null)")
+        .or("status.in.(new,thinking_about_it),and(status.eq.followed_up_3,followup_day3_sent_at.not.is.null)")
         .is("followup_day7_sent_at", null).lte("created_at", ago(7)).gt("created_at", ago(10)),
     ),
     fetchStep("dead", base().eq("status", "followed_up_7").not("followup_day7_sent_at", "is", null).lte("created_at", ago(10))),
