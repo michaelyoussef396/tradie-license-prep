@@ -106,7 +106,5 @@ export function trackLeadConversion() {
   conversionFired = true;
   window.gtag('event', 'conversion', {
     send_to: GOOGLE_ADS_CONVERSION_ID,
-    value: 1400.0,
-    currency: 'AUD',
   });
 }
