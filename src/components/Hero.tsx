@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Award, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import { Link, useNavigate } from "react-router-dom";
 import { trackCtaClick } from "@/lib/analytics";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
@@ -81,7 +82,7 @@ const Hero = () => {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="mb-6 lg:mb-10"
-          initial={{ opacity: 0, y: 20 }}
+          initial={entrance({ opacity: 0, y: 20 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
@@ -94,7 +95,7 @@ const Hero = () => {
           <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1">
             {/* Eyebrow */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={entrance({ opacity: 0, y: 20 })}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="mb-4"
@@ -108,7 +109,7 @@ const Hero = () => {
             {/* Headline */}
             <motion.h1 
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight"
-              initial={{ opacity: 0, y: 20 }}
+              initial={entrance({ opacity: 0, y: 20 })}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
@@ -120,7 +121,7 @@ const Hero = () => {
                 </span>
                 <motion.span 
                   className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
-                  initial={{ scaleX: 0, originX: 0 }}
+                  initial={entrance({ scaleX: 0, originX: 0 })}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
                 />
@@ -130,7 +131,7 @@ const Hero = () => {
             {/* Subheadline */}
             <motion.p 
               className="text-lg sm:text-xl text-blue-100/80 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
+              initial={entrance({ opacity: 0, y: 20 })}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
@@ -140,7 +141,7 @@ const Hero = () => {
             {/* CTAs */}
             <motion.div 
               className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-4 mb-10"
-              initial={{ opacity: 0, y: 20 }}
+              initial={entrance({ opacity: 0, y: 20 })}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
@@ -164,7 +165,7 @@ const Hero = () => {
             {/* Social Proof Line */}
             <motion.p
               className="text-blue-200/60 text-sm"
-              initial={{ opacity: 0 }}
+              initial={entrance({ opacity: 0 })}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
@@ -175,7 +176,7 @@ const Hero = () => {
           {/* Enquiry Form + Trust Badges */}
           <motion.div 
             className="lg:col-span-5 order-1 lg:order-2 space-y-6"
-            initial={{ opacity: 0, x: 30 }}
+            initial={entrance({ opacity: 0, x: 30 })}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
@@ -199,7 +200,7 @@ const Hero = () => {
                         className={`group relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-400/20 rounded-xl p-3 sm:p-4 hover:border-blue-400/40 transition-all duration-300 ${
                           isLastInOddRow(index, trustBadges.length) ? "col-span-2" : ""
                         }`}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={entrance({ opacity: 0, y: 20 })}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                         whileHover={{ scale: 1.02 }}

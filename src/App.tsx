@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, StaticRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, Suspense, type ReactNode } from "react";
 import { lazyWithPreload } from "./lib/lazyWithPreload";
+import { markAppPainted } from "./lib/entrance";
 import ScrollToTopButton from "./components/ScrollToTop";
 import PageSkeleton from "./components/PageSkeleton";
 import AnalyticsProvider from "./components/AnalyticsProvider";
@@ -66,6 +67,14 @@ export const preloadRoute = (pathname: string) => {
 const Router = ({ url, children }: { url?: string; children: ReactNode }) =>
   url ? <StaticRouter location={url}>{children}</StaticRouter> : <BrowserRouter>{children}</BrowserRouter>;
 
+/** After the first page has committed in the browser, later page mounts get entrance animations (src/lib/entrance.ts). */
+function MarkAppPainted() {
+  useEffect(() => {
+    markAppPainted();
+  }, []);
+  return null;
+}
+
 // Scroll to top on route change
 function ScrollToTopOnNavigate() {
   const location = useLocation();
@@ -108,6 +117,9 @@ const App = ({ url }: { url?: string }) => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {/* Inside the boundary on purpose: React hydrates Suspense content in a later
+              pass than the shell, so this must commit with the page, not before it. */}
+          <MarkAppPainted />
         </Suspense>
         </div>
       </Router>

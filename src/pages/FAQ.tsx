@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import PageTransition from "@/components/PageTransition";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import {
@@ -171,7 +172,7 @@ const FAQ = () => {
 
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={entrance({ opacity: 0, y: 30 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -202,7 +203,7 @@ const FAQ = () => {
                 key={index}
                 href={`#category-${index}`}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-slate-200 text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-all duration-300 shadow-sm hover:shadow-md"
-                initial={{ opacity: 0, y: 10 }}
+                initial={entrance({ opacity: 0, y: 10 })}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
