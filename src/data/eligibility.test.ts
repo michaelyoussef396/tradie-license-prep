@@ -6,6 +6,8 @@ import {
   EXPERIENCE_BY_CLASS_SUMMARY,
   LICENCE_TYPE_OPTIONS,
   LIMITED_EXPERIENCE_SUMMARY,
+  UNLIMITED_EXPERIENCE_SUMMARY,
+  UNLIMITED_MINIMUM_PROJECTS,
   UNLIMITED_MINIMUM_YEARS,
   getUnderMinimumNote,
 } from "./eligibility";
@@ -15,13 +17,14 @@ const notes = [undefined, ...LICENCE_TYPE_OPTIONS].map((type) => ({
   note: getUnderMinimumNote(type),
 }));
 
-const INVITATIONS = [/ask and we'll confirm/i, /send your enquiry anyway/i];
+const INVITATIONS = [/ask and we'll confirm/gi, /send your enquiry anyway/gi];
+
+const countInvitations = (copy: string) =>
+  INVITATIONS.reduce((total, re) => total + (copy.match(re) ?? []).length, 0);
 
 describe("getUnderMinimumNote", () => {
-  test.each(notes)("should end with exactly one invitation for $type", ({ note }) => {
-    const found = INVITATIONS.filter((re) => re.test(note));
-
-    expect(found).toHaveLength(1);
+  test.each(notes)("should contain exactly one invitation for $type", ({ note }) => {
+    expect(countInvitations(note)).toBe(1);
   });
 
   test("should state the Unlimited figure only for Domestic Builder (Unlimited) or by class", () => {
@@ -30,6 +33,27 @@ describe("getUnderMinimumNote", () => {
 
       expect(note).toContain("Domestic Builder (Unlimited)");
     }
+  });
+});
+
+describe("attribution", () => {
+  // The projects figure is Adrian's (confirmed 9 Sep 2026); the BPC info sheet
+  // gives Domestic Builder (Unlimited) only "at least 3 years of practical
+  // experience". Copy that states the projects figure must not credit the BPC.
+  const allCopy = [
+    UNLIMITED_EXPERIENCE_SUMMARY,
+    EXPERIENCE_BY_CLASS_SUMMARY,
+    LIMITED_EXPERIENCE_SUMMARY,
+    CARPENTRY_EXPERIENCE_SUMMARY,
+    COMMERCIAL_EXPERIENCE_NOTE,
+    ...notes.map(({ note }) => note),
+  ];
+
+  test("should never credit the projects figure to the BPC", () => {
+    const withProjects = allCopy.filter((copy) => copy.includes(`${UNLIMITED_MINIMUM_PROJECTS} projects`));
+
+    expect(withProjects.length).toBeGreaterThan(0);
+    for (const copy of withProjects) expect(copy).not.toMatch(/\bBPC\b/);
   });
 });
 

@@ -75,7 +75,8 @@ export const EXPERIENCE_OPTIONS = [UNDER_MINIMUM_EXPERIENCE, "3-5", "5-10", "10+
  */
 export function getUnderMinimumNote(licenceType?: string): string {
   if (licenceType === LICENCE_TYPE_UNLIMITED) {
-    return `For Domestic Builder (Unlimited), BPC requires at least ${UNLIMITED_MINIMUM_YEARS} years' experience working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects. ${ENQUIRY_INVITATION}`;
+    // Not "BPC requires": the projects figure is Adrian's, not the BPC's.
+    return `For Domestic Builder (Unlimited), you need at least ${UNLIMITED_MINIMUM_YEARS} years' experience working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects. ${ENQUIRY_INVITATION}`;
   }
   if (licenceType === LICENCE_TYPE_CARPENTRY) {
     return `${CARPENTRY_REQUIREMENT}. ${ENQUIRY_INVITATION}`;
