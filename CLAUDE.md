@@ -30,7 +30,12 @@ Edge functions in `supabase/functions/` ship through the Supabase CLI, separatel
 
 ## Architecture
 
-Vite + React 18 SPA (no SSR). Supabase is the entire backend — there is no API server. `vercel.json` rewrites every path to `index.html`.
+Vite + React 18 SPA with build-time prerendering (no runtime SSR). Supabase is the entire backend — there is no API server.
+
+### Prerendering, rewrites and 404s
+`bun run build` runs `vite build`, an SSR build of `src/entry-server.tsx`, then `scripts/prerender.ts`, which renders every route in `PRERENDER_ROUTES` (`src/App.tsx`) to `dist/<route>.html` (home → `index.html`), renders the not-found page to `dist/404.html`, and keeps the empty shell as `dist/spa.html`. `src/main.tsx` hydrates prerendered HTML and client-renders the empty shell.
+
+`vercel.json` (`cleanUrls`, `trailingSlash: false`) serves those files directly and rewrites **only** the client-rendered routes — `/thank-you`, `/dashboard`, `/admin`, `/admin/*` — to `/spa`. Every other path that matches no file gets `404.html` with a real 404 status. So a new route must be either added to `PRERENDER_ROUTES` (public pages; also add it to `scripts/generate-sitemap.ts`) or given its own rewrite in `vercel.json` — otherwise it 404s in production while working in `bun run dev`.
 
 ### Routing and global chrome
 All routes live in `src/App.tsx`, each page `lazy()`-loaded behind a `<Suspense>` with `PageSkeleton`. Providers and persistent chrome (`CallBar`, `AnalyticsProvider`, `ScrollToTopButton`, scroll-reset-on-navigate) are mounted once there; the `pt-12` wrapper offsets the fixed `CallBar`. New pages go in `src/pages/`, are lazy-imported, and must be added **above** the `*` catch-all.
@@ -62,7 +67,7 @@ Status values are plain text, defined in `src/components/admin/PipelineTab.tsx`:
 All five in `supabase/functions/` are Deno, run with **`verify_jwt = false`** (`supabase/config.toml`), and are therefore publicly callable — each must validate its own input. Email goes through Resend (`RESEND_API_KEY`); HTML is hand-built inline with table layouts and every interpolated value passed through the local `esc()`.
 
 ### Analytics
-Two deliberate layers: hardcoded gtag/Clarity snippets in `index.html` for first paint, and `src/lib/analytics.ts` + `AnalyticsProvider` for SPA route changes and custom events. **Everything is suppressed on internal routes** — `isInternalRoute()` in `src/lib/analytics.ts` is the single guard, covering `/admin*` plus the legacy `/email-templates` redirect. `AnalyticsProvider` imports it rather than re-testing the prefix; keep that guard in any new tracking. `trackLeadConversion()` fires the Google Ads conversion at most once per page session.
+GA4 (`G-PDWZPMEMZB`), Google Ads (`AW-18192612568`) and Clarity load **only** from the snippet in `index.html`. GA4 records page views itself — the first on load, later ones from client-side route changes via enhanced measurement's browser-history page views — so **never send `page_view` from the app**; doing so double-counted every page until Oct 2026. `src/lib/analytics.ts` + `AnalyticsProvider` handle custom events only (`phone_click`, `generate_lead`, CTA/form events) and the Ads lead conversion. **Everything is suppressed on internal routes** (`/admin*` plus the legacy `/email-templates` redirect): `isInternalRoute()` in `src/lib/analytics.ts` guards events, and the `index.html` snippet applies the same prefixes before loading any tag — keep the two in step. `trackLeadConversion()` fires the Google Ads conversion at most once per page session.
 
 ### SEO
 Per-page `<Seo>` (react-helmet-async) sets title/description/canonical/OG against `https://www.qualifypro.com.au`; `/thank-you` is `noindex` and excluded from the sitemap. Site-wide `LocalBusiness` JSON-LD lives in `index.html`.

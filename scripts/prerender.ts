@@ -7,8 +7,10 @@
 // Output:
 //   dist/index.html            -> prerendered home page
 //   dist/<route>.html          -> prerendered page, served at /<route> via vercel.json cleanUrls
+//   dist/404.html              -> prerendered "page not found"; Vercel serves it with a real
+//                                 404 status for every path that matches no file or rewrite
 //   dist/spa.html              -> the untouched empty shell, used by the vercel.json
-//                                 rewrite for every non-prerendered path (admin, dashboards, 404)
+//                                 rewrites for the client-only routes (thank-you, admin, dashboard)
 
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { existsSync, readFileSync, writeFileSync } from "fs";
@@ -30,9 +32,13 @@ console.error = (...args: unknown[]) => {
   consoleError(...args);
 };
 
-const { render, routes } = (await import(
+const { render, routes, notFoundPath } = (await import(
   pathToFileURL(resolve("dist-ssr/entry-server.js")).href
-)) as { render: (url: string) => Promise<{ html: string; head: string }>; routes: string[] };
+)) as {
+  render: (url: string) => Promise<{ html: string; head: string }>;
+  routes: string[];
+  notFoundPath: string;
+};
 
 // Use the pristine shell. If spa.html exists this dist was already prerendered
 // (re-run without a fresh vite build), and index.html is no longer the shell.
@@ -51,8 +57,14 @@ const OVERRIDDEN = [
   /<meta name="twitter:description"[^>]*>\s*/,
 ];
 
+// Each marketing route, then the "page not found" page.
+const targets = [
+  ...routes.map((route) => ({ route, file: route === "/" ? "index.html" : `${route.slice(1)}.html` })),
+  { route: notFoundPath, file: "404.html" },
+];
+
 let failures = 0;
-for (const route of routes) {
+for (const { route, file } of targets) {
   try {
     (globalThis as { happyDOM?: { setURL?: (url: string) => void } }).happyDOM?.setURL?.(SITE + route);
     const { html, head } = await render(route);
@@ -64,7 +76,6 @@ for (const route of routes) {
     if (!page.includes('<div id="root"></div>')) throw new Error("root div not found in shell");
     page = page.replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
-    const file = route === "/" ? "index.html" : `${route.slice(1)}.html`;
     writeFileSync(resolve(dist, file), page);
     console.log(`prerendered ${route} -> dist/${file} (${Math.round(page.length / 1024)} KB)`);
   } catch (err) {

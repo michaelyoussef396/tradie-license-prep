@@ -45,10 +45,21 @@ export const PRERENDER_ROUTES: Record<string, { preload: () => Promise<void> }> 
   "/bpc-exam-changes": BpcExamChanges,
 };
 
-/** Load the page component for a prerendered route before rendering/hydrating it. */
+/**
+ * Path the build renders to dist/404.html. Vercel serves that file, with a real
+ * 404 status, for any path that is neither a static file nor one of the SPA
+ * rewrites in vercel.json.
+ */
+export const NOT_FOUND_PRERENDER_PATH = "/404";
+
+/**
+ * Load the page component for a prerendered page before rendering/hydrating it.
+ * Only called when the HTML was prerendered, so any path that isn't a marketing
+ * route is the 404 page.
+ */
 export const preloadRoute = (pathname: string) => {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  return PRERENDER_ROUTES[path]?.preload();
+  return (PRERENDER_ROUTES[path] ?? NotFound).preload();
 };
 
 /** BrowserRouter in the browser; StaticRouter when prerendering a given URL. */

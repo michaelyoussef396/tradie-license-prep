@@ -1,26 +1,40 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDWZPMEMZB"></script>
+    <!--
+      Analytics — GA4, Google Ads and Microsoft Clarity — the only place they load.
+      GA4 records the first page view itself (config) and later client-side route
+      changes through enhanced measurement's browser-history page views, so the app
+      never sends page_view on its own. Nothing loads on internal routes: keep this
+      pattern in step with INTERNAL_PATH_PREFIXES in src/lib/analytics.ts.
+    -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    gtag('config', 'G-PDWZPMEMZB');
-    </script>
-    <!-- Google Ads (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18192612568"></script>
-    <script>
-      gtag('config', 'AW-18192612568');
-    </script>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "w4ahhdceh3");
+      (function () {
+        if (/^\/(admin|email-templates)/.test(window.location.pathname)) return;
+
+        function load(src) {
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = src;
+          document.head.appendChild(s);
+        }
+
+        // Google tag (gtag.js): GA4 + Google Ads
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag("js", new Date());
+        window.gtag("config", "G-PDWZPMEMZB");
+        window.gtag("config", "AW-18192612568");
+        load("https://www.googletagmanager.com/gtag/js?id=G-PDWZPMEMZB");
+        load("https://www.googletagmanager.com/gtag/js?id=AW-18192612568");
+
+        // Microsoft Clarity
+        (function (c, l, a, r, i, t, y) {
+          c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+          t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+          y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "w4ahhdceh3");
+      })();
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

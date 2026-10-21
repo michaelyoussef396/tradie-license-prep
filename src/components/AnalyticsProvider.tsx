@@ -1,32 +1,16 @@
-import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
-import { initGA4, initClarity, isInternalRoute, trackPageView, trackPhoneClick } from "@/lib/analytics";
+import { useEffect } from "react";
+import { trackPhoneClick } from "@/lib/analytics";
 
 /**
- * Initialises GA4 + Clarity on mount (public routes only).
- * Tracks page_view on every route change.
- * Adds a global click listener for tel: links (phone_click event).
+ * Site-wide custom analytics events.
+ *
+ * GA4, Google Ads and Clarity are loaded once, by the snippet in index.html, and
+ * GA4 records page views itself (the first one on load, later ones from
+ * client-side route changes via enhanced measurement). Sending page_view from
+ * here as well double-counted every page — so this only adds the global click
+ * listener for tel: links (phone_click event). trackEvent() skips internal routes.
  */
 const AnalyticsProvider = () => {
-  const location = useLocation();
-  const initialised = useRef(false);
-
-  // Init scripts once
-  useEffect(() => {
-    if (initialised.current) return;
-    if (isInternalRoute(location.pathname)) return;
-    initGA4();
-    initClarity();
-    initialised.current = true;
-  }, [location.pathname]);
-
-  // Track page views
-  useEffect(() => {
-    if (isInternalRoute(location.pathname)) return;
-    trackPageView(location.pathname);
-  }, [location.pathname]);
-
-  // Global phone click listener
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a[href^="tel:"]');

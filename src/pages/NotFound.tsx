@@ -1,5 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Home, ArrowLeft } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
@@ -13,6 +14,11 @@ const NotFound = () => {
 
   return (
     <PageTransition>
+      {/* Served as dist/404.html with a 404 status; noindex covers any client-side render too. */}
+      <Helmet>
+        <title>Page Not Found | Qualify Pro</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
         <div className="text-center px-4">
           <div className="text-8xl font-bold text-slate-200 mb-4">404</div>
