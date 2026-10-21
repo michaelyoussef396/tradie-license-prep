@@ -97,12 +97,12 @@ const FAQS: { q: string; a: string; src: SourceKey[] }[] = [
   },
   {
     q: "How many questions are in the BPC exam, and what is the pass mark?",
-    a: "The BPC does not publish a question count or a fixed pass mark. It says it sets a passing standard that reflects minimum competence, every exam version is held to the same standard, and the pass mark adjusts to the difficulty of the questions. HIA reports that the Domestic Builder (Unlimited) exam has 100 questions drawn from a pool of about 1,000, with two hours to complete it, and that a shorter 50-question, 60-minute exam is available for certain applicants.",
+    a: "The BPC does not publish a question count or a fixed pass mark. It says it sets a passing standard that reflects minimum competence, every exam version is held to the same standard, and the pass mark adjusts to the difficulty of the questions. HIA reports that the Domestic Builder (Unlimited) exam has 100 questions drawn from a pool of about 1,000, with two hours to complete it, and that a shorter 50-question, 60-minute exam will be available for certain applicants.",
     src: ["examsFaq", "hia"],
   },
   {
     q: "Is the BPC exam open book?",
-    a: "Yes, with conditions. Sitting online, you can only use the permitted reference materials, viewed inside the exam; your own notes and other printed material, search engines and AI tools are not allowed. For in-person exams, the BPC's exams page says hard copy materials are allowed, although its FAQ page still says hard copy reference material is not, so confirm with the BPC what you can bring. To use Australian Standards you need your own active subscription or purchased online version, and your login for it during the exam.",
+    a: "Yes, with conditions. Sitting online, you can only use the permitted reference materials, viewed inside the exam; your own notes and other printed material, search engines and AI tools are not allowed. For a transitional period, the BPC is letting applicants who have their own hard copy reference materials sit the exam in person at a BPC location, and it says hard copy materials are allowed for in-person exams — confirm with the BPC what you can bring. To use Australian Standards you need your own active subscription or purchased online version, and your login for it during the exam.",
     src: ["exams", "examsFaq"],
   },
   {
@@ -206,7 +206,7 @@ const BpcExamChanges = () => {
 
         <main className="container mx-auto max-w-3xl px-4 sm:px-6 pt-32 pb-24">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-slate-900">
-            The BPC exam has replaced the interview. Here's what that actually means.
+            The BPC exam is replacing the interview. Here's what that actually means.
           </h1>
           <p className="mt-3 text-sm text-slate-500">
             Last reviewed: {LAST_REVIEWED} · checked against the BPC's own pages and the other
@@ -219,9 +219,10 @@ const BpcExamChanges = () => {
               mostly in your favour.
             </P>
             <P>
-              The face-to-face interview is gone. The separate plan-based exam is gone. Both have
-              been replaced by a single exam, and for Domestic Builder (Unlimited) the supporting
-              documents you submit have dropped from 40 to 7.
+              The BPC is replacing the face-to-face interview and the separate plan-based exam with
+              a single exam. It started with Domestic Builder (Unlimited), where the supporting
+              documents you submit have also dropped from 40 to 7, and it's extending the new
+              process to other classes.
             </P>
             <P>
               If you started an application under the old system, or you've been told to prepare for
@@ -257,25 +258,30 @@ const BpcExamChanges = () => {
             In January 2026, the BPC started rolling out a new way of assessing applicants,
             beginning with <strong>Domestic Builder (Unlimited)</strong>. <Src k="reforms" />
           </P>
-          <p className="mb-2 font-semibold text-slate-900">Old system:</p>
+          <p className="mb-2 font-semibold text-slate-900">
+            Domestic Builder (Unlimited), the old way:
+          </p>
           <UL
             items={[
               "A face-to-face interview with assessors",
               "A separate plan-based exam",
-              "40 supporting documents for Domestic Builder (Unlimited)",
+              "40 supporting documents",
             ]}
           />
-          <p className="mb-2 font-semibold text-slate-900">New system:</p>
+          <p className="mb-2 font-semibold text-slate-900">The new way:</p>
           <UL
             items={[
               "One exam, tailored to your registration class",
               "No interview",
-              "7 supporting documents for Domestic Builder (Unlimited)",
+              "7 supporting documents",
             ]}
           />
           <P>
-            The BPC planned to extend the reduced paperwork to all domestic and commercial builder
-            classes by the end of March 2026. <Src k="reforms" />
+            The BPC said the new approach would extend to other building and plumbing registration
+            classes over the following months, and planned to bring the reduced paperwork to all
+            domestic and commercial builder classes by the end of March 2026.{" "}
+            <Src k="reforms" /> Its eligibility page still says that, depending on the class, you
+            may be required to complete an exam or an interview. <Src k="eligibility" />
           </P>
           <P>
             The BPC's stated reason for removing the interview is to reduce human bias and protect
@@ -361,7 +367,7 @@ const BpcExamChanges = () => {
             version is held to the same standard, and the pass mark adjusts to the difficulty of the
             questions. <Src k="examsFaq" /> HIA reports that the Domestic Builder (Unlimited) exam
             has 100 questions drawn from a pool of about 1,000, with two hours to complete it, and
-            that a shorter 50-question, 60-minute exam is available for certain applicants.{" "}
+            that a shorter 50-question, 60-minute exam will be available for certain applicants.{" "}
             <Src k="hia" />
           </P>
           <P>
@@ -374,10 +380,11 @@ const BpcExamChanges = () => {
             <strong>Open book — with conditions.</strong> Sitting online, you can use the BPC's
             permitted reference materials, but only the online versions accessible inside the exam,
             plus the exam's own Resources, Calculator and Notes functions. No printed notes. No cheat
-            sheets. No quick-reference guides you've made yourself. In person it's different: the
-            BPC's exams page says hard copy materials are allowed for in-person exams, although its
-            FAQ page still says hard copy reference material is not, so confirm with the BPC what
-            you can bring. <Src k="exams" /> <Src k="examsFaq" />
+            sheets. No quick-reference guides you've made yourself. In person it's different: for a
+            transitional period, the BPC is letting applicants who have their own hard copy
+            reference materials sit at a BPC location, and it says hard copy materials are allowed
+            for in-person exams — confirm with the BPC what you can bring. <Src k="exams" />{" "}
+            <Src k="examsFaq" />
           </P>
           <P>
             <strong>During the exam.</strong> A countdown timer sits in the top left of every
@@ -414,8 +421,9 @@ const BpcExamChanges = () => {
           <H3>Allow time for onboarding</H3>
           <P>
             Before you can sit, you go through onboarding in Janison-Proctortrack: a system check, a
-            face scan, government photo ID (licence or passport), and desk and room scans. Approval
-            usually takes 8 to 24 hours, but the BPC says to allow{" "}
+            face scan, government photo ID (licence or passport), and desk and room scans.{" "}
+            <Src k="testTakerGuide" /> Approval usually takes 8 to 24 hours, but the BPC says to
+            allow{" "}
             <strong>up to three days</strong> — and you can't start the exam until it's approved.
             Applicants who leave onboarding to the last minute run out of runway.{" "}
             <Src k="examsFaq" />
@@ -480,10 +488,11 @@ const BpcExamChanges = () => {
           <H3>If you already have hardcopy reference materials</H3>
           <P>
             There's a transitional arrangement. Applicants who already hold hardcopy permitted
-            reference materials can ask to sit the exam in person at a BPC venue — email
-            onlineexams@bpc.vic.gov.au. The BPC's exams page says hard copy materials are allowed for
+            reference materials can ask to sit the exam in person at a BPC location — email
+            onlineexams@bpc.vic.gov.au — and the BPC says hard copy materials are allowed for
             in-person exams. In-person places are limited, so this can delay your exam being
-            scheduled. <Src k="exams" />
+            scheduled, and the BPC says that once the transition period ends it will stop offering
+            in-person exams for this reason. <Src k="exams" /> <Src k="examsFaq" />
           </P>
 
           <H3>If you need adjustments</H3>

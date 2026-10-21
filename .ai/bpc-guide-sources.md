@@ -15,26 +15,35 @@ directly; the wording that matters is noted in short.
 | `reforms` | BPC, *Licensing and registration reforms* (30 Jun 2026) | Roll-out began January 2026 with DB-U exams; 40 → 7 documents, stated for DB-U; flow-down to all domestic and commercial builder classes "by the end of March 2026"; single exam replaces the interview and the plan-based exam; reason: reduce human bias and protect against corruption; ACER; exams tailored to each class; questions randomised and changed frequently |
 | `exams` | BPC, *Building exams* (28 Aug 2026) | Question formats (incl. image select); class list; notified by email; 24/7 within the timeframe; in person at Head Office "while we resolve technical issues"; BPC laptop and supervisor in person; Janison-Proctortrack; desktop and room recorded; rules lists; "(Hard copy materials are allowed for in-person exams)"; transitional in-person option for hardcopy holders; breach consequences; adjustments within three business days; Australian Standards are the test taker's cost; all exams online by June 2026 |
 | `examsFaq` | BPC, *Building exams: FAQs* (30 Jun 2026) | 1 or 2 hours, set by class plus qualifications, building experience, employment history and technical referees; passing standard; timer, flags, progress grid; onboarding 8–24 h, allow up to 3 days; computer requirements and admin rights; rescheduling; 48-hour withdrawal; ID check, environment scan and exam recorded; results by email; likely refusal on fail, internal review, new application to re-sit; missed window with written evidence; ID kept 12 months for future attempts, recording 6 months for auditing and appeals; "must complete your exam within the allotted time" |
-| `testTakerGuide` | BPC, *Applicant test taker guide* (30 Jun 2026) | "No exam results are shown"; result advised by email; onboarding steps; admin install |
+| `testTakerGuide` | BPC, *Applicant test taker guide* (30 Jun 2026) | "No exam results are shown"; result advised by email; onboarding steps (system check, face scan, photo ID — licence or passport, desk and room scans); admin install |
 | `applications` | BPC, *Builder registration* (modified 19 Oct 2026) | From 19 Oct 2026 **some** application processes are online only; manual payments ending; BPC Portal |
-| `eligibility` | BPC, *Registration requirements and eligibility* (30 Jun 2026; the URL's "eligibiity" typo is the BPC's) | Cert IV is not a prescribed course for any class, partly meets domestic knowledge requirements, may trigger an additional exam; experience rules (supervised, paid, technical/supervision/contractual, last seven years; owner-builder and training-course experience "may disregard") |
+| `eligibility` | BPC, *Registration requirements and eligibility* (30 Jun 2026; the URL's "eligibiity" typo is the BPC's) | Cert IV is not a prescribed course for any class, partly meets domestic knowledge requirements, may trigger an additional exam; experience rules (supervised, paid, technical/supervision/contractual, last seven years; owner-builder and training-course experience "may disregard"); "may be required to complete an exam or interview depending on the class" |
 | `domesticWork` | BPC info sheet, *What is domestic building work?* (6 Jul 2026) | DB-U prescribed qualifications (CPC50210/CPC50220 diploma, Holmesglen and Deakin degrees); DB-U "At least 3 years of practical experience" (matches `UNLIMITED_MINIMUM_YEARS`) |
 | `fees` | BPC, *Registration fees* (25 Aug 2026) | 2026–27 individual fees $1,039.00 / $831.20 application, $519.50 / $415.50 annual; company fees higher ($1,454.80 / $1,163.70, $727.30 / $581.70); GST-exempt; no exam fee listed |
 | `engaging` | BPC, *Engaging a builder* (30 Jun 2026) | Registered builder needed for work worth more than $10,000, counting labour, materials and GST |
 | `cav` | Consumer Affairs Victoria, *About builders, tradespeople and other building practitioners* (12 Dec 2025) | Work needing a building permit requires a registered practitioner regardless of value |
-| `hia` | HIA, *Building and Plumbing Commission online exams* (15 Jul 2026) | Attributed to HIA in the copy: DB-U exam has 100 questions from a pool of about 1,000 and two hours; a 50-question, 60-minute exam for certain applicants |
+| `hia` | HIA, *Building and Plumbing Commission online exams* (15 Jul 2026) | Attributed to HIA in the copy: DB-U exam has 100 questions from a pool of about 1,000 and two hours; a 50-question, 60-minute exam "will be available for certain applicants" |
 
 ## Open items
 
-- **The BPC contradicts itself on hard copies.** The exams page (28 Aug) allows hard copy materials
-  for in-person exams; the FAQ page (30 Jun) still says hard copy reference material is not allowed.
-  The guide states both and tells readers to confirm with the BPC. Re-check when either page changes.
+- **Hard copies, in person.** Both BPC pages allow them during the transitional period. The exams
+  page (28 Aug) says "(Hard copy materials are allowed for in-person exams)"; the FAQ page (30 Jun)
+  says hard copy reference material is not allowed in the online exam, but that applicants with
+  their own hard copies may "attend an exam at a BPC location … for a transitional period", after
+  which that option ends. Re-check when the transition ends and update the guide's open-book
+  paragraph, the hardcopy section and FAQs 3 and 6 together. (An earlier draft wrongly said the two
+  pages contradict each other; the second independent review caught it.)
 - **In-person notice.** The "conducted in-person at Head Office" notice was live on 21 Oct 2026. When
   it goes, update the amber box, the FAQ answer and the "When" paragraph together.
 - **HIA figures are HIA's**, scoped to DB-U. The BPC itself publishes no question count or pass mark.
 - **"Licence" vs "registration" (for Adrian).** The FAQ now says what people call a builder's licence
   is building practitioner registration with the BPC, so it no longer contradicts the site's
   "Builder's Licence" headings. Adrian should read it once and say if he wants different wording.
-- **The $10,000 threshold** comes from the BPC home-owner page and the permit rule from Consumer
-  Affairs Victoria; the BPC's own builder pages say each class has its own rules on when
-  registration is required. Don't extend either rule to specific classes without a source.
+- **The $10,000 threshold** comes from the BPC's *Engaging a builder* page and the permit rule from
+  Consumer Affairs Victoria. The same BPC page says "Each builder category and class has specific
+  requirements for when a practitioner must register with the BPC", so don't extend either rule to
+  specific classes without a source.
+- **"Exam or interview".** The eligibility page still says applicants "may be required to complete
+  an exam or interview depending on the class of registration", so the guide scopes "no interview"
+  to Domestic Builder (Unlimited) and says the change is extending to other classes. Re-check when
+  the BPC says the roll-out is complete.
