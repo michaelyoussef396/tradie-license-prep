@@ -1,8 +1,16 @@
 {
+  "cleanUrls": true,
   "redirects": [
-    { "source": "/email-templates", "destination": "/admin/email-templates", "permanent": false }
+    {
+      "source": "/email-templates",
+      "destination": "/admin/email-templates",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/spa.html"
+    }
   ]
 }
