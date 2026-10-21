@@ -7,12 +7,14 @@
       Analytics — GA4, Google Ads and Microsoft Clarity — the only place they load.
       GA4 records the first page view itself (config) and later client-side route
       changes through enhanced measurement's browser-history page views, so the app
-      never sends page_view on its own. Nothing loads on internal routes: keep this
-      pattern in step with INTERNAL_PATH_PREFIXES in src/lib/analytics.ts.
+      sends no GA4 page_view; it sends only a Google Ads-only page_view on client-side
+      route changes (trackAdsPageView). Nothing loads on internal routes (admin and the
+      student dashboard): keep this pattern in step with INTERNAL_PATH_PREFIXES in
+      src/lib/analytics.ts.
     -->
     <script>
       (function () {
-        if (/^\/(admin|email-templates)/.test(window.location.pathname)) return;
+        if (/^\/(admin|email-templates|dashboard)/.test(window.location.pathname)) return;
 
         function load(src) {
           var s = document.createElement("script");

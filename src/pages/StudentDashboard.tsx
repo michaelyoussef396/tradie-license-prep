@@ -22,10 +22,9 @@ interface ReferralRow {
 }
 
 /**
- * Full page load, not a client-side navigate: the analytics snippet in
- * index.html only skips internal routes when the document itself loads there,
- * so an in-app hop from /dashboard to /admin would keep GA4 and Clarity running
- * on the admin pages.
+ * Full page load, not a client-side navigate: index.html decides once per
+ * document whether analytics loads, so the admin area is always entered with a
+ * fresh document load (see the Analytics section of CLAUDE.md).
  */
 const goToAdminLogin = () => window.location.assign("/admin");
 
