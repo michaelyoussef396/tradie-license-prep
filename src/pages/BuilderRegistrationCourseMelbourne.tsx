@@ -18,6 +18,9 @@ import {
 
 const SOURCE = "builder-registration-course-melbourne";
 
+// Shown on the page and in the FAQPage JSON-LD, which must match it.
+const EXPERIENCE_ANSWER = `${EXPERIENCE_BY_CLASS_SUMMARY} Either way, you'll also need technical references from registered builders in the same class or higher, and an evidence portfolio.`;
+
 const courseJsonLd = {
   "@context": "https://schema.org",
   "@type": "Course",
@@ -61,7 +64,7 @@ const faqJsonLd = {
       name: "What experience do you need for builder registration in Victoria?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: `${EXPERIENCE_BY_CLASS_SUMMARY} Both also need technical references from registered builders in the same class or higher, and an evidence portfolio.`,
+        text: EXPERIENCE_ANSWER,
       },
     },
     {
@@ -333,10 +336,7 @@ const BuilderRegistrationCourseMelbourne = () => {
               not left for you to work out afterwards.
             </P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">What experience do I need?</h3>
-            <P>
-              {EXPERIENCE_BY_CLASS_SUMMARY} Both also need technical references from registered
-              builders in the same class or higher.
-            </P>
+            <P>{EXPERIENCE_ANSWER}</P>
             <h3 className="mb-2 text-xl font-bold text-slate-900">
               What qualifications do I need before I start?
             </h3>

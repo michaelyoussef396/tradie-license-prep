@@ -733,6 +733,15 @@ export const EXPERIENCE_BY_CLASS_SUMMARY = `The minimum depends on the class you
 `For Domestic Builder (Limited) classes such as carpentry, BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience. ${ENQUIRY_INVITATION}`
 ```
 
+**Review follow-up (same day).** `eligibility.ts` now builds its copy from sentence parts
+(`LIMITED_REQUIREMENT`, `CARPENTRY_REQUIREMENT`, `COMMERCIAL_REQUIREMENT`, `BY_CLASS`) so each
+under-minimum note ends with one invitation instead of two. The carpentry course card uses
+`CARPENTRY_EXPERIENCE_SUMMARY`, and Commercial (Low-Rise) + "Under 3" now gets its own note; none of
+these states a figure. The exported summaries' wording is unchanged. To restore a confirmed figure,
+put it into `LIMITED_REQUIREMENT` / `CARPENTRY_REQUIREMENT` / `BY_CLASS` (the prior wording above shows
+the old phrasing) and drop the "— ask and we'll confirm" suffix where a figure is stated;
+`src/data/eligibility.test.ts` asserts the held strings contain no digits, so update it in the same commit.
+
 **Question for Adrian:** the BPC sheet says 3 years for carpentry — is that what you see in practice?
 If the DB-L course serves carpentry only, the right figure is likely 3; if it serves several limited
 classes, the copy should stay class-by-class rather than one number.
