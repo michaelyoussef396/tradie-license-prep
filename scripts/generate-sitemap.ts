@@ -16,7 +16,7 @@ const entries: SitemapEntry[] = [
   // lastmod = the date each page was last meaningfully updated (not build time).
   // /thank-you is intentionally excluded (noindex).
   { path: "/", lastmod: "2026-08-14", changefreq: "weekly", priority: "1.0" },
-  { path: "/bpc-exam-changes", lastmod: "2026-08-14", changefreq: "weekly", priority: "0.9" },
+  { path: "/bpc-exam-changes", lastmod: "2026-10-21", changefreq: "weekly", priority: "0.9" },
   { path: "/builder-registration-course-melbourne", lastmod: "2026-08-14", changefreq: "weekly", priority: "0.9" },
   { path: "/builders-licence-melbourne", lastmod: "2026-07-31", changefreq: "weekly", priority: "0.9" },
   { path: "/courses", lastmod: "2026-07-31", changefreq: "monthly", priority: "0.9" },
