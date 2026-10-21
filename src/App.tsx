@@ -99,21 +99,26 @@ const App = ({ url }: { url?: string }) => (
         <div className="pt-12">
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/success-stories" element={<SuccessStoriesPage />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/thank-you" element={<ThankYou />} />
-            <Route path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
-            <Route path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
-            <Route path="/bpc-exam-changes" element={<BpcExamChanges />} />
-            <Route path="/email-templates" element={<Navigate to="/admin/email-templates" replace />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
-            <Route path="/admin/email-templates" element={<RequireAdmin><EmailTemplates /></RequireAdmin>} />
-            <Route path="/dashboard" element={<StudentDashboard />} />
+            {/*
+              caseSensitive on every route: production serves /courses.html only for
+              the exact lower-case path, and any other casing gets 404.html. Matching
+              case-insensitively here would hydrate that 404 markup as the real page.
+            */}
+            <Route caseSensitive path="/" element={<Index />} />
+            <Route caseSensitive path="/courses" element={<Courses />} />
+            <Route caseSensitive path="/about" element={<About />} />
+            <Route caseSensitive path="/success-stories" element={<SuccessStoriesPage />} />
+            <Route caseSensitive path="/faq" element={<FAQ />} />
+            <Route caseSensitive path="/contact" element={<Contact />} />
+            <Route caseSensitive path="/thank-you" element={<ThankYou />} />
+            <Route caseSensitive path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
+            <Route caseSensitive path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
+            <Route caseSensitive path="/bpc-exam-changes" element={<BpcExamChanges />} />
+            <Route caseSensitive path="/email-templates" element={<Navigate to="/admin/email-templates" replace />} />
+            <Route caseSensitive path="/admin" element={<AdminLogin />} />
+            <Route caseSensitive path="/admin/dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
+            <Route caseSensitive path="/admin/email-templates" element={<RequireAdmin><EmailTemplates /></RequireAdmin>} />
+            <Route caseSensitive path="/dashboard" element={<StudentDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

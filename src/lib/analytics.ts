@@ -1,8 +1,9 @@
 // Custom analytics events and the Google Ads lead conversion.
 //
 // GA4, Google Ads and Microsoft Clarity are loaded by the snippet in index.html —
-// the only place they load — and GA4 records page views itself. Nothing here sends
-// page_view: doing so double-counted every page.
+// the only place they load — and GA4 records page views itself. Never send an
+// untargeted page_view (it reaches GA4 too and double-counts every page); the
+// only page_view sent from here is the Ads-only one in trackAdsPageView().
 
 declare global {
   interface Window {
@@ -56,7 +57,20 @@ export function trackCtaClick(buttonText: string, page: string) {
 
 // ── Google Ads conversion ──
 
-export const GOOGLE_ADS_CONVERSION_ID = 'AW-18192612568/qBXuCL2_jcccENj59OJD';
+export const GOOGLE_ADS_ID = 'AW-18192612568';
+export const GOOGLE_ADS_CONVERSION_ID = `${GOOGLE_ADS_ID}/qBXuCL2_jcccENj59OJD`;
+
+/**
+ * Google Ads-only page view for a client-side route change. GA4 records route
+ * changes itself (enhanced measurement), but that event only reaches GA4, so
+ * without this the Ads tag would see document loads only and URL-based
+ * audiences (e.g. "reached /thank-you") would stop filling. `send_to` keeps it
+ * out of GA4's counts.
+ */
+export function trackAdsPageView() {
+  if (!window.gtag || isInternalRoute()) return;
+  window.gtag('event', 'page_view', { send_to: GOOGLE_ADS_ID });
+}
 
 // Guards against double-firing within a single page session/submission.
 let conversionFired = false;
