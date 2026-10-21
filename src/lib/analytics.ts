@@ -13,17 +13,19 @@ declare global {
 }
 
 /**
- * Paths that must never reach GA4 or Clarity.
+ * Paths that must never reach GA4, Google Ads or Clarity.
  *
- * `/admin` covers the login, the dashboard and the email templates page. The
- * legacy `/email-templates` URL is listed too: it only redirects, but the
- * redirect happens in an effect, so without this the brief render before it
- * would still be tracked.
+ * `/admin` covers the login, the dashboard and the email templates page, which
+ * show lead names and phone numbers. `/dashboard` is the student dashboard: it
+ * shows the student's name and the first names of the people they referred,
+ * which Clarity would otherwise record. The legacy `/email-templates` URL is
+ * listed too: it only redirects, but the redirect happens in an effect, so
+ * without this the brief render before it would still be tracked.
  *
  * index.html applies the same rule before loading any tag (it can't import this
  * module) — keep its pattern in step with this list.
  */
-const INTERNAL_PATH_PREFIXES = ['/admin', '/email-templates'];
+const INTERNAL_PATH_PREFIXES = ['/admin', '/email-templates', '/dashboard'];
 
 export const isInternalRoute = (pathname: string = window.location.pathname) =>
   INTERNAL_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
