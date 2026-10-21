@@ -210,7 +210,7 @@ const SuccessStoriesPage = () => {
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
+            initial={entrance({ opacity: 0, y: 20 })}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
@@ -233,7 +233,7 @@ const SuccessStoriesPage = () => {
                 <motion.div
                   key={index}
                   className={`${item.bg} p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={entrance({ opacity: 0, y: 20 })}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

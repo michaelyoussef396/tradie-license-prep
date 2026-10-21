@@ -57,6 +57,27 @@ const OVERRIDDEN = [
   /<meta name="twitter:description"[^>]*>\s*/,
 ];
 
+// Every page's <h1> must be visible in the static HTML itself. An inline
+// opacity:0 on it or on an ancestor means a framer-motion `initial` that isn't
+// wrapped in entrance() (src/lib/entrance.ts): the heading would stay invisible
+// until the JavaScript has loaded, which on a phone is seconds.
+function assertHeadingVisible(html: string) {
+  const root = document.createElement("div");
+  root.innerHTML = html;
+  const headings = [...root.querySelectorAll("h1")];
+  if (!headings.length) throw new Error("no <h1> in the rendered page");
+  for (const h1 of headings) {
+    for (let el: Element | null = h1; el && el !== root; el = el.parentElement) {
+      if (/opacity:\s*0(?![.\d])/.test(el.getAttribute("style") || "")) {
+        const text = (h1.textContent || "").trim().slice(0, 50);
+        throw new Error(
+          `<h1> "${text}" ships hidden (opacity:0 on <${el.tagName.toLowerCase()}>): wrap that framer-motion initial in entrance()`,
+        );
+      }
+    }
+  }
+}
+
 // Each marketing route, then the "page not found" page.
 const targets = [
   ...routes.map((route) => ({ route, file: route === "/" ? "index.html" : `${route.slice(1)}.html` })),
@@ -69,6 +90,7 @@ for (const { route, file } of targets) {
     (globalThis as { happyDOM?: { setURL?: (url: string) => void } }).happyDOM?.setURL?.(SITE + route);
     const { html, head } = await render(route);
     if (!html.trim()) throw new Error("rendered empty HTML");
+    assertHeadingVisible(html);
 
     let page = shell;
     if (head.includes("<title")) for (const re of OVERRIDDEN) page = page.replace(re, "");

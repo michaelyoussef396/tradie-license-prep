@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import { motion } from "framer-motion";
-import { entrance } from "@/lib/entrance";
+import { entrance, entranceIf } from "@/lib/entrance";
 import PageTransition from "@/components/PageTransition";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import {
@@ -223,7 +223,8 @@ const FAQ = () => {
               key={categoryIndex}
               id={`category-${categoryIndex}`}
               className="mb-12 scroll-mt-24"
-              initial={{ opacity: 0, y: 20 }}
+              // the first category can be on the first screen
+              initial={entranceIf(categoryIndex === 0, { opacity: 0, y: 20 })}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}

@@ -15,7 +15,18 @@
  * `animate` state: the HTML is visible immediately and hydration matches it.
  * After that, client-side navigations get the normal entrance animation.
  *
- * Scroll-triggered `whileInView` animations don't need this.
+ * Scroll-triggered `whileInView` elements that can be on the first screen (top
+ * within ~900px of the page on phone, tablet or desktop) need it too; with
+ * `initial={false}` their whileInView is a no-op on first load. In a list where
+ * only the first few items can be on the first screen, use `entranceIf()`.
+ * Elements further down keep a plain `initial` and animate in as they're
+ * scrolled to.
+ *
+ * Caveat: this reads module state set after the app's first commit. Anything
+ * that first mounts *after* that commit on the first page (a nested Suspense or
+ * lazy section, a subtree swapped on a media query, client-only content) gets
+ * the hidden `initial` even though the server HTML showed it, so it would flash
+ * visible → hidden → visible. Give such content no hidden `initial`.
  */
 let appHasPainted = false;
 
@@ -26,4 +37,14 @@ export function markAppPainted() {
 
 export function entrance<T>(initial: T): T | false {
   return appHasPainted ? initial : false;
+}
+
+/**
+ * `entrance()` for list items where only some can be on the first screen: those
+ * render visible on first load, the rest keep their scroll-in animation.
+ *
+ *   initial={entranceIf(index < 2, { opacity: 0, y: 30 })}
+ */
+export function entranceIf<T>(onFirstScreen: boolean, initial: T): T | false {
+  return onFirstScreen ? entrance(initial) : initial;
 }

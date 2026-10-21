@@ -167,7 +167,7 @@ const BuildersLicenceMelbourne = () => {
                   <motion.div
                     key={index}
                     className="flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-blue-50/80 border border-blue-100"
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={entrance({ opacity: 0, y: 12 })}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
