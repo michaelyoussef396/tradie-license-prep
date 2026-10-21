@@ -6,13 +6,14 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
-import { UNLIMITED_EXPERIENCE_SUMMARY } from "@/data/eligibility";
+import { UNLIMITED_MINIMUM_YEARS } from "@/data/eligibility";
 
 /**
- * BPC exam guide. Every regulatory fact on this page is taken from the BPC's own
- * pages (or HIA, where attributed in the copy) — see SOURCES, which also render
- * at the foot of the page. Re-check them and bump LAST_REVIEWED whenever the page
- * is edited: this topic changes month to month.
+ * BPC exam guide. Every regulatory fact on this page comes from the BPC's own
+ * pages, or from HIA or Consumer Affairs Victoria where the copy says so — see
+ * SOURCES, which also render at the foot of the page, and the check log in
+ * .ai/bpc-guide-sources.md. Re-check them and bump LAST_REVIEWED whenever the
+ * page is edited: this topic changes month to month.
  */
 const LAST_REVIEWED = "21 October 2026";
 const SOURCE = "bpc-exam-changes";
@@ -50,6 +51,19 @@ const SOURCES = {
     label: "BPC — New BPC putting consumers first from day one (1 July 2025)",
     href: "https://www.bpc.vic.gov.au/news/2025/new-bpc-putting-consumers-first-from-day-one",
   },
+  testTakerGuide: {
+    label: "BPC — Applicant test taker guide (last updated 30 June 2026)",
+    href: "https://www.bpc.vic.gov.au/builders/building-exams/applicant-test-taker-guide",
+  },
+  engaging: {
+    label: "BPC — Engaging a builder (last updated 30 June 2026)",
+    href: "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-builder",
+  },
+  cav: {
+    label:
+      "Consumer Affairs Victoria — About builders, tradespeople and other building practitioners (last updated 12 December 2025)",
+    href: "https://www.consumer.vic.gov.au/housing-and-accommodation/building-and-renovating/plan-and-manage-your-building-project/about-builders-tradespeople-and-other-building-practitioners",
+  },
   hia: {
     label: "HIA — Building and Plumbing Commission online exams (15 July 2026)",
     href: "https://hia.com.au/resources-and-advice/managing-your-business/managing-compliance/articles/building-and-plumbing-commission-online-examinations",
@@ -58,46 +72,58 @@ const SOURCES = {
 
 type SourceKey = keyof typeof SOURCES;
 
-const FAQS: { q: string; a: string }[] = [
+// Each answer's sources render as links after it on the page; the FAQPage
+// JSON-LD carries the answer text only.
+const FAQS: { q: string; a: string; src: SourceKey[] }[] = [
   {
     q: "Do you still need a builder's licence in Victoria?",
-    a: "Victoria does not issue builders licences. You apply for building practitioner registration through the Building and Plumbing Commission (BPC). Registration is required to carry out domestic building work over the prescribed value, or to advertise and contract as a builder in Victoria.",
+    a: "Yes, though the official name is registration. What most people call a builder's licence is building practitioner registration with the Building and Plumbing Commission (BPC). The BPC says home owners need a registered builder for domestic building work worth more than $10,000, counting labour, materials and GST. Consumer Affairs Victoria adds that work needing a building permit requires a registered practitioner whatever its value.",
+    src: ["engaging", "cav"],
   },
   {
     q: "How do you become a registered builder in Victoria?",
-    a: "Apply to the BPC in your chosen registration class, meet the qualification and experience requirements, submit your supporting documents, and pass the exam if the BPC asks you to sit one. Under the reformed process this is a single online exam rather than a face-to-face interview plus a plan-based exam. From 19 October 2026 the BPC says some building application processes are online only, through the BPC Portal or its existing online services.",
+    a: "Apply to the BPC in your chosen registration class, meet the qualification and experience requirements, submit your supporting documents, and pass the exam if the BPC asks you to sit one. Under the reformed process this is a single exam rather than a face-to-face interview plus a plan-based exam. From 19 October 2026 the BPC says some building application processes are online only, through the BPC Portal or its existing online services.",
+    src: ["eligibility", "reforms", "applications"],
   },
   {
     q: "What is the BPC builder registration exam?",
-    a: "From January 2026 the BPC replaced the face-to-face interview and the plan-based exam with a single exam, starting with Domestic Builder (Unlimited) and extending to other classes. It is delivered through Janison-Proctortrack with proctoring, uses multi-format questions (multiple choice, drag and drop, reorder, true/false and image select), and is open book using the permitted reference materials provided inside the exam only. The BPC's exams page currently says these exams are being conducted in person at BPC Head Office while technical issues are resolved.",
+    a: "From January 2026 the BPC began replacing the face-to-face interview and the plan-based exam with a single exam, starting with Domestic Builder (Unlimited) and extending to other classes. It is delivered through Janison-Proctortrack with proctoring and uses multi-format questions (multiple choice, drag and drop, reorder, true/false and image select). It is open book: online, you use only the permitted reference materials inside the exam, and the BPC's exams page says hard copy materials are allowed for in-person exams. That page also currently says these exams are being conducted in person at BPC Head Office while technical issues are resolved.",
+    src: ["reforms", "exams"],
   },
   {
     q: "How long is the BPC exam?",
-    a: "The BPC says exams are either 1 or 2 hours, confirmed in your notification letter. The length depends on your qualifications, practical experience, employment history and technical referee evidence. Answers submit automatically when time runs out.",
+    a: "The BPC says exams are either 1 or 2 hours. It sets the length based on the class you're applying for and factors such as your qualifications, building experience, employment history and technical referees. Answers submit automatically when time runs out.",
+    src: ["examsFaq"],
   },
   {
     q: "How many questions are in the BPC exam, and what is the pass mark?",
-    a: "The BPC does not publish a question count or a fixed pass mark. It says it sets a passing standard that reflects minimum competence, every exam version is held to the same standard, and the pass mark adjusts to the difficulty of the questions. HIA reports that the standard exam has 100 questions drawn from a pool of about 1,000, with a shorter 50-question, 60-minute exam for some applicants.",
+    a: "The BPC does not publish a question count or a fixed pass mark. It says it sets a passing standard that reflects minimum competence, every exam version is held to the same standard, and the pass mark adjusts to the difficulty of the questions. HIA reports that the Domestic Builder (Unlimited) exam has 100 questions drawn from a pool of about 1,000, with two hours to complete it, and that a shorter 50-question, 60-minute exam is available for certain applicants.",
+    src: ["examsFaq", "hia"],
   },
   {
     q: "Is the BPC exam open book?",
-    a: "Yes, with conditions. You can only use the permitted reference materials, viewed online inside the exam. Hard copies, your own notes, search engines and AI tools are not allowed. To use Australian Standards you need your own active subscription or purchased online version, and your login for it during the exam.",
+    a: "Yes, with conditions. Sitting online, you can only use the permitted reference materials, viewed inside the exam; your own notes and other printed material, search engines and AI tools are not allowed. For in-person exams, the BPC's exams page says hard copy materials are allowed, although its FAQ page still says hard copy reference material is not, so confirm with the BPC what you can bring. To use Australian Standards you need your own active subscription or purchased online version, and your login for it during the exam.",
+    src: ["exams", "examsFaq"],
   },
   {
     q: "Is a Certificate IV in Building and Construction enough to get registered?",
     a: "Not on its own. The BPC says the Certificate IV in Building and Construction (Building) is not a prescribed course for any registration class under the Building Regulations 2018. It partly meets the knowledge requirements for domestic builder classes, and applicants without the prescribed course for their class may be asked to sit an additional BPC exam. For Domestic Builder (Unlimited) the prescribed qualification is a Diploma of Building and Construction (Building) (CPC50210 or CPC50220) or one of two specified construction management degrees.",
+    src: ["eligibility", "domesticWork"],
   },
   {
     q: "What happens if you fail the BPC builder registration exam?",
     a: "Your application for registration is likely to be refused and you will be notified in writing. You can seek an internal review of that decision. To sit another exam you must lodge a new application for registration.",
+    src: ["examsFaq"],
   },
   {
     q: "What if I have dyslexia or need adjustments for the exam?",
     a: "Contact the BPC within three business days of receiving your exam invitation to request reasonable adjustments — by email to onlineexams@bpc.vic.gov.au or by phone on 1300 067 088.",
+    src: ["exams"],
   },
   {
     q: "How much does builder registration cost in Victoria?",
-    a: "For 2026–27 the BPC lists a registration application fee of $1,039.00 for an individual Domestic Builder (Unlimited) and $831.20 for Domestic Builder (Limited) or Commercial Builder (Unlimited), with annual fees of $519.50 and $415.50 respectively once registered. The fees are GST-exempt and the fee page lists no separate exam fee. Budget too for your own online Australian Standards access for the exam, and domestic building insurance once you are registered and working.",
+    a: "For 2026–27 the BPC lists, for an individual, a registration application fee of $1,039.00 for Domestic Builder (Unlimited) and $831.20 for Domestic Builder (Limited) or Commercial Builder (Unlimited), with annual fees of $519.50 and $415.50 respectively once registered. Company fees are higher. The fees are GST-exempt and the fee page lists no separate exam fee. Budget too for your own online Australian Standards access for the exam, and domestic building insurance once you are registered and working.",
+    src: ["fees", "exams"],
   },
 ];
 
@@ -153,7 +179,7 @@ const Src = ({ k }: { k: SourceKey }) => (
 
 const CONTENTS = [
   { id: "what-changed", label: "What changed" },
-  { id: "applications-online", label: "Applications are now online only" },
+  { id: "applications-online", label: "Some applications are now online only" },
   { id: "in-person", label: "Exams are being held in person" },
   { id: "exam-format", label: "What the exam is like" },
   { id: "before-the-exam", label: "Before exam day" },
@@ -183,8 +209,8 @@ const BpcExamChanges = () => {
             The BPC exam has replaced the interview. Here's what that actually means.
           </h1>
           <p className="mt-3 text-sm text-slate-500">
-            Last reviewed: {LAST_REVIEWED} · checked against the BPC's own pages, listed at the
-            bottom
+            Last reviewed: {LAST_REVIEWED} · checked against the BPC's own pages and the other
+            sources listed at the bottom
           </p>
 
           <div className="mt-8">
@@ -194,8 +220,8 @@ const BpcExamChanges = () => {
             </P>
             <P>
               The face-to-face interview is gone. The separate plan-based exam is gone. Both have
-              been replaced by a single exam, and the paperwork you need to submit has been cut
-              dramatically.
+              been replaced by a single exam, and for Domestic Builder (Unlimited) the supporting
+              documents you submit have dropped from 40 to 7.
             </P>
             <P>
               If you started an application under the old system, or you've been told to prepare for
@@ -262,20 +288,21 @@ const BpcExamChanges = () => {
           <H3>Which classes sit the new exam</H3>
           <P>
             The BPC is transitioning gradually. It began with Domestic Builder (Unlimited) in January
-            2026 and said all exams would be available online by June 2026. <Src k="exams" />
+            2026 <Src k="reforms" /> and said all exams would be available online by June 2026.{" "}
+            <Src k="exams" />
           </P>
           <P>
             The classes listed include Domestic Builder (Unlimited), the limited Domestic Builder
             classes — carpentry, framing, footings and slabs, cladding, roof tiling, pools and spas,
             retaining walls, waterproofing and more — Commercial Builder classes, Demolisher classes,
-            Building Inspector (pool safety) and Building Designer.
+            Building Inspector (pool safety) and Building Designer. <Src k="exams" />
           </P>
           <P>
             <strong>You don't opt in.</strong> The BPC will tell you by email if you need to sit an
-            exam, and the timeframe you have to complete it.
+            exam, and the timeframe you have to complete it. <Src k="exams" />
           </P>
 
-          <H2 id="applications-online">Applications are now online only</H2>
+          <H2 id="applications-online">Some applications are now online only</H2>
           <div className="my-6 rounded-xl border-l-4 border-blue-600 bg-blue-50 p-6">
             <div className="mb-3 flex items-center gap-2 font-bold text-blue-900">
               <Info className="h-5 w-5" />
@@ -303,9 +330,9 @@ const BpcExamChanges = () => {
               <Src k="exams" />
             </p>
             <p className="mb-4 text-base leading-relaxed text-amber-950">
-              In person, you sit on a BPC-provided laptop and a BPC supervisor helps you get started.
-              If you've been preparing on the assumption you'll sit at your kitchen table, check your
-              email and confirm your arrangements before exam day.
+              In person, you sit on a BPC-provided laptop and a BPC supervisor helps you get started.{" "}
+              <Src k="exams" /> If you've been preparing on the assumption you'll sit at your kitchen
+              table, check your email and confirm your arrangements before exam day.
             </p>
             <p className="text-base leading-relaxed text-amber-950">
               This may change. If you're mid-application and unsure where you stand, contact the BPC
@@ -317,33 +344,40 @@ const BpcExamChanges = () => {
           <H2 id="exam-format">What the exam is actually like</H2>
           <P>
             <strong>Format.</strong> It's not an essay and it's not a viva. Questions are
-            multi-format — multiple choice, drag and drop, reorder, true/false and image select.
-            Exams are tailored to each registration class, and the questions are randomised and
-            changed frequently. <Src k="reforms" />
+            multi-format — multiple choice, drag and drop, reorder, true/false and image select.{" "}
+            <Src k="exams" /> Exams are tailored to the knowledge and experience each registration
+            class requires, and the questions are randomised and changed frequently.{" "}
+            <Src k="reforms" />
           </P>
           <P>
             <strong>Length.</strong> 1 or 2 hours — your notification letter confirms which. The BPC
-            says the length depends on your qualifications, practical experience, employment history
-            and technical referee evidence. <Src k="examsFaq" />
+            sets the length based on the class you're applying for and factors such as your
+            qualifications, building experience, employment history and technical referees.{" "}
+            <Src k="examsFaq" />
           </P>
           <P>
             <strong>Questions and pass mark.</strong> The BPC doesn't publish a question count or a
             fixed pass mark. It sets a passing standard that reflects minimum competence; every exam
             version is held to the same standard, and the pass mark adjusts to the difficulty of the
-            questions. <Src k="examsFaq" /> HIA reports that the standard exam has 100 questions
-            drawn from a pool of about 1,000, with a shorter 50-question, 60-minute exam for some
-            applicants. <Src k="hia" />
+            questions. <Src k="examsFaq" /> HIA reports that the Domestic Builder (Unlimited) exam
+            has 100 questions drawn from a pool of about 1,000, with two hours to complete it, and
+            that a shorter 50-question, 60-minute exam is available for certain applicants.{" "}
+            <Src k="hia" />
           </P>
           <P>
-            <strong>Delivered by.</strong> Janison-Proctortrack. Your ID check, room scan and the
-            exam itself are recorded through your webcam and microphone, along with your computer
-            desktop. <Src k="exams" />
+            <strong>Delivered by.</strong> Janison-Proctortrack. <Src k="exams" /> Your ID check
+            during onboarding, the scan of your room and the exam itself are recorded through your
+            webcam and microphone <Src k="examsFaq" />, along with your computer desktop.{" "}
+            <Src k="exams" />
           </P>
           <P>
-            <strong>Open book — with conditions.</strong> You can use the BPC's permitted reference
-            materials, but only the online versions accessible inside the exam, plus the exam's own
-            Resources, Calculator and Notes functions. No printed notes. No cheat sheets. No
-            quick-reference guides you've made yourself.
+            <strong>Open book — with conditions.</strong> Sitting online, you can use the BPC's
+            permitted reference materials, but only the online versions accessible inside the exam,
+            plus the exam's own Resources, Calculator and Notes functions. No printed notes. No cheat
+            sheets. No quick-reference guides you've made yourself. In person it's different: the
+            BPC's exams page says hard copy materials are allowed for in-person exams, although its
+            FAQ page still says hard copy reference material is not, so confirm with the BPC what
+            you can bring. <Src k="exams" /> <Src k="examsFaq" />
           </P>
           <P>
             <strong>During the exam.</strong> A countdown timer sits in the top left of every
@@ -353,19 +387,20 @@ const BpcExamChanges = () => {
           </P>
           <P>
             <strong>When.</strong> Sat remotely, it's available 24/7 within the timeframe the BPC
-            gives you. If you're sitting in person, the BPC sets the date, time and location.
+            gives you. If you're sitting in person, the BPC sets the date, time and location.{" "}
+            <Src k="exams" />
           </P>
           <P>
-            <strong>Ending.</strong> When your time expires, your answers submit automatically
-            whether you're finished or not. You can't get extra time inside the exam, and you can't
-            return to the questions afterwards.
+            <strong>Ending.</strong> You must finish within the allotted time: if you haven't, your
+            answers submit automatically when it runs out. <Src k="examsFaq" /> If you need
+            adjustments to how you sit the exam, ask before it (see below).
           </P>
 
           <H3>The cost nobody mentions</H3>
           <P>
             To access the <strong>Australian Standards</strong> during your exam, you need an active
             subscription or a purchased online version. The BPC is explicit that this is the test
-            taker's responsibility, not theirs.
+            taker's responsibility, not theirs. <Src k="exams" />
           </P>
           <ol className="mb-5 list-decimal space-y-2 pl-6 text-base sm:text-lg text-slate-700">
             <li>Budget for it. It's a real cost on top of your application fee.</li>
@@ -391,7 +426,10 @@ const BpcExamChanges = () => {
               "A laptop or desktop with a keyboard and mouse, a working webcam and microphone, and high-speed internet",
               "Tablets, Chromebooks and phones don't qualify",
               "You need administrator rights to install Proctortrack — a locked-down work laptop can fail (the BPC FAQ mentions an \"Error 404\")",
-              "No suitable computer? Email the BPC to arrange an alternative",
+              <>
+                No suitable computer? Email the BPC to arrange an alternative.{" "}
+                <Src k="examsFaq" /> <Src k="testTakerGuide" />
+              </>,
             ]}
           />
           <H3>Need a different date?</H3>
@@ -425,7 +463,7 @@ const BpcExamChanges = () => {
             items={[
               "Talking — including reading questions out loud to yourself",
               "Help from anyone else",
-              "Printed material of any kind, including notes you've prepared",
+              "Printed material, including notes you've prepared (online sittings — see below for in-person)",
               "Google, Bing or any search engine",
               "Any AI tool such as ChatGPT",
               "Phones, watches, earbuds, headphones, tablets, electronic notebooks",
@@ -436,15 +474,16 @@ const BpcExamChanges = () => {
           />
           <P>
             <strong>If you breach the rules,</strong> you may be required to re-sit in person,
-            undergo further assessment, or have your application refused.
+            undergo further assessment, or have your application refused. <Src k="exams" />
           </P>
 
           <H3>If you already have hardcopy reference materials</H3>
           <P>
             There's a transitional arrangement. Applicants who already hold hardcopy permitted
             reference materials can ask to sit the exam in person at a BPC venue — email
-            onlineexams@bpc.vic.gov.au. In-person places are limited, so this can delay your exam
-            being scheduled.
+            onlineexams@bpc.vic.gov.au. The BPC's exams page says hard copy materials are allowed for
+            in-person exams. In-person places are limited, so this can delay your exam being
+            scheduled. <Src k="exams" />
           </P>
 
           <H3>If you need adjustments</H3>
@@ -456,9 +495,9 @@ const BpcExamChanges = () => {
 
           <H2 id="results">Results, failing and re-sitting</H2>
           <P>
-            You won't see a result on screen — the BPC emails it to you. If you pass, your
-            application moves to the next stage and you may be asked for more information.{" "}
-            <Src k="examsFaq" />
+            You won't see a result on screen — the BPC emails it to you.{" "}
+            <Src k="testTakerGuide" /> If you pass, the email tells you the next steps in your
+            assessment. <Src k="examsFaq" />
           </P>
           <P>
             If you don't meet the required standard, your application is likely to be refused, and
@@ -466,16 +505,17 @@ const BpcExamChanges = () => {
             <strong>
               To sit again, you need to lodge a new application for registration.
             </strong>{" "}
-            It isn't a free re-sit.
+            It isn't a free re-sit. <Src k="examsFaq" />
           </P>
           <P>
             If you missed the exam window and there were exceptional circumstances, you can ask for
-            another opportunity — the BPC may require written evidence.
+            another opportunity — the BPC may require written evidence. <Src k="examsFaq" />
           </P>
           <P>
             That's the case for preparing properly the first time rather than treating the exam as
-            something you'll figure out on the day. (The BPC keeps your ID for 12 months and exam
-            recordings for 6 months, for audits and appeals.)
+            something you'll figure out on the day. (The BPC keeps your ID for 12 months to support
+            any future exam attempts, and your exam recording for 6 months for auditing and appeals.){" "}
+            <Src k="examsFaq" />
           </P>
 
           <H2 id="cert-iv">Is a Cert IV enough to get registered?</H2>
@@ -490,13 +530,14 @@ const BpcExamChanges = () => {
           <P>
             For Domestic Builder (Unlimited), the prescribed qualification is a Diploma of Building
             and Construction (Building) (CPC50210 or CPC50220), or one of two specified construction
-            management degrees. <Src k="domesticWork" /> {UNLIMITED_EXPERIENCE_SUMMARY}
+            management degrees, and the BPC's info sheet asks for at least {UNLIMITED_MINIMUM_YEARS}{" "}
+            years of practical experience. <Src k="domesticWork" />
           </P>
           <P>
-            The BPC also says experience should be supervised by a registered building practitioner,
-            paid (employment or contracting), cover technical, supervision and contractual work, and
-            have been gained within the last seven years. Owner-builder experience and experience
-            from training courses generally won't count. <Src k="eligibility" />
+            The BPC says experience should be supervised by a registered building practitioner, paid
+            (employment or contracting), cover technical, supervision and contractual work, and have
+            been gained within the last seven years. It says not to rely on owner-builder experience
+            or experience from training courses, which it may disregard. <Src k="eligibility" />
           </P>
 
           <H2>Where we fit</H2>
@@ -519,10 +560,17 @@ const BpcExamChanges = () => {
           <Cta />
 
           <H2 id="faq">Common questions</H2>
-          {FAQS.map(({ q, a }) => (
+          {FAQS.map(({ q, a, src }) => (
             <div key={q}>
               <H3>{q}</H3>
-              <P>{a}</P>
+              <P>
+                {a}{" "}
+                {src.map((k) => (
+                  <span key={k}>
+                    <Src k={k} />{" "}
+                  </span>
+                ))}
+              </P>
             </div>
           ))}
 

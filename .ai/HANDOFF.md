@@ -754,7 +754,7 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 | 12 | Post-registration support scope, insurance guidance, unlimited private-course email support | `Courses.tsx:177`, `BuilderRegistrationCourseMelbourne.tsx:79-80`, `courses.ts:137` |
 | 13 | Free consultation, no obligation | `Contact.tsx:197`, `FAQ.tsx:146` |
 | 14 | Competitors have 100–400+ reviews — on a **publicly routed** page (`App.tsx:65`), not admin-only | `EmailTemplates.tsx:235` |
-| 15 | BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines | `BpcExamChanges.tsx` throughout |
+| 15 | ~~BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines~~ **Closed 21 Oct 2026:** every fact now cites a BPC page (or HIA / Consumer Affairs Victoria where the copy says so). Check log, sources and open items: `.ai/bpc-guide-sources.md` | `BpcExamChanges.tsx` throughout |
 | 16 | **A figure for Jordan's tile** — annual turnover, project volume or similar, in the shape of Fauzi's `$15M+`, Manny's `50+` or Ben's `40+`. His tile currently renders no highlight at all (§2.17) | `SuccessStories.tsx:24-26` |
 
 Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first

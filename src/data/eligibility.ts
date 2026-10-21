@@ -6,6 +6,13 @@
  * Class-neutral copy must use EXPERIENCE_BY_CLASS_SUMMARY.
  */
 
+/**
+ * Also the BPC's published Domestic Builder (Unlimited) figure ("At least 3 years
+ * of practical experience", info sheet "What is domestic building work?", checked
+ * 21 Oct 2026). /bpc-exam-changes quotes it as the BPC's figure, so if it ever
+ * changes, re-check that page against the BPC. The projects figure is Adrian's
+ * only — the BPC sheet gives none.
+ */
 export const UNLIMITED_MINIMUM_YEARS = 3;
 export const UNLIMITED_MINIMUM_PROJECTS = 3;
 export const LIMITED_MINIMUM_YEARS = 2;
