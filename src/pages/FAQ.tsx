@@ -223,8 +223,8 @@ const FAQ = () => {
               key={categoryIndex}
               id={`category-${categoryIndex}`}
               className="mb-12 scroll-mt-24"
-              // the first category can be on the first screen
-              initial={entranceIf(categoryIndex === 0, { opacity: 0, y: 20 })}
+              // the first two categories can be on the first screen (e.g. tablet portrait)
+              initial={entranceIf(categoryIndex < 2, { opacity: 0, y: 20 })}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}

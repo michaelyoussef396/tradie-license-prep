@@ -58,9 +58,15 @@ const OVERRIDDEN = [
 ];
 
 // Every page's <h1> must be visible in the static HTML itself. An inline
-// opacity:0 on it or on an ancestor means a framer-motion `initial` that isn't
+// opacity of 0 on it or on an ancestor means a framer-motion `initial` that isn't
 // wrapped in entrance() (src/lib/entrance.ts): the heading would stay invisible
 // until the JavaScript has loaded, which on a phone is seconds.
+const hasZeroOpacity = (style: string) =>
+  style.split(";").some((declaration) => {
+    const [property, value] = declaration.split(":");
+    return property?.trim().toLowerCase() === "opacity" && parseFloat(value) === 0;
+  });
+
 function assertHeadingVisible(html: string) {
   const root = document.createElement("div");
   root.innerHTML = html;
@@ -68,7 +74,7 @@ function assertHeadingVisible(html: string) {
   if (!headings.length) throw new Error("no <h1> in the rendered page");
   for (const h1 of headings) {
     for (let el: Element | null = h1; el && el !== root; el = el.parentElement) {
-      if (/opacity:\s*0(?![.\d])/.test(el.getAttribute("style") || "")) {
+      if (hasZeroOpacity(el.getAttribute("style") || "")) {
         const text = (h1.textContent || "").trim().slice(0, 50);
         throw new Error(
           `<h1> "${text}" ships hidden (opacity:0 on <${el.tagName.toLowerCase()}>): wrap that framer-motion initial in entrance()`,

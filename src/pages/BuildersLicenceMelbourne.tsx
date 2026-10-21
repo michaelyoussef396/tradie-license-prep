@@ -190,7 +190,7 @@ const BuildersLicenceMelbourne = () => {
           <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <motion.div
               className="text-center mb-10 sm:mb-12"
-              initial={{ opacity: 0, y: 20 }}
+              initial={entrance({ opacity: 0, y: 20 })}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
@@ -208,7 +208,7 @@ const BuildersLicenceMelbourne = () => {
                 <motion.div
                   key={index}
                   className="relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={entrance({ opacity: 0, y: 20 })}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

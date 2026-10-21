@@ -16,7 +16,7 @@
  * After that, client-side navigations get the normal entrance animation.
  *
  * Scroll-triggered `whileInView` elements that can be on the first screen (top
- * within ~900px of the page on phone, tablet or desktop) need it too; with
+ * within ~1,100px of the page on phone, tablet or desktop) need it too; with
  * `initial={false}` their whileInView is a no-op on first load. In a list where
  * only the first few items can be on the first screen, use `entranceIf()`.
  * Elements further down keep a plain `initial` and animate in as they're
