@@ -703,6 +703,40 @@ test here has passed against the bug it was meant to catch.
 
 ---
 
+### 2.18 Domestic Builder (Limited) experience figure — HOLD, conflicts with the BPC (21 Oct 2026)
+
+**Why.** The site said, attributed to the regulator, that "BPC requires at least 2 years' practical
+experience for Domestic Builder (Limited) classes such as carpentry" (confirmed by Adrian 9 Sep 2026,
+§1(b)). The BPC info sheet *What is domestic building work?* (bpc.vic.gov.au/resource-hub/info-sheets/
+What-is-domestic-building-work, last updated 6 Jul 2026) lists, under **Domestic Builder (limited to
+carpentry)**: "Practical years of experience required — at least 3 years" (Cert III in Carpentry plus
+three prescribed CPCCBC units). Other limited classes differ: framing 2 years, external wall cladding
+1 year, most others 2. So "2 years ... such as carpentry" is wrong for carpentry by the regulator's own
+sheet, and no single figure fits every limited class. Read directly from the page text in the browser,
+not from a summary.
+
+**What changed** (`src/data/eligibility.ts` only, so every surface moved at once):
+- `LIMITED_MINIMUM_YEARS` removed.
+- `LIMITED_EXPERIENCE_SUMMARY` now states no figure: "Domestic Builder (Limited) classes such as
+  carpentry each have their own experience requirement — ask and we'll confirm what applies to you."
+- `EXPERIENCE_BY_CLASS_SUMMARY` keeps the confirmed Unlimited figure and appends that sentence.
+- `getUnderMinimumNote(LICENCE_TYPE_CARPENTRY)` states no figure.
+- Surfaces affected: Courses (carpentry course requirements + FAQ), builder-registration-course-melbourne
+  (body + FAQ JSON-LD), both FAQs, Contact form note, hero form note.
+
+**Prior wording — restore in one commit if Adrian confirms in writing:**
+```ts
+export const LIMITED_MINIMUM_YEARS = 2;
+export const LIMITED_EXPERIENCE_SUMMARY = `BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;
+export const EXPERIENCE_BY_CLASS_SUMMARY = `The minimum depends on the class you're applying for: at least ${UNLIMITED_MINIMUM_YEARS} years working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects, for Domestic Builder (Unlimited), and at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;
+// getUnderMinimumNote(LICENCE_TYPE_CARPENTRY):
+`For Domestic Builder (Limited) classes such as carpentry, BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience. ${ENQUIRY_INVITATION}`
+```
+
+**Question for Adrian:** the BPC sheet says 3 years for carpentry — is that what you see in practice?
+If the DB-L course serves carpentry only, the right figure is likely 3; if it serves several limited
+classes, the copy should stay class-by-class rather than one number.
+
 ## 3. Open questions and judgment calls
 
 1. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
@@ -756,6 +790,7 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 | 14 | Competitors have 100–400+ reviews — on a **publicly routed** page (`App.tsx:65`), not admin-only | `EmailTemplates.tsx:235` |
 | 15 | BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines | `BpcExamChanges.tsx` throughout |
 | 16 | **A figure for Jordan's tile** — annual turnover, project volume or similar, in the shape of Fauzi's `$15M+`, Manny's `50+` or Ben's `40+`. His tile currently renders no highlight at all (§2.17) | `SuccessStories.tsx:24-26` |
+| 17 | **Domestic Builder (Limited) experience minimum** — site said 2 years "such as carpentry"; the BPC info sheet says at least 3 years for carpentry. On HOLD (§2.18) until Adrian confirms in writing | `src/data/eligibility.ts` |
 
 Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
 — it is a comparative claim about named competitors on a public URL. Item 16 is the only one here

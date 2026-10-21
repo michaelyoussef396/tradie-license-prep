@@ -4,11 +4,16 @@
  * Confirmed by Adrian 9 Sep 2026. The minimum depends on the registration
  * class, so no page, form or FAQ may present one figure as "the" BPC minimum.
  * Class-neutral copy must use EXPERIENCE_BY_CLASS_SUMMARY.
+ *
+ * HOLD (21 Oct 2026): the Domestic Builder (Limited) figure — "at least 2 years
+ * ... such as carpentry" — is off the site. The BPC's "What is domestic building
+ * work?" info sheet lists at least 3 years for carpentry (2 for framing, 1 for
+ * external wall cladding), so no limited-class figure is stated until Adrian
+ * confirms in writing. Prior wording: .ai/HANDOFF.md §2.18.
  */
 
 export const UNLIMITED_MINIMUM_YEARS = 3;
 export const UNLIMITED_MINIMUM_PROJECTS = 3;
-export const LIMITED_MINIMUM_YEARS = 2;
 
 /**
  * Domestic Builder (Unlimited). Names its class deliberately: the figure is
@@ -21,11 +26,15 @@ export const UNLIMITED_EXPERIENCE_SUMMARY = `For Domestic Builder (Unlimited), a
 export const COMMERCIAL_EXPERIENCE_NOTE =
   "Requirements for Commercial (Low-Rise) registration differ — ask and we'll confirm what applies to you.";
 
-/** Domestic Builder (Limited) classes, e.g. carpentry DB-L. */
-export const LIMITED_EXPERIENCE_SUMMARY = `BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;
+/**
+ * Domestic Builder (Limited) classes, e.g. carpentry DB-L. On HOLD — states no
+ * figure (see header).
+ */
+export const LIMITED_EXPERIENCE_SUMMARY =
+  "Domestic Builder (Limited) classes such as carpentry each have their own experience requirement — ask and we'll confirm what applies to you.";
 
 /** For copy that is not tied to one registration class. */
-export const EXPERIENCE_BY_CLASS_SUMMARY = `The minimum depends on the class you're applying for: at least ${UNLIMITED_MINIMUM_YEARS} years working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects, for Domestic Builder (Unlimited), and at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;
+export const EXPERIENCE_BY_CLASS_SUMMARY = `The minimum depends on the class you're applying for: at least ${UNLIMITED_MINIMUM_YEARS} years working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects, for Domestic Builder (Unlimited). ${LIMITED_EXPERIENCE_SUMMARY}`;
 
 /** Licence-type option values shared with the enquiry forms. */
 export const LICENCE_TYPE_UNLIMITED = "Domestic Builder - Unlimited";
@@ -59,7 +68,7 @@ export function getUnderMinimumNote(licenceType?: string): string {
     return `For Domestic Builder (Unlimited), BPC requires at least ${UNLIMITED_MINIMUM_YEARS} years' experience working under a registered building practitioner, across a minimum of ${UNLIMITED_MINIMUM_PROJECTS} projects. ${ENQUIRY_INVITATION}`;
   }
   if (licenceType === LICENCE_TYPE_CARPENTRY) {
-    return `For Domestic Builder (Limited) classes such as carpentry, BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience. ${ENQUIRY_INVITATION}`;
+    return `Domestic Builder (Limited) classes such as carpentry each have their own experience requirement. ${ENQUIRY_INVITATION}`;
   }
   return `${EXPERIENCE_BY_CLASS_SUMMARY} ${ENQUIRY_INVITATION}`;
 }
