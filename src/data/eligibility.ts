@@ -8,8 +8,10 @@
  * HOLD (21 Oct 2026): the Domestic Builder (Limited) figure — "at least 2 years
  * ... such as carpentry" — is off the site. The BPC's "What is domestic building
  * work?" info sheet lists at least 3 years for carpentry (2 for framing, 1 for
- * external wall cladding), so no limited-class figure is stated until Adrian
- * confirms in writing. Prior wording: .ai/HANDOFF.md §2.18.
+ * external wall cladding), so no limited-class figure is stated. Not a question
+ * for Adrian (Michael dropped it on 1 Oct): if a figure goes back, it's the BPC's
+ * own with a link to the info sheet, and that's Michael's call. Prior wording:
+ * .ai/HANDOFF.md §2.18.
  */
 
 /**

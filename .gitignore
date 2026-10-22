@@ -28,3 +28,11 @@ dist-ssr
 # which is how an unapproved apply reached production on another project in
 # August 2026. Never track it.
 supabase/.temp/
+
+# Local env files: nothing in the build reads them (the Supabase client hardcodes its URL and key)
+.env
+.env.*
+!.env.example
+
+# tsc -b build info
+*.tsbuildinfo
