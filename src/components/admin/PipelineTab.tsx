@@ -12,6 +12,7 @@ import { Phone, Calendar, Loader2, AlertCircle, Mail, Tag, Clock, MessageSquare,
 import { useToast } from "@/hooks/use-toast";
 import { REFERRED_DISCOUNT_PERCENT } from "@/data/referral";
 import { fetchReferredLeadIds } from "./referred-leads";
+import { ALL_STATUSES, groupLeadsByColumn } from "./pipeline-columns";
 
 interface Lead {
   id: string;
@@ -28,27 +29,6 @@ interface Lead {
   used_referral_code: string | null;
   is_test?: boolean | null;
 }
-
-const STATUS_COLUMNS = [
-  { key: "new", label: "New", color: "bg-blue-500" },
-  { key: "thinking_about_it", label: "Thinking About It", color: "bg-orange-500" },
-  { key: "qualified", label: "Qualified", color: "bg-green-500" },
-  { key: "enrolled", label: "Enrolled", color: "bg-purple-500" },
-  { key: "completed", label: "Completed", color: "bg-teal-500" },
-  { key: "dead", label: "Dead", color: "bg-red-500" },
-];
-
-const ALL_STATUSES = [
-  { value: "new", label: "New" },
-  { value: "thinking_about_it", label: "Thinking About It" },
-  { value: "qualified", label: "Qualified" },
-  { value: "enrolled", label: "Enrolled" },
-  { value: "completed", label: "Completed" },
-  { value: "followed_up_3", label: "Followed Up (Day 3)" },
-  { value: "followed_up_7", label: "Followed Up (Day 7)" },
-  { value: "review_requested", label: "Review Requested" },
-  { value: "dead", label: "Dead" },
-];
 
 const PipelineTab = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -92,12 +72,13 @@ const PipelineTab = () => {
     setSheetOpen(true);
   };
 
-  const updateLeadStatus = async (newStatus: string) => {
-    if (!selectedLead) return;
+  const updateLeadStatus = async (newStatus: string): Promise<boolean> => {
+    if (!selectedLead) return false;
     const { error: updateError } = await supabase.from("leads").update({ status: newStatus }).eq("id", selectedLead.id);
-    if (updateError) { toast({ title: "Error", description: updateError.message, variant: "destructive" }); return; }
+    if (updateError) { toast({ title: "Error", description: updateError.message, variant: "destructive" }); return false; }
     setLeads((prev) => prev.map((l) => l.id === selectedLead.id ? { ...l, status: newStatus } : l));
     setSelectedLead((prev) => prev ? { ...prev, status: newStatus } : null);
+    return true;
   };
 
   const saveNotes = async () => {
@@ -107,14 +88,12 @@ const PipelineTab = () => {
     setLeads((prev) => prev.map((l) => l.id === selectedLead.id ? { ...l, notes: editNotes } : l));
   };
 
-  const sendReviewRequest = async () => {
-    if (!selectedLead) return;
-    toast({ title: "Review request sent", description: `Email sent to ${selectedLead.email}` });
-    await updateLeadStatus("review_requested");
-  };
-
-  const getStatusColor = (status: string | null) => {
-    return STATUS_COLUMNS.find((s) => s.key === status)?.color || "bg-gray-500";
+  // Records the ask only — nothing is emailed from here. The review request itself is
+  // Adrian's own text message to the student.
+  const markReviewRequested = async () => {
+    if (await updateLeadStatus("review_requested")) {
+      toast({ title: "Marked as review requested", description: "No email was sent. Text them the review link from your phone." });
+    }
   };
 
   if (loading) {
@@ -141,8 +120,7 @@ const PipelineTab = () => {
         </div>
       </div>
       <div className="flex gap-4 overflow-x-auto pb-4">
-        {STATUS_COLUMNS.map((col) => {
-          const colLeads = leads.filter((l) => l.status === col.key);
+        {groupLeadsByColumn(leads).map(({ column: col, leads: colLeads }) => {
           return (
             <div key={col.key} className="min-w-[250px] flex-shrink-0">
               <div className="flex items-center gap-2 mb-3">
@@ -232,11 +210,14 @@ const PipelineTab = () => {
                 />
               </div>
 
-              {/* Review request button */}
+              {/* Review request: records the ask; Adrian sends the text himself */}
               {selectedLead.status === "completed" && (
-                <Button className="w-full bg-[#1B4FD8] hover:bg-[#1640b0] text-white" onClick={sendReviewRequest}>
-                  📧 Send Review Request
-                </Button>
+                <div className="space-y-1">
+                  <Button className="w-full bg-[#1B4FD8] hover:bg-[#1640b0] text-white" onClick={markReviewRequested}>
+                    Mark Review Requested
+                  </Button>
+                  <p className="text-gray-500 text-xs">Doesn't send anything. Text them the review link from your phone, then mark it here.</p>
+                </div>
               )}
             </div>
           )}
