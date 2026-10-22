@@ -742,7 +742,7 @@ not from a summary.
 - Surfaces affected: Courses (carpentry course requirements + FAQ), builder-registration-course-melbourne
   (body + FAQ JSON-LD), both FAQs, Contact form note, hero form note.
 
-**Prior wording — restore in one commit if Adrian confirms in writing:**
+**Prior wording** (Adrian's 9 Sep figure; kept for the record — Michael dropped the limited-class question for Adrian on 1 Oct, so this isn't waiting on him. If a figure goes back, it's the BPC's own, with a link to the info sheet, and that's Michael's call; see §5 row 17):
 ```ts
 export const LIMITED_MINIMUM_YEARS = 2;
 export const LIMITED_EXPERIENCE_SUMMARY = `BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;
@@ -760,16 +760,16 @@ put it into `LIMITED_REQUIREMENT` / `CARPENTRY_REQUIREMENT` / `BY_CLASS` (the pr
 the old phrasing) and drop the "— ask and we'll confirm" suffix where a figure is stated;
 `src/data/eligibility.test.ts` asserts the held strings contain no digits, so update it in the same commit.
 
-**Question for Adrian:** the BPC sheet says 3 years for carpentry — is that what you see in practice?
-If the DB-L course serves carpentry only, the right figure is likely 3; if it serves several limited
-classes, the copy should stay class-by-class rather than one number.
+**Not a question for Adrian** (dropped 1 Oct, see above). If Michael wants a figure shown: the BPC
+sheet says 3 years for carpentry, so the carpentry copy would quote that with a link; for several
+limited classes the copy should stay class-by-class rather than one number.
 
 ## 3. Open questions and judgment calls
 
 1. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
 2. **`95% pass rate`** — now removed from the site entirely and held (§2.12). Adrian is confirming it in writing this week.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
-4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
+4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position** — fixed in PR #20 (open 22 Oct 2026: picked by phrase, with a test)., so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
 5. ~~**`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.~~ — resolved 22 Oct 2026: untracked and ignored; nothing in the build reads it.
 6. ~~**`TrustBar.tsx` is dead code**~~ — resolved: deleted in §2.17.
 7. ~~**Jordan's homepage highlight tile has no figure to show**~~ — resolved: the tile is nulled and guarded (§2.17); a figure is queued for Adrian as §5 row 16.
@@ -837,17 +837,17 @@ The welcome email's dashboard link moved from `tradie-licence-prep.lovable.app/d
 PR #12 merged; the deployed source was hashed before and after and matches `main` (SHA-256
 `6fee5fb28505a63c…`). Not verified against a live send — adding a student in the admin sends it.
 
+### 14 October 2026 — `send-followup-emails` deployed
+
+See the follow-up section at the top. `CRON_SECRET` set 14 Oct 01:40 UTC; the function's last
+update is 14 Oct; its source matches `main` (checked 22 Oct).
+
 ### 28 September 2026 — `send-lead-emails` deployed (PR #4)
 
 Adrian's 27 Sep answers (§0.6): the 15% line and "DISCOUNT REQUIRED" banner in the admin email and
 the capitalised greeting. This deploy wasn't logged at the time. Evidence, 22 Oct: the dashboard
 shows the function last updated 24 days earlier (28 Sep), and the deployed source's SHA-256
 (`8379b24e100f697c…`) matches `main`. Not verified against a live send.
-
-### 14 October 2026 — `send-followup-emails` deployed
-
-See the follow-up section at the top. `CRON_SECRET` set 14 Oct 01:40 UTC; the function's last
-update is 14 Oct; its source matches `main` (checked 22 Oct).
 
 ### 21 September 2026 — PR #1 merged, two edge functions deployed
 
