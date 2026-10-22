@@ -12,6 +12,8 @@ const Footer = () => {
     { name: "Builder Registration Course", href: "/builder-registration-course-melbourne" },
     { name: "Builders Licence Melbourne", href: "/builders-licence-melbourne" },
     { name: "BPC Exam Guide", href: "/bpc-exam-changes" },
+    { name: "Domestic Builder (Unlimited)", href: "/domestic-builder-registration/unlimited" },
+    { name: "Domestic Builder (Limited)", href: "/domestic-builder-registration/limited" },
     { name: "About Adrian", href: "/about" },
     { name: "Success Stories", href: "/success-stories" },
     { name: "FAQ", href: "/faq" },

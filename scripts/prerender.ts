@@ -13,8 +13,8 @@
 //                                 rewrites for the client-only routes (thank-you, admin, dashboard)
 
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import { resolve } from "path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { dirname, resolve } from "path";
 import { pathToFileURL } from "url";
 import { NOT_FOUND_TITLE, pageTitle } from "../src/lib/page-titles";
 
@@ -120,6 +120,7 @@ for (const { route, file } of targets) {
     if (!page.includes('<div id="root"></div>')) throw new Error("root div not found in shell");
     page = page.replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
+    mkdirSync(dirname(resolve(dist, file)), { recursive: true }); // nested routes, e.g. /a/b -> dist/a/b.html
     writeFileSync(resolve(dist, file), page);
     console.log(`prerendered ${route} -> dist/${file} (${Math.round(page.length / 1024)} KB)`);
   } catch (err) {
