@@ -10,9 +10,9 @@ import { isInternalRoute } from "./analytics";
  * of index.html now sets the new page's title as soon as the URL changes, using
  * titleForPath (main.tsx hands it over through provideTitlesToHistoryHook()).
  *
- * A new public route needs an entry here: <Seo> throws without one in development and in
- * the prerender, and scripts/prerender.ts fails the build if a prerendered page has no
- * entry or a different <title>.
+ * A new public route needs an entry here: <Seo> throws without one in development, and
+ * scripts/prerender.ts fails the build if a prerendered page has no entry or a different
+ * <title>.
  */
 export const PAGE_TITLES: Record<string, string> = {
   "/": "Qualify Pro | Melbourne BPC Registration Experts",
@@ -26,8 +26,8 @@ export const PAGE_TITLES: Record<string, string> = {
   "/bpc-exam-changes": "BPC Exam 2026: Format, Rules & What's Changed | Qualify Pro",
   // The two class pages arrive with their own PR; their titles live here already so that PR
   // doesn't have to change this file (no merge conflict whichever order the two are merged in).
-  "/domestic-builder-registration/unlimited": "Domestic Builder (Unlimited) Registration in Victoria | Qualify Pro",
-  "/domestic-builder-registration/limited": "Domestic Builder (Limited) & Carpentry Registration in Victoria | Qualify Pro",
+  "/domestic-builder-registration/unlimited": "Domestic Builder (Unlimited) Registration VIC | Qualify Pro",
+  "/domestic-builder-registration/limited": "Domestic Builder (Limited) & Carpentry Registration VIC | Qualify Pro",
   "/thank-you": "Thank You | Qualify Pro",
 };
 

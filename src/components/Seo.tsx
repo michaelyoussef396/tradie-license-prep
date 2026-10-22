@@ -13,11 +13,11 @@ interface SeoProps {
 const Seo = ({ description, path, noindex }: SeoProps) => {
   const url = `${SITE}${path}`;
   const entry = pageTitle(path);
-  if (!entry && (import.meta.env.DEV || import.meta.env.SSR)) {
-    // Fails `bun run dev` and the prerender (and so the build) instead of shipping a
-    // page under the fallback title.
+  if (!entry && import.meta.env.DEV) {
     throw new Error(`No title for "${path}": add it to PAGE_TITLES in src/lib/page-titles.ts`);
   }
+  // For prerendered pages the build fails too: scripts/prerender.ts requires an entry
+  // ("no entry for … in PAGE_TITLES"), so the fallback below can't ship on them.
   const title = entry ?? "Qualify Pro";
   return (
     <Helmet>
