@@ -2,8 +2,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useEffect, lazy, Suspense } from "react";
+import { BrowserRouter, StaticRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect, Suspense, type ReactNode } from "react";
+import { lazyWithPreload } from "./lib/lazyWithPreload";
 import ScrollToTopButton from "./components/ScrollToTop";
 import PageSkeleton from "./components/PageSkeleton";
 import AnalyticsProvider from "./components/AnalyticsProvider";
@@ -11,23 +12,48 @@ import CallBar from "./components/CallBar";
 import RequireAdmin from "./components/RequireAdmin";
 
 // Lazy load pages for better performance
-const Index = lazy(() => import("./pages/Index"));
-const Courses = lazy(() => import("./pages/Courses"));
-const About = lazy(() => import("./pages/About"));
-const SuccessStoriesPage = lazy(() => import("./pages/SuccessStoriesPage"));
-const Contact = lazy(() => import("./pages/Contact"));
-const ThankYou = lazy(() => import("./pages/ThankYou"));
-const BuildersLicenceMelbourne = lazy(() => import("./pages/BuildersLicenceMelbourne"));
-const BuilderRegistrationCourseMelbourne = lazy(() => import("./pages/BuilderRegistrationCourseMelbourne"));
-const BpcExamChanges = lazy(() => import("./pages/BpcExamChanges"));
-const FAQ = lazy(() => import("./pages/FAQ"));
-const EmailTemplates = lazy(() => import("./pages/EmailTemplates"));
-const AdminLogin = lazy(() => import("./pages/AdminLogin"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+const Index = lazyWithPreload(() => import("./pages/Index"));
+const Courses = lazyWithPreload(() => import("./pages/Courses"));
+const About = lazyWithPreload(() => import("./pages/About"));
+const SuccessStoriesPage = lazyWithPreload(() => import("./pages/SuccessStoriesPage"));
+const Contact = lazyWithPreload(() => import("./pages/Contact"));
+const ThankYou = lazyWithPreload(() => import("./pages/ThankYou"));
+const BuildersLicenceMelbourne = lazyWithPreload(() => import("./pages/BuildersLicenceMelbourne"));
+const BuilderRegistrationCourseMelbourne = lazyWithPreload(() => import("./pages/BuilderRegistrationCourseMelbourne"));
+const BpcExamChanges = lazyWithPreload(() => import("./pages/BpcExamChanges"));
+const FAQ = lazyWithPreload(() => import("./pages/FAQ"));
+const EmailTemplates = lazyWithPreload(() => import("./pages/EmailTemplates"));
+const AdminLogin = lazyWithPreload(() => import("./pages/AdminLogin"));
+const AdminDashboard = lazyWithPreload(() => import("./pages/AdminDashboard"));
+const StudentDashboard = lazyWithPreload(() => import("./pages/StudentDashboard"));
+const NotFound = lazyWithPreload(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
+
+// Public marketing routes rendered to static HTML at build time
+// (scripts/prerender.ts) so Google and AI crawlers see the real content.
+// Keep in step with scripts/generate-sitemap.ts.
+export const PRERENDER_ROUTES: Record<string, { preload: () => Promise<void> }> = {
+  "/": Index,
+  "/courses": Courses,
+  "/about": About,
+  "/success-stories": SuccessStoriesPage,
+  "/faq": FAQ,
+  "/contact": Contact,
+  "/builders-licence-melbourne": BuildersLicenceMelbourne,
+  "/builder-registration-course-melbourne": BuilderRegistrationCourseMelbourne,
+  "/bpc-exam-changes": BpcExamChanges,
+};
+
+/** Load the page component for a prerendered route before rendering/hydrating it. */
+export const preloadRoute = (pathname: string) => {
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  return PRERENDER_ROUTES[path]?.preload();
+};
+
+/** BrowserRouter in the browser; StaticRouter when prerendering a given URL. */
+const Router = ({ url, children }: { url?: string; children: ReactNode }) =>
+  url ? <StaticRouter location={url}>{children}</StaticRouter> : <BrowserRouter>{children}</BrowserRouter>;
 
 // Scroll to top on route change
 function ScrollToTopOnNavigate() {
@@ -40,12 +66,12 @@ function ScrollToTopOnNavigate() {
   return null;
 }
 
-const App = () => (
+const App = ({ url }: { url?: string }) => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <Router url={url}>
         <ScrollToTopOnNavigate />
         <AnalyticsProvider />
         <ScrollToTopButton />
@@ -73,7 +99,7 @@ const App = () => (
           </Routes>
         </Suspense>
         </div>
-      </BrowserRouter>
+      </Router>
     </TooltipProvider>
   </QueryClientProvider>
 );
