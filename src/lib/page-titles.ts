@@ -24,6 +24,10 @@ export const PAGE_TITLES: Record<string, string> = {
   "/builders-licence-melbourne": "Get Your Builder's Licence in Melbourne | Qualify Pro",
   "/builder-registration-course-melbourne": "Builder Registration Course Melbourne | Face-to-Face Mentorship",
   "/bpc-exam-changes": "BPC Exam 2026: Format, Rules & What's Changed | Qualify Pro",
+  // The two class pages arrive with their own PR; their titles live here already so that PR
+  // doesn't have to change this file (no merge conflict whichever order the two are merged in).
+  "/domestic-builder-registration/unlimited": "Domestic Builder (Unlimited) Registration in Victoria | Qualify Pro",
+  "/domestic-builder-registration/limited": "Domestic Builder (Limited) & Carpentry Registration in Victoria | Qualify Pro",
   "/thank-you": "Thank You | Qualify Pro",
 };
 
