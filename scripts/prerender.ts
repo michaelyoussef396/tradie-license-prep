@@ -16,7 +16,7 @@ import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { pathToFileURL } from "url";
-import { titleForPath } from "../src/lib/page-titles";
+import { NOT_FOUND_TITLE, pageTitle } from "../src/lib/page-titles";
 
 const SITE = "https://www.qualifypro.com.au";
 const dist = resolve("dist");
@@ -58,13 +58,15 @@ const OVERRIDDEN = [
   /<meta name="twitter:description"[^>]*>\s*/,
 ];
 
-// Each page's <title> must be the one in src/lib/page-titles.ts: the browser sets that
-// title ahead of in-app navigations for GA4, so the two have to agree.
+// Each page's <title> must be its entry in src/lib/page-titles.ts: the history hook in
+// index.html sets that title on in-app navigation for GA4, so the two have to agree, and
+// a page with no entry would get the wrong title there.
 function assertTitleMatchesTable(route: string, head: string) {
+  const expected = route === notFoundPath ? NOT_FOUND_TITLE : pageTitle(route);
+  if (!expected) throw new Error(`no entry for "${route}" in PAGE_TITLES (src/lib/page-titles.ts)`);
   const match = head.match(/<title[^>]*>([\s\S]*?)<\/title>/);
   const decoder = document.createElement("textarea");
   decoder.innerHTML = match?.[1] ?? "";
-  const expected = titleForPath(route);
   if (decoder.value !== expected) {
     throw new Error(`<title> is "${decoder.value}" but src/lib/page-titles.ts says "${expected}"`);
   }

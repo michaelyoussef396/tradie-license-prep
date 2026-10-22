@@ -3,13 +3,16 @@ import { isInternalRoute } from "./analytics";
 /**
  * Every public page's <title>, by path — the one place they're written.
  *
- * `<Seo>` takes its title from here by `path`, and main.tsx calls
- * `setTitleBeforeNavigation()` so the next page's title is in place before an in-app
- * navigation changes the URL. GA4 records in-app page views from browser-history changes
- * and reads document.title at that moment, while react-helmet-async only sets the new
- * title once the next page has rendered — so until this, every in-app page view carried
- * the previous page's title. scripts/prerender.ts fails the build if a prerendered page's
- * <title> differs from this table.
+ * `<Seo>` takes its title from here by `path`. GA4 records in-app page views from
+ * browser-history changes and reads document.title at that moment, while
+ * react-helmet-async only sets the new title once the next page has rendered — so every
+ * in-app page view used to carry the previous page's title. The history hook at the top
+ * of index.html now sets the new page's title as soon as the URL changes, using
+ * titleForPath (main.tsx hands it over through provideTitlesToHistoryHook()).
+ *
+ * A new public route needs an entry here: <Seo> throws without one in development and in
+ * the prerender, and scripts/prerender.ts fails the build if a prerendered page has no
+ * entry or a different <title>.
  */
 export const PAGE_TITLES: Record<string, string> = {
   "/": "Qualify Pro | Melbourne BPC Registration Experts",
@@ -26,31 +29,32 @@ export const PAGE_TITLES: Record<string, string> = {
 
 export const NOT_FOUND_TITLE = "Page Not Found | Qualify Pro";
 
+const hasEntry = (path: string) => Object.prototype.hasOwnProperty.call(PAGE_TITLES, path);
+
 /**
  * The title the page at `pathname` will have. Unknown paths render the 404 page.
- * Internal routes (admin, student dashboard) return undefined: they set their own
- * titles and are never tracked.
+ * Internal routes (admin, student dashboard) return undefined: they aren't tracked, so
+ * their title is left as it is.
  */
 export function titleForPath(pathname: string): string | undefined {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  if (Object.prototype.hasOwnProperty.call(PAGE_TITLES, path)) return PAGE_TITLES[path];
+  if (hasEntry(path)) return PAGE_TITLES[path];
   return isInternalRoute(path) ? undefined : NOT_FOUND_TITLE;
 }
 
-/**
- * Wraps history.pushState / replaceState so the destination page's title is set just
- * before the URL changes. Whichever order this and GA4's own history hook are installed
- * in, GA4 reads the title after the new one is in place.
- */
-export function setTitleBeforeNavigation(): void {
-  for (const method of ["pushState", "replaceState"] as const) {
-    const original = window.history[method];
-    window.history[method] = function (this: History, data: unknown, unused: string, url?: string | URL | null) {
-      if (url != null) {
-        const title = titleForPath(new URL(String(url), window.location.href).pathname);
-        if (title) document.title = title;
-      }
-      return original.call(this, data, unused, url);
-    };
+/** The title for a public page's own `path`, or undefined if PAGE_TITLES has no entry. */
+export function pageTitle(path: string): string | undefined {
+  return hasEntry(path) ? PAGE_TITLES[path] : undefined;
+}
+
+declare global {
+  interface Window {
+    /** Read by the history hook in index.html. */
+    __qpTitleForPath?: (pathname: string) => string | undefined;
   }
+}
+
+/** Gives the history hook in index.html the title table. Call once, before rendering. */
+export function provideTitlesToHistoryHook(): void {
+  window.__qpTitleForPath = titleForPath;
 }

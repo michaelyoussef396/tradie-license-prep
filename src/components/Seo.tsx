@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { titleForPath } from "@/lib/page-titles";
+import { pageTitle } from "@/lib/page-titles";
 
 const SITE = "https://www.qualifypro.com.au";
 
@@ -12,7 +12,13 @@ interface SeoProps {
 /** The page's title comes from PAGE_TITLES by `path` (src/lib/page-titles.ts). */
 const Seo = ({ description, path, noindex }: SeoProps) => {
   const url = `${SITE}${path}`;
-  const title = titleForPath(path) ?? "Qualify Pro";
+  const entry = pageTitle(path);
+  if (!entry && (import.meta.env.DEV || import.meta.env.SSR)) {
+    // Fails `bun run dev` and the prerender (and so the build) instead of shipping a
+    // page under the fallback title.
+    throw new Error(`No title for "${path}": add it to PAGE_TITLES in src/lib/page-titles.ts`);
+  }
+  const title = entry ?? "Qualify Pro";
   return (
     <Helmet>
       <title>{title}</title>
