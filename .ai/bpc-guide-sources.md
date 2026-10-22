@@ -24,6 +24,25 @@ directly; the wording that matters is noted in short.
 | `cav` | Consumer Affairs Victoria, *About builders, tradespeople and other building practitioners* (12 Dec 2025) | Work needing a building permit requires a registered practitioner regardless of value |
 | `hia` | HIA, *Building and Plumbing Commission online exams* (15 Jul 2026) | Attributed to HIA in the copy: DB-U exam has 100 questions from a pool of about 1,000 and two hours; a 50-question, 60-minute exam "will be available for certain applicants" |
 
+## The class pages (checked 22 October 2026)
+
+`src/pages/DomesticBuilderUnlimited.tsx` (`/domestic-builder-registration/unlimited`) and
+`src/pages/DomesticBuilderLimited.tsx` (`/domestic-builder-registration/limited`) cite the same
+`SOURCES` (now in `src/data/bpc-sources.ts`). `domesticWork`, `eligibility` and `exams` were re-read
+on 22 Oct; the rest are as checked for the guide on 21 Oct.
+
+| Key | What the class pages take from it |
+|---|---|
+| `domesticWork` | DB-U scope ("all components of domestic building work for the construction, renovation, improvement or maintenance of a home (class 1, 2, and 4 buildings, and associated class 10 buildings)"), its three prescribed qualifications, "At least 3 years of practical experience" and its list of general competencies (permits, certification, quotes, major domestic building contracts, planning, workers and subcontractors, site safety, supervising to the NCC, Australian Standards and local authority requirements); the limited classes and examples of them; carpentry scope ("carpentry work for homes and associated class 10 structures … homes, carports, garages, pergolas, decks, verandas and similar structures"), Certificate III in Carpentry (CPC30211/CPC30220) plus CPCCBC4026(A), CPCCBC4005(A), CPCCBC4003(A)/CPCCBC4003, and the extra carpentry experience (fixing strip flooring; formwork for stairs and ramps, and for suspended slabs, columns, beams and walls) |
+| `eligibility` | Cert IV: not prescribed for any class, "meets parts of the knowledge requirements for Domestic Builder classes, but not all", may trigger an additional exam; experience rules (supervised, paid, technical/supervision/contractual, last seven years; owner-builder and training-course experience may be disregarded; evidence of paid work); certified copies; "fit and proper" (declaration, criminal history check); "exam or interview depending on the class". The page shows no last-updated date on 22 Oct. |
+| `exams` | "Domestic Builder (limited to carpentry)" is among the classes that may need the online exam; the BPC tells applicants if they need one; exams currently held in person at Head Office |
+| `reforms`, `examsFaq`, `applications`, `fees`, `engaging` | As for the guide above: single exam from January 2026 starting with DB-U; 1 or 2 hours and what sets the length; some applications online only from 19 Oct 2026; 2026–27 fees ($1,039.00 / $519.50 DB-U, $831.20 / $415.50 DB-L, GST-exempt, no exam fee listed); the $10,000 threshold |
+
+**HOLD:** the carpentry page states no experience figure. It uses `CARPENTRY_EXPERIENCE_SUMMARY` and
+says the BPC's info sheet sets the minimum, with a link. If Michael decides to show the BPC's own
+figure (at least 3 years for carpentry), change it in `src/data/eligibility.ts` and both places
+follow.
+
 ## Open items
 
 - **Hard copies, in person.** Both BPC pages allow them during the transitional period. The exams
@@ -34,7 +53,8 @@ directly; the wording that matters is noted in short.
   paragraph, the hardcopy section and FAQs 3 and 6 together. (An earlier draft wrongly said the two
   pages contradict each other; the second independent review caught it.)
 - **In-person notice.** The "conducted in-person at Head Office" notice was live on 21 Oct 2026. When
-  it goes, update the amber box, the FAQ answer and the "When" paragraph together.
+  it goes, update the guide's amber box, FAQ answer and "When" paragraph together, and the exam
+  section of both class pages.
 - **HIA figures are HIA's**, scoped to DB-U. The BPC itself publishes no question count or pass mark.
 - **"Licence" vs "registration" (for Adrian).** The FAQ now says what people call a builder's licence
   is building practitioner registration with the BPC, so it no longer contradicts the site's
@@ -45,5 +65,6 @@ directly; the wording that matters is noted in short.
   specific classes without a source.
 - **"Exam or interview".** The eligibility page still says applicants "may be required to complete
   an exam or interview depending on the class of registration", so the guide scopes "no interview"
-  to Domestic Builder (Unlimited) and says the change is extending to other classes. Re-check when
-  the BPC says the roll-out is complete.
+  to Domestic Builder (Unlimited) and says the change is extending to other classes; the carpentry
+  page quotes the same sentence. Re-check when the BPC says the roll-out is complete, and update the
+  guide and both class pages together.

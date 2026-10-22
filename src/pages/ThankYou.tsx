@@ -18,7 +18,6 @@ const ThankYou = () => {
   return (
     <PageTransition>
       <Seo
-        title="Thank You | Qualify Pro"
         description="Thanks for your enquiry. A Qualify Pro BPC prep specialist will call you within 24 hours to discuss your eligibility."
         path="/thank-you"
         noindex

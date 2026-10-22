@@ -42,7 +42,6 @@ const BuildersLicenceMelbourne = () => {
   return (
     <>
       <Seo
-        title="Get Your Builder's Licence in Melbourne | Qualify Pro"
         description="Qualify Pro prepares experienced Melbourne tradies for the Building and Plumbing Commission (BPC) registration process. Small classes, specialist prep, free eligibility check."
         path="/builders-licence-melbourne"
       />

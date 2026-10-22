@@ -144,7 +144,7 @@ const SuccessStoriesPage = () => {
 
   return (
     <PageTransition>
-      <Seo title={"Student Success Stories | Qualify Pro Melbourne"} description={"Real Melbourne tradies who gained their building registration with Qualify Pro and went on to run their own businesses."} path="/success-stories" />
+      <Seo description={"Real Melbourne tradies who gained their building registration with Qualify Pro and went on to run their own businesses."} path="/success-stories" />
       <div className="min-h-screen">
         <Navigation />
       

@@ -7,6 +7,7 @@ import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 import { UNLIMITED_MINIMUM_YEARS } from "@/data/eligibility";
+import { SOURCES, type SourceKey } from "@/data/bpc-sources";
 
 /**
  * BPC exam guide. Every regulatory fact on this page comes from the BPC's own
@@ -17,60 +18,6 @@ import { UNLIMITED_MINIMUM_YEARS } from "@/data/eligibility";
  */
 const LAST_REVIEWED = "21 October 2026";
 const SOURCE = "bpc-exam-changes";
-
-const SOURCES = {
-  exams: {
-    label: "BPC — Building exams (last updated 28 August 2026)",
-    href: "https://www.bpc.vic.gov.au/builders/building-exams",
-  },
-  examsFaq: {
-    label: "BPC — Building exams: frequently asked questions (last updated 30 June 2026)",
-    href: "https://www.bpc.vic.gov.au/builders/building-exams/building-exams-frequently-asked-questions",
-  },
-  reforms: {
-    label: "BPC — Licensing and registration reforms (30 June 2026)",
-    href: "https://www.bpc.vic.gov.au/resource-hub/industry-updates/licensing-and-registration-reforms",
-  },
-  applications: {
-    label: "BPC — Builder registration applications (notice dated 19 October 2026)",
-    href: "https://www.bpc.vic.gov.au/builders/registration",
-  },
-  eligibility: {
-    label: "BPC — Registration requirements and eligibility (last updated 30 June 2026)",
-    href: "https://www.bpc.vic.gov.au/builders/registration/registration-requirements-and-eligibiity",
-  },
-  domesticWork: {
-    label: "BPC — What is domestic building work? (last updated 6 July 2026)",
-    href: "https://www.bpc.vic.gov.au/resource-hub/info-sheets/What-is-domestic-building-work",
-  },
-  fees: {
-    label: "BPC — Registration fees (last updated 25 August 2026)",
-    href: "https://www.bpc.vic.gov.au/builders/registration/registration-fees",
-  },
-  launch: {
-    label: "BPC — New BPC putting consumers first from day one (1 July 2025)",
-    href: "https://www.bpc.vic.gov.au/news/2025/new-bpc-putting-consumers-first-from-day-one",
-  },
-  testTakerGuide: {
-    label: "BPC — Applicant test taker guide (last updated 30 June 2026)",
-    href: "https://www.bpc.vic.gov.au/builders/building-exams/applicant-test-taker-guide",
-  },
-  engaging: {
-    label: "BPC — Engaging a builder (last updated 30 June 2026)",
-    href: "https://www.bpc.vic.gov.au/home-owners/before-you-start-building/engaging-a-builder",
-  },
-  cav: {
-    label:
-      "Consumer Affairs Victoria — About builders, tradespeople and other building practitioners (last updated 12 December 2025)",
-    href: "https://www.consumer.vic.gov.au/housing-and-accommodation/building-and-renovating/plan-and-manage-your-building-project/about-builders-tradespeople-and-other-building-practitioners",
-  },
-  hia: {
-    label: "HIA — Building and Plumbing Commission online exams (15 July 2026)",
-    href: "https://hia.com.au/resources-and-advice/managing-your-business/managing-compliance/articles/building-and-plumbing-commission-online-examinations",
-  },
-} as const;
-
-type SourceKey = keyof typeof SOURCES;
 
 // Each answer's sources render as links after it on the page; the FAQPage
 // JSON-LD carries the answer text only.
@@ -193,7 +140,6 @@ const BpcExamChanges = () => {
   return (
     <PageTransition>
       <Seo
-        title="BPC Exam 2026: Format, Rules & What's Changed | Qualify Pro"
         description="How the BPC builder registration exam works in 2026: 1 or 2 hours, open-book rules, ID checks, in-person sittings and what happens if you fail."
         path="/bpc-exam-changes"
       />
@@ -547,6 +493,23 @@ const BpcExamChanges = () => {
             (employment or contracting), cover technical, supervision and contractual work, and have
             been gained within the last seven years. It says not to rely on owner-builder experience
             or experience from training courses, which it may disregard. <Src k="eligibility" />
+          </P>
+          <P>
+            What each class asks for, class by class:{" "}
+            <Link
+              to="/domestic-builder-registration/unlimited"
+              className="font-semibold text-blue-700 underline underline-offset-4"
+            >
+              Domestic Builder (Unlimited)
+            </Link>{" "}
+            and{" "}
+            <Link
+              to="/domestic-builder-registration/limited"
+              className="font-semibold text-blue-700 underline underline-offset-4"
+            >
+              Domestic Builder (Limited), including carpentry
+            </Link>
+            .
           </P>
 
           <H2>Where we fit</H2>

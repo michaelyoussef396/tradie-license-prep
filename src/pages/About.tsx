@@ -97,7 +97,7 @@ const About = () => {
 
   return (
     <PageTransition>
-      <Seo title={"About Adrian Nicolazzo | Registered Builder & Mentor"} description={"Meet Adrian Nicolazzo: registered building practitioner, commercial licence holder and qualified carpenter, training Melbourne tradies since 2017."} path="/about" />
+      <Seo description={"Meet Adrian Nicolazzo: registered building practitioner, commercial licence holder and qualified carpenter, training Melbourne tradies since 2017."} path="/about" />
       <div className="min-h-screen">
         <Navigation />
       
