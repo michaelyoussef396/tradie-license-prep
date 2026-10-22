@@ -60,7 +60,7 @@ const DomesticBuilderLimited = () => {
   return (
     <PageTransition>
       <Seo
-        description="What the BPC asks for to register in a Domestic Builder (Limited) class in Victoria, with carpentry (DB-L) in detail: the scope, Cert III and units, experience, the exam and fees."
+        description="What the BPC asks for to register as a Domestic Builder (Limited) in Victoria, with carpentry (DB-L) in detail: Cert III, experience, the exam and fees."
         path={PATH}
       />
       <Helmet>

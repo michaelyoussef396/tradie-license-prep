@@ -18,7 +18,9 @@ export const faqJsonLd = (faqs: Faq[]) => ({
   })),
 });
 
-/** Scrolls to the page's enquiry form (id "enquiry-form"). */
+/** Scrolls to the page's enquiry form (id "enquiry-form") and puts keyboard focus in its first field. */
 export const scrollToEnquiry = () => {
-  document.getElementById("enquiry-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const form = document.getElementById("enquiry-form");
+  form?.scrollIntoView({ behavior: "smooth", block: "start" });
+  form?.querySelector<HTMLInputElement>("input")?.focus({ preventScroll: true });
 };

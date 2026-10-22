@@ -5,22 +5,19 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
-import { CourseCard, FaqList, H2, H3, P, SourceList, Src, UL } from "@/components/ClassGuide";
-import { faqJsonLd, scrollToEnquiry, type Faq } from "@/lib/class-guide";
-import { getCourse } from "@/data/courses";
+import { FaqList, H2, H3, P, SourceList, Src, UL } from "@/components/ClassGuide";
+import { faqJsonLd, type Faq } from "@/lib/class-guide";
 import { UNLIMITED_MINIMUM_YEARS } from "@/data/eligibility";
 
 /**
  * Domestic Builder (Unlimited) class page. Every requirement here is the BPC's own,
  * cited inline to src/data/bpc-sources.ts and logged in .ai/bpc-guide-sources.md;
- * re-check them and bump LAST_REVIEWED when the page is edited. Nothing here is a
- * Qualify Pro claim except the course details, which come from src/data/courses.ts.
+ * re-check them and bump LAST_REVIEWED when the page is edited. It makes no Qualify Pro
+ * claims and names no course: which courses serve which class is pending Adrian (HANDOFF §2.7).
  */
 const LAST_REVIEWED = "22 October 2026";
 const SOURCE = "domestic-builder-unlimited";
 const PATH = "/domestic-builder-registration/unlimited";
-
-const COURSES = ["evening", "private", "comprehensive"].map(getCourse);
 
 const FAQS: Faq[] = [
   {
@@ -54,7 +51,7 @@ const DomesticBuilderUnlimited = () => {
   return (
     <PageTransition>
       <Seo
-        description="What the BPC asks for to register as a Domestic Builder (Unlimited) in Victoria: the scope, qualifications, experience, the exam and the fees, each linked to its BPC source."
+        description="What the BPC asks for to register as a Domestic Builder (Unlimited) in Victoria: scope, qualifications, experience, the exam and fees, with sources."
         path={PATH}
       />
       <Helmet>
@@ -191,16 +188,13 @@ const DomesticBuilderUnlimited = () => {
 
           <H2 id="courses">How Qualify Pro can help</H2>
           <P>
-            These courses prepare you for domestic builder registration, including your application.{" "}
+            Qualify Pro runs courses that prepare you for builder registration, including your
+            application. Which one fits depends on your class and your situation —{" "}
             <Link to="/courses" className="font-semibold text-blue-700 underline underline-offset-4">
-              Compare all courses
+              compare the courses
             </Link>
+            , or ask below.
           </P>
-          <div className="mb-10 grid gap-6 sm:grid-cols-2">
-            {COURSES.map((c) => (
-              <CourseCard key={c.id} course={c} onEnquire={scrollToEnquiry} />
-            ))}
-          </div>
           <div id="enquiry-form" className="mb-6 max-w-xl scroll-mt-32">
             <HeroEnquiryForm source={SOURCE} title="Ask about Domestic Builder (Unlimited) registration" />
           </div>

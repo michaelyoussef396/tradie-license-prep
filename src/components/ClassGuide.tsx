@@ -7,8 +7,9 @@ import type { Faq } from "@/lib/class-guide";
 /**
  * Building blocks for the Domestic Builder class pages (src/pages/DomesticBuilder*.tsx):
  * plain headings and text, inline citations to the BPC pages in src/data/bpc-sources.ts,
- * a source list, course cards and an FAQ list whose text also feeds the FAQPage JSON-LD
- * (faqJsonLd in src/lib/class-guide.ts).
+ * a source list, a course card and an FAQ list whose text also feeds the FAQPage JSON-LD
+ * (faqJsonLd in src/lib/class-guide.ts). The course card shows only the course's name, who
+ * it's for and its price, all from courses.ts.
  */
 
 export const H2 = ({ children, id }: { children: ReactNode; id?: string }) => (
@@ -71,9 +72,12 @@ export const FaqList = ({ faqs }: { faqs: Faq[] }) => (
       <div key={q}>
         <H3>{q}</H3>
         <P>
-          {a}{" "}
+          {a}
           {src.map((k) => (
-            <Src key={k} k={k} />
+            <span key={k}>
+              {" "}
+              <Src k={k} />
+            </span>
           ))}
         </P>
       </div>
@@ -84,8 +88,6 @@ export const FaqList = ({ faqs }: { faqs: Faq[] }) => (
 export const CourseCard = ({ course, onEnquire }: { course: Course; onEnquire: () => void }) => (
   <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
     <h3 className="text-lg font-bold text-slate-900">{course.name}</h3>
-    <p className="mt-2 text-sm font-semibold text-blue-700">{course.duration}</p>
-    <p className="mt-1 text-sm text-slate-600">{course.format}</p>
     <p className="mt-3 flex-1 text-base text-slate-700">{course.whoItsFor}</p>
     <p className="mt-4 text-lg font-bold text-slate-900">
       {course.priceDisplay} <span className="text-sm font-normal text-slate-500">{course.exGstNote}</span>

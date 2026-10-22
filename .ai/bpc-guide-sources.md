@@ -53,7 +53,8 @@ follow.
   paragraph, the hardcopy section and FAQs 3 and 6 together. (An earlier draft wrongly said the two
   pages contradict each other; the second independent review caught it.)
 - **In-person notice.** The "conducted in-person at Head Office" notice was live on 21 Oct 2026. When
-  it goes, update the amber box, the FAQ answer and the "When" paragraph together.
+  it goes, update the guide's amber box, FAQ answer and "When" paragraph together, and the exam
+  section of both class pages.
 - **HIA figures are HIA's**, scoped to DB-U. The BPC itself publishes no question count or pass mark.
 - **"Licence" vs "registration" (for Adrian).** The FAQ now says what people call a builder's licence
   is building practitioner registration with the BPC, so it no longer contradicts the site's
@@ -64,5 +65,6 @@ follow.
   specific classes without a source.
 - **"Exam or interview".** The eligibility page still says applicants "may be required to complete
   an exam or interview depending on the class of registration", so the guide scopes "no interview"
-  to Domestic Builder (Unlimited) and says the change is extending to other classes. Re-check when
-  the BPC says the roll-out is complete.
+  to Domestic Builder (Unlimited) and says the change is extending to other classes; the carpentry
+  page quotes the same sentence. Re-check when the BPC says the roll-out is complete, and update the
+  guide and both class pages together.
