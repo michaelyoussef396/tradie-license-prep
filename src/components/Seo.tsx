@@ -1,16 +1,18 @@
 import { Helmet } from "react-helmet-async";
+import { titleForPath } from "@/lib/page-titles";
 
 const SITE = "https://www.qualifypro.com.au";
 
 interface SeoProps {
-  title: string;
   description: string;
   path: string;
   noindex?: boolean;
 }
 
-const Seo = ({ title, description, path, noindex }: SeoProps) => {
+/** The page's title comes from PAGE_TITLES by `path` (src/lib/page-titles.ts). */
+const Seo = ({ description, path, noindex }: SeoProps) => {
   const url = `${SITE}${path}`;
+  const title = titleForPath(path) ?? "Qualify Pro";
   return (
     <Helmet>
       <title>{title}</title>

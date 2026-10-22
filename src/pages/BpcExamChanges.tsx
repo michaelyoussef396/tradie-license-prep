@@ -193,7 +193,6 @@ const BpcExamChanges = () => {
   return (
     <PageTransition>
       <Seo
-        title="BPC Exam 2026: Format, Rules & What's Changed | Qualify Pro"
         description="How the BPC builder registration exam works in 2026: 1 or 2 hours, open-book rules, ID checks, in-person sittings and what happens if you fail."
         path="/bpc-exam-changes"
       />

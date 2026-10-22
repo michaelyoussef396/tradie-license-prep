@@ -1,7 +1,12 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App, { preloadRoute } from "./App.tsx";
+import { setTitleBeforeNavigation } from "./lib/page-titles";
 import "./index.css";
+
+// GA4 reads document.title when an in-app navigation changes the URL; set the next
+// page's title first (src/lib/page-titles.ts).
+setTitleBeforeNavigation();
 
 const container = document.getElementById("root")!;
 const app = (

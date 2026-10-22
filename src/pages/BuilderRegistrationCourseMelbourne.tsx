@@ -119,7 +119,6 @@ const BuilderRegistrationCourseMelbourne = () => {
   return (
     <PageTransition>
       <Seo
-        title="Builder Registration Course Melbourne | Face-to-Face Mentorship"
         description="Small-group, in-person builder registration mentorship in Melbourne. Get your BPC registration with one-on-one support from a registered building practitioner."
         path="/builder-registration-course-melbourne"
       />
