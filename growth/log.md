@@ -6,3 +6,12 @@
 - Follow-up cron (net._http_response): NOT CHECKED.
 - Fix for Michael: select the macOS Chrome as default for this routine (or disconnect the Linux one).
 - Baseline still = 21 Oct research lap (Project doc claude/qualify-pro-research-lap2.html). All recommendations from that lap still untracked/open.
+
+## 2026-10-22 17:19 AEDT · EVENING (manual re-run, Michael picked macOS Chrome = deviceId e280fa94… — it's labelled "Browser 2" now, names swap)
+- Leads: NOT CHECKED — Chrome (macOS) is signed out of Supabase (dashboard → sign-in page). Connector still permission-denied. Cron check also not done.
+- Ads today (22 Oct, partial): A$8.61 · 2 clicks · 54 impr · 0 conv (Registration only; Carpentry 0 impr today).
+- Ads yesterday (21 Oct): A$18.69 · 3 clicks · 35 impr · 0 conv (Registration 5 impr/3 clk/A$18.69; Carpentry 30 impr/0 clk).
+- Since campaigns started 1 Oct (Ads shows start Oct 1, not 15 Oct): ~A$137 (A$128.75 to 21 Oct + today) · ~22 clicks · 0 Ads conversions. Avg CPC A$6.44.
+- Settings unchanged vs 21 Oct: both campaigns still Google search + Search partners; Victoria; 6am–9pm; Registration A$15 Max clicks, Carpentry A$2 Target IS; both "Eligible (Learning)". Old campaign paused. Opt score 92.2% / 97.3%. Google showing "limited by budget" rec.
+- Recommendations from 21 Oct: Search partners OFF — NOT done. Others not checked this run.
+- Left Ads campaigns view date range on Last 30 days.
