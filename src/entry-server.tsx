@@ -1,9 +1,10 @@
 // Build-time render entry, used only by scripts/prerender.ts (never shipped to the browser).
 import { renderToString } from "react-dom/server";
 import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
-import App, { PRERENDER_ROUTES, preloadRoute } from "./App";
+import App, { NOT_FOUND_PRERENDER_PATH, PRERENDER_ROUTES, preloadRoute } from "./App";
 
 export const routes = Object.keys(PRERENDER_ROUTES);
+export const notFoundPath = NOT_FOUND_PRERENDER_PATH;
 
 // scripts/prerender.ts installs happy-dom globals, so react-helmet-async detects a
 // `window` at import time and skips collecting server state. Force server mode.

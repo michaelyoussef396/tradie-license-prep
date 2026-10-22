@@ -1,5 +1,6 @@
 {
   "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/email-templates",
@@ -8,9 +9,9 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/spa"
-    }
+    { "source": "/thank-you", "destination": "/spa" },
+    { "source": "/dashboard", "destination": "/spa" },
+    { "source": "/admin", "destination": "/spa" },
+    { "source": "/admin/:path*", "destination": "/spa" }
   ]
 }

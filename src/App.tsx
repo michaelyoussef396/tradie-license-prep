@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, StaticRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, Suspense, type ReactNode } from "react";
 import { lazyWithPreload } from "./lib/lazyWithPreload";
+import { markAppPainted } from "./lib/entrance";
 import ScrollToTopButton from "./components/ScrollToTop";
 import PageSkeleton from "./components/PageSkeleton";
 import AnalyticsProvider from "./components/AnalyticsProvider";
@@ -45,15 +46,34 @@ export const PRERENDER_ROUTES: Record<string, { preload: () => Promise<void> }> 
   "/bpc-exam-changes": BpcExamChanges,
 };
 
-/** Load the page component for a prerendered route before rendering/hydrating it. */
+/**
+ * Path the build renders to dist/404.html. Vercel serves that file, with a real
+ * 404 status, for any path that is neither a static file nor one of the SPA
+ * rewrites in vercel.json.
+ */
+export const NOT_FOUND_PRERENDER_PATH = "/404";
+
+/**
+ * Load the page component for a prerendered page before rendering/hydrating it.
+ * Only called when the HTML was prerendered, so any path that isn't a marketing
+ * route is the 404 page.
+ */
 export const preloadRoute = (pathname: string) => {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  return PRERENDER_ROUTES[path]?.preload();
+  return (PRERENDER_ROUTES[path] ?? NotFound).preload();
 };
 
 /** BrowserRouter in the browser; StaticRouter when prerendering a given URL. */
 const Router = ({ url, children }: { url?: string; children: ReactNode }) =>
   url ? <StaticRouter location={url}>{children}</StaticRouter> : <BrowserRouter>{children}</BrowserRouter>;
+
+/** After the first page has committed in the browser, later page mounts get entrance animations (src/lib/entrance.ts). */
+function MarkAppPainted() {
+  useEffect(() => {
+    markAppPainted();
+  }, []);
+  return null;
+}
 
 // Scroll to top on route change
 function ScrollToTopOnNavigate() {
@@ -79,24 +99,32 @@ const App = ({ url }: { url?: string }) => (
         <div className="pt-12">
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/success-stories" element={<SuccessStoriesPage />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/thank-you" element={<ThankYou />} />
-            <Route path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
-            <Route path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
-            <Route path="/bpc-exam-changes" element={<BpcExamChanges />} />
-            <Route path="/email-templates" element={<Navigate to="/admin/email-templates" replace />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
-            <Route path="/admin/email-templates" element={<RequireAdmin><EmailTemplates /></RequireAdmin>} />
-            <Route path="/dashboard" element={<StudentDashboard />} />
+            {/*
+              caseSensitive on every route: production serves /courses.html only for
+              the exact lower-case path, and any other casing gets 404.html. Matching
+              case-insensitively here would hydrate that 404 markup as the real page.
+            */}
+            <Route caseSensitive path="/" element={<Index />} />
+            <Route caseSensitive path="/courses" element={<Courses />} />
+            <Route caseSensitive path="/about" element={<About />} />
+            <Route caseSensitive path="/success-stories" element={<SuccessStoriesPage />} />
+            <Route caseSensitive path="/faq" element={<FAQ />} />
+            <Route caseSensitive path="/contact" element={<Contact />} />
+            <Route caseSensitive path="/thank-you" element={<ThankYou />} />
+            <Route caseSensitive path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
+            <Route caseSensitive path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
+            <Route caseSensitive path="/bpc-exam-changes" element={<BpcExamChanges />} />
+            <Route caseSensitive path="/email-templates" element={<Navigate to="/admin/email-templates" replace />} />
+            <Route caseSensitive path="/admin" element={<AdminLogin />} />
+            <Route caseSensitive path="/admin/dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
+            <Route caseSensitive path="/admin/email-templates" element={<RequireAdmin><EmailTemplates /></RequireAdmin>} />
+            <Route caseSensitive path="/dashboard" element={<StudentDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {/* Inside the boundary on purpose: React hydrates Suspense content in a later
+              pass than the shell, so this must commit with the page, not before it. */}
+          <MarkAppPainted />
         </Suspense>
         </div>
       </Router>
