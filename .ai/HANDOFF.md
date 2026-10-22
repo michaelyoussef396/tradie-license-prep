@@ -767,7 +767,7 @@ classes, the copy should stay class-by-class rather than one number.
 2. **`95% pass rate`** — now removed from the site entirely and held (§2.12). Adrian is confirming it in writing this week.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
 4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
-5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
+5. ~~**`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.~~ — resolved 22 Oct 2026: untracked and ignored; nothing in the build reads it.
 6. ~~**`TrustBar.tsx` is dead code**~~ — resolved: deleted in §2.17.
 7. ~~**Jordan's homepage highlight tile has no figure to show**~~ — resolved: the tile is nulled and guarded (§2.17); a figure is queued for Adrian as §5 row 16.
 
