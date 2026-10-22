@@ -17,6 +17,7 @@ type LeadRow = {
 let leadRows: LeadRow[] = [];
 let updates: Array<{ values: Record<string, unknown>; id: unknown }> = [];
 let toasts: Array<{ title?: string; description?: string; variant?: string }> = [];
+let updateError: { message: string } | null = null;
 
 const row = (id: string, name: string, status: string | null): LeadRow => ({
   id,
@@ -35,7 +36,7 @@ mock.module("@/integrations/supabase/client", () => {
     update: (values: Record<string, unknown>) => ({
       eq: async (_column: string, id: unknown) => {
         updates.push({ values, id });
-        return { error: null };
+        return { error: updateError };
       },
     }),
   };
@@ -78,10 +79,22 @@ const namesInColumn = (container: HTMLElement, label: string): string[] => {
   return [...column.querySelectorAll("p.font-semibold")].map((p) => p.textContent ?? "");
 };
 
+/** Opens the lead sheet for the card named `name`. */
+const openLead = async (container: HTMLElement, name: string) => {
+  const card = [...container.querySelectorAll("p.font-semibold")].find((p) => p.textContent === name);
+  await React.act(async () => {
+    (card?.closest("[class*='cursor-pointer']") as HTMLElement).click();
+  });
+};
+
+const reviewButton = () =>
+  [...document.querySelectorAll("button")].find((b) => b.textContent?.includes("Mark Review Requested"));
+
 beforeEach(() => {
   leadRows = [];
   updates = [];
   toasts = [];
+  updateError = null;
   document.body.innerHTML = "";
 });
 
@@ -109,18 +122,26 @@ describe("PipelineTab", () => {
 
     const container = await renderBoard();
 
+    expect(namesInColumn(container, "New")).toEqual(["Fresh"]);
     expect([...container.querySelectorAll("h3")].some((h) => h.textContent === "Other Status")).toBe(false);
+  });
+
+  test("should show a lead with no status as such, not as New", async () => {
+    leadRows = [row("a", "No Status", null)];
+    const container = await renderBoard();
+
+    expect(namesInColumn(container, "Other Status")).toEqual(["No Status"]);
+    await openLead(container, "No Status");
+    const trigger = document.querySelector("[role='combobox']");
+    expect(trigger?.textContent).toBe("No status");
   });
 
   test("should mark review requested without claiming an email was sent", async () => {
     leadRows = [row("a", "Past Student", "completed")];
     const container = await renderBoard();
 
-    const card = [...container.querySelectorAll("p.font-semibold")].find((p) => p.textContent === "Past Student");
-    await React.act(async () => {
-      (card?.closest("[class*='cursor-pointer']") as HTMLElement).click();
-    });
-    const button = [...document.querySelectorAll("button")].find((b) => b.textContent?.includes("Mark Review Requested"));
+    await openLead(container, "Past Student");
+    const button = reviewButton();
     expect(button).toBeDefined();
     expect(document.body.textContent).not.toContain("Send Review Request");
 
@@ -133,5 +154,20 @@ describe("PipelineTab", () => {
     expect(toasts[0].title).toBe("Marked as review requested");
     expect(toasts[0].description).toContain("No email was sent");
     expect(namesInColumn(container, "Review Requested")).toEqual(["Past Student"]);
+  });
+
+  test("should not report success when the status update fails", async () => {
+    leadRows = [row("a", "Past Student", "completed")];
+    updateError = { message: "permission denied" };
+    const container = await renderBoard();
+
+    await openLead(container, "Past Student");
+    await React.act(async () => {
+      reviewButton()!.click();
+    });
+
+    expect(toasts).toEqual([{ title: "Error", description: "permission denied", variant: "destructive" }]);
+    expect(namesInColumn(container, "Completed")).toEqual(["Past Student"]);
+    expect(namesInColumn(container, "Review Requested")).toEqual([]);
   });
 });

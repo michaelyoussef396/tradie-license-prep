@@ -186,9 +186,13 @@ const PipelineTab = () => {
               {/* Status dropdown */}
               <div className="space-y-1">
                 <label className="text-gray-400 text-sm">Status</label>
-                <Select value={selectedLead.status || "new"} onValueChange={updateLeadStatus}>
+                {/* A missing or unknown status shows as such (the lead sits under Other Status), not as "New". */}
+                <Select
+                  value={ALL_STATUSES.some((s) => s.value === selectedLead.status) ? selectedLead.status! : ""}
+                  onValueChange={updateLeadStatus}
+                >
                   <SelectTrigger className="bg-[#0f172a] border-gray-600 text-white">
-                    <SelectValue />
+                    <SelectValue placeholder={selectedLead.status ? `Other: ${selectedLead.status}` : "No status"} />
                   </SelectTrigger>
                   <SelectContent className="bg-[#1e293b] border-gray-600">
                     {ALL_STATUSES.map((s) => (
