@@ -152,7 +152,7 @@ const FAQ = () => {
 
   return (
     <PageTransition>
-      <Seo title={"BPC Registration FAQs | Qualify Pro Melbourne"} description={"Answers on timeframes, experience requirements, application support, qualifications and what the Building Practitioner Certificate test involves."} path="/faq" />
+      <Seo title={"BPC Registration FAQs | Qualify Pro Melbourne"} description={"Answers on timeframes, experience requirements, application support, qualifications and what the Building and Plumbing Commission (BPC) exam involves."} path="/faq" />
       <div className="min-h-screen bg-white">
         <Navigation />
 

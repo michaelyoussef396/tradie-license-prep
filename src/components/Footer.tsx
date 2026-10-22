@@ -9,6 +9,9 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "Courses", href: "/courses" },
+    { name: "Builder Registration Course", href: "/builder-registration-course-melbourne" },
+    { name: "Builders Licence Melbourne", href: "/builders-licence-melbourne" },
+    { name: "BPC Exam Guide", href: "/bpc-exam-changes" },
     { name: "About Adrian", href: "/about" },
     { name: "Success Stories", href: "/success-stories" },
     { name: "FAQ", href: "/faq" },
