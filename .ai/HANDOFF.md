@@ -221,6 +221,9 @@ deploys in §6. Until they are deployed, the live emails still say "amount pendi
 "$300 referral reward". `send-followup-emails`, `followup-day3` and `followup-day7` are unchanged.
 The 28 Sep changes (§0.7) touch no edge function.
 
+**Done.** `send-lead-emails` was deployed on 28 Sep and `send-student-welcome` is live through its
+22 Oct redeploy; both deployed sources match `main` (checked 22 Oct, §6).
+
 ### 0.7 PR #4 review decisions, 28 Sep 2026
 
 | # | Decision | Done |
@@ -811,15 +814,14 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 | 11 | Coverage of waterproofing, bricklaying, cabinetry, external fixtures and other listed classes | `TradeAreas.tsx:28-34`, `FAQ.tsx:130` |
 | 12 | Post-registration support scope, insurance guidance, unlimited private-course email support | `Courses.tsx:177`, `BuilderRegistrationCourseMelbourne.tsx:79-80`, `courses.ts:137` |
 | 13 | Free consultation, no obligation | `Contact.tsx:197`, `FAQ.tsx:146`, `BpcExamChanges.tsx` ("no charge, no obligation") |
-| 14 | Competitors have 100–400+ reviews — was on a **publicly routed** page; the page is admin-only since §2.13 | `EmailTemplates.tsx:235` |
+| 14 | ~~Competitors have 100–400+ reviews~~ **Closed:** the figure was removed in §2.13 and isn't in `EmailTemplates.tsx` any more (checked 22 Oct) | — |
 | 15 | ~~BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines~~ **Closed 21 Oct 2026:** every fact now cites a BPC page (or HIA / Consumer Affairs Victoria where the copy says so). Check log, sources and open items: `.ai/bpc-guide-sources.md` | `BpcExamChanges.tsx` throughout |
 | 16 | **A figure for Jordan's tile** — annual turnover, project volume or similar, in the shape of Fauzi's `$15M+`, Manny's `50+` or Ben's `40+`. His tile currently renders no highlight at all (§2.17) | `SuccessStories.tsx:24-26` |
-| 17 | **Domestic Builder (Limited) experience minimum** — site said 2 years "such as carpentry"; the BPC info sheet says at least 3 years for carpentry. On HOLD (§2.18) until Adrian confirms in writing | `src/data/eligibility.ts` |
+| 17 | **Domestic Builder (Limited) experience minimum** — site said 2 years "such as carpentry"; the BPC info sheet says at least 3 years for carpentry. On HOLD (§2.18). **Not for Adrian:** Michael dropped the limited-class question on 1 Oct; if a figure goes back, it's the BPC's own with a link to its info sheet, and that's Michael's call | `src/data/eligibility.ts` |
 
-Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
-— it is a comparative claim about named competitors on a public URL. Item 16 is the only one here
-that is *blocking a visible gap* rather than backfilling an existing claim — Jordan's card is now
-the one story on the homepage with no headline figure beside it.
+Item 15 needed a regulatory source rather than Adrian's sign-off (closed 21 Oct). Item 16 is the
+only one here that is *blocking a visible gap* rather than backfilling an existing claim — Jordan's
+card is now the one story on the homepage with no headline figure beside it.
 
 **`TrustBar.tsx` was deleted in §2.17**, so its citations in rows 1, 3 and 7 no longer resolve.
 Those claims are still live via the other files listed in the same rows.
@@ -834,6 +836,13 @@ The welcome email's dashboard link moved from `tradie-licence-prep.lovable.app/d
 `https://www.qualifypro.com.au/dashboard`. Deployed from the Supabase dashboard's Code tab after
 PR #12 merged; the deployed source was hashed before and after and matches `main` (SHA-256
 `6fee5fb28505a63c…`). Not verified against a live send — adding a student in the admin sends it.
+
+### 28 September 2026 — `send-lead-emails` deployed (PR #4)
+
+Adrian's 27 Sep answers (§0.6): the 15% line and "DISCOUNT REQUIRED" banner in the admin email and
+the capitalised greeting. This deploy wasn't logged at the time. Evidence, 22 Oct: the dashboard
+shows the function last updated 24 days earlier (28 Sep), and the deployed source's SHA-256
+(`8379b24e100f697c…`) matches `main`. Not verified against a live send.
 
 ### 14 October 2026 — `send-followup-emails` deployed
 
