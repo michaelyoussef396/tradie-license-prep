@@ -10,7 +10,7 @@ import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
 import { Fragment } from "react";
-import { courses, courseWeeksRange, getCourse, practiceQuestionsSummary } from "@/data/courses";
+import { courses, courseWeeksRange, practiceQuestionsSummary } from "@/data/courses";
 import {
   EXPERIENCE_BY_CLASS_SUMMARY,
   LIMITED_EXPERIENCE_SUMMARY,
@@ -20,9 +20,6 @@ import {
 const SOURCE = "builder-registration-course-melbourne";
 
 const EXPERIENCE_ANSWER = `${EXPERIENCE_BY_CLASS_SUMMARY} Either way, you'll also need technical references from registered builders in the same class or higher, and an evidence portfolio.`;
-
-const PRIVATE = getCourse("private");
-const PRIVATE_FORMAT = PRIVATE.format.charAt(0).toLowerCase() + PRIVATE.format.slice(1);
 
 // One list drives the visible questions and the FAQPage JSON-LD, so the two can't drift
 // (scripts/prerender.ts fails the build if markup text isn't on the page). The payment
@@ -43,7 +40,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Is the builder registration course online or in person?",
-    a: `The group courses are in person in Melbourne. ${PRIVATE.name} is ${PRIVATE_FORMAT}, for people who need the flexibility.`,
+    a: "The group courses are in person in Melbourne. There's also a private one-on-one option delivered online via Zoom for people who need the flexibility.",
   },
 ];
 

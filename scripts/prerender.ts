@@ -119,7 +119,9 @@ function assertFaqMarkupVisible(html: string, head: string) {
 function assertAccordionAnswersInHtml(html: string) {
   const root = document.createElement("div");
   root.innerHTML = html;
-  for (const trigger of root.querySelectorAll("[data-orientation] button[aria-controls]")) {
+  // Radix renders each accordion trigger as the button inside an <h3 data-orientation>;
+  // other Radix triggers (Select, Tabs) also carry aria-controls, so don't match those.
+  for (const trigger of root.querySelectorAll("h3[data-orientation] > button[aria-controls]")) {
     const id = trigger.getAttribute("aria-controls") || "";
     const panel = [...root.querySelectorAll("[id]")].find((el) => el.id === id);
     if (!panel || !normalizeText(panel.textContent || "")) {
