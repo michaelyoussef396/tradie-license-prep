@@ -44,7 +44,7 @@ All routes live in `src/App.tsx`, each page loaded with `lazyWithPreload()` (so 
 `src/integrations/supabase/client.ts` and `src/integrations/supabase/types.ts` are **generated — never hand-edit**. The URL and anon key are hardcoded there (not env vars). `Database` types come from `types.ts`, so `supabase.from(...)` is fully typed.
 
 ### Lead capture flow
-Three surfaces submit leads (`HeroEnquiryForm`, `Contact`, `FinalCTA`) and all follow the same two-step shape:
+Three surfaces submit leads (`HeroEnquiryForm`, `Contact`, `FinalCTA`). Each tags the lead with a `source` naming the page it's on, the same value its GA4 event carries; a new page's form needs its own (`src/lib/lead-sources.test.ts` checks). All three follow the same two-step shape:
 
 1. **Anonymous insert straight into `public.leads`.** The anon RLS policy only permits rows with `status = 'new'` and `notes IS NULL`, so the client must always send `status: "new"`.
 2. **Fire-and-forget `supabase.functions.invoke("send-lead-emails")`**, deliberately not awaited — a failed email must not block the redirect to `/thank-you`.
