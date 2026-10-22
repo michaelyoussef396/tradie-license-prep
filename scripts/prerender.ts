@@ -84,6 +84,53 @@ function assertHeadingVisible(html: string) {
   }
 }
 
+// FAQPage structured data must say what the page says: every question and answer in
+// the markup has to appear in the rendered text. Build the markup from the same list
+// the page renders (as BuilderRegistrationCourseMelbourne and BpcExamChanges do).
+const normalizeText = (text: string) => text.replace(/\s+/g, " ").trim();
+
+function assertFaqMarkupVisible(html: string, head: string) {
+  const root = document.createElement("div");
+  root.innerHTML = html;
+  root.querySelectorAll("script").forEach((script) => script.remove()); // JSON-LD isn't page text
+  const visible = normalizeText(root.textContent || "");
+  const decoder = document.createElement("textarea");
+  // JSON-LD can sit in the head (react-helmet) or in the body, alone, as an array or in @graph.
+  for (const [, json] of (head + html).matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)) {
+    decoder.innerHTML = json; // undo any HTML escaping of the script body
+    const parsed = JSON.parse(decoder.value);
+    for (const block of [parsed, parsed?.["@graph"] ?? []].flat(2)) {
+      if (block?.["@type"] !== "FAQPage") continue;
+      for (const item of block.mainEntity ?? []) {
+        for (const text of [item?.name, item?.acceptedAnswer?.text]) {
+          if (typeof text !== "string" || !visible.includes(normalizeText(text))) {
+            throw new Error(`FAQPage markup isn't on the page: "${String(text).slice(0, 70)}"`);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Accordion answers must be in the HTML, not just the questions: closed panels are
+// force-mounted and hidden with CSS (src/components/ui/accordion.tsx). Without that, Radix
+// leaves them out and crawlers only see the questions. Every accordion trigger's panel has
+// to be present and have text.
+function assertAccordionAnswersInHtml(html: string) {
+  const root = document.createElement("div");
+  root.innerHTML = html;
+  // Radix renders each accordion trigger as the button inside an <h3 data-orientation>;
+  // other Radix triggers (Select, Tabs) also carry aria-controls, so don't match those.
+  for (const trigger of root.querySelectorAll("h3[data-orientation] > button[aria-controls]")) {
+    const id = trigger.getAttribute("aria-controls") || "";
+    const panel = [...root.querySelectorAll("[id]")].find((el) => el.id === id);
+    if (!panel || !normalizeText(panel.textContent || "")) {
+      const question = normalizeText(trigger.textContent || "").slice(0, 60);
+      throw new Error(`accordion answer missing from the HTML for "${question}" (is forceMount still on AccordionContent?)`);
+    }
+  }
+}
+
 // Each marketing route, then the "page not found" page.
 const targets = [
   ...routes.map((route) => ({ route, file: route === "/" ? "index.html" : `${route.slice(1)}.html` })),
@@ -97,6 +144,8 @@ for (const { route, file } of targets) {
     const { html, head } = await render(route);
     if (!html.trim()) throw new Error("rendered empty HTML");
     assertHeadingVisible(html);
+    assertFaqMarkupVisible(html, head);
+    assertAccordionAnswersInHtml(html);
 
     let page = shell;
     if (head.includes("<title")) for (const re of OVERRIDDEN) page = page.replace(re, "");

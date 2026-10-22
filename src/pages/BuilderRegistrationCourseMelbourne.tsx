@@ -9,7 +9,8 @@ import PageTransition from "@/components/PageTransition";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
-import { courses, practiceQuestionsSummary } from "@/data/courses";
+import { Fragment } from "react";
+import { courses, courseWeeksRange, practiceQuestionsSummary } from "@/data/courses";
 import {
   EXPERIENCE_BY_CLASS_SUMMARY,
   LIMITED_EXPERIENCE_SUMMARY,
@@ -18,8 +19,30 @@ import {
 
 const SOURCE = "builder-registration-course-melbourne";
 
-// Shown on the page and in the FAQPage JSON-LD, which must match it.
 const EXPERIENCE_ANSWER = `${EXPERIENCE_BY_CLASS_SUMMARY} Either way, you'll also need technical references from registered builders in the same class or higher, and an evidence portfolio.`;
+
+// One list drives the visible questions and the FAQPage JSON-LD, so the two can't drift
+// (scripts/prerender.ts fails the build if markup text isn't on the page). The payment
+// question stays out of the markup: its answer is a phone link, rendered separately.
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "How long does a builder registration course take?",
+    a: `The courses run from ${courseWeeksRange} depending on which one fits you. BPC processing time sits on top of that and varies.`,
+  },
+  {
+    q: "Do you help with the BPC registration application?",
+    a: "Yes. The online application and portfolio are prepared with you as part of the course, not left for you to work out afterwards.",
+  },
+  { q: "What experience do I need for builder registration in Victoria?", a: EXPERIENCE_ANSWER },
+  {
+    q: "What qualifications do I need before I start?",
+    a: "Requirements vary by registration class. The eligibility check identifies what you need and what you're missing.",
+  },
+  {
+    q: "Is the builder registration course online or in person?",
+    a: "The group courses are in person in Melbourne. There's also a private one-on-one option delivered online via Zoom for people who need the flexibility.",
+  },
+];
 
 const courseJsonLd = {
   "@context": "https://schema.org",
@@ -50,32 +73,11 @@ const courseJsonLd = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How long does a builder registration course take in Melbourne?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Qualify Pro's courses run from 6 to 13 weeks depending on the registration class and format. Building and Plumbing Commission processing time applies on top of the course and varies by application.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What experience do you need for builder registration in Victoria?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: EXPERIENCE_ANSWER,
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is the builder registration course in person or online?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Group courses are delivered in person in Melbourne in small groups. A private one-on-one option is delivered online via Zoom for those who need scheduling flexibility.",
-      },
-    },
-  ],
+  mainEntity: FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
 };
 
 
@@ -325,30 +327,12 @@ const BuilderRegistrationCourseMelbourne = () => {
 
           <section className="mb-16">
             <H2>Common questions</H2>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">How long does it take?</h3>
-            <P>
-              The courses run from 6 to 13 weeks depending on which one fits you. BPC processing
-              time sits on top of that and varies.
-            </P>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Do you help with the application?</h3>
-            <P>
-              Yes. The online application and portfolio are prepared with you as part of the course,
-              not left for you to work out afterwards.
-            </P>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">What experience do I need?</h3>
-            <P>{EXPERIENCE_ANSWER}</P>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">
-              What qualifications do I need before I start?
-            </h3>
-            <P>
-              Requirements vary by registration class. The eligibility check identifies what you
-              need and what you're missing.
-            </P>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Is it online or in person?</h3>
-            <P>
-              The group courses are in person in Melbourne. There's also a private one-on-one option
-              delivered online via Zoom for people who need the flexibility.
-            </P>
+            {FAQS.map(({ q, a }) => (
+              <Fragment key={q}>
+                <h3 className="mb-2 text-xl font-bold text-slate-900">{q}</h3>
+                <P>{a}</P>
+              </Fragment>
+            ))}
             <h3 className="mb-2 text-xl font-bold text-slate-900">What are the payment options?</h3>
             <P>
               <PaymentOptionsNote />

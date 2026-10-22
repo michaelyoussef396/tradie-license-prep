@@ -33,7 +33,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getCourse, courseById, practiceQuestionsSummary } from "@/data/courses";
+import { getCourse, courseById, courseWeeksRange, practiceQuestionsSummary } from "@/data/courses";
 import {
   COMMERCIAL_EXPERIENCE_NOTE,
   EXPERIENCE_BY_CLASS_SUMMARY,
@@ -143,7 +143,7 @@ const Courses = () => {
   const faqItems = [
     {
       question: "How long is the process before getting my licence?",
-      answer: "The training duration varies by program (6-13 weeks). Application submission and processing by the Building and Plumbing Commission (BPC), formerly the VBA, sits on top of that and varies by application. We help by making sure your application is complete and correct before it goes in."
+      answer: `The training duration varies by program (${courseWeeksRange}). Application submission and processing by the Building and Plumbing Commission (BPC), formerly the VBA, sits on top of that and varies by application. We help by making sure your application is complete and correct before it goes in.`
     },
     {
       question: "What experience do I need to enroll?",
