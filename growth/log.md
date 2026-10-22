@@ -15,3 +15,10 @@
 - Settings unchanged vs 21 Oct: both campaigns still Google search + Search partners; Victoria; 6am–9pm; Registration A$15 Max clicks, Carpentry A$2 Target IS; both "Eligible (Learning)". Old campaign paused. Opt score 92.2% / 97.3%. Google showing "limited by budget" rec.
 - Recommendations from 21 Oct: Search partners OFF — NOT done. Others not checked this run.
 - Left Ads campaigns view date range on Last 30 days.
+
+## 2026-10-22 17:34 AEDT · EVENING (scheduled run; selected macOS Chrome e280fa94 per Michael's earlier pick — Chrome still asks each session)
+- Leads: NOT CHECKED — Supabase connector permission-denied; macOS Chrome still on Supabase sign-in page. Cron job 3 check not done either.
+- Ads today (22 Oct, partial): A$8.61 · 2 clicks · 61 impr · 0 conv (Registration 60 impr/2 clk; Carpentry 1 impr). Unchanged spend since 17:19 run. Calls column not read.
+- To date since 1 Oct: ~A$137.36 · 22 clicks · 0 Ads conv. Both campaigns Eligible (Learning); old campaign paused.
+- Day wrap: A$8.61 / 2 clicks / leads unknown. Overnight: nothing (ads off 9pm–6am).
+- Open: Michael to sign Supabase back in on macOS Chrome so lead checks work; Search partners OFF still not done.
