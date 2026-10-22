@@ -36,7 +36,7 @@ import { getCourse, courseById, practiceQuestionsSummary } from "@/data/courses"
 import {
   COMMERCIAL_EXPERIENCE_NOTE,
   EXPERIENCE_BY_CLASS_SUMMARY,
-  LIMITED_EXPERIENCE_SUMMARY,
+  CARPENTRY_EXPERIENCE_SUMMARY,
   UNLIMITED_EXPERIENCE_SUMMARY,
 } from "@/data/eligibility";
 
@@ -133,7 +133,7 @@ const Courses = () => {
         { icon: Award, text: "Quality standards for carpentry work" },
       ],
       schedule: `${getCourse("carpentry").duration} of focused DB-L training. Weekly sessions with practice questions.`,
-      requirements: `Qualified carpenter, trade certificate required. ${LIMITED_EXPERIENCE_SUMMARY}`,
+      requirements: `Qualified carpenter, trade certificate required. ${CARPENTRY_EXPERIENCE_SUMMARY}`,
       featured: false,
       accent: "from-amber-500 to-orange-500"
     },

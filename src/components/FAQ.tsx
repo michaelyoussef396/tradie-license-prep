@@ -19,7 +19,7 @@ const FAQ = () => {
     {
       question: "What experience do I need?",
       answer:
-        `${EXPERIENCE_BY_CLASS_SUMMARY} BPC also requires technical references from registered builders (same or higher class), and you'll need to provide an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.`,
+        `${EXPERIENCE_BY_CLASS_SUMMARY} You'll also need technical references from registered builders (same or higher class) and an evidence portfolio demonstrating your work experience. We assess each applicant individually based on their circumstances and help you determine if you're ready.`,
     },
     {
       question: "Do you help with the applications?",
