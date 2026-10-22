@@ -1,7 +1,12 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App, { preloadRoute } from "./App.tsx";
+import { provideTitlesToHistoryHook } from "./lib/page-titles";
 import "./index.css";
+
+// The history hook in index.html sets each page's title the moment an in-app navigation
+// changes the URL, so GA4 records the right one (src/lib/page-titles.ts).
+provideTitlesToHistoryHook();
 
 const container = document.getElementById("root")!;
 const app = (

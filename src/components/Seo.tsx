@@ -1,16 +1,24 @@
 import { Helmet } from "react-helmet-async";
+import { pageTitle } from "@/lib/page-titles";
 
 const SITE = "https://www.qualifypro.com.au";
 
 interface SeoProps {
-  title: string;
   description: string;
   path: string;
   noindex?: boolean;
 }
 
-const Seo = ({ title, description, path, noindex }: SeoProps) => {
+/** The page's title comes from PAGE_TITLES by `path` (src/lib/page-titles.ts). */
+const Seo = ({ description, path, noindex }: SeoProps) => {
   const url = `${SITE}${path}`;
+  const entry = pageTitle(path);
+  if (!entry && import.meta.env.DEV) {
+    throw new Error(`No title for "${path}": add it to PAGE_TITLES in src/lib/page-titles.ts`);
+  }
+  // For prerendered pages the build fails too: scripts/prerender.ts requires an entry
+  // ("no entry for … in PAGE_TITLES"), so the fallback below can't ship on them.
+  const title = entry ?? "Qualify Pro";
   return (
     <Helmet>
       <title>{title}</title>

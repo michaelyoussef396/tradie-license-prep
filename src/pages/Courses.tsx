@@ -175,7 +175,7 @@ const Courses = () => {
 
   return (
     <PageTransition>
-      <Seo title={"BPC Training Programs & Pricing | Qualify Pro"} description={`Compare our builder registration courses: ${courseById.comprehensive.name}, ${courseById.evening.name}, ${courseById.private.name} and ${courseById.carpentry.name}. Durations, pricing and what's included.`} path="/courses" />
+      <Seo description={`Compare our builder registration courses: ${courseById.comprehensive.name}, ${courseById.evening.name}, ${courseById.private.name} and ${courseById.carpentry.name}. Durations, pricing and what's included.`} path="/courses" />
       <div className="min-h-screen">
         <Navigation />
       

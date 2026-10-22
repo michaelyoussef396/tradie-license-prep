@@ -4,6 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--
+      Page titles on in-app navigation. GA4 records each in-app page view when the URL
+      changes and reads document.title at that moment, before React has rendered the next
+      page. So once the URL has changed (push, replace, or Back/Forward), this sets the new
+      page's title from src/lib/page-titles.ts, which main.tsx hands over as
+      window.__qpTitleForPath. It must stay above the analytics snippet: gtag.js wraps
+      history when it loads, so its hook runs around this one and reads the title after
+      it has changed. Setting the title only after the URL has changed also keeps the
+      browser's Back-button history labelled with the right page names.
+    -->
+    <script>
+      (function () {
+        function retitle() {
+          var titleFor = window.__qpTitleForPath;
+          var title = titleFor && titleFor(window.location.pathname);
+          if (title) document.title = title;
+        }
+        ["pushState", "replaceState"].forEach(function (method) {
+          var original = window.history[method];
+          window.history[method] = function (state, unused, url) {
+            var result = original.apply(this, arguments);
+            if (url != null) retitle();
+            return result;
+          };
+        });
+        window.addEventListener("popstate", retitle, true);
+      })();
+    </script>
+    <!--
       Analytics — GA4, Google Ads and Microsoft Clarity — the only place they load.
       GA4 records the first page view itself (config) and later client-side route
       changes through enhanced measurement's browser-history page views, so the app
