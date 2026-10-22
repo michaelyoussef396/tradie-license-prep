@@ -84,6 +84,31 @@ function assertHeadingVisible(html: string) {
   }
 }
 
+// FAQPage structured data must say what the page says: every question and answer in
+// the markup has to appear in the rendered text. Build the markup from the same list
+// the page renders (as BuilderRegistrationCourseMelbourne and BpcExamChanges do).
+const normalizeText = (text: string) => text.replace(/\s+/g, " ").trim();
+
+function assertFaqMarkupVisible(html: string, head: string) {
+  const root = document.createElement("div");
+  root.innerHTML = html;
+  const visible = normalizeText(root.textContent || "");
+  const decoder = document.createElement("textarea");
+  for (const [, json] of head.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)) {
+    decoder.innerHTML = json; // undo any HTML escaping of the script body
+    for (const block of [JSON.parse(decoder.value)].flat()) {
+      if (block?.["@type"] !== "FAQPage") continue;
+      for (const item of block.mainEntity ?? []) {
+        for (const text of [item?.name, item?.acceptedAnswer?.text]) {
+          if (typeof text !== "string" || !visible.includes(normalizeText(text))) {
+            throw new Error(`FAQPage markup isn't on the page: "${String(text).slice(0, 70)}"`);
+          }
+        }
+      }
+    }
+  }
+}
+
 // Each marketing route, then the "page not found" page.
 const targets = [
   ...routes.map((route) => ({ route, file: route === "/" ? "index.html" : `${route.slice(1)}.html` })),
@@ -97,6 +122,7 @@ for (const { route, file } of targets) {
     const { html, head } = await render(route);
     if (!html.trim()) throw new Error("rendered empty HTML");
     assertHeadingVisible(html);
+    assertFaqMarkupVisible(html, head);
 
     let page = shell;
     if (head.includes("<title")) for (const re of OVERRIDDEN) page = page.replace(re, "");
