@@ -3,14 +3,15 @@ import { Check, Clock, Users, Video, Wrench, Star, ArrowRight } from "lucide-rea
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { courseById } from "@/data/courses";
+import { highlightsFor } from "@/data/course-highlights";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 
 const CourseCards = () => {
   const meta = [
-    { id: "comprehensive", badge: { text: "Most Comprehensive", color: "bg-blue-600" }, subtitle: "Domestic & Commercial", formatIcon: Users, featured: false, highlights: [0, 1, 2, 4] },
-    { id: "evening", badge: { text: "Most Popular", color: "bg-gradient-to-r from-emerald-500 to-teal-500" }, subtitle: "For Working Tradies", formatIcon: Clock, featured: true, highlights: [1, 2, 0, 5] },
-    { id: "private", badge: { text: "Personalised", color: "bg-violet-600" }, subtitle: "Flexible & Remote", formatIcon: Video, featured: false, highlights: [0, 1, 4, 6] },
-    { id: "carpentry", badge: { text: "Specialist", color: "bg-amber-600" }, subtitle: "Carpentry Specific", formatIcon: Wrench, featured: false, highlights: [0, 1, 2, 3] },
+    { id: "comprehensive", badge: { text: "Most Comprehensive", color: "bg-blue-600" }, subtitle: "Domestic & Commercial", formatIcon: Users, featured: false },
+    { id: "evening", badge: { text: "Most Popular", color: "bg-gradient-to-r from-emerald-500 to-teal-500" }, subtitle: "For Working Tradies", formatIcon: Clock, featured: true },
+    { id: "private", badge: { text: "Personalised", color: "bg-violet-600" }, subtitle: "Flexible & Remote", formatIcon: Video, featured: false },
+    { id: "carpentry", badge: { text: "Specialist", color: "bg-amber-600" }, subtitle: "Carpentry Specific", formatIcon: Wrench, featured: false },
   ];
 
   const courses = meta.map((m) => {
@@ -22,7 +23,7 @@ const CourseCards = () => {
       format: course.formatShort,
       price: course.priceDisplay,
       exGstNote: course.exGstNote,
-      includes: m.highlights.map((i) => course.inclusions[i]),
+      includes: highlightsFor(course),
     };
   });
 
