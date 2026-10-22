@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { entrance } from "@/lib/entrance";
 import Seo from "@/components/Seo";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
-import { trackCtaClick, trackPhoneClick } from "@/lib/analytics";
+import { trackCtaClick } from "@/lib/analytics";
 
 const BuildersLicenceMelbourne = () => {
   const scrollToForm = () => {
@@ -129,7 +129,6 @@ const BuildersLicenceMelbourne = () => {
 
                 <a
                   href="tel:0411626398"
-                  onClick={trackPhoneClick}
                   className="inline-flex items-center justify-center gap-2 text-xl sm:text-2xl font-bold text-white hover:text-blue-200 transition-colors"
                   aria-label="Call Qualify Pro on 0411 626 398"
                 >
@@ -299,7 +298,6 @@ const BuildersLicenceMelbourne = () => {
             </p>
             <a
               href="tel:0411626398"
-              onClick={trackPhoneClick}
               className="inline-flex items-center gap-2 text-lg font-semibold text-white hover:text-blue-300 transition-colors"
               aria-label="Call Qualify Pro on 0411 626 398"
             >

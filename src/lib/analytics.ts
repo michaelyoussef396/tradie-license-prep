@@ -49,6 +49,10 @@ export function trackContactFormSubmit(props: {
   trackEvent('contact_form_submit', props);
 }
 
+/**
+ * Called only by AnalyticsProvider's site-wide listener for tel: links. Don't also call it
+ * from a link's onClick: that sends two phone_click events per tap (phone-click.test.ts).
+ */
 export function trackPhoneClick() {
   trackEvent('phone_click');
 }
