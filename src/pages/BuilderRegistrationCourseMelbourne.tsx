@@ -10,7 +10,7 @@ import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
 import { Fragment } from "react";
-import { courses, courseWeeksRange, practiceQuestionsSummary } from "@/data/courses";
+import { courses, courseWeeksRange, getCourse, practiceQuestionsSummary } from "@/data/courses";
 import {
   EXPERIENCE_BY_CLASS_SUMMARY,
   LIMITED_EXPERIENCE_SUMMARY,
@@ -21,26 +21,29 @@ const SOURCE = "builder-registration-course-melbourne";
 
 const EXPERIENCE_ANSWER = `${EXPERIENCE_BY_CLASS_SUMMARY} Either way, you'll also need technical references from registered builders in the same class or higher, and an evidence portfolio.`;
 
+const PRIVATE = getCourse("private");
+const PRIVATE_FORMAT = PRIVATE.format.charAt(0).toLowerCase() + PRIVATE.format.slice(1);
+
 // One list drives the visible questions and the FAQPage JSON-LD, so the two can't drift
 // (scripts/prerender.ts fails the build if markup text isn't on the page). The payment
 // question stays out of the markup: its answer is a phone link, rendered separately.
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "How long does the course take?",
+    q: "How long does a builder registration course take?",
     a: `The courses run from ${courseWeeksRange} depending on which one fits you. BPC processing time sits on top of that and varies.`,
   },
   {
-    q: "Do you help with the BPC application?",
+    q: "Do you help with the BPC registration application?",
     a: "Yes. The online application and portfolio are prepared with you as part of the course, not left for you to work out afterwards.",
   },
-  { q: "What experience do I need for builder registration?", a: EXPERIENCE_ANSWER },
+  { q: "What experience do I need for builder registration in Victoria?", a: EXPERIENCE_ANSWER },
   {
     q: "What qualifications do I need before I start?",
     a: "Requirements vary by registration class. The eligibility check identifies what you need and what you're missing.",
   },
   {
-    q: "Is the course online or in person?",
-    a: "The group courses are in person in Melbourne. There's also a private one-on-one option delivered online via Zoom for people who need the flexibility.",
+    q: "Is the builder registration course online or in person?",
+    a: `The group courses are in person in Melbourne. ${PRIVATE.name} is ${PRIVATE_FORMAT}, for people who need the flexibility.`,
   },
 ];
 

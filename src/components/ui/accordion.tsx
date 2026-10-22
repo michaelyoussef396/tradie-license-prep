@@ -36,7 +36,9 @@ AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 // Closed panels stay in the DOM (forceMount) and CSS hides them, so FAQ answers are in the
 // prerendered HTML that crawlers and AI search read. Without forceMount, Radix unmounts closed
-// content and only the questions ship. Closing is instant (display: none ends the animation).
+// content and only the questions ship (scripts/prerender.ts fails the build if that happens, e.g.
+// after regenerating this file with the shadcn CLI). Opening fades in and closing is instant:
+// Radix doesn't measure force-mounted panels, so the stock height animation can't run here.
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
@@ -44,7 +46,7 @@ const AccordionContent = React.forwardRef<
   <AccordionPrimitive.Content
     ref={ref}
     forceMount
-    className="overflow-hidden text-sm transition-all data-[state=closed]:hidden data-[state=open]:animate-accordion-down"
+    className="overflow-hidden text-sm data-[state=closed]:hidden data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-1"
     {...props}
   >
     <div className={cn("pb-4 pt-0", className)}>{children}</div>
