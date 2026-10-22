@@ -51,7 +51,7 @@ Three surfaces submit leads (`HeroEnquiryForm`, `Contact`, `FinalCTA`) and all f
 
 `send-lead-emails` re-reads the DB with the service-role key and refuses to send unless a matching `leads` row (same email + name) was created in the last 60 minutes — this is what keeps the public, JWT-less function from being an open email relay. It also creates the `referrals` row server-side via the `validate_referral_code` RPC; the client never writes to `referrals`.
 
-`HeroEnquiryForm` can appear more than once on a page (three times on `/builder-registration-course-melbourne` and `/bpc-exam-changes`), so its field ids come from `useId()`. To scroll to or focus a form, put an id on a wrapper element or use the `firstFieldRef` prop, never a field id.
+`HeroEnquiryForm` can appear more than once on a page (three times on `/builder-registration-course-melbourne` and `/bpc-exam-changes`), so its field ids come from `useId()`, as `FinalCTA`'s do. To scroll to or focus a form, put an id on a wrapper element or use the `firstFieldRef` prop, never a field id.
 
 ### Auth and RLS
 One Supabase auth pool for both audiences, separated by the `app_role` enum (`admin` | `student`) in `public.user_roles`.
