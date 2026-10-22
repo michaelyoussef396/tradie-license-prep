@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Award, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -13,13 +14,14 @@ const isLastInOddRow = (index: number, total: number) =>
 
 const Hero = () => {
   const navigate = useNavigate();
+  const firstFieldRef = useRef<HTMLInputElement>(null);
 
   const handleBookConsultation = () => {
     trackCtaClick("Check My Eligibility", "homepage");
-    const form = document.getElementById("hero-first-name");
-    if (form) {
-      form.scrollIntoView({ behavior: "smooth", block: "center" });
-      form.focus({ preventScroll: true });
+    const field = firstFieldRef.current;
+    if (field) {
+      field.scrollIntoView({ behavior: "smooth", block: "center" });
+      field.focus({ preventScroll: true });
     } else {
       navigate("/contact");
     }
@@ -180,7 +182,7 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <HeroEnquiryForm />
+            <HeroEnquiryForm firstFieldRef={firstFieldRef} />
             <div className="relative">
               {/* Glow Effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl blur-xl" />
