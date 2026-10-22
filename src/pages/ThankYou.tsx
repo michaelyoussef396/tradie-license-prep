@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import { CheckCircle2, Phone, ArrowRight } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -23,21 +23,18 @@ const ThankYou = () => {
         path="/thank-you"
         noindex
       />
-      <Helmet>
-        {/*
-          GOOGLE ADS CONVERSION SNIPPET PLACEHOLDER
-          Paste the Google Ads event snippet for this conversion action here when supplied.
-          Example:
-          <script>{`gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/XXXXXXXXXXXX' });`}</script>
-        */}
-      </Helmet>
+      {/*
+        The Google Ads lead conversion is NOT fired here: the lead forms call
+        trackLeadConversion() (src/lib/analytics.ts) on a successful submit. Adding an
+        Ads conversion snippet to this page would count every lead twice.
+      */}
 
       <div className="min-h-screen flex flex-col">
         <Navigation />
 
         <main className="flex-1 bg-slate-900 px-4 py-28">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={entrance({ opacity: 0, y: 24 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mx-auto w-full max-w-2xl"

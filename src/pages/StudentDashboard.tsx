@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -22,18 +21,24 @@ interface ReferralRow {
   lead_name?: string;
 }
 
+/**
+ * Full page load, not a client-side navigate: index.html decides once per
+ * document whether analytics loads, so the admin area is always entered with a
+ * fresh document load (see the Analytics section of CLAUDE.md).
+ */
+const goToAdminLogin = () => window.location.assign("/admin");
+
 const StudentDashboard = () => {
   const [student, setStudent] = useState<StudentData | null>(null);
   const [referrals, setReferrals] = useState<ReferralRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
     const load = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate("/admin"); return; }
+      if (!session) { goToAdminLogin(); return; }
 
       const { data: studentData } = await supabase
         .from("students")
@@ -69,10 +74,10 @@ const StudentDashboard = () => {
     load();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      if (!session) navigate("/admin");
+      if (!session) goToAdminLogin();
     });
     return () => subscription.unsubscribe();
-  }, [navigate, toast]);
+  }, [toast]);
 
   const handleCopy = () => {
     if (!student?.referral_code) return;
@@ -84,7 +89,7 @@ const StudentDashboard = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate("/admin");
+    goToAdminLogin();
   };
 
   const { successfulEnrolments, earnedAud: earnedRewards, pendingAud: pendingRewards } =

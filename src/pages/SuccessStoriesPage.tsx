@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import PageTransition from "@/components/PageTransition";
 import { 
   Building2, 
@@ -163,7 +164,7 @@ const SuccessStoriesPage = () => {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
+            initial={entrance({ opacity: 0, y: 30 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -191,7 +192,7 @@ const SuccessStoriesPage = () => {
                 <motion.div
                   key={index}
                   className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={entrance({ opacity: 0, y: 20 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 >
@@ -209,7 +210,7 @@ const SuccessStoriesPage = () => {
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
+            initial={entrance({ opacity: 0, y: 20 })}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
@@ -232,7 +233,7 @@ const SuccessStoriesPage = () => {
                 <motion.div
                   key={index}
                   className={`${item.bg} p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={entrance({ opacity: 0, y: 20 })}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

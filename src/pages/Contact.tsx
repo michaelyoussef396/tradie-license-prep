@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import { 
   Phone, 
   Mail, 
@@ -229,7 +230,7 @@ const Contact = () => {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
+            initial={entrance({ opacity: 0, y: 30 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -258,7 +259,7 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={entrance({ opacity: 0, x: -20 })}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
@@ -430,7 +431,7 @@ const Contact = () => {
             {/* Contact Details */}
             <motion.div 
               className="space-y-8"
-              initial={{ opacity: 0, x: 20 }}
+              initial={entrance({ opacity: 0, x: 20 })}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}

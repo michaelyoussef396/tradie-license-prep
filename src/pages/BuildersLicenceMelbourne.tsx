@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, CheckCircle2, Award, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import Seo from "@/components/Seo";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 import { trackCtaClick, trackPhoneClick } from "@/lib/analytics";
@@ -76,7 +77,7 @@ const BuildersLicenceMelbourne = () => {
             <div className="max-w-3xl mx-auto text-center">
               {/* Eyebrow */}
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={entrance({ opacity: 0, y: 16 })}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="mb-3 sm:mb-4"
@@ -90,7 +91,7 @@ const BuildersLicenceMelbourne = () => {
               {/* Headline */}
               <motion.h1
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 leading-[1.1] tracking-tight text-white"
-                initial={{ opacity: 0, y: 16 }}
+                initial={entrance({ opacity: 0, y: 16 })}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
@@ -103,7 +104,7 @@ const BuildersLicenceMelbourne = () => {
               {/* Subheadline */}
               <motion.p
                 className="text-base sm:text-lg md:text-xl text-blue-100/80 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
-                initial={{ opacity: 0, y: 16 }}
+                initial={entrance({ opacity: 0, y: 16 })}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
@@ -113,7 +114,7 @@ const BuildersLicenceMelbourne = () => {
               {/* CTA + tap-to-call */}
               <motion.div
                 className="flex flex-col items-center gap-3 sm:gap-4"
-                initial={{ opacity: 0, y: 16 }}
+                initial={entrance({ opacity: 0, y: 16 })}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
@@ -166,7 +167,7 @@ const BuildersLicenceMelbourne = () => {
                   <motion.div
                     key={index}
                     className="flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-blue-50/80 border border-blue-100"
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={entrance({ opacity: 0, y: 12 })}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -189,7 +190,7 @@ const BuildersLicenceMelbourne = () => {
           <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <motion.div
               className="text-center mb-10 sm:mb-12"
-              initial={{ opacity: 0, y: 20 }}
+              initial={entrance({ opacity: 0, y: 20 })}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
@@ -207,7 +208,7 @@ const BuildersLicenceMelbourne = () => {
                 <motion.div
                   key={index}
                   className="relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={entrance({ opacity: 0, y: 20 })}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

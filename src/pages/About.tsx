@@ -4,6 +4,7 @@ import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import PageTransition from "@/components/PageTransition";
 import { 
   Award, 
@@ -116,7 +117,7 @@ const About = () => {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={entrance({ opacity: 0, y: 20 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -140,7 +141,7 @@ const About = () => {
                 <motion.div 
                   key={index}
                   className="text-center"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={entrance({ opacity: 0, y: 20 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                 >
@@ -159,7 +160,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={entrance({ opacity: 0, x: -30 })}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -178,7 +179,7 @@ const About = () => {
 
             {/* Content */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={entrance({ opacity: 0, x: 30 })}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}

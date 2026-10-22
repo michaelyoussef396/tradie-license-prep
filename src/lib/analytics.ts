@@ -1,73 +1,38 @@
-// Google Analytics 4 + Microsoft Clarity tracking utilities
-// Scripts only load if env vars are set and the route is not internal.
+// Custom analytics events and the Google Ads lead conversion.
+//
+// GA4, Google Ads and Microsoft Clarity are loaded by the snippet in index.html —
+// the only place they load — and GA4 records page views itself. Never send an
+// untargeted page_view (it reaches GA4 too and double-counts every page); the
+// only page_view sent from here is the Ads-only one in trackAdsPageView().
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    gtag: (...args: unknown[]) => void;
+    dataLayer: unknown[];
   }
 }
 
 /**
- * Paths that must never reach GA4 or Clarity.
+ * Paths that must never reach GA4, Google Ads or Clarity.
  *
- * `/admin` covers the login, the dashboard and the email templates page. The
- * legacy `/email-templates` URL is listed too: it only redirects, but the
- * redirect happens in an effect, so without this the brief render before it
- * would still be tracked.
+ * `/admin` covers the login, the dashboard and the email templates page, which
+ * show lead names and phone numbers. `/dashboard` is the student dashboard: it
+ * shows the student's name and the first names of the people they referred,
+ * which Clarity would otherwise record. The legacy `/email-templates` URL is
+ * listed too: it only redirects, but the redirect happens in an effect, so
+ * without this the brief render before it would still be tracked.
+ *
+ * index.html applies the same rule before loading any tag (it can't import this
+ * module) — keep its pattern in step with this list.
  */
-const INTERNAL_PATH_PREFIXES = ['/admin', '/email-templates'];
+const INTERNAL_PATH_PREFIXES = ['/admin', '/email-templates', '/dashboard'];
 
 export const isInternalRoute = (pathname: string = window.location.pathname) =>
   INTERNAL_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
-// ── GA4 ──
-
-export function initGA4() {
-  const id = import.meta.env.VITE_GA4_MEASUREMENT_ID;
-  if (!id || isInternalRoute()) return;
-
-  // Load gtag.js
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
-  document.head.appendChild(script);
-
-  // Init dataLayer
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () {
-    window.dataLayer.push(arguments);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', id, { send_page_view: false }); // we fire page_view manually
-}
-
-export function trackPageView(path: string) {
-  if (!window.gtag || isInternalRoute()) return;
-  window.gtag('event', 'page_view', { page_path: path });
-}
-
-export function trackEvent(name: string, params?: Record<string, any>) {
+export function trackEvent(name: string, params?: Record<string, unknown>) {
   if (!window.gtag || isInternalRoute()) return;
   window.gtag('event', name, params);
-}
-
-// ── Microsoft Clarity ──
-
-export function initClarity() {
-  const id = import.meta.env.VITE_CLARITY_PROJECT_ID;
-  if (!id || isInternalRoute()) return;
-
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.innerHTML = `
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "${id}");
-  `;
-  document.head.appendChild(script);
 }
 
 // ── Convenience helpers ──
@@ -94,7 +59,20 @@ export function trackCtaClick(buttonText: string, page: string) {
 
 // ── Google Ads conversion ──
 
-export const GOOGLE_ADS_CONVERSION_ID = 'AW-18192612568/qBXuCL2_jcccENj59OJD';
+export const GOOGLE_ADS_ID = 'AW-18192612568';
+export const GOOGLE_ADS_CONVERSION_ID = `${GOOGLE_ADS_ID}/qBXuCL2_jcccENj59OJD`;
+
+/**
+ * Google Ads-only page view for a client-side route change. GA4 records route
+ * changes itself (enhanced measurement), but that event only reaches GA4, so
+ * without this the Ads tag would see document loads only and URL-based
+ * audiences (e.g. "reached /thank-you") would stop filling. `send_to` keeps it
+ * out of GA4's counts.
+ */
+export function trackAdsPageView() {
+  if (!window.gtag || isInternalRoute()) return;
+  window.gtag('event', 'page_view', { send_to: GOOGLE_ADS_ID });
+}
 
 // Guards against double-firing within a single page session/submission.
 let conversionFired = false;

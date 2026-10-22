@@ -4,6 +4,7 @@ import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { entrance, entranceIf } from "@/lib/entrance";
 import PageTransition from "@/components/PageTransition";
 import PaymentOptionsNote from "@/components/PaymentOptionsNote";
 import PracticeExamsAddOn from "@/components/PracticeExamsAddOn";
@@ -194,7 +195,7 @@ const Courses = () => {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={entrance({ opacity: 0, y: 20 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -227,7 +228,8 @@ const Courses = () => {
                   key={course.id}
                   href={`#${course.id}`}
                   className={`group relative block ${course.featured ? 'md:-mt-4 md:mb-4' : ''}`}
-                  initial={{ opacity: 0, y: 30 }}
+                  // the first row (two cards from md up) can be on the first screen
+                  initial={entranceIf(index < 2, { opacity: 0, y: 30 })}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

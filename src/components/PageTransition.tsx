@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { entrance } from "@/lib/entrance";
 import { ReactNode } from "react";
 
 interface PageTransitionProps {
@@ -8,7 +9,7 @@ interface PageTransitionProps {
 const PageTransition = ({ children }: PageTransitionProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={entrance({ opacity: 0, y: 20 })}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ 
