@@ -99,18 +99,36 @@ describe("lead forms, several on one page", () => {
     ]);
   });
 
-  test("hydrating keeps the prerendered ids", async () => {
-    const before = [...container.querySelectorAll("[id]")].map((el) => el.id);
+  test("hydrating gives every field the id it was prerendered with", async () => {
+    // Its own copy of the markup, so the other tests can run in any order.
+    const hydrated = document.createElement("div");
+    hydrated.innerHTML = renderToString(page);
+    document.body.appendChild(hydrated);
     const recoverable: unknown[] = [];
     logged.length = 0;
     let root: ReturnType<typeof hydrateRoot>;
     await React.act(async () => {
-      root = hydrateRoot(container, page, { onRecoverableError: (error) => recoverable.push(error) });
+      root = hydrateRoot(hydrated, page, { onRecoverableError: (error) => recoverable.push(error) });
     });
-    // React logs "Prop `id` did not match" (or `htmlFor`) when the browser's ids differ.
+    // React keeps the prerendered attributes when the browser's ids differ, and warns about it only
+    // once per process, so compare the props it rendered each element with against the HTML.
+    const elements = [...hydrated.querySelectorAll("[id], label[for]")];
+    const reactProps = (el: Element) => {
+      const key = Object.keys(el).find((k) => k.startsWith("__reactProps$"));
+      return key ? (el as unknown as Record<string, { id?: string; htmlFor?: string }>)[key] : null;
+    };
+    expect(elements.filter((el) => !reactProps(el)).map((el) => el.outerHTML.slice(0, 80))).toEqual([]);
+    const differing = elements.flatMap((el) => {
+      const props = reactProps(el);
+      const out: string[] = [];
+      if (el.hasAttribute("id") && props.id !== el.id) out.push(`id ${el.id} → ${props.id}`);
+      if (el.tagName === "LABEL" && props.htmlFor !== el.getAttribute("for")) out.push(`for ${el.getAttribute("for")} → ${props.htmlFor}`);
+      return out;
+    });
+    expect(differing).toEqual([]);
     expect(logged.filter((message) => message.includes("did not match"))).toEqual([]);
     expect(recoverable).toEqual([]);
-    expect([...container.querySelectorAll("[id]")].map((el) => el.id)).toEqual(before);
     await React.act(async () => root.unmount());
+    hydrated.remove();
   });
 });
