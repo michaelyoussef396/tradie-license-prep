@@ -1,17 +1,21 @@
 import { afterAll, describe, expect, mock, test } from "bun:test";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
 /**
  * Every lead row records which form it came from in `source`, and the form's GA4
  * contact_form_submit event carries the same value. Two parts:
- * - reading the code: every lead form in src/ stores one source, no two pages share one, and a
- *   component that fixes its own source (FinalCTA, Hero) is mounted by one page only;
+ * - reading the code (with the TypeScript parser): every lead form in src/ stores one source, no two
+ *   forms share one, and each is mounted in one place only — a page's forms by its route, a
+ *   component that fixes its own source (FinalCTA, Hero) by the one page it belongs to;
  * - submitting HeroEnquiryForm and FinalCTA with Supabase and gtag stubbed: the row and the event
  *   carry the same source.
- * Anything the reader can't follow fails, rather than being skipped.
+ * Lead-form code the reader can't follow — a leads call other than insert/select/update/delete, an
+ * insert or event without a readable source, a lead form loaded in a way it doesn't recognise —
+ * fails the first test instead of being skipped.
  */
 
 // Register the DOM before anything imports Radix: its layout-effect choice is made at import time
@@ -33,136 +37,209 @@ function sourceFiles(dir: string): string[] {
   });
 }
 const FILES = sourceFiles(SRC);
-const TEXT = new Map(FILES.map((file) => [file, readFileSync(join(SRC, file), "utf8")]));
+
+/** Every node of every file, depth first. */
+const NODES = new Map(
+  FILES.map((file) => {
+    const kind = file.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+    const root = ts.createSourceFile(file, readFileSync(join(SRC, file), "utf8"), ts.ScriptTarget.Latest, true, kind);
+    const nodes: ts.Node[] = [];
+    const visit = (node: ts.Node) => {
+      nodes.push(node);
+      ts.forEachChild(node, visit);
+    };
+    visit(root);
+    return [file, nodes];
+  }),
+);
 const problems: string[] = [];
 
-/** From an opening bracket at `open` to its partner, skipping strings. */
-function balanced(text: string, open: number): string | null {
-  const close: Record<string, string> = { "{": "}", "(": ")", "[": "]" };
-  const stack: string[] = [];
-  for (let i = open; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"' || c === "'" || c === "`") {
-      for (i++; i < text.length && text[i] !== c; i++) if (text[i] === "\\") i++;
-    } else if (close[c]) stack.push(close[c]);
-    else if (c === stack[stack.length - 1]) {
-      stack.pop();
-      if (!stack.length) return text.slice(open, i + 1);
+const moduleOf = (file: string) => file.replace(/\.tsx?$/, "");
+
+/** The module (src-relative, no extension) a specifier in `file` points at; null for packages. */
+function target(file: string, specifier: string): string | null {
+  if (specifier.startsWith("@/")) return specifier.slice(2).replace(/\.tsx?$/, "");
+  if (specifier.startsWith(".")) return normalize(join(dirname(file), specifier)).replace(/\.tsx?$/, "");
+  return null;
+}
+
+const isConstExported = (declaration: ts.VariableDeclaration) => {
+  const statement = declaration.parent?.parent;
+  return !!statement && ts.isVariableStatement(statement) && !!statement.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword);
+};
+
+/** The const named `name` that `file` can see: its own, or the one exported from another file. */
+function constNamed(name: string, file: string): [string, ts.VariableDeclaration] | null {
+  const consts = (f: string) =>
+    NODES.get(f).filter(
+      (n): n is ts.VariableDeclaration =>
+        ts.isVariableDeclaration(n) && ts.isIdentifier(n.name) && n.name.text === name && (n.parent.flags & ts.NodeFlags.Const) !== 0,
+    );
+  const own = consts(file);
+  if (own.length) return own.length === 1 ? [file, own[0]] : null;
+  const exported = FILES.flatMap((f) => consts(f).filter(isConstExported).map((d) => [f, d] as [string, ts.VariableDeclaration]));
+  return exported.length === 1 ? exported[0] : null;
+}
+
+const unwrap = (node: ts.Node | undefined) => {
+  let e = node;
+  while (e && (ts.isParenthesizedExpression(e) || ts.isAsExpression(e) || ts.isSatisfiesExpression(e))) e = e.expression;
+  return e;
+};
+
+/**
+ * The string an expression evaluates to: a string literal, a string const (here or exported
+ * elsewhere), or a property of a const object of strings (`SOURCES.blm`).
+ */
+function resolve(expression: ts.Node | undefined, file: string, depth = 0): string | null {
+  const e = unwrap(expression);
+  if (!e || depth > 5) return null;
+  if (ts.isStringLiteral(e) || ts.isNoSubstitutionTemplateLiteral(e)) return e.text;
+  if (ts.isIdentifier(e)) {
+    const found = constNamed(e.text, file);
+    return found ? resolve(found[1].initializer, found[0], depth + 1) : null;
+  }
+  const key = ts.isPropertyAccessExpression(e) ? e.name.text : ts.isElementAccessExpression(e) ? resolve(e.argumentExpression, file, depth + 1) : null;
+  const owner = ts.isPropertyAccessExpression(e) || ts.isElementAccessExpression(e) ? unwrap(e.expression) : null;
+  if (key === null || !owner || !ts.isIdentifier(owner)) return null;
+  const found = constNamed(owner.text, file);
+  const object = found && unwrap(found[1].initializer);
+  if (!object || !ts.isObjectLiteralExpression(object)) return null;
+  for (const p of object.properties) {
+    if (ts.isPropertyAssignment(p) && (ts.isIdentifier(p.name) || ts.isStringLiteral(p.name)) && p.name.text === key) {
+      return resolve(p.initializer, found[0], depth + 1);
     }
   }
   return null;
 }
 
-/** A JSX opening tag from its "<" to the ">" that ends it (props may hold arrows and JSX). */
-function jsxTag(text: string, start: number): string {
-  let depth = 0;
-  for (let i = start + 1; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"' || c === "'" || c === "`") {
-      for (i++; i < text.length && text[i] !== c; i++) if (text[i] === "\\") i++;
-    } else if (c === "{") depth++;
-    else if (c === "}") depth--;
-    else if (c === ">" && depth === 0) return text.slice(start, i + 1);
+/** The value of `source` in an object literal (null if absent, spread over, or not a known string). */
+function sourceOf(object: ts.ObjectLiteralExpression, file: string): string | null {
+  if (object.properties.some(ts.isSpreadAssignment)) return null;
+  for (const p of object.properties) {
+    if (ts.isPropertyAssignment(p) && (ts.isIdentifier(p.name) || ts.isStringLiteral(p.name)) && p.name.text === "source") return resolve(p.initializer, file);
+    if (ts.isShorthandPropertyAssignment(p) && p.name.text === "source") return resolve(p.name, file);
   }
-  return text.slice(start);
+  return null;
 }
 
-/** The value of `key:` in an object literal's text (shorthand `key,` gives "key"). */
-function property(object: string, key: string): string | undefined {
-  const at = object.search(new RegExp(`[{,\\s]${key}\\s*[:,}]`));
-  if (at < 0) return undefined;
-  let i = object.indexOf(key, at) + key.length;
-  while (/\s/.test(object[i])) i++;
-  if (object[i] !== ":") return key;
-  const start = ++i;
-  for (let depth = 0; i < object.length; i++) {
-    const c = object[i];
-    if (c === '"' || c === "'" || c === "`") {
-      for (i++; i < object.length && object[i] !== c; i++) if (object[i] === "\\") i++;
-    } else if ("{([".includes(c)) depth++;
-    else if ("})]".includes(c)) {
-      if (depth === 0) break;
-      depth--;
-    } else if (c === "," && depth === 0) break;
+/**
+ * The names `file` gives `module`'s default export: `import X`, `import { default as X }`, or a
+ * `const X = lazy(() => import(...))`-style wrapper. Any other reference to the module is a problem.
+ */
+function bindings(file: string, module: string): string[] {
+  const names: string[] = [];
+  for (const node of NODES.get(file)) {
+    if (!ts.isStringLiteral(node) || target(file, node.text) !== module) continue;
+    const owner = node.parent;
+    if (ts.isImportDeclaration(owner)) {
+      const clause = owner.importClause;
+      if (clause?.name) names.push(clause.name.text);
+      const named = clause?.namedBindings;
+      if (named && ts.isNamedImports(named)) {
+        for (const el of named.elements) if ((el.propertyName ?? el.name).text === "default") names.push(el.name.text);
+      }
+      if (!names.length) problems.push(`${file}: imports ${module} without naming its default export`);
+    } else if (ts.isCallExpression(owner) && owner.expression.kind === ts.SyntaxKind.ImportKeyword) {
+      let up: ts.Node = owner.parent;
+      while (up && !ts.isVariableDeclaration(up) && !ts.isSourceFile(up)) up = up.parent;
+      if (up && ts.isVariableDeclaration(up) && ts.isIdentifier(up.name)) names.push(up.name.text);
+      else problems.push(`${file}: loads ${module} in a way this test can't follow`);
+    } else {
+      problems.push(`${file}: refers to ${module} in a way this test can't follow`);
+    }
   }
-  return object.slice(start, i).trim();
+  return names;
 }
 
-/** The string a source expression names: a string literal, or a string const (here or exported). */
-function resolve(expression: string, file: string): string | null {
-  const literal = expression.match(/^(["'`])([^"'`$]*)\1$/);
-  if (literal) return literal[2];
-  if (!/^[A-Za-z_$][\w$]*$/.test(expression)) return null;
-  const declaration = (prefix: string) =>
-    new RegExp(`${prefix}const ${expression}\\s*(?::[^=]+)?=\\s*(["'\`])([^"'\`$]*)\\1`);
-  const own = TEXT.get(file).match(declaration(""));
-  if (own) return own[2];
-  const exported = FILES.map((f) => TEXT.get(f).match(declaration("export "))).filter(Boolean);
-  return exported.length === 1 ? exported[0][2] : null;
+/** The attributes of every JSX element in `file` whose tag is one of `names`. */
+const elements = (file: string, names: string[]) =>
+  NODES.get(file)
+    .filter(
+      (n): n is ts.JsxSelfClosingElement | ts.JsxOpeningElement =>
+        (ts.isJsxSelfClosingElement(n) || ts.isJsxOpeningElement(n)) && ts.isIdentifier(n.tagName) && names.includes(n.tagName.text),
+    )
+    .map((n) => n.attributes);
+
+/** HeroEnquiryForm's default `source` (`({ source = "…" })`), if it has one. */
+const DEFAULT_SOURCE = (() => {
+  for (const n of NODES.get(FORM)) {
+    if (ts.isBindingElement(n) && ts.isIdentifier(n.name) && n.name.text === "source" && n.initializer) return resolve(n.initializer, FORM);
+  }
+  return null;
+})();
+
+type Surface = { file: string; stored: string[]; tracked: string[]; direct: boolean; mountedBy: string[]; pages: string[] };
+
+/**
+ * The pages that end up rendering `file`, following any components in between (a section that
+ * wraps FinalCTA, say). A page counts once for each route that mounts it; a component mounted
+ * in App.tsx itself is on every page, which shows up as "App.tsx".
+ */
+function pagesRendering(file: string, seen = new Set<string>()): string[] {
+  if (seen.has(file)) return [];
+  seen.add(file);
+  const module = moduleOf(file);
+  return FILES.filter((f) => f !== file && elements(f, bindings(f, module)).length).flatMap((mounter) => {
+    if (mounter === "App.tsx") return file.startsWith("pages/") ? elements(mounter, bindings(mounter, module)).map(() => file) : [mounter];
+    return mounter.startsWith("pages/") ? [mounter] : pagesRendering(mounter, seen);
+  });
 }
-
-/** The local names `file` imports `component` (a path under src/, without extension) as. */
-function importedAs(file: string, component: string): string[] {
-  const name = component.split("/").pop();
-  const pattern = new RegExp(`import\\s+(\\w+)\\s+from\\s+["'](?:@/${component}|(?:\\.\\.?/)+(?:[\\w-]+/)*${name})["']`, "g");
-  return [...TEXT.get(file).matchAll(pattern)].map((m) => m[1]);
-}
-
-/** Every opening tag in `file` for a component imported as one of `names`. */
-function tagsOf(file: string, names: string[]): string[] {
-  const text = TEXT.get(file);
-  return names.flatMap((name) => [...text.matchAll(new RegExp(`<${name}(?=[\\s/>])`, "g"))].map((m) => jsxTag(text, m.index)));
-}
-
-/** HeroEnquiryForm's default `source`, used when a page passes none. */
-const DEFAULT_SOURCE = TEXT.get(FORM).match(/\bsource\s*=\s*(["'])([^"']+)\1/)?.[2];
-
-type Surface = { file: string; stored: string[]; tracked: string[]; direct: boolean };
 
 /** Every file that stores leads: through HeroEnquiryForm's `source` prop, or by inserting itself. */
 const surfaces: Surface[] = FILES.filter((file) => file !== FORM).flatMap((file) => {
-  const text = TEXT.get(file);
   const stored: string[] = [];
   const tracked: string[] = [];
-  const read = (expression: string | undefined, what: string) => {
-    const source = expression === undefined ? null : resolve(expression, file);
-    if (source === null) problems.push(`${file}: can't read the source of ${what} (${expression ?? "none given"})`);
+  const read = (source: string | null, what: string) => {
+    if (source === null) problems.push(`${file}: can't read the source of ${what}`);
     return source;
   };
 
-  for (const tag of tagsOf(file, importedAs(file, FORM.replace(/\.tsx$/, "")))) {
-    const literal = tag.match(/\ssource=(["'])([^"']*)\1/);
-    const braced = tag.search(/\ssource=\{/);
-    if (literal) stored.push(literal[2]);
-    else if (braced >= 0) stored.push(read(balanced(tag, tag.indexOf("{", braced))?.slice(1, -1).trim(), "a HeroEnquiryForm"));
-    else stored.push(DEFAULT_SOURCE); // no source given: HeroEnquiryForm's default
+  for (const attributes of elements(file, bindings(file, moduleOf(FORM)))) {
+    const prop = attributes.properties.find((a): a is ts.JsxAttribute => ts.isJsxAttribute(a) && ts.isIdentifier(a.name) && a.name.text === "source");
+    const value = prop?.initializer && (ts.isStringLiteral(prop.initializer) ? prop.initializer : ts.isJsxExpression(prop.initializer) ? prop.initializer.expression : undefined);
+    if (prop) stored.push(read(resolve(value, file), "a HeroEnquiryForm"));
+    else if (attributes.properties.some(ts.isJsxSpreadAttribute)) stored.push(read(null, "a HeroEnquiryForm given spread props"));
+    else if (DEFAULT_SOURCE !== null) stored.push(DEFAULT_SOURCE);
+    else problems.push(`${file}: renders HeroEnquiryForm without a source, and it has no default`);
   }
 
   let direct = false;
-  for (const from of text.matchAll(/\.from\(\s*(["'`])leads\1\s*\)/g)) {
-    const after = text.slice(from.index + from[0].length);
-    const insert = after.match(/^\s*\.insert\(\s*/);
-    if (!insert) continue; // a select or an update
-    direct = true;
-    const argument = after[insert[0].length] === "{" ? balanced(after, insert[0].length) : null;
-    if (!argument) problems.push(`${file}: can't read a leads insert that isn't an object literal`);
-    else stored.push(read(property(argument, "source"), "its leads insert"));
+  for (const node of NODES.get(file)) {
+    if (!ts.isCallExpression(node) || !ts.isPropertyAccessExpression(node.expression) || node.expression.name.text !== "from") continue;
+    if (resolve(node.arguments[0], file) !== "leads") continue;
+    const access = node.parent;
+    const method = ts.isPropertyAccessExpression(access) && access.expression === node ? access.name.text : null;
+    const call = method && ts.isCallExpression(access.parent) && access.parent.expression === access ? access.parent : null;
+    if (call && ["select", "update", "delete"].includes(method)) continue;
+    if (call && method === "insert") {
+      direct = true;
+      const [argument] = call.arguments;
+      // An object literal, or a const holding one (`const row = {…}; insert(row)`).
+      const row = argument && ts.isIdentifier(argument) ? unwrap(constNamed(argument.text, file)?.[1].initializer) : argument;
+      if (row && ts.isObjectLiteralExpression(row)) stored.push(read(sourceOf(row, file), "its leads insert"));
+      else problems.push(`${file}: inserts into leads with something other than an object literal`);
+    } else {
+      problems.push(`${file}: uses the leads table in a way this test can't follow (${method ?? "no method call"})`);
+    }
   }
   if (direct) {
-    for (const call of text.matchAll(/trackContactFormSubmit\(\s*/g)) {
-      const at = call.index + call[0].length;
-      const argument = text[at] === "{" ? balanced(text, at) : null;
-      tracked.push(read(argument ? property(argument, "source") : undefined, "its contact_form_submit event"));
+    for (const node of NODES.get(file)) {
+      if (!ts.isCallExpression(node) || !ts.isIdentifier(node.expression) || node.expression.text !== "trackContactFormSubmit") continue;
+      const [argument] = node.arguments;
+      tracked.push(read(argument && ts.isObjectLiteralExpression(argument) ? sourceOf(argument, file) : null, "its contact_form_submit event"));
     }
-    if (!tracked.length) problems.push(`${file}: inserts leads but sends no contact_form_submit event with a source`);
+    if (!tracked.length) problems.push(`${file}: inserts leads but sends no contact_form_submit event`);
   }
 
-  return stored.length ? [{ file, stored: [...new Set(stored)], tracked: [...new Set(tracked)], direct }] : [];
+  if (!stored.length) return [];
+  const module = moduleOf(file);
+  const mountedBy = FILES.filter((f) => f !== file && elements(f, bindings(f, module)).length);
+  return [{ file, stored: [...new Set(stored)], tracked: [...new Set(tracked)], direct, mountedBy, pages: pagesRendering(file) }];
 });
 
 describe("lead sources in the code", () => {
   test("every lead form can be read", () => {
-    expect(DEFAULT_SOURCE).toBeString();
     expect(problems).toEqual([]);
     const files = surfaces.map((s) => s.file);
     for (const known of ["components/Hero.tsx", "components/FinalCTA.tsx", "pages/Contact.tsx", "pages/BuildersLicenceMelbourne.tsx"]) {
@@ -180,15 +257,13 @@ describe("lead sources in the code", () => {
     expect([...files].filter(([, f]) => f.length > 1).map(([source, f]) => `${source}: ${f.join(", ")}`)).toEqual([]);
   });
 
-  test("a component that fixes its own source is mounted by one page only", () => {
-    const misplaced = surfaces
-      .filter((s) => s.file.startsWith("components/"))
-      .flatMap(({ file }) => {
-        const component = file.replace(/\.tsx$/, "");
-        const mountedBy = FILES.filter((f) => tagsOf(f, importedAs(f, component)).length);
-        return mountedBy.length === 1 && mountedBy[0].startsWith("pages/") ? [] : [`${file}: mounted by ${mountedBy.join(", ") || "nothing"}`];
-      });
-    expect(misplaced).toEqual([]);
+  test("each lead form ends up on one page only", () => {
+    // A page through its one route in App.tsx; a component that fixes its own source (directly or
+    // inside a section component) on the one page it belongs to.
+    const wrong = surfaces
+      .filter((s) => s.pages.length !== 1 || !s.pages[0].startsWith("pages/"))
+      .map((s) => `${s.file}: on ${s.pages.join(", ") || "no page"} (mounted by ${s.mountedBy.join(", ") || "nothing"})`);
+    expect(wrong).toEqual([]);
   });
 
   test("a form's GA4 event carries the same source as its lead row", () => {
