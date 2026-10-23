@@ -339,7 +339,7 @@ const Contact = () => {
                       onValueChange={(value) => handleInputChange("licenseType", value)}
                       required
                     >
-                      <SelectTrigger className="h-12 bg-white border-slate-300">
+                      <SelectTrigger id="licenseType" className="h-12 bg-white border-slate-300">
                         <SelectValue placeholder="Select licence type" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
@@ -362,7 +362,7 @@ const Contact = () => {
                       onValueChange={(value) => handleInputChange("experience", value)}
                       required
                     >
-                      <SelectTrigger className="h-12 bg-white border-slate-300">
+                      <SelectTrigger id="experience" className="h-12 bg-white border-slate-300">
                         <SelectValue placeholder="Select experience level" />
                       </SelectTrigger>
                       <SelectContent className="bg-white z-50">
