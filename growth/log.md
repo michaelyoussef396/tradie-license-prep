@@ -30,3 +30,10 @@
 - Production smoke test: NOT DONE — sandbox can't reach qualifypro.com.au; device shell has no folder connected.
 - Open PRs: #14–#23 all still unmerged.
 - Suggestions: none new. Still open from 21 Oct: Search partners off, Presence, negatives, keyword pauses.
+
+## 2026-10-23 17:33 AEDT · EVENING (scheduled)
+- Leads: NOT CHECKED — Supabase connector still permission-denied; Chrome extension unreachable again. Cron job 3 not checked.
+- GA4 proxy 23 Oct (full day so far): 5 sessions (cpc 3 / 2 engaged, organic 2 / 1 engaged). No generate_lead. 1 form_start on /builders-licence-melbourne ~9am (no submit) + the 9am phone_click on / already noted at 15:03.
+- Ads: NOT CHECKED (Chrome unreachable).
+- Day wrap: spend unknown · 3 paid sessions · 0 GA4 leads. Nothing overnight (ads 6am–9pm).
+- Blocker for Michael: leave the Mac awake with Chrome open + signed in to Supabase, or grant the Supabase connector access to the Qualify Pro org — 3rd day with no direct lead check.
