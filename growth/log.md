@@ -37,3 +37,13 @@
 - Ads: NOT CHECKED (Chrome unreachable).
 - Day wrap: spend unknown · 3 paid sessions · 0 GA4 leads. Nothing overnight (ads 6am–9pm).
 - Blocker for Michael: leave the Mac awake with Chrome open + signed in to Supabase, or grant the Supabase connector access to the Qualify Pro org — 3rd day with no direct lead check.
+
+## 2026-10-24 08:34 AEDT · MORNING (Sat — competitor watch)
+- Leads: NOT CHECKED in Supabase — connector still permission-denied; Chrome extension unreachable (Mac awake, bridge up, Chrome not reachable). Cron job 3 not checked. 4th day without a direct lead check.
+- GA4 proxy: 23 Oct final = 7 sessions (cpc 5 / 3 engaged, organic 2 / 1 engaged). No generate_lead 22–24 Oct. Only events: 23 Oct 9am form_start on /builders-licence-melbourne (cpc, no submit) + phone_click on / (organic). 24 Oct: nothing yet.
+- Paid sessions 15–23 Oct (GA4 cpc): 30 total. Ads numbers NOT CHECKED (Chrome).
+- Search Console: /builder-registration-course-melbourne and /faq now "Submitted and indexed" (crawled 22 Oct 02:58 UTC) — 22 Oct indexing request worked. Site-wide GSC 20–25 impr/day since 11 Oct, pos ~6–8 (the page filter in the gsc tool didn't apply — numbers are site-wide).
+- Production smoke test: NOT DONE — sandbox egress blocks qualifypro.com.au; Chrome unreachable.
+- Open PRs: #14–#23 still unmerged.
+- Competitor watch (web search only, no SERP/auction data): MBV launched "Builder Registration – Online Exam Study Bundle" (practice CBT quizzes + standards access; A$1,273 members / A$2,376 non-members, self-study). BRIQ (briq.com.au, Melbourne app, 500+ practice Qs, free trial) is publishing 2026 BPC exam content ("DB-U registration Victoria 2026", "how to study for BPC online builder exam"). TIV 6-wk course and MBV DB-U hybrid also rank. Angle to counter: live coaching vs self-study quizzes/app.
+- Suggested: ad copy test headlines "Live Coaching, Not An App" / "Weekly Live Classes + Zoom 1:1" (no new claims). Still open since 21 Oct (unverified): Search partners off, Presence, negatives, keyword pauses/adds.
