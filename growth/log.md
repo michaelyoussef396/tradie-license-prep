@@ -22,3 +22,11 @@
 - To date since 1 Oct: ~A$137.36 · 22 clicks · 0 Ads conv. Both campaigns Eligible (Learning); old campaign paused.
 - Day wrap: A$8.61 / 2 clicks / leads unknown. Overnight: nothing (ads off 9pm–6am).
 - Open: Michael to sign Supabase back in on macOS Chrome so lead checks work; Search partners OFF still not done.
+
+## 2026-10-23 15:03 AEDT · EVENING (fired late — 08:30 & 12:30 runs today skipped, computer not connected)
+- Leads: NOT CHECKED in Supabase — connector still permission-denied; Chrome extension unreachable (computer asleep/Chrome closed). Cron job 3 + net._http_response not checked.
+- GA4 proxy (API via desktop bridge, works): 22 Oct sessions 19 (cpc 4, organic 2, direct 11); 23 Oct so far 3 (cpc 2, organic 1). No generate_lead either day. 1 phone_click 23 Oct 9am on / from google organic (possible call to Adrian — unconfirmed).
+- Ads: NOT CHECKED (Chrome unreachable).
+- Production smoke test: NOT DONE — sandbox can't reach qualifypro.com.au; device shell has no folder connected.
+- Open PRs: #14–#23 all still unmerged.
+- Suggestions: none new. Still open from 21 Oct: Search partners off, Presence, negatives, keyword pauses.
