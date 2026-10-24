@@ -47,3 +47,19 @@
 - Open PRs: #14–#23 still unmerged.
 - Competitor watch (web search only, no SERP/auction data): MBV launched "Builder Registration – Online Exam Study Bundle" (practice CBT quizzes + standards access; A$1,273 members / A$2,376 non-members, self-study). BRIQ (briq.com.au, Melbourne app, 500+ practice Qs, free trial) is publishing 2026 BPC exam content ("DB-U registration Victoria 2026", "how to study for BPC online builder exam"). TIV 6-wk course and MBV DB-U hybrid also rank. Angle to counter: live coaching vs self-study quizzes/app.
 - Suggested: ad copy test headlines "Live Coaching, Not An App" / "Weekly Live Classes + Zoom 1:1" (no new claims). Still open since 21 Oct (unverified): Search partners off, Presence, negatives, keyword pauses/adds.
+
+## 2026-10-25 01:23 AEDT · MORNING (Sun — manual run by Michael, covers last 48h; 24 Oct MIDDAY + EVENING runs were skipped, computer not connected)
+- Leads: NOT CHECKED in Supabase — connector permission-denied; Mac Chrome reachable but signed out of Supabase. Cron job 3 not checked. 5th day without a direct lead check.
+- GA4 proxy 23–25 Oct: 0 generate_lead. Paid form_start ×2 with no submit (23 Oct 9am /builders-licence-melbourne; 24 Oct 1pm /builder-registration-course-melbourne). cta_click ×2 (/builders-licence-melbourne). phone_click ×1 (23 Oct 9am, / organic).
+- Sessions: 23 Oct 7 (paid 5/3 engaged, organic 2); 24 Oct 8 (paid 3/2, organic 3/2, direct 1, unassigned 1).
+- Ads (Chrome OK): Fri 23 A$14.28 · 5 clk · 45 impr · 0 conv | Sat 24 A$14.09 · 3 clk · 42 impr · 0 conv | Oct 1–24 A$171.37 · 32 clk · 418 impr · CTR 7.66% · CPC A$5.36 · 0 conv. Ads clicks 23–24 (8) = GA4 paid sessions (8) ✔.
+- Calls: call asset 0411 626 398 now Eligible (account + both campaigns); 30 days: 11 phone impr, 0 calls.
+- Impression share 13.93% (Sep 25–Oct 24) vs 13.7% baseline — flat. Auction: buildersacademy 24.4%, builderregistration 21.0%, onsitecoaching 19.1%, parkerbrent 17.5%, licencetobuild 14.7%, makbuilderregistration 14.1%, us 13.9%. No new competitors; tiv.vic.edu.au dropped out.
+- Settings: both campaigns still Google search + Search partners, Victoria, 6am–9pm, budgets unchanged. No disapproved ads.
+- DONE (newly verified): shared list "QP core negatives" (107 kws) applied to both campaigns — includes check, search, lookup, complaint, insurance, owner builder, cert iv, tafe, jobs, salary, nsw, qld, sa, wa, canberra; no "act". Negatives rec CLOSED.
+- Still open: Search partners off; Presence (not verified — not in settings table); keyword pause/add list not verified.
+- Search terms (30d): only 10 of 32 clicks visible, all on-intent; 22 clicks (A$112.54) in "Other search terms". No keyword near 15 clicks (top: "builder registration victoria" 4 clk A$25.70).
+- Landing pages (GA4 paid since 15 Oct): /builder-registration-course-melbourne 19 sess, 15 engaged, avg 145 s; /builders-licence-melbourne 9 sess, 8 engaged, avg 7 s. Under 30 each — keep watching.
+- Production watch: all pass (/this-should-404 404, /Courses 404, /admin 200, /courses/ → /courses, 3 landing pages 200 with own title + H1 + "Send My Enquiry", no opacity:0 H1, gtag present, internal click adds exactly one Ads-only page_view). Sitemap 9 URLs (no class pages — #19 unmerged).
+- Open PRs #14–#23 still unmerged.
+- Suggested: sign Supabase back in; Search partners off + Presence; Adrian review ask (Sunday trust task).
