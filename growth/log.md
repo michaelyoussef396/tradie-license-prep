@@ -63,3 +63,10 @@
 - Production watch: all pass (/this-should-404 404, /Courses 404, /admin 200, /courses/ → /courses, 3 landing pages 200 with own title + H1 + "Send My Enquiry", no opacity:0 H1, gtag present, internal click adds exactly one Ads-only page_view). Sitemap 9 URLs (no class pages — #19 unmerged).
 - Open PRs #14–#23 still unmerged.
 - Suggested: sign Supabase back in; Search partners off + Presence; Adrian review ask (Sunday trust task).
+
+## 2026-10-25 13:54 AEDT · MIDDAY (Sun, scheduled; fired ~80 min late)
+- Leads: NOT CHECKED in Supabase — connector permission-denied; Mac Chrome (e280fa94) still on Supabase sign-in. Cron job 3 + net._http_response not checked. 6th day without a direct lead check.
+- GA4 proxy: no generate_lead 24–25 Oct. 25 Oct so far: 2 sessions (paid 1 → /builder-registration-course-melbourne, direct 1).
+- Ads today (25 Oct, partial): A$2.91 · 1 clk · 25 impr · 0 conv (Registration only; Carpentry 0 impr). Ads clicks = GA4 paid sessions ✔.
+- To date Oct 1–25: ~A$174.28 · 33 clk · 0 conv. Both campaigns Eligible (Learning), budgets unchanged, old campaign paused. Calls not read.
+- Suggestions: none new. Still open: sign Supabase back in on Mac Chrome; Search partners off; Presence.
