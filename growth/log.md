@@ -70,3 +70,11 @@
 - Ads today (25 Oct, partial): A$2.91 · 1 clk · 25 impr · 0 conv (Registration only; Carpentry 0 impr). Ads clicks = GA4 paid sessions ✔.
 - To date Oct 1–25: ~A$174.28 · 33 clk · 0 conv. Both campaigns Eligible (Learning), budgets unchanged, old campaign paused. Calls not read.
 - Suggestions: none new. Still open: sign Supabase back in on Mac Chrome; Search partners off; Presence.
+
+## 2026-10-26 01:02 AEDT · EVENING wrap for Sun 25 Oct (scheduled 17:33, fired ~7.5 h late; ran as EVENING, not MORNING — the 08:30 Mon run does the deep work)
+- Leads: NOT CHECKED in Supabase — connector permission-denied; Mac Chrome still signed out of Supabase. Cron job 3 not checked. 7th day without a direct lead check.
+- GA4 proxy 25 Oct: 7 sessions (paid 3, organic 2, direct 1, referral 1). 0 generate_lead / form_start / phone_click.
+- Ads Sun 25 Oct (from today-vs-yesterday deltas): A$11.64 · 4 clk · 42 impr · 0 conv. Ads 4 clicks vs GA4 3 paid sessions (fine).
+- To date Oct 1–25: ~A$183 · ~36 clk · 0 conv. Both campaigns Eligible (Learning), budgets A$15 / A$2, old campaign paused. Opt score 96.4% / 95.6%.
+- Day wrap: A$11.64 / 4 clicks / 0 leads (GA4). Nothing overnight.
+- Suggestions: none new. Still open: sign Supabase back in on Mac Chrome; Search partners off; Presence.
