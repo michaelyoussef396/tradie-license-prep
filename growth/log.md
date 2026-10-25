@@ -78,3 +78,16 @@
 - To date Oct 1–25: ~A$183 · ~36 clk · 0 conv. Both campaigns Eligible (Learning), budgets A$15 / A$2, old campaign paused. Opt score 96.4% / 95.6%.
 - Day wrap: A$11.64 / 4 clicks / 0 leads (GA4). Nothing overnight.
 - Suggestions: none new. Still open: sign Supabase back in on Mac Chrome; Search partners off; Presence.
+
+## 2026-10-26 08:34 AEDT · MORNING (Mon — rankings / Search Console)
+- Leads: NOT CHECKED in Supabase — connector permission-denied; Mac Chrome (e280fa94) still on Supabase sign-in. Cron job 3 not checked. 8th day without a direct lead check.
+- GA4 proxy 25–26 Oct: 0 generate_lead / form_start / phone_click. 25 Oct paid sessions 3 (all /builder-registration-course-melbourne).
+- Ads today (26 Oct, 08:30): 5 impr · 0 clk · A$0. Sun 25: A$11.64 · 4 clk · 0 conv. Push 2 to date (new campaigns, all time): A$183.01 · 36 clk (Registration 34 / A$177.05, Carpentry 2 / A$5.96) · 0 conv.
+- Settings unchanged: both still Google search + Search partners, Victoria, 6am–9pm, A$15 / A$2, Eligible (Learning). Old campaign paused.
+- Keywords: "bpc exam" + "domestic builder unlimited" phrase are PRESENT → rec DONE. "building licence victoria" (53 impr, 1.89% CTR, 1 clk) + [builder registration] still enabled → pause rec still open. No keyword near 15 clicks (top 4 clk).
+- Search terms (all time, new campaigns): only 10 visible, all on-intent. No new negatives.
+- Paid landing pages since 15 Oct (GA4): /builder-registration-course-melbourne 22 sess / 17 engaged / avg 130 s; /builders-licence-melbourne 9 / 8 / 7 s. Still under 30 each.
+- Production watch: all pass (404s, /admin 200 + no gtag, /courses/ → /courses, 3 landing pages 200 with own title + H1 + form, no opacity:0 H1, gtag on public, internal click = one Ads-only page_view). Sitemap 9.
+- GSC (27 Sep–24 Oct vs prior 28d): 12 clk / 363 impr / pos 8.6 vs 15 / 769 — impressions −53% (the mid-Sep /bpc-exam-changes drop is still in the window). /bpc-exam-changes recovering hard: 40–41 impr/day on 23–24 Oct (vs ~14/day 11–21 Oct), 4 clicks those 2 days, pos ~9. "bpc exam" pos 8.5 (page 1, bottom). "dbu exam" pos ~11. /cgi-bin/ = Soft 404 in GSC (crawled 20 Oct, before real 404s shipped) — will drop out, no action.
+- Open PRs #14–#23 still unmerged.
+- Suggested: Supabase sign-in; Search partners off + pause 2 weak keywords; merge #16/#22/#23.
