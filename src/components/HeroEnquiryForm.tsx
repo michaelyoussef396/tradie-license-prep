@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useId, useRef, useState, type Ref } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
@@ -29,9 +29,24 @@ interface HeroEnquiryFormProps {
   /** Hidden source field value stored on the lead, identifying the page it came from. */
   source?: string;
   title?: string;
+  /** Receives the first-name input, for a button that scrolls to the form and focuses it. */
+  firstFieldRef?: Ref<HTMLInputElement>;
 }
 
-const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquiryFormProps) => {
+const HeroEnquiryForm = ({ source = "hero-eligibility-form", title, firstFieldRef }: HeroEnquiryFormProps) => {
+  // A page can carry several of these forms (/builder-registration-course-melbourne and
+  // /bpc-exam-changes have three), so every id is unique to this form. useId gives the same
+  // ids in the prerendered HTML and on hydration. Reach a form through a wrapper id or
+  // firstFieldRef, never through these ids.
+  const uid = useId();
+  const ids = {
+    firstName: `${uid}first-name`,
+    phone: `${uid}phone`,
+    email: `${uid}email`,
+    emailError: `${uid}email-error`,
+    trade: `${uid}trade`,
+    experience: `${uid}experience`,
+  };
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,11 +128,12 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
         </h2>
         <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
-            <label htmlFor="hero-first-name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor={ids.firstName} className="block text-sm font-medium text-gray-700 mb-1">
               First name *
             </label>
             <Input
-              id="hero-first-name"
+              id={ids.firstName}
+              ref={firstFieldRef}
               type="text"
               required
               placeholder="Your first name"
@@ -127,11 +143,11 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
             />
           </div>
           <div>
-            <label htmlFor="hero-phone" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor={ids.phone} className="block text-sm font-medium text-gray-700 mb-1">
               Phone number *
             </label>
             <Input
-              id="hero-phone"
+              id={ids.phone}
               type="tel"
               required
               placeholder="04XX XXX XXX"
@@ -141,17 +157,17 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
             />
           </div>
           <div>
-            <label htmlFor="hero-email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor={ids.email} className="block text-sm font-medium text-gray-700 mb-1">
               Email address *
             </label>
             <Input
-              id="hero-email"
+              id={ids.email}
               type="email"
               required
               placeholder="you@email.com"
               value={email}
               aria-invalid={!!emailError}
-              aria-describedby={emailError ? "hero-email-error" : undefined}
+              aria-describedby={emailError ? ids.emailError : undefined}
               onChange={(e) => { touch(); setEmail(e.target.value); if (emailError) setEmailError(null); }}
               onBlur={() => {
                 if (!email.trim()) return;
@@ -161,13 +177,13 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
               className={`h-12 text-base focus:border-blue-500 focus:ring-blue-500 ${emailError ? "border-red-500" : "border-gray-200"}`}
             />
             {emailError && (
-              <p id="hero-email-error" className="mt-1 text-sm text-red-600">{emailError}</p>
+              <p id={ids.emailError} className="mt-1 text-sm text-red-600">{emailError}</p>
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Your trade</label>
+            <label htmlFor={ids.trade} className="block text-sm font-medium text-gray-700 mb-1">Your trade</label>
             <Select value={trade} onValueChange={(v) => { touch(); setTrade(v); }}>
-              <SelectTrigger className="h-12 text-base border-gray-200">
+              <SelectTrigger id={ids.trade} className="h-12 text-base border-gray-200">
                 <SelectValue placeholder="Select your trade" />
               </SelectTrigger>
               <SelectContent>
@@ -178,9 +194,11 @@ const HeroEnquiryForm = ({ source = "hero-eligibility-form", title }: HeroEnquir
             </Select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Years of experience</label>
+            <label htmlFor={ids.experience} className="block text-sm font-medium text-gray-700 mb-1">
+              Years of experience
+            </label>
             <Select value={experience} onValueChange={(v) => { touch(); setExperience(v); }}>
-              <SelectTrigger className="h-12 text-base border-gray-200">
+              <SelectTrigger id={ids.experience} className="h-12 text-base border-gray-200">
                 <SelectValue placeholder="Select years of experience" />
               </SelectTrigger>
               <SelectContent>

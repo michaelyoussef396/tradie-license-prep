@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +28,17 @@ const ctaSchema = z.object({
 });
 
 const FinalCTA = () => {
+  // Field ids for the labels, unique to this form (see HeroEnquiryForm).
+  const uid = useId();
+  const ids = {
+    name: `${uid}name`,
+    phone: `${uid}phone`,
+    email: `${uid}email`,
+    emailError: `${uid}email-error`,
+    licenseType: `${uid}licence-type`,
+    referralCode: `${uid}referral-code`,
+    message: `${uid}message`,
+  };
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -238,10 +249,11 @@ const FinalCTA = () => {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                      <label htmlFor={ids.name} className="block text-sm font-medium text-gray-700 mb-1.5">
                         Name *
                       </label>
                       <Input
+                        id={ids.name}
                         type="text"
                         placeholder="Your full name"
                         required
@@ -251,10 +263,11 @@ const FinalCTA = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                      <label htmlFor={ids.phone} className="block text-sm font-medium text-gray-700 mb-1.5">
                         Phone *
                       </label>
                       <Input
+                        id={ids.phone}
                         type="tel"
                         placeholder="Your phone number"
                         required
@@ -266,16 +279,17 @@ const FinalCTA = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor={ids.email} className="block text-sm font-medium text-gray-700 mb-1.5">
                       Email *
                     </label>
                     <Input
+                      id={ids.email}
                       type="email"
                       placeholder="your@email.com"
                       required
                       value={formData.email}
                       aria-invalid={!!emailError}
-                      aria-describedby={emailError ? "cta-email-error" : undefined}
+                      aria-describedby={emailError ? ids.emailError : undefined}
                       onChange={(e) => { if (!formStartedRef.current) { formStartedRef.current = true; trackContactFormStart(); } if (emailError) setEmailError(null); setFormData(prev => ({ ...prev, email: e.target.value })); }}
                       onBlur={() => {
                         if (!formData.email.trim()) return;
@@ -285,16 +299,16 @@ const FinalCTA = () => {
                       className={`w-full h-12 text-base focus:border-blue-500 focus:ring-blue-500 ${emailError ? "border-red-500" : "border-gray-200"}`}
                     />
                     {emailError && (
-                      <p id="cta-email-error" className="mt-1 text-sm text-red-600">{emailError}</p>
+                      <p id={ids.emailError} className="mt-1 text-sm text-red-600">{emailError}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor={ids.licenseType} className="block text-sm font-medium text-gray-700 mb-1.5">
                       Licence Type
                     </label>
                     <Select value={formData.licenseType} onValueChange={(value) => setFormData(prev => ({ ...prev, licenseType: value }))}>
-                      <SelectTrigger className="w-full h-12 text-base border-gray-200">
+                      <SelectTrigger id={ids.licenseType} className="w-full h-12 text-base border-gray-200">
                         <SelectValue placeholder="Select licence type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -308,10 +322,11 @@ const FinalCTA = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor={ids.referralCode} className="block text-sm font-medium text-gray-700 mb-1.5">
                       Referral Code (Optional)
                     </label>
                     <Input
+                      id={ids.referralCode}
                       type="text"
                       placeholder="e.g. JORDAN-4821"
                       maxLength={20}
@@ -323,10 +338,11 @@ const FinalCTA = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label htmlFor={ids.message} className="block text-sm font-medium text-gray-700 mb-1.5">
                       Tell us about your experience
                     </label>
                     <Textarea
+                      id={ids.message}
                       placeholder="How many years have you been in the trade? What help do you need?"
                       rows={3}
                       value={formData.message}
