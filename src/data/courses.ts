@@ -203,5 +203,14 @@ export const practiceExamsAddOn = {
   callToAction: "Ask us about it",
 };
 
+/**
+ * Shortest to longest course, from each course's `duration` ("<n> weeks"), e.g. "6 to 13 weeks".
+ * courses.test.ts fails if a duration stops matching that shape.
+ */
+export const courseWeeksRange = (() => {
+  const weeks = courses.map((c) => parseInt(c.duration, 10));
+  return `${Math.min(...weeks)} to ${Math.max(...weeks)} weeks`;
+})();
+
 /** e.g. "600+ practice questions and answers (450+ for the carpentry course)" */
 export const practiceQuestionsSummary = `${courseById.comprehensive.practiceQuestions} practice questions and answers (${courseById.carpentry.practiceQuestions} for the carpentry course)`;

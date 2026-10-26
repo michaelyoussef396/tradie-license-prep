@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, HelpCircle, ChevronRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { courseById, practiceQuestionsSummary } from "@/data/courses";
+import { courseById, courseWeeksRange, practiceQuestionsSummary } from "@/data/courses";
 import { EXPERIENCE_BY_CLASS_SUMMARY } from "@/data/eligibility";
 
 const FAQ = () => {
@@ -52,7 +52,7 @@ const FAQ = () => {
         {
           question: "How long is the process before getting my licence?",
           answer:
-            "Our courses range from 6 to 13 weeks. After completing training, you'll be prepared for the BPC exam. BPC's processing time then varies by application.",
+            `Our courses range from ${courseWeeksRange}. After completing training, you'll be prepared for the BPC exam. BPC's processing time then varies by application.`,
         },
         {
           question: "What are the class sizes?",
