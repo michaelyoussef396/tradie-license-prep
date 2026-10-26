@@ -7,7 +7,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import PageTransition from "@/components/PageTransition";
-import { trackPhoneClick, trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
 
 const ThankYou = () => {
   // GA4 conversion event — fires once on landing on the real /thank-you route.
@@ -61,7 +61,6 @@ const ThankYou = () => {
 
             <a
               href="tel:0411626398"
-              onClick={trackPhoneClick}
               className="mt-6 inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-8 py-5 text-2xl sm:text-3xl font-bold text-primary-foreground transition-transform hover:scale-[1.02]"
             >
               <Phone className="h-7 w-7" />
