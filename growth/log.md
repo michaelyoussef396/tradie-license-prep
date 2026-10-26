@@ -97,3 +97,12 @@
 - GA4 proxy (property 530441384): 26 Oct so far 1 session (direct). 0 generate_lead / form_start / phone_click 25–26 Oct.
 - Ads: all-time totals for new campaigns unchanged since 08:30 (A$183.01 · 36 clk · 0 conv) → today so far ~0 clicks / A$0 (reporting lag possible). Both Eligible (Learning), budgets A$15 / A$2, old campaign paused.
 - No notification sent (nothing new since the 08:30 report). Suggestions: none new. Still open: Supabase sign-in; Search partners off; pause 2 weak keywords; Presence.
+
+## 2026-10-26 17:34 AEDT · EVENING (Mon, scheduled; cloud-only, no Mac bridge)
+- Leads: CHECKED via Qualify_Pro connector (works again — first direct check in 8 days). 0 real leads in last 7 days.
+- Cron job 3: ran 25 Oct 22:00 UTC (9am Mon Melb) "succeeded · 1 row" + 23:00 UTC "0 rows" (by design). OK.
+- MERGED today 14:13–14:20 AEDT: #14 #15 #16 #17 #19 #20 #21 #22 #23 #24 #25 #26 (main 388eca8). #18 NOT merged (conflicts with #26).
+- Edge functions redeployed after merge: send-lead-emails v56 (14:22), send-followup-emails v33 (14:29) → #24/#25 deploy steps DONE.
+- Now due: MORNING production watch must check /domestic-builder-registration/unlimited + /limited (200, own title + H1 raw HTML, in sitemap → 11 URLs); remind Michael once to request indexing for both. #26: watch next real ad lead shows under "BPC Form Submit" within 48h. Lead source now page-specific (#23).
+- Ads / GA4: NOT CHECKED — no Chrome bridge and no GA4 tool in this cloud run.
+- Day wrap: Mon spend/clicks unknown (Ads unreachable); 0 leads. No notification sent (no lead, no problem).
