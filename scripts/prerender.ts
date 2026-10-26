@@ -16,6 +16,7 @@ import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { pathToFileURL } from "url";
+import { NOT_FOUND_TITLE, pageTitle } from "../src/lib/page-titles";
 
 const SITE = "https://www.qualifypro.com.au";
 const dist = resolve("dist");
@@ -56,6 +57,20 @@ const OVERRIDDEN = [
   /<meta name="twitter:title"[^>]*>\s*/,
   /<meta name="twitter:description"[^>]*>\s*/,
 ];
+
+// Each page's <title> must be its entry in src/lib/page-titles.ts: the history hook in
+// index.html sets that title on in-app navigation for GA4, so the two have to agree, and
+// a page with no entry would get the wrong title there.
+function assertTitleMatchesTable(route: string, head: string) {
+  const expected = route === notFoundPath ? NOT_FOUND_TITLE : pageTitle(route);
+  if (!expected) throw new Error(`no entry for "${route}" in PAGE_TITLES (src/lib/page-titles.ts)`);
+  const match = head.match(/<title[^>]*>([\s\S]*?)<\/title>/);
+  const decoder = document.createElement("textarea");
+  decoder.innerHTML = match?.[1] ?? "";
+  if (decoder.value !== expected) {
+    throw new Error(`<title> is "${decoder.value}" but src/lib/page-titles.ts says "${expected}"`);
+  }
+}
 
 // Every page's <h1> must be visible in the static HTML itself. An inline
 // opacity of 0 on it or on an ancestor means a framer-motion `initial` that isn't
@@ -142,6 +157,7 @@ for (const { route, file } of targets) {
   try {
     (globalThis as { happyDOM?: { setURL?: (url: string) => void } }).happyDOM?.setURL?.(SITE + route);
     const { html, head } = await render(route);
+    assertTitleMatchesTable(route, head);
     if (!html.trim()) throw new Error("rendered empty HTML");
     assertHeadingVisible(html);
     assertFaqMarkupVisible(html, head);
