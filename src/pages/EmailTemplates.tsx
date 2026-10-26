@@ -1,3 +1,4 @@
+import { CALLBACK_PROMISE } from "@/data/callback";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
@@ -144,7 +145,7 @@ const EmailTemplates = () => {
                 <div className="bg-background px-5 py-5 text-sm leading-relaxed text-foreground space-y-4">
                   <p>Hey Jordan,</p>
                   <p>Thanks for reaching out about getting your builders licence.</p>
-                  <p>Our team will give you a call within 24 hours to have a chat about where you're at and how we can help.</p>
+                  <p>Our team will give you a call to have a chat about where you're at and how we can help. {CALLBACK_PROMISE}</p>
                   <p>In the meantime, here's what most tradies want to know:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Our courses run in small groups (max 10) so you get real support</li>
@@ -154,7 +155,7 @@ const EmailTemplates = () => {
                   <Sig full />
                 </div>
               </div>
-              <WhyNote text="Builds trust immediately. They know you'll call within 24 hours." />
+              <WhyNote text="Builds trust immediately. They know when to expect your call." />
             </ScrollReveal>
 
             {/* 3 — Follow-Up Day 3 */}

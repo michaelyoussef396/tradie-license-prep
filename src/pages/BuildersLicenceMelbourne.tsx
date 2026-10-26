@@ -1,3 +1,4 @@
+import { CALLBACK_BADGE } from "@/data/callback";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, CheckCircle2, Award, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -254,7 +255,7 @@ const BuildersLicenceMelbourne = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <span>No spam — we call within 24 hours</span>
+                    <span>No spam — {CALLBACK_BADGE}</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />

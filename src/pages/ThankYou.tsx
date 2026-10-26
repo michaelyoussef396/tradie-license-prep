@@ -1,3 +1,4 @@
+import { CALLBACK_PROMISE } from "@/data/callback";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -18,7 +19,7 @@ const ThankYou = () => {
   return (
     <PageTransition>
       <Seo
-        description="Thanks for your enquiry. A Qualify Pro BPC prep specialist will call you within 24 hours to discuss your eligibility."
+        description={`Thanks for your enquiry. A Qualify Pro BPC prep specialist will call you to discuss your eligibility. ${CALLBACK_PROMISE}`}
         path="/thank-you"
         noindex
       />
@@ -48,8 +49,8 @@ const ThankYou = () => {
               </h1>
 
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-300">
-                Your details are through. Someone will call you within 24 hours to run
-                through your eligibility.
+                Your details are through, and someone will call you to run through your
+                eligibility. {CALLBACK_PROMISE}
               </p>
             </div>
 

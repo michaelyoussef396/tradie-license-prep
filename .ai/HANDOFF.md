@@ -180,7 +180,7 @@ says "payment options".
 Evening nights per week was item 8 until 28 Sep. It is not held: it is live from Adrian's written
 course info, with a confirmation question in §0.5.
 
-Pending and deliberately left live as is: the auto-reply's "within 24 hours" callback line (§5 row 4).
+The callback promise is no longer pending: since 26 Oct 2026 it is "Enquiries between 9am and 9pm get a call back within the hour." from `src/data/callback.ts` (Adrian's commitment, relayed in writing by Vryan on 23 Oct), on the site and in the auto-reply. Prior wording, to restore in one commit if it's withdrawn: "within 24 hours" (toasts, form subheads, /thank-you, the /builders-licence-melbourne bullet, the auto-reply), "Response within 24 hours" (FinalCTA badge), "We'll contact you within 24 hours to schedule your consultation" (/contact).
 
 ### 0.4 Referral restrictions already in place — left as they are
 
@@ -804,7 +804,7 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 | 1 | 95% pass rate (and whether the student-record attribution must appear everywhere) — **removed from every surface and on HOLD (§2.12, §0.3)** | `Hero.tsx:23`, `TrustBar.tsx:8`, `Footer.tsx:52`, `:59`, `index.html:29`, `:37`, `:43`, `Index.tsx:18`, + 10 more |
 | 2 | Course durations: 13 / 7 / 9 / 6 weeks; 3 hrs per week private; 8-month platform access | `src/data/courses.ts` |
 | 3 | Maximum 10 students per group course | `courses.ts` ×3, `Hero.tsx`, `TrustBar.tsx`, `WhyChooseAdrian.tsx`, `About.tsx`, `FAQ.tsx`, `send-lead-emails`, `EmailTemplates.tsx` |
-| 4 | Response / callback within 24 hours | `Contact.tsx` ×5, `FinalCTA.tsx` ×3, `ThankYou.tsx` ×2, `BuildersLicenceMelbourne.tsx`, `send-lead-emails`, `EmailTemplates.tsx` |
+| 4 | ~~Response / callback within 24 hours~~ **Callback closed 26 Oct 2026:** now "Enquiries between 9am and 9pm get a call back within the hour." from `src/data/callback.ts` (Adrian via Vryan, in writing, 23 Oct). Still unconfirmed: the two hello@ **email** lines, "We respond (to all emails) within 24 hours" | `Contact.tsx` ×2 (email only) |
 | 5 | Consultation 15–20 minutes; eligibility check 2 minutes | `Contact.tsx:193`, `BuilderRegistrationCourseMelbourne.tsx` ×3, `BpcExamChanges.tsx:54` |
 | 6 | Adrian's Unlimited + commercial low-rise registration, carpentry qualification, no domestic project-value limit, commercial scope to three storeys | `AboutAdrian.tsx:8-10`, `About.tsx:30-41`, `FAQ.tsx:42` |
 | 7 | 10+ years industry experience (distinct from training since 2017, which is confirmed) — **no longer rendered anywhere (checked 22 Oct)** | `Hero.tsx:24`, `TrustBar.tsx:13` |
