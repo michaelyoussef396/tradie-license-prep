@@ -1,6 +1,14 @@
 # Qualify Pro — site-wide claims sweep
 
-**Branch:** `claims-sweep-2026-09` (not merged)
+> **Status, 22 Oct 2026.** Everything this file describes is merged: the claims sweep (PR #1,
+> 20 Sep; follow-ups #2 and #3, 21 Sep), Adrian's 27 Sep answers (PR #4, 28 Sep) and the
+> follow-up emails fix (on `main` since 14 Oct). PRs #5–#13 followed, among them prerendering,
+> the analytics fixes, real 404s, the limited-class HOLD (§2.18), the rebuilt BPC guide (sources in
+> `.ai/bpc-guide-sources.md`) and the welcome-email link. Exactly three edge functions are
+> deployed, each matching `main` (§6). The HOLD list (§0.3, §2) and the confirmation queue (§5)
+> are current.
+
+**Branch:** `claims-sweep-2026-09` — merged 20 Sep 2026 (PR #1)
 **Source of truth:** Adrian's written confirmations, 9 Sep 2026
 **Commits:**
 1. `Site-wide claims sweep: counts, entry requirement, BPC exam, GST, referral`
@@ -20,7 +28,14 @@
 
 ---
 
-## Follow-up emails fix — branch `fix/followup-cron-auth`, 14 Oct 2026 (not merged, not deployed)
+## Follow-up emails fix — 14 Oct 2026 — on `main`, deployed 14 Oct, runs daily
+
+**Status (checked read-only 22 Oct):** the deployed `index.ts` and `copy.ts` match `main`
+(SHA-256 `0ed33a48355423c5…` and `067f132e219cc022…`); `CRON_SECRET` was set 14 Oct; cron job 3
+calls the function once a day at 9am Melbourne, and the 22 Oct run returned 200 with
+`{"day3":0,"day7":0,"dead":0,"errors":[]}`. `followup-day3`, `followup-day7`, `follow-up-emails`
+and cron job 2 are gone — three edge functions remain. Deploy steps 1, 2 and 4 below are done;
+whether the step-3 dry run was run isn't recorded.
 
 **Why:** cron job 3 `send-followup-emails-daily` POSTs `{}` with `x-cron-secret`; deployed v28
 required an admin JWT, so every run since 18 Aug returned 401 and no follow-up went out.
@@ -41,7 +56,7 @@ nothing called them. Review: `docs/codex-review-log.md`.
   `enrolled`, `completed`, `review_requested`, `dead`, or a hand-set `followed_up_*`.
 - `{"dry_run": true}` returns ids per step and sends and writes nothing.
 
-**Deploy (Michael, own terminal):**
+**Deploy (Michael, own terminal) — steps 1, 2 and 4 done (checked 22 Oct):**
 1. `supabase secrets set CRON_SECRET=<value of vault followup_cron_secret> --project-ref dpceyonfjfjaogwkyrhp`.
    Without it, every call 401s, as it does today.
 2. `supabase functions deploy send-followup-emails --project-ref dpceyonfjfjaogwkyrhp --no-verify-jwt`.
@@ -55,7 +70,7 @@ it can still resend. Closing that needs a write before the send.
 
 ---
 
-## 0. Adrian's 27 Sep answers — branch `adrian-answers-2026-09` (not merged)
+## 0. Adrian's 27 Sep answers — branch `adrian-answers-2026-09` — merged 28 Sep 2026 (PR #4)
 
 **Source for every row marked confirmed:** Vryan email 27 Sep 2026 (relaying Adrian) — "Qualify Pro —
 Adrian's confirmed answers, action items" — unless the row names Adrian's written course info. This
@@ -205,6 +220,9 @@ for the referrer). They ship by Supabase CLI, not with the Vercel build — the 
 deploys in §6. Until they are deployed, the live emails still say "amount pending confirmation" and
 "$300 referral reward". `send-followup-emails`, `followup-day3` and `followup-day7` are unchanged.
 The 28 Sep changes (§0.7) touch no edge function.
+
+**Done.** `send-lead-emails` was deployed on 28 Sep and `send-student-welcome` is live through its
+22 Oct redeploy; both deployed sources match `main` (checked 22 Oct, §6).
 
 ### 0.7 PR #4 review decisions, 28 Sep 2026
 
@@ -724,7 +742,7 @@ not from a summary.
 - Surfaces affected: Courses (carpentry course requirements + FAQ), builder-registration-course-melbourne
   (body + FAQ JSON-LD), both FAQs, Contact form note, hero form note.
 
-**Prior wording — restore in one commit if Adrian confirms in writing:**
+**Prior wording** (Adrian's 9 Sep figure; kept for the record — Michael dropped the limited-class question for Adrian on 1 Oct, so this isn't waiting on him. If a figure goes back, it's the BPC's own, with a link to the info sheet, and that's Michael's call; see §5 row 17):
 ```ts
 export const LIMITED_MINIMUM_YEARS = 2;
 export const LIMITED_EXPERIENCE_SUMMARY = `BPC requires at least ${LIMITED_MINIMUM_YEARS} years' practical experience for Domestic Builder (Limited) classes such as carpentry.`;
@@ -742,17 +760,17 @@ put it into `LIMITED_REQUIREMENT` / `CARPENTRY_REQUIREMENT` / `BY_CLASS` (the pr
 the old phrasing) and drop the "— ask and we'll confirm" suffix where a figure is stated;
 `src/data/eligibility.test.ts` asserts the held strings contain no digits, so update it in the same commit.
 
-**Question for Adrian:** the BPC sheet says 3 years for carpentry — is that what you see in practice?
-If the DB-L course serves carpentry only, the right figure is likely 3; if it serves several limited
-classes, the copy should stay class-by-class rather than one number.
+**Not a question for Adrian** (dropped 1 Oct, see above). If Michael wants a figure shown: the BPC
+sheet says 3 years for carpentry, so the carpentry copy would quote that with a link; for several
+limited classes the copy should stay class-by-class rather than one number.
 
 ## 3. Open questions and judgment calls
 
 1. **Sidhu is still missing from the homepage strip** (`src/components/SuccessStories.tsx` shows Fauzi, Jordan, Manny, Ben). Adding him is new work, not a correction, so it was left alone.
 2. **`95% pass rate`** — now removed from the site entirely and held (§2.12). Adrian is confirming it in writing this week.
 3. **"BPC test" → "BPC exam"** terminology was changed in headings, FAQ questions and one inclusion. Not requested; leaving "test" beside the new exam copy read as two separate assessments. Easy to revert.
-4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys.
-5. **`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.
+4. **`highlights` in `CourseCards.tsx` index into `courses.ts` inclusions by position**, so removing a bullet silently changes which ones a card shows. All four were checked; the only shift is the carpentry card, which previously highlighted "BPC interview preparation" and now shows "Technical knowledge assessment" — the desired outcome, but the coupling is fragile and worth replacing with keys. **22 Oct 2026:** PR #20 (open) picks them by phrase instead, with a test.
+5. ~~**`.env` is committed to git** and absent from `.gitignore`. Unrelated to this sweep, found while scanning, worth untracking.~~ — resolved 22 Oct 2026: untracked and ignored; nothing in the build reads it.
 6. ~~**`TrustBar.tsx` is dead code**~~ — resolved: deleted in §2.17.
 7. ~~**Jordan's homepage highlight tile has no figure to show**~~ — resolved: the tile is nulled and guarded (§2.17); a figure is queued for Adrian as §5 row 16.
 
@@ -770,7 +788,7 @@ eligibility      executed src/data/eligibility.ts — all 4 licence-type branche
 stat fields      swept every value:/number:/highlight: literal; no stale figures
 ```
 
-Not merged. Branch `claims-sweep-2026-09`.
+Merged 20 Sep 2026 as PR #1 (branch `claims-sweep-2026-09`).
 
 ---
 
@@ -783,28 +801,27 @@ course durations, credentials and the whole BPC explainer. They need one confirm
 
 | # | Claim | Where |
 |---|---|---|
-| 1 | 95% pass rate (and whether the student-record attribution must appear everywhere) | `Hero.tsx:23`, `TrustBar.tsx:8`, `Footer.tsx:52`, `:59`, `index.html:29`, `:37`, `:43`, `Index.tsx:18`, + 10 more |
+| 1 | 95% pass rate (and whether the student-record attribution must appear everywhere) — **removed from every surface and on HOLD (§2.12, §0.3)** | `Hero.tsx:23`, `TrustBar.tsx:8`, `Footer.tsx:52`, `:59`, `index.html:29`, `:37`, `:43`, `Index.tsx:18`, + 10 more |
 | 2 | Course durations: 13 / 7 / 9 / 6 weeks; 3 hrs per week private; 8-month platform access | `src/data/courses.ts` |
 | 3 | Maximum 10 students per group course | `courses.ts` ×3, `Hero.tsx`, `TrustBar.tsx`, `WhyChooseAdrian.tsx`, `About.tsx`, `FAQ.tsx`, `send-lead-emails`, `EmailTemplates.tsx` |
 | 4 | Response / callback within 24 hours | `Contact.tsx` ×5, `FinalCTA.tsx` ×3, `ThankYou.tsx` ×2, `BuildersLicenceMelbourne.tsx`, `send-lead-emails`, `EmailTemplates.tsx` |
 | 5 | Consultation 15–20 minutes; eligibility check 2 minutes | `Contact.tsx:193`, `BuilderRegistrationCourseMelbourne.tsx` ×3, `BpcExamChanges.tsx:54` |
 | 6 | Adrian's Unlimited + commercial low-rise registration, carpentry qualification, no domestic project-value limit, commercial scope to three storeys | `AboutAdrian.tsx:8-10`, `About.tsx:30-41`, `FAQ.tsx:42` |
-| 7 | 10+ years industry experience (distinct from training since 2017, which is confirmed) | `Hero.tsx:24`, `TrustBar.tsx:13` |
+| 7 | 10+ years industry experience (distinct from training since 2017, which is confirmed) — **no longer rendered anywhere (checked 22 Oct)** | `Hero.tsx:24`, `TrustBar.tsx:13` |
 | 8 | Enrolment preferences beyond the class minimums: trade qualification preferred, references required, currently working preferred, trade certificate required | `Courses.tsx` ×5 |
 | 9 | Trade quals, same-or-higher-class references and portfolio as general BPC requirements | `components/FAQ.tsx`, `pages/FAQ.tsx`, `BuilderRegistrationCourseMelbourne.tsx` |
 | 10 | Evening course is "Most Popular" — no enrolment comparison on record | `CourseCards.tsx:21`, `Courses.tsx`, `FAQ.tsx` |
 | 11 | Coverage of waterproofing, bricklaying, cabinetry, external fixtures and other listed classes | `TradeAreas.tsx:28-34`, `FAQ.tsx:130` |
 | 12 | Post-registration support scope, insurance guidance, unlimited private-course email support | `Courses.tsx:177`, `BuilderRegistrationCourseMelbourne.tsx:79-80`, `courses.ts:137` |
 | 13 | Free consultation, no obligation | `Contact.tsx:197`, `FAQ.tsx:146`, `BpcExamChanges.tsx` ("no charge, no obligation") |
-| 14 | Competitors have 100–400+ reviews — on a **publicly routed** page (`App.tsx:65`), not admin-only | `EmailTemplates.tsx:235` |
+| 14 | ~~Competitors have 100–400+ reviews~~ **Closed:** the figure was removed in §2.13 and isn't in `EmailTemplates.tsx` any more (checked 22 Oct) | — |
 | 15 | ~~BPC operational detail: July 2025 merger, January 2026 rollout, 40→7 documents, proctoring, 24/7 booking, onboarding and adjustment deadlines~~ **Closed 21 Oct 2026:** every fact now cites a BPC page (or HIA / Consumer Affairs Victoria where the copy says so). Check log, sources and open items: `.ai/bpc-guide-sources.md` | `BpcExamChanges.tsx` throughout |
 | 16 | **A figure for Jordan's tile** — annual turnover, project volume or similar, in the shape of Fauzi's `$15M+`, Manny's `50+` or Ben's `40+`. His tile currently renders no highlight at all (§2.17) | `SuccessStories.tsx:24-26` |
-| 17 | **Domestic Builder (Limited) experience minimum** — site said 2 years "such as carpentry"; the BPC info sheet says at least 3 years for carpentry. On HOLD (§2.18) until Adrian confirms in writing | `src/data/eligibility.ts` |
+| 17 | **Domestic Builder (Limited) experience minimum** — site said 2 years "such as carpentry"; the BPC info sheet says at least 3 years for carpentry. On HOLD (§2.18). **Not for Adrian:** Michael dropped the limited-class question on 1 Oct; if a figure goes back, it's the BPC's own with a link to its info sheet, and that's Michael's call | `src/data/eligibility.ts` |
 
-Item 15 needs a regulatory source rather than Adrian's sign-off. Item 14 is worth reviewing first
-— it is a comparative claim about named competitors on a public URL. Item 16 is the only one here
-that is *blocking a visible gap* rather than backfilling an existing claim — Jordan's card is now
-the one story on the homepage with no headline figure beside it.
+Item 15 needed a regulatory source rather than Adrian's sign-off (closed 21 Oct). Item 16 is the
+only one here that is *blocking a visible gap* rather than backfilling an existing claim — Jordan's
+card is now the one story on the homepage with no headline figure beside it.
 
 **`TrustBar.tsx` was deleted in §2.17**, so its citations in rows 1, 3 and 7 no longer resolve.
 Those claims are still live via the other files listed in the same rows.
@@ -812,6 +829,25 @@ Those claims are still live via the other files listed in the same rows.
 ---
 
 ## 6. Deployment log
+
+### 22 October 2026 — `send-student-welcome` deployed (PR #12)
+
+The welcome email's dashboard link moved from `tradie-licence-prep.lovable.app/dashboard` to
+`https://www.qualifypro.com.au/dashboard`. Deployed from the Supabase dashboard's Code tab after
+PR #12 merged; the deployed source was hashed before and after and matches `main` (SHA-256
+`6fee5fb28505a63c…`). Not verified against a live send — adding a student in the admin sends it.
+
+### 14 October 2026 — `send-followup-emails` deployed
+
+See the follow-up section at the top. `CRON_SECRET` set 14 Oct 01:40 UTC; the function's last
+update is 14 Oct; its source matches `main` (checked 22 Oct).
+
+### 28 September 2026 — `send-lead-emails` deployed (PR #4)
+
+Adrian's 27 Sep answers (§0.6): the 15% line and "DISCOUNT REQUIRED" banner in the admin email and
+the capitalised greeting. This deploy wasn't logged at the time. Evidence, 22 Oct: the dashboard
+shows the function last updated 24 days earlier (28 Sep), and the deployed source's SHA-256
+(`8379b24e100f697c…`) matches `main`. Not verified against a live send.
 
 ### 21 September 2026 — PR #1 merged, two edge functions deployed
 
@@ -835,7 +871,11 @@ the agent's Bash tool is gated by the Supabase guard hook. Supabase CLI 2.101.0.
 new copy has not been observed in a received email. A submission through /contact would exercise
 `send-lead-emails` end to end.
 
-### Day 10 auto-dead — still undeployed, needs a decision
+### Day 10 auto-dead — resolved, live since 14 Oct
+
+**22 Oct:** the rewritten function is deployed and scheduled (top section). Its dead step only
+touches `followed_up_7` leads whose day-7 email it sent, so the hand-set history below can't be
+swept. The rest of this section is the pre-fix record.
 
 **14 Oct:** resolved on branch `fix/followup-cron-auth` (see top section): auto-dead now requires
 `followup_day7_sent_at`, so hand-set `followed_up_7` leads are never swept.
