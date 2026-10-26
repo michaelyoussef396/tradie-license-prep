@@ -212,7 +212,7 @@ const EmailTemplates = () => {
               <div className="rounded-xl overflow-hidden shadow-sm border border-border">
                 <div className="bg-emerald-600 px-5 py-3 text-white">
                   <p className="font-semibold">5. Review Request</p>
-                  <p className="text-sm opacity-90">Send to students after they pass (not automated)</p>
+                  <p className="text-sm opacity-90">Not automated: Adrian sends this himself after a student passes (a text with the review link is quickest), then marks the lead Review Requested in the Pipeline</p>
                 </div>
                 <div className="bg-muted/50 px-5 py-3 border-b border-border">
                   <EmailRow label="To:" value="successful.student@email.com" />
