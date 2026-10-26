@@ -64,9 +64,14 @@ nothing called them. Review: `docs/codex-review-log.md`.
 4. `followup-day3` / `followup-day7` / `follow-up-emails` may still exist as deployed functions;
    the repo no longer has them. Delete them from the dashboard if `list_edge_functions` shows them.
 
-**Deferred (Michael's call):** a Resend success followed by a failed DB write is reported in
-`errors[]` and protected by a 24 h idempotency key. The next daily run lands at about 24 h, so
-it can still resend. Closing that needs a write before the send.
+**Closed 26 Oct 2026 (approved by Michael):** each follow-up is now claimed in the database
+*before* Resend is called (`send-followup-emails/step.ts`, tested), so a failed DB write can no
+longer lead to a resend. A 4xx from Resend releases the claim for the next run; a 5xx or a thrown
+request keeps it (the email may have gone) and is reported in `errors[]` — a missed email over a
+duplicate. A 409 (idempotency clash) counts as unknown too, and the Resend call times out after
+15 s so a hung request is reported instead of dying with the claim held. Consequence of a kept
+claim: the lead's status still moves on (a kept day-3 claim still gets day 7; a kept day-7 claim
+goes to `dead` on day 10 without that email). The only trace is `errors[]` in that run's response. Deploy: `supabase functions deploy send-followup-emails --project-ref dpceyonfjfjaogwkyrhp --no-verify-jwt`.
 
 ---
 

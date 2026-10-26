@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { day3Html, day7Html } from "./copy.ts";
+import { runFollowupStep, type SendResult } from "./step.ts";
 
 /**
  * Daily lead follow-up sweep, driven only by pg_cron job `send-followup-emails-daily`.
@@ -17,6 +18,10 @@ import { day3Html, day7Html } from "./copy.ts";
  * A lead outside its window gets nothing late. Any other status (`qualified`,
  * `enrolled`, `completed`, `review_requested`, `dead`, or a hand-set `followed_up_*`) means
  * Adrian has handled it and is left alone. Status strings match `PipelineTab.tsx`.
+ *
+ * Each email is claimed in the database before it is sent (see `step.ts`), so a lead is never
+ * emailed twice for the same step; a failed send is released for the next run only when Resend
+ * definitely refused it.
  *
  * Body `{"dry_run": true}` returns the ids each step would touch; nothing is sent or written.
  */
@@ -119,42 +124,55 @@ Deno.serve(async (req) => {
     sentColumn: "followup_day3_sent_at" | "followup_day7_sent_at",
     nextStatus: string,
   ) => {
-    try {
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-          // Resend drops a repeat within 24h, so a run that sent but failed to record can't resend next hour.
-          "Idempotency-Key": `followup-${step}-${lead.id}`,
-        },
-        body: JSON.stringify({ from: FROM_EMAIL, to: [lead.email!.trim()], subject, html }),
-      });
-      if (!res.ok) {
+    const claimedAt = new Date().toISOString();
+    const result = await runFollowupStep(`${step} ${lead.id}`, {
+      // Guarded on the status we read, so a lead Adrian moved mid-run keeps his status and gets nothing.
+      claim: async () => {
+        const { data, error } = await supabase
+          .from("leads")
+          .update({ [sentColumn]: claimedAt, status: nextStatus })
+          .eq("id", lead.id)
+          .eq("status", lead.status!)
+          .is(sentColumn, null)
+          .select("id");
+        return { claimed: !error && !!data?.length, error: error?.message };
+      },
+      send: async (): Promise<SendResult> => {
+        const res = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+            // Belt and braces: Resend also drops a repeat of this key within 24h.
+            "Idempotency-Key": `followup-${step}-${lead.id}`,
+          },
+          body: JSON.stringify({ from: FROM_EMAIL, to: [lead.email!.trim()], subject, html }),
+          // A hung request would otherwise run into the function's time limit with the claim
+          // held and nothing reported; timing out throws, which is reported as "unknown".
+          signal: AbortSignal.timeout(15_000),
+        });
+        if (res.ok) return { ok: true };
         // Error name only: Resend's message text can carry email addresses, and pg_net stores this response.
         const name = await res.json().then((b) => String(b?.name ?? ""), () => "");
-        errors.push(`${step} ${lead.id}: Resend ${res.status} ${name}`.trim());
-        return;
-      }
-    } catch (e) {
-      errors.push(`${step} ${lead.id}: send failed: ${e instanceof Error ? e.name : "unknown"}`);
-      return;
-    }
-
-    // Only after a successful send. Guarded on the status we read, so a lead Adrian moved
-    // mid-run keeps his status; that case is reported rather than silently dropped.
-    const { data, error } = await supabase
-      .from("leads")
-      .update({ [sentColumn]: new Date().toISOString(), status: nextStatus })
-      .eq("id", lead.id)
-      .eq("status", lead.status!)
-      .is(sentColumn, null)
-      .select("id");
-    if (error || !data?.length) {
-      errors.push(`${step} ${lead.id}: email SENT but ${sentColumn} not written: ${error?.message ?? "row changed"}`);
-      return;
-    }
-    results[step]++;
+        // A 4xx is a refusal, except 409: an idempotency clash means an email under this key
+        // may already have gone. A 5xx may still have been sent too. Both count as unknown.
+        const definite = res.status < 500 && res.status !== 409;
+        return { ok: false, definite, detail: `Resend ${res.status} ${name}`.trim() };
+      },
+      // Only undoes this run's own claim, and only if nothing has moved the lead since.
+      release: async () => {
+        const { data, error } = await supabase
+          .from("leads")
+          .update({ [sentColumn]: null, status: lead.status })
+          .eq("id", lead.id)
+          .eq("status", nextStatus)
+          .eq(sentColumn, claimedAt)
+          .select("id");
+        return { released: !error && !!data?.length, error: error?.message };
+      },
+    });
+    if (result.outcome === "sent") results[step]++;
+    else if (result.outcome !== "skipped") errors.push(result.error);
   };
 
   for (const lead of day3Leads) {
