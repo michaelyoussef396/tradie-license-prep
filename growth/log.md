@@ -91,3 +91,9 @@
 - GSC (27 Sep–24 Oct vs prior 28d): 12 clk / 363 impr / pos 8.6 vs 15 / 769 — impressions −53% (the mid-Sep /bpc-exam-changes drop is still in the window). /bpc-exam-changes recovering hard: 40–41 impr/day on 23–24 Oct (vs ~14/day 11–21 Oct), 4 clicks those 2 days, pos ~9. "bpc exam" pos 8.5 (page 1, bottom). "dbu exam" pos ~11. /cgi-bin/ = Soft 404 in GSC (crawled 20 Oct, before real 404s shipped) — will drop out, no action.
 - Open PRs #14–#23 still unmerged.
 - Suggested: Supabase sign-in; Search partners off + pause 2 weak keywords; merge #16/#22/#23.
+
+## 2026-10-26 12:33 AEDT · MIDDAY (Mon, scheduled)
+- Leads: NOT CHECKED in Supabase — connector permission-denied; Mac Chrome (e280fa94) still on Supabase sign-in. Cron job 3 + net._http_response (only visible until ~3pm) not checked. 8th day without a direct lead check.
+- GA4 proxy (property 530441384): 26 Oct so far 1 session (direct). 0 generate_lead / form_start / phone_click 25–26 Oct.
+- Ads: all-time totals for new campaigns unchanged since 08:30 (A$183.01 · 36 clk · 0 conv) → today so far ~0 clicks / A$0 (reporting lag possible). Both Eligible (Learning), budgets A$15 / A$2, old campaign paused.
+- No notification sent (nothing new since the 08:30 report). Suggestions: none new. Still open: Supabase sign-in; Search partners off; pause 2 weak keywords; Presence.
