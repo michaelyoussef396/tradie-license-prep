@@ -135,7 +135,7 @@ function buildAutoReplyHtml(firstName: string): string {
   <tr><td style="padding:32px 28px;font-size:15px;line-height:1.7;color:#333;">
     <p style="margin:0 0 16px 0;">Hey ${firstName},</p>
     <p style="margin:0 0 16px 0;">Thanks for reaching out about getting your builders licence.</p>
-    <p style="margin:0 0 16px 0;">Our team will give you a call <strong>within 24 hours</strong> to have a chat about where you're at and how we can help.</p>
+    <p style="margin:0 0 16px 0;">Our team will give you a call to have a chat about where you're at and how we can help. <strong>Enquiries between 9am and 9pm get a call back within the hour.</strong></p>
     <p style="margin:0 0 12px 0;">In the meantime, here's what most tradies want to know:</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px 0;">
       <tr><td style="padding:8px 0 8px 16px;font-size:15px;color:#333;">

@@ -1,3 +1,4 @@
+import { CALLBACK_PROMISE } from "@/data/callback";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
@@ -121,8 +122,8 @@ const Contact = () => {
       trackLeadConversion();
 
       toast({
-        title: "Thanks! We'll be in touch within 24 hours.",
-        description: "Your consultation request has been received.",
+        title: "Thanks! Your consultation request has been received.",
+        description: CALLBACK_PROMISE,
       });
 
       setFormData({
@@ -268,7 +269,7 @@ const Contact = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
                   Book Your Free Consultation
                 </h2>
-                <p className="text-slate-600 mb-8">Fill out the form and we'll be in touch within 24 hours</p>
+                <p className="text-slate-600 mb-8">Fill out the form. {CALLBACK_PROMISE}</p>
                 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Full Name */}
@@ -422,7 +423,7 @@ const Contact = () => {
                   </Button>
 
                   <p className="text-sm text-slate-500 text-center">
-                    We'll contact you within 24 hours to schedule your consultation
+                    {CALLBACK_PROMISE}
                   </p>
                 </form>
               </div>

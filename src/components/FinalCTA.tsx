@@ -1,3 +1,4 @@
+import { CALLBACK_BADGE, CALLBACK_PROMISE } from "@/data/callback";
 import { useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -102,8 +103,8 @@ const FinalCTA = () => {
       trackLeadConversion();
 
       toast({
-        title: "Thanks! We'll be in touch within 24 hours.",
-        description: "Your consultation request has been received.",
+        title: "Thanks! Your consultation request has been received.",
+        description: CALLBACK_PROMISE,
       });
 
       setFormData({ name: "", phone: "", email: "", licenseType: "", message: "", referralCode: "" });
@@ -130,7 +131,7 @@ const FinalCTA = () => {
 
   const benefits = [
     { icon: CheckCircle2, text: "Free consultation - no obligation" },
-    { icon: Clock, text: "Response within 24 hours" },
+    { icon: Clock, text: CALLBACK_BADGE },
   ];
 
   return (
@@ -243,7 +244,7 @@ const FinalCTA = () => {
                   Book Your Free Consultation
                 </h3>
                 <p className="text-gray-500 text-sm mb-6">
-                  Fill in the form and we'll be in touch within 24 hours
+                  Fill in the form. {CALLBACK_PROMISE}
                 </p>
                 
                 <form onSubmit={handleSubmit} className="space-y-5">
