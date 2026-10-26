@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, FileText, GraduationCap } from "lucide-react";
+import { ArrowRight, FileText, GraduationCap, Hammer, Home } from "lucide-react";
 
 const links = [
   {
@@ -15,6 +15,20 @@ const links = [
     title: "Builder registration course Melbourne",
     description:
       "In-person, small-group mentorship in Melbourne — course options, what's included and entry requirements.",
+  },
+  {
+    to: "/domestic-builder-registration/unlimited",
+    icon: Home,
+    title: "Domestic Builder (Unlimited) registration",
+    description:
+      "What the BPC asks for: the qualifications, experience, exam and fees, each linked to the BPC.",
+  },
+  {
+    to: "/domestic-builder-registration/limited",
+    icon: Hammer,
+    title: "Domestic Builder (Limited) and carpentry",
+    description:
+      "The limited classes, with carpentry (DB-L) in detail: the Cert III and units, the exam and fees.",
   },
 ];
 

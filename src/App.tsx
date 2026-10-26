@@ -22,6 +22,8 @@ const ThankYou = lazyWithPreload(() => import("./pages/ThankYou"));
 const BuildersLicenceMelbourne = lazyWithPreload(() => import("./pages/BuildersLicenceMelbourne"));
 const BuilderRegistrationCourseMelbourne = lazyWithPreload(() => import("./pages/BuilderRegistrationCourseMelbourne"));
 const BpcExamChanges = lazyWithPreload(() => import("./pages/BpcExamChanges"));
+const DomesticBuilderUnlimited = lazyWithPreload(() => import("./pages/DomesticBuilderUnlimited"));
+const DomesticBuilderLimited = lazyWithPreload(() => import("./pages/DomesticBuilderLimited"));
 const FAQ = lazyWithPreload(() => import("./pages/FAQ"));
 const EmailTemplates = lazyWithPreload(() => import("./pages/EmailTemplates"));
 const AdminLogin = lazyWithPreload(() => import("./pages/AdminLogin"));
@@ -44,6 +46,8 @@ export const PRERENDER_ROUTES: Record<string, { preload: () => Promise<void> }> 
   "/builders-licence-melbourne": BuildersLicenceMelbourne,
   "/builder-registration-course-melbourne": BuilderRegistrationCourseMelbourne,
   "/bpc-exam-changes": BpcExamChanges,
+  "/domestic-builder-registration/unlimited": DomesticBuilderUnlimited,
+  "/domestic-builder-registration/limited": DomesticBuilderLimited,
 };
 
 /**
@@ -114,6 +118,8 @@ const App = ({ url }: { url?: string }) => (
             <Route caseSensitive path="/builders-licence-melbourne" element={<BuildersLicenceMelbourne />} />
             <Route caseSensitive path="/builder-registration-course-melbourne" element={<BuilderRegistrationCourseMelbourne />} />
             <Route caseSensitive path="/bpc-exam-changes" element={<BpcExamChanges />} />
+            <Route caseSensitive path="/domestic-builder-registration/unlimited" element={<DomesticBuilderUnlimited />} />
+            <Route caseSensitive path="/domestic-builder-registration/limited" element={<DomesticBuilderLimited />} />
             <Route caseSensitive path="/email-templates" element={<Navigate to="/admin/email-templates" replace />} />
             <Route caseSensitive path="/admin" element={<AdminLogin />} />
             <Route caseSensitive path="/admin/dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
