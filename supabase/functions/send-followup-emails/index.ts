@@ -147,12 +147,17 @@ Deno.serve(async (req) => {
             "Idempotency-Key": `followup-${step}-${lead.id}`,
           },
           body: JSON.stringify({ from: FROM_EMAIL, to: [lead.email!.trim()], subject, html }),
+          // A hung request would otherwise run into the function's time limit with the claim
+          // held and nothing reported; timing out throws, which is reported as "unknown".
+          signal: AbortSignal.timeout(15_000),
         });
         if (res.ok) return { ok: true };
         // Error name only: Resend's message text can carry email addresses, and pg_net stores this response.
         const name = await res.json().then((b) => String(b?.name ?? ""), () => "");
-        // A 4xx is a refusal; a 5xx may still have been sent, so it counts as unknown.
-        return { ok: false, definite: res.status < 500, detail: `Resend ${res.status} ${name}`.trim() };
+        // A 4xx is a refusal, except 409: an idempotency clash means an email under this key
+        // may already have gone. A 5xx may still have been sent too. Both count as unknown.
+        const definite = res.status < 500 && res.status !== 409;
+        return { ok: false, definite, detail: `Resend ${res.status} ${name}`.trim() };
       },
       // Only undoes this run's own claim, and only if nothing has moved the lead since.
       release: async () => {

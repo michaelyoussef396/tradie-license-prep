@@ -70,7 +70,7 @@ describe("runFollowupStep", () => {
 
   test("should report a claim that could not be released", async () => {
     const { d } = deps({
-      send: { ok: false, definite: true, detail: "Resend 500" },
+      send: { ok: false, definite: true, detail: "Resend 422 validation_error" },
       release: { released: false, error: "db down" },
     });
 
