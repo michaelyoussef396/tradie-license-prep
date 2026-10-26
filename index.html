@@ -23,14 +23,15 @@
           document.head.appendChild(s);
         }
 
-        // Google tag (gtag.js): GA4 + Google Ads
+        // Google tag (gtag.js): GA4 + Google Ads. One library load: the GA4 tag fetches the
+        // Ads destination itself when it sees the AW config (gtag/js?id=AW-…&cx=c), so a
+        // second explicit load of gtag/js?id=AW-… only downloaded the same ~490 KB again.
         window.dataLayer = window.dataLayer || [];
         window.gtag = function () { window.dataLayer.push(arguments); };
         window.gtag("js", new Date());
         window.gtag("config", "G-PDWZPMEMZB");
         window.gtag("config", "AW-18192612568");
         load("https://www.googletagmanager.com/gtag/js?id=G-PDWZPMEMZB");
-        load("https://www.googletagmanager.com/gtag/js?id=AW-18192612568");
 
         // Microsoft Clarity
         (function (c, l, a, r, i, t, y) {
