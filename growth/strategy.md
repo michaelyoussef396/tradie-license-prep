@@ -1,8 +1,9 @@
 # Qualify Pro — living strategy (growth agent)
 
-Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 26 Oct.
+Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 29 Oct.
 
 ## Working / not working
+- 29 Oct: FIRST paid-era lead — 28 Oct 11:15, Carpenter 10+ yrs, from /builder-registration-course-melbourne (top ad landing page). Confirms plumbing + that page converts at least once. Need: Ads attribution check, Adrian call outcome, enrolment yes/no. Real leads ever: 3. Conversions toward push-3 threshold: 1 of ~15 (if Ads attributes it).
 - Discovery phase: Oct 1–24 A$171.37 · 32 clicks · CTR 7.66% · CPC A$5.36 · 0 conversions · 0 calls (11 phone impr). Pacing ~A$14/day → A$500 around mid-Nov. Only 2 real leads ever (11 Mar, 1 Aug). GA4: 0 generate_lead since 15 Oct; 2 paid form_starts with no submit (23 Oct, 24 Oct) — form abandonment is the lead hypothesis to test.
 - Landing pages (paid, from 15 Oct): /builder-registration-course-melbourne 19 sess avg 145 s vs /builders-licence-melbourne 9 sess avg 7 s. Decide Final URL at 30+ each.
 - Impression share flat 13.9% (limited by budget). Auction set unchanged; tiv dropped out.
@@ -12,7 +13,7 @@ Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last u
 ## Open recommendations (Ads — Michael/Vryan apply)
 - DONE (verified 25 Oct): shared negative list "QP core negatives" (107) on both campaigns.
 - DONE (verified 26 Oct): "bpc exam" + "domestic builder unlimited" phrase present.
-- Open: Search partners OFF (still on 26 Oct); location option "Presence" (unverified); pause "building licence victoria" (1.89% CTR) + [builder registration].
+- DONE 26 Oct: Search partners OFF; Presence confirmed; "building licence victoria" + [builder registration] paused; new logo uploaded (approval pending — check).
 - Final URL choice: compare GA4 engagement of the two landing pages once each has 30+ paid sessions (from 23 Oct).
 - Ad copy angle vs self-study competitors (MBV exam bundle, BRIQ app): "Live Coaching, Not An App".
 
@@ -22,7 +23,8 @@ Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last u
 - TIV 6-wk course; plus the auction set from 21 Oct.
 
 ## Site / SEO
-- PRs #14–#23 awaiting merge. After #19: check class pages + remind Michael to request indexing. After #18: PageSpeed rerun + GA4 vs Ads clicks for a week.
+- All PRs merged 26 Oct (#18 closed). Class pages live; indexing request reminded once 29 Oct — don't repeat. PageSpeed rerun still owed (sandbox can't reach googleapis; via handoff).
+- Monitoring gap: 27–28 Oct runs didn't log; cloud runs can't reach the site/PageSpeed — production watch depends on handoff/Chrome.
 
 ## Push-3 plan
 - No scaling/Smart Bidding before ~15 real conversions. Pre-reqs: Search partners off, negatives in, lead tracking confirmed (Ads conv vs Supabase), landing-page pick from GA4 data.

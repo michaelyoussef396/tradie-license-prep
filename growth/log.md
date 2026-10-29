@@ -106,3 +106,12 @@
 - Now due: MORNING production watch must check /domestic-builder-registration/unlimited + /limited (200, own title + H1 raw HTML, in sitemap → 11 URLs); remind Michael once to request indexing for both. #26: watch next real ad lead shows under "BPC Form Submit" within 48h. Lead source now page-specific (#23).
 - Ads / GA4: NOT CHECKED — no Chrome bridge and no GA4 tool in this cloud run.
 - Day wrap: Mon spend/clicks unknown (Ads unreachable); 0 leads. No notification sent (no lead, no problem).
+
+## 2026-10-29 17:33 AEDT · DAILY (Thu — technical/CRO; cloud-only: no Chrome, no GA4, site + PageSpeed blocked by sandbox egress)
+- Gap: no logged runs 27–28 Oct (no growth emails after 26 Oct morning either) — the 28 Oct lead was never reported until today.
+- 🔥 LEAD: Benjamin · builder-registration-course-melbourne (main ad landing page) · Carpenter · 10+ yrs · Wed 28 Oct 11:15 Melb. Status still 'new' at 17:33 Thu (~30 h). send-lead-emails POST 200 at 28 Oct 00:15 UTC → alert + auto-reply sent. Pushed to Michael at 17:36. Real leads ever: 3 (11 Mar, 1 Aug, 28 Oct). First lead since the 26 Oct deploys (call-back-within-the-hour copy, source tracking).
+- Cron job 3: 29 Oct 09:00 "succeeded · 1 row", 10:00 "0 rows" (by design). Function log: send-followup-emails POST 200 at 28 Oct 22:00 UTC. OK. Day-3 follow-up for Benjamin due ~31 Oct if status stays 'new'.
+- Ads / GA4: NOT READ (no Chrome, no GA4 tool) → handoff task 1, incl. whether the 28 Oct lead registered as a "BPC Form Submit" conversion and the logo approval status.
+- Production watch: NOT DONE — sandbox egress refuses qualifypro.com.au and googleapis (PageSpeed). Handoff. Open PRs: none.
+- Handoff issued: read Ads/GA4 (conv for 28 Oct lead, gclid/source), smoke test + PageSpeed both landing pages, request indexing for 2 class pages (reminded once, 29 Oct). No Ads changes.
+- Past items: Search partners off / keyword pauses / negatives / logo upload all applied 26 Oct (per brief). Logo approval: unknown.
