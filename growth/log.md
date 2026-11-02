@@ -115,3 +115,11 @@
 - Production watch: NOT DONE — sandbox egress refuses qualifypro.com.au and googleapis (PageSpeed). Handoff. Open PRs: none.
 - Handoff issued: read Ads/GA4 (conv for 28 Oct lead, gclid/source), smoke test + PageSpeed both landing pages, request indexing for 2 class pages (reminded once, 29 Oct). No Ads changes.
 - Past items: Search partners off / keyword pauses / negatives / logo upload all applied 26 Oct (per brief). Logo approval: unknown.
+
+## 2026-11-02 17:34 AEDT · DAILY (Mon — rankings/GSC; cloud-only: no Chrome, no GA4/GSC tool, site blocked by sandbox egress)
+- Gap: no runs logged/emailed 30 Oct–1 Nov. 29 Oct report email still UNREAD in Gmail.
+- Leads (Qualify_Pro): 0 new since 29 Oct. Only real lead in 7d = Benjamin (28 Oct 11:15, builder-registration-course-melbourne, Carpenter 10+). Status now followed_up_3, notes empty → moved only by the sweep (day-3 email sent 31 Oct 9am, POST 200). No sign Adrian called/updated in 5 days. Day-7 email due Wed 4 Nov, auto-dead ~7 Nov.
+- 🔴 Cron job 3: 2 Nov 09:00 "succeeded · 1 row" BUT send-followup-emails returned 503 at 22:00:00.76 UTC 1 Nov (no function_logs → never booted). Function still ACTIVE v33 (unchanged since 26 Oct). 30 Oct + 31 Oct calls were 200. No lead was due today, so likely nothing missed; risk = Wed day-7 email if it repeats.
+- Ads / GA4 / GSC: NOT READ → handoff. Production watch: NOT DONE (curl 000, WebFetch needs approval) → handoff. Open PRs: none. main still 388eca8.
+- Handoff issued: read Ads/GA4/GSC (incl. Benjamin conversion attribution, logo status, indexing of 11 URLs, "bpc exam" position), smoke test, manual re-invoke check of send-followup-emails is NOT auto (ASK FIRST). No Ads changes.
+- Past items: 29 Oct handoff (Ads read, conv check, indexing request) — status unknown (no evidence it ran; email unread).
