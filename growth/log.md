@@ -123,3 +123,10 @@
 - Ads / GA4 / GSC: NOT READ → handoff. Production watch: NOT DONE (curl 000, WebFetch needs approval) → handoff. Open PRs: none. main still 388eca8.
 - Handoff issued: read Ads/GA4/GSC (incl. Benjamin conversion attribution, logo status, indexing of 11 URLs, "bpc exam" position), smoke test, manual re-invoke check of send-followup-emails is NOT auto (ASK FIRST). No Ads changes.
 - Past items: 29 Oct handoff (Ads read, conv check, indexing request) — status unknown (no evidence it ran; email unread).
+
+## 2026-11-03 17:34 AEDT · DAILY (Tue — local/GBP/reviews; cloud-only: no Chrome, no GA4/GSC, site blocked by sandbox egress)
+- Leads (Qualify_Pro): 0 new since 2 Nov. Benjamin (28 Oct, builder-registration-course-melbourne, Carpenter 10+) still followed_up_3, 6 days, no sign Adrian called. Day-7 email Wed 4 Nov 9am, auto-dead ~7 Nov.
+- Cron job 3: 3 Nov 09:00 "succeeded · 1 row", 10:00 "0 rows". send-followup-emails POST 200 at 22:00 UTC 2 Nov → yesterday's 503 was a one-off. CLEARED.
+- Ads / GA4 / GSC / GBP: NOT READ (6th day blind on Ads) → handoff task 1. Production watch: NOT DONE (curl 000; WebFetch approval withdrawn) → handoff. Open PRs: none.
+- Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing), smoke test, GBP/local pack + competitor review counts (Tue research). No Ads changes. Adrian: call Benjamin before Wed; review link texts.
+- Past items: 29 Oct + 2 Nov handoffs — no evidence run. Indexing request for class pages — reminded once already, not repeating.

@@ -1,8 +1,9 @@
 # Qualify Pro — living strategy (growth agent)
 
-Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 2 Nov.
+Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 3 Nov.
 
 ## Working / not working
+- 3 Nov: follow-up fn back to 200 (2 Nov 503 one-off). Benjamin 6 days uncalled. Ads unread 6+ days — every handoff since 29 Oct shows no sign of being run; monitoring of Ads depends on Michael pasting it.
 - 2 Nov: Benjamin (28 Oct lead) untouched by Adrian 5 days — status only moved by the sweep (followed_up_3). Speed-to-lead is the bottleneck, not traffic. 29 Oct report unread → Michael may not know. Follow-up fn returned 503 on 2 Nov 9am (one-off so far; watch Wed 4 Nov when Benjamin's day-7 is due).
 - 29 Oct: FIRST paid-era lead — 28 Oct 11:15, Carpenter 10+ yrs, from /builder-registration-course-melbourne (top ad landing page). Confirms plumbing + that page converts at least once. Need: Ads attribution check, Adrian call outcome, enrolment yes/no. Real leads ever: 3. Conversions toward push-3 threshold: 1 of ~15 (if Ads attributes it).
 - Discovery phase: Oct 1–24 A$171.37 · 32 clicks · CTR 7.66% · CPC A$5.36 · 0 conversions · 0 calls (11 phone impr). Pacing ~A$14/day → A$500 around mid-Nov. Only 2 real leads ever (11 Mar, 1 Aug). GA4: 0 generate_lead since 15 Oct; 2 paid form_starts with no submit (23 Oct, 24 Oct) — form abandonment is the lead hypothesis to test.
