@@ -130,3 +130,11 @@
 - Ads / GA4 / GSC / GBP: NOT READ (6th day blind on Ads) → handoff task 1. Production watch: NOT DONE (curl 000; WebFetch approval withdrawn) → handoff. Open PRs: none.
 - Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing), smoke test, GBP/local pack + competitor review counts (Tue research). No Ads changes. Adrian: call Benjamin before Wed; review link texts.
 - Past items: 29 Oct + 2 Nov handoffs — no evidence run. Indexing request for class pages — reminded once already, not repeating.
+
+## 2026-11-04 17:34 AEDT · DAILY (Wed — content; cloud-only: no Chrome, no GA4/GSC, site blocked by sandbox egress)
+- Leads (Qualify_Pro): 0 new since 3 Nov; 0 real leads in last 7 d. Benjamin (28 Oct, builder-registration-course-melbourne) still followed_up_3, notes empty, 7 days — no sign Adrian called.
+- Cron job 3: 4 Nov 09:00 "succeeded · 1 row", 10:00 "0 rows". send-followup-emails POST 200 22:00 UTC 3 Nov, booted fine. OK. Benjamin was 6d22h old at today's sweep → day-7 email goes Thu 5 Nov 9am; auto-dead Sun 8 Nov 9am.
+- Ads / GA4 / GSC: NOT READ (8th day blind on Ads) → handoff task 1. Production watch: NOT DONE (curl 000) → handoff. Open PRs: none. main 388eca8.
+- Content (Wed): web search shows no new BPC exam news; BRIQ keeps publishing BPC-exam posts ("BPC one year on", DB-U 2026). HIA has a BPC online exams article. BPC source recheck vs LAST_REVIEWED 21 Oct needs Chrome → handoff. Keyword Planner gaps → handoff.
+- Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing), smoke test, BPC sources recheck, Keyword Planner gap pull. No Ads changes.
+- Past items: 29 Oct / 2 Nov / 3 Nov handoffs — no evidence run (Ads still unread).

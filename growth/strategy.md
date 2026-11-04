@@ -1,8 +1,9 @@
 # Qualify Pro — living strategy (growth agent)
 
-Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 3 Nov.
+Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 4 Nov.
 
 ## Working / not working
+- 4 Nov: 0 new leads 7 d. Benjamin 7 days, still uncalled (followed_up_3); day-7 email Thu 5 Nov, auto-dead Sun 8 Nov. Ads unread 8+ days — handoffs not being run. Content: BRIQ outpublishing us on BPC exam topics; next page idea = 'BPC exam day: what to expect' using only BPC-linked facts (needs Michael yes).
 - 3 Nov: follow-up fn back to 200 (2 Nov 503 one-off). Benjamin 6 days uncalled. Ads unread 6+ days — every handoff since 29 Oct shows no sign of being run; monitoring of Ads depends on Michael pasting it.
 - 2 Nov: Benjamin (28 Oct lead) untouched by Adrian 5 days — status only moved by the sweep (followed_up_3). Speed-to-lead is the bottleneck, not traffic. 29 Oct report unread → Michael may not know. Follow-up fn returned 503 on 2 Nov 9am (one-off so far; watch Wed 4 Nov when Benjamin's day-7 is due).
 - 29 Oct: FIRST paid-era lead — 28 Oct 11:15, Carpenter 10+ yrs, from /builder-registration-course-melbourne (top ad landing page). Confirms plumbing + that page converts at least once. Need: Ads attribution check, Adrian call outcome, enrolment yes/no. Real leads ever: 3. Conversions toward push-3 threshold: 1 of ~15 (if Ads attributes it).
