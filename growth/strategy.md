@@ -1,8 +1,9 @@
 # Qualify Pro — living strategy (growth agent)
 
-Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 4 Nov.
+Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 5 Nov.
 
 ## Working / not working
+- 5 Nov: Benjamin hit followed_up_7 (sweep only), 8 days uncalled, auto-dead Sun 8 Nov — last window. Ads unread 9 days. PageSpeed rerun still owed (22 Oct: perf 58 / LCP 7.7 s) — perf PR is the next site lever while traffic is thin.
 - 4 Nov: 0 new leads 7 d. Benjamin 7 days, still uncalled (followed_up_3); day-7 email Thu 5 Nov, auto-dead Sun 8 Nov. Ads unread 8+ days — handoffs not being run. Content: BRIQ outpublishing us on BPC exam topics; next page idea = 'BPC exam day: what to expect' using only BPC-linked facts (needs Michael yes).
 - 3 Nov: follow-up fn back to 200 (2 Nov 503 one-off). Benjamin 6 days uncalled. Ads unread 6+ days — every handoff since 29 Oct shows no sign of being run; monitoring of Ads depends on Michael pasting it.
 - 2 Nov: Benjamin (28 Oct lead) untouched by Adrian 5 days — status only moved by the sweep (followed_up_3). Speed-to-lead is the bottleneck, not traffic. 29 Oct report unread → Michael may not know. Follow-up fn returned 503 on 2 Nov 9am (one-off so far; watch Wed 4 Nov when Benjamin's day-7 is due).
