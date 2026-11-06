@@ -145,3 +145,12 @@
 - Ads / GA4 / GSC: NOT READ (9th day blind on Ads) → handoff task 1. Production watch + PageSpeed: NOT DONE (curl 000) → handoff. Open PRs: none.
 - Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing), smoke test, PageSpeed both ad landing pages vs 22 Oct baseline + Claude Code perf prompt (ASK FIRST to open PR). No Ads changes.
 - Past items: 29 Oct / 2–4 Nov handoffs — no evidence run.
+
+## 2026-11-06 17:33 AEDT · DAILY (Fri — authority/outreach; cloud-only: no Chrome, no GA4/GSC, site blocked by sandbox egress)
+- Leads (Qualify_Pro): 0 new since 5 Nov; 0 real leads in last 7 d. Benjamin (28 Oct, builder-registration-course-melbourne) still followed_up_7, notes empty, 9 days — no sign Adrian called. Auto-dead Sun 8 Nov 9am.
+- Cron job 3: 6 Nov 09:00 "succeeded · 1 row", 10:00 "0 rows". send-followup-emails POST 200 22:00 UTC 5 Nov. OK.
+- Ads / GA4 / GSC: NOT READ (10th day blind on Ads) → handoff task 1. Production watch: NOT DONE (curl 000 connect_rejected; WebFetch approval withdrawn) → handoff. Open PRs: 0. main 388eca8.
+- Gmail: no growth-report threads visible to search (0 returned).
+- Authority (Fri): targets = (1) free AU citations with NAP matching GBP (Yellow Pages, True Local, Hotfrog, StartLocal); (2) Whittlesea/Epping local business directory; (3) course directories (tafecourses.com.au etc. — check if non-RTO coaching is accepted). No outreach copy with new claims.
+- Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing), smoke test, citation audit (read-only, report which exist + NAP). No Ads changes.
+- Past items: 29 Oct / 2–5 Nov handoffs — no evidence run.

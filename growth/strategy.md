@@ -1,8 +1,9 @@
 # Qualify Pro — living strategy (growth agent)
 
-Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 5 Nov.
+Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 6 Nov.
 
 ## Working / not working
+- 6 Nov: Benjamin 9 days uncalled, auto-dead Sun 8 Nov 9am. Ads unread 10 days — handoffs not run; the agent can't see Ads/site from cloud. Authority: no citations audited yet; start with NAP-consistent AU directories + Whittlesea local directory before any outreach.
 - 5 Nov: Benjamin hit followed_up_7 (sweep only), 8 days uncalled, auto-dead Sun 8 Nov — last window. Ads unread 9 days. PageSpeed rerun still owed (22 Oct: perf 58 / LCP 7.7 s) — perf PR is the next site lever while traffic is thin.
 - 4 Nov: 0 new leads 7 d. Benjamin 7 days, still uncalled (followed_up_3); day-7 email Thu 5 Nov, auto-dead Sun 8 Nov. Ads unread 8+ days — handoffs not being run. Content: BRIQ outpublishing us on BPC exam topics; next page idea = 'BPC exam day: what to expect' using only BPC-linked facts (needs Michael yes).
 - 3 Nov: follow-up fn back to 200 (2 Nov 503 one-off). Benjamin 6 days uncalled. Ads unread 6+ days — every handoff since 29 Oct shows no sign of being run; monitoring of Ads depends on Michael pasting it.
@@ -29,6 +30,11 @@ Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last u
 ## Site / SEO
 - All PRs merged 26 Oct (#18 closed). Class pages live; indexing request reminded once 29 Oct — don't repeat. PageSpeed rerun still owed (sandbox can't reach googleapis; via handoff).
 - Monitoring gap: 27–28 Oct runs didn't log; cloud runs can't reach the site/PageSpeed — production watch depends on handoff/Chrome.
+
+## Authority targets (6 Nov)
+- AU citations: Yellow Pages, True Local, Hotfrog, StartLocal — NAP must match GBP exactly.
+- Local: City of Whittlesea / Epping business directories.
+- Course directories (tafecourses.com.au-style) — verify they accept non-RTO coaching first.
 
 ## Push-3 plan
 - No scaling/Smart Bidding before ~15 real conversions. Pre-reqs: Search partners off, negatives in, lead tracking confirmed (Ads conv vs Supabase), landing-page pick from GA4 data.
