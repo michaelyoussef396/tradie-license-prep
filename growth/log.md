@@ -154,3 +154,12 @@
 - Authority (Fri): targets = (1) free AU citations with NAP matching GBP (Yellow Pages, True Local, Hotfrog, StartLocal); (2) Whittlesea/Epping local business directory; (3) course directories (tafecourses.com.au etc. — check if non-RTO coaching is accepted). No outreach copy with new claims.
 - Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing), smoke test, citation audit (read-only, report which exist + NAP). No Ads changes.
 - Past items: 29 Oct / 2–5 Nov handoffs — no evidence run.
+
+## 2026-11-07 17:34 AEDT · DAILY (Sat — competitor watch; cloud-only: no Chrome, no GA4/GSC, site blocked by sandbox egress)
+- Leads (Qualify_Pro): 0 new since 6 Nov; 0 real leads in last 7 d. Benjamin (28 Oct 11:15, builder-registration-course-melbourne) still followed_up_7, notes empty, 10 days — no sign Adrian called. Was 9d22h at today's sweep → goes 'dead' at Sun 8 Nov 9am sweep.
+- Cron job 3: 7 Nov 09:00 "succeeded · 1 row", 10:00 "0 rows". send-followup-emails POST 200 22:00 UTC 6 Nov. OK.
+- Ads / GA4 / GSC: NOT READ (11th day blind on Ads) → handoff task 1. Production watch: NOT DONE (curl 000) → handoff. Open PRs: 0. main 388eca8.
+- Gmail: search estimate 17 growth threads but 0 returned (same as 6 Nov).
+- Competitor watch (web search only): no new competitor offers surfaced. Builders Academy, MBAV registration assistance, VU TNABY (DB-L course) still rank. BPC reforms page (last updated 30 Jun 2026) unchanged: DB-U exam since Jan 2026, other classes "over the coming months", no dates. No site change needed.
+- Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing, auction insights for competitor watch), smoke test. No Ads changes.
+- Past items: 29 Oct / 2–6 Nov handoffs — no evidence run.
