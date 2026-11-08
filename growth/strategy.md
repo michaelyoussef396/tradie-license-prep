@@ -1,8 +1,9 @@
 # Qualify Pro — living strategy (growth agent)
 
-Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 7 Nov.
+Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last update 8 Nov.
 
 ## Working / not working
+- 8 Nov: Benjamin auto-died uncalled (10+ yr carpenter from the main ad page). Lesson for push 3: no extra budget until a call-within-the-hour habit is proven — every lead so far sat untouched. Push 2 likely near/over A$500 by now but unread 12 days; next decision (stop/extend discovery) needs the Ads read.
 - 7 Nov: Benjamin 10 days uncalled → auto-dead at Sun 8 Nov 9am sweep (last chance tonight/tomorrow morning). Ads unread 11 days. Competitor watch: nothing new by web search; auction insights need the handoff. If Benjamin dies uncalled, the takeaway for push 3 is speed-to-lead process, not traffic.
 - 6 Nov: Benjamin 9 days uncalled, auto-dead Sun 8 Nov 9am. Ads unread 10 days — handoffs not run; the agent can't see Ads/site from cloud. Authority: no citations audited yet; start with NAP-consistent AU directories + Whittlesea local directory before any outreach.
 - 5 Nov: Benjamin hit followed_up_7 (sweep only), 8 days uncalled, auto-dead Sun 8 Nov — last window. Ads unread 9 days. PageSpeed rerun still owed (22 Oct: perf 58 / LCP 7.7 s) — perf PR is the next site lever while traffic is thin.
@@ -43,6 +44,11 @@ Seeded 22 Oct 2026 from the 21 Oct research lap. Updated in MORNING runs. Last u
 ## Open asks for Adrian
 - Written confirmation of "small classes, max 10" (HANDOFF item 3).
 - Reviews from past students (5.0 from 1 review on 21 Oct) — Sunday 25 Oct trust task: Adrian texts 5 past students the review link.
+
+## Weekly review (wk to 8 Nov)
+- Moved: follow-up sweep 200 every day; nothing else measurable (Ads/GA4/site unread).
+- Didn't: Benjamin lost uncalled; no handoff run since 26 Oct; no reviews added (unverified).
+- Next week top 3: Ads/GA4 read + push-2 end decision; speed-to-lead process with Adrian; review asks.
 
 ## Weekly review (wk to 25 Oct)
 - Moved: negatives in; call asset eligible; /builder-registration-course-melbourne + /faq indexed; #7–#13 live and passing smoke tests.

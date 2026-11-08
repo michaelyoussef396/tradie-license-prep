@@ -163,3 +163,13 @@
 - Competitor watch (web search only): no new competitor offers surfaced. Builders Academy, MBAV registration assistance, VU TNABY (DB-L course) still rank. BPC reforms page (last updated 30 Jun 2026) unchanged: DB-U exam since Jan 2026, other classes "over the coming months", no dates. No site change needed.
 - Handoff issued: read Ads/GA4 (Benjamin conv attribution, logo status, pacing, auction insights for competitor watch), smoke test. No Ads changes.
 - Past items: 29 Oct / 2–6 Nov handoffs — no evidence run.
+
+## 2026-11-08 17:34 AEDT · DAILY (Sun — trust/social + weekly review; cloud-only: no Chrome, no GA4/GSC, site blocked by sandbox egress)
+- Leads (Qualify_Pro): 0 new since 7 Nov; 0 real leads in last 7 d. Benjamin (28 Oct, builder-registration-course-melbourne, Carpenter 10+) went 'dead' at today's 9am sweep — notes empty, never marked called. Real leads ever: 3, all status untouched by a human.
+- Cron job 3: 8 Nov 09:00 "succeeded · 1 row" (Benjamin → dead), 10:00 "0 rows". send-followup-emails POST 200 22:00 UTC 7 Nov. OK.
+- Ads / GA4 / GSC / GBP: NOT READ (12th day blind on Ads) → handoff task 1. Production watch: NOT DONE (curl 000) → handoff. Open PRs: 0. main 388eca8.
+- Gmail: estimate 18 growth threads, 0 returned (same as 6–7 Nov).
+- Weekly review (wk to 8 Nov): Moved — nothing measurable (no Ads/GA4 visibility); pipeline + sweep healthy all week. Didn't — Benjamin lost uncalled; handoffs since 29 Oct show no sign of being run; logo status, Benjamin conv attribution, PageSpeed, smoke test all still unknown.
+- Next week top 3: (1) run the handoff once — Ads/GA4 read incl. pacing (A$500 likely hit ~mid-Nov) + logo; (2) speed-to-lead fix: Adrian marks status after every call / Michael asks whether the lead alert reaches Adrian's phone; (3) reviews ask (trust).
+- Handoff issued: read Ads/GA4 (pacing vs A$500, Benjamin conv attribution, logo), smoke test, GBP review count + last-post date. ASK FIRST: re-open Benjamin to 'qualified'/'thinking_about_it' only if Adrian actually reached him. No Ads changes.
+- Past items: 29 Oct / 2–7 Nov handoffs — no evidence run.
