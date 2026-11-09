@@ -173,3 +173,13 @@
 - Next week top 3: (1) run the handoff once — Ads/GA4 read incl. pacing (A$500 likely hit ~mid-Nov) + logo; (2) speed-to-lead fix: Adrian marks status after every call / Michael asks whether the lead alert reaches Adrian's phone; (3) reviews ask (trust).
 - Handoff issued: read Ads/GA4 (pacing vs A$500, Benjamin conv attribution, logo), smoke test, GBP review count + last-post date. ASK FIRST: re-open Benjamin to 'qualified'/'thinking_about_it' only if Adrian actually reached him. No Ads changes.
 - Past items: 29 Oct / 2–7 Nov handoffs — no evidence run.
+
+## 2026-11-09 17:34 AEDT · DAILY (Mon — rankings/GSC; cloud-only: no Chrome, no GA4/GSC, site blocked by sandbox egress)
+- Leads (Qualify_Pro): 0 real leads in last 7 d, 0 new since 8 Nov. Benjamin (28 Oct) dead since 8 Nov sweep, never marked called.
+- Cron job 3: 9 Nov 09:00 "succeeded · 1 row", 10:00 "0 rows". send-followup-emails POST 200 at 22:00 UTC 8 Nov. OK.
+- Ads / GA4 / GSC: NOT READ (13th day blind on Ads) → handoff task 1. Est. push-2 spend ~A$380–400 if ~A$14/day held since 26 Oct (A$189) → A$500 ~mid/late Nov. ESTIMATE only.
+- Production watch: NOT DONE (curl 000; WebFetch approval withdrawn) → handoff. Open PRs: 0. main 388eca8.
+- Gmail: estimate 19 growth threads, 0 returned (same as 6–8 Nov).
+- Rankings (Mon): GSC unreadable from cloud → handoff (28d vs prior, 11 sitemap URLs indexed?, /bpc-exam-changes + "bpc exam" position).
+- Handoff issued: read Ads (pacing, logo, search terms, 15+ click keywords) + GA4 + GSC rankings/indexing; smoke test. No Ads changes. Push-2 end decision = ASK FIRST once spend read.
+- Past items: 29 Oct / 2–8 Nov handoffs — no evidence run.
